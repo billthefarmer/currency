@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Currency</string>
+
+  <string name="sym_aud">$</string>
+  <string name="sym_cad">$</string>
+  <string name="sym_eur">€</string>
+  <string name="sym_gbp">£</string>
+  <string name="sym_nzd">$</string>
+  <string name="sym_usd">$</string>
+  <string name="sym_yen">¥</string>
+  <string name="sym_def">#</string>
+
+  <string name="num_one">1.0</string>
+
+  <string name="decimal">Enter decimal value</string>
+
+  <string name="EUR">Euro</string>
+  <string name="USD">US dollar</string>
+  <string name="JPY">Japanese yen</string>
+  <string name="BGN">Bulgarian lev</string>
+  <string name="CZK">Czech koruna</string>
+  <string name="DKK">Danish krone</string>
+  <string name="EEK">Estonian kroon</string>
+  <string name="GBP">Pound sterling</string>
+  <string name="HUF">Hungarian forint</string>
+  <string name="LTL">Lithuanian litas</string>
+  <string name="LVL">Latvian lats</string>
+  <string name="PLN">Polish zloty</string>
+  <string name="RON">New Romanian leu</string>
+  <string name="SEK">Swedish krona</string>
+  <string name="CHF">Swiss franc</string>
+  <string name="NOK">Norwegian krone</string>
+  <string name="HRK">Croatian kuna</string>
+  <string name="RUB">Russian rouble</string>
+  <string name="TRY">Turkish lira</string>
+  <string name="AUD">Australian dollar</string>
+  <string name="BRL">Brasilian real</string>
+  <string name="CAD">Canadian dollar</string>
+  <string name="CNY">Chinese yuan renminbi</string>
+  <string name="HKD">Hong Kong dollar</string>
+  <string name="IDR">Indonesian rupiah</string>
+  <string name="ILS">Israeli shekel</string>
+  <string name="INR">Indian rupee</string>
+  <string name="KRW">South Korean won</string>
+  <string name="MXN">Mexican peso</string>
+  <string name="MYR">Malaysian ringgit</string>
+  <string name="NZD">New Zealand dollar</string>
+  <string name="PHP">Philippine peso</string>
+  <string name="SGD">Singapore dollar</string>
+  <string name="THB">Thai baht</string>
+  <string name="ZAR">South African rand</string>
+</resources>

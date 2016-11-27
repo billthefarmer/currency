@@ -1,0 +1,18 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'
+    }
+}
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 'android-17'
+    buildToolsVersion '25.0.0'
+
+    lintOptions {
+        abortOnError false
+    }
+}
