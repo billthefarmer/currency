@@ -34,6 +34,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main extends Activity
 {
@@ -106,6 +108,8 @@ public class Main extends Activity
     private EditText edit;
     private ListView list;
 
+    private List<String> names;
+
     // On create
 
     @Override
@@ -118,6 +122,8 @@ public class Main extends Activity
 	symbol = (TextView)findViewById(R.id.symbol);
 	edit = (EditText)findViewById(R.id.edit);
 	list = (ListView)findViewById(R.id.list);
+
+	names = Arrays.asList(currency_name);
     }
 
     // On create options menu
