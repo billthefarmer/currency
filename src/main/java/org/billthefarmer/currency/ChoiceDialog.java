@@ -27,9 +27,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.Arrays;
@@ -68,39 +65,6 @@ public class ChoiceDialog extends Activity
 
 	if (listView != null)
 	    listView.setAdapter(adapter);
-    }
-
-    // On create options menu
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-	// Inflate the menu; this adds items to the action bar if it
-	// is present.
-
-	MenuInflater inflater = getMenuInflater();
-	inflater.inflate(R.menu.choice, menu);
-
-	return true;
-    }
-
-    // On options item selected
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-	// Get id
-
-	int id = item.getItemId();
-	switch (id)
-	{
-	case R.id.action_cancel:
-	    setResult(RESULT_CANCELED);
-	    finish();
-	    return true;
-	}
-
-	return false;
     }
 
     // On item click
