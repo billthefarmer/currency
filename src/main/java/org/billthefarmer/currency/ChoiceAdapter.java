@@ -32,28 +32,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
-public class CurrencyAdapter extends BaseAdapter
+public class ChoiceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
 
     private List<Integer> flags;
-    private List<Integer> longNames;
     private List<String> names;
     private List<String> symbols;
-    private List<String> values;
+    private List<Integer> longNames;
     private int resource;
 
-    public CurrencyAdapter(Context context, int resource, List<Integer> flags,
-			   List<String> names, List<String> symbols,
-			   List<String> values, List<Integer> longNames)
+    public ChoiceAdapter(Context context, int resource, List<Integer> flags,
+			   List<String> names, List<Integer> longNames)
     {
 	inflater = LayoutInflater.from(context);
 
 	this.resource = resource;
 	this.flags = flags;
-	this.symbols = symbols;
 	this.names = names;
-	this.values = values;
 	this.longNames = longNames;
     }
 
@@ -77,19 +73,13 @@ public class CurrencyAdapter extends BaseAdapter
     {
         ImageView flag;
 	TextView name;
-	TextView symbol;
-	TextView value;
 	TextView longName;
-
-	// convertView = super.getView(position, convertView, parent);
 
         if (convertView == null)
 	    convertView = inflater.inflate(resource, parent, false);
 
 	flag = (ImageView)convertView.findViewById(R.id.flag);
 	name = (TextView)convertView.findViewById(R.id.name);
-	symbol = (TextView)convertView.findViewById(R.id.symbol);
-	value = (TextView)convertView.findViewById(R.id.value);
 	longName = (TextView)convertView.findViewById(R.id.long_name);
 
 	if (flag != null)
@@ -97,12 +87,6 @@ public class CurrencyAdapter extends BaseAdapter
 
 	if (name != null)
 	    name.setText(names.get(position));
-
-	if (symbol != null)
-	    symbol.setText(symbols.get(position));
-
-	if (value != null)
-	    value.setText(values.get(position));
 
 	if (longName != null)
 	    longName.setText(longNames.get(position));

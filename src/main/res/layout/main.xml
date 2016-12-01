@@ -19,29 +19,85 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:src="@drawable/flag_eur" />
+
+    <LinearLayout
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+      <LinearLayout
+	  android:orientation="horizontal"
+	  android:layout_width="match_parent"
+	  android:layout_height="wrap_content">
+
+	<TextView
+	    android:id="@+id/name"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="8dp"
+	    android:text="EUR"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	<TextView
+	    android:id="@+id/symbol"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="8dp"
+	    android:text="@string/EUR_symbol"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	<EditText
+	    android:id="@+id/edit"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:inputType="numberDecimal"
+	    android:hint="@string/decimal"
+	    android:text="@string/num_one"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+      </LinearLayout>
+
+      <TextView
+	  android:id="@+id/long_name"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:layout_marginLeft="8dp"
+	  android:text="@string/EUR"
+	  android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp">
+
     <TextView
-	android:id="@+id/symbol"
+	android:id="@+id/time"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:textSize="32sp"
-	android:text="€" />
-    <EditText
-	android:id="@+id/edit"
+	android:text="@string/time"
+	android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+	android:id="@+id/status"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:inputType="numberDecimal"
-	android:textSize="32sp"
-	android:hint="@string/decimal"
-	android:text="@string/num_one" />
+	android:gravity="right"
+	android:text="@string/ok"
+	android:textAppearance="?android:attr/textAppearanceSmall" />
 
   </LinearLayout>
 
   <ListView
       android:id="@+id/list"
-      android:choiceMode="singleChoice"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp" />
+      android:layout_marginTop="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp" />
 
 </LinearLayout>
 

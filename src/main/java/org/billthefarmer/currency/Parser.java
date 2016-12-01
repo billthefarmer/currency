@@ -41,11 +41,13 @@ import org.xml.sax.helpers.DefaultHandler;
 public class Parser
 {
     private Map<String, Double> table;
+    private String time;
 
     // Create parser
     private XMLReader createParser()
     {
 	table = new Hashtable<String, Double>();
+	table.put("EUR", 1.0);
 
 	try
 	{
@@ -71,6 +73,12 @@ public class Parser
     public Map<String, Double> getTable()
     {
 	return table;
+    }
+
+    // Get time
+    public String getTime()
+    {
+	return time;
     }
 
     // Start parser
@@ -136,12 +144,15 @@ public class Parser
 	    {
 		for (int i = 0; i < attributes.getLength(); i++)
 		{
-		    if(attributes.getLocalName(i) == "currency")
+		    if (attributes.getLocalName(i) == "time")
+			time = attributes.getValue(i);
+
+		    else if (attributes.getLocalName(i) == "currency")
 		    {
 			name = attributes.getValue(i);
 		    }
 
-		    else if(attributes.getLocalName(i) == "rate")
+		    else if (attributes.getLocalName(i) == "rate")
 		    {
 			try
 			{
