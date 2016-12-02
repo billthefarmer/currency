@@ -129,6 +129,9 @@ public class Main extends Activity
 
     private int mode = NORMAL_MODE;
 
+    private int currentIndex = 0;
+    private double currentValue = 1.0;
+
     private ImageView flagView;
     private TextView nameView;
     private TextView symbolView;
@@ -232,7 +235,13 @@ public class Main extends Activity
 
 	if (listView != null)
 	    listView.setAdapter(adapter);
+    }
 
+    // On resume
+
+    @Override
+    protected void onResume()
+    {
 	// Check connectivity before update
 	ConnectivityManager manager =
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
@@ -285,6 +294,9 @@ public class Main extends Activity
 
 	case R.id.action_add:
 	    return onAddClick();
+
+	case R.id.action_remove:
+	    return onRemoveClick();
 	}
 
 	return false;
@@ -316,6 +328,41 @@ public class Main extends Activity
 	startActivityForResult(intent, 0);
 
 	return true;
+    }
+
+    // On remove click
+
+    private boolean onRemoveClick()
+    {
+	List<String> removeList = new ArrayList<String>();
+
+	for (int i: selectList)
+	{
+	    removeList.add(nameList.get(i));
+
+	    View v = listView.getChildAt(i);
+	    v.setBackgroundResource(0);
+	}
+
+	for (String s: removeList)
+	{
+	    int i = nameList.indexOf(s);
+
+	    flagList.remove(i);
+	    nameList.remove(i);
+	    symbolList.remove(i);
+	    valueList.remove(i);
+	    longNameList.remove(i);
+	}
+
+	selectList.clear();
+
+	adapter.notifyDataSetChanged();
+
+	mode = NORMAL_MODE;
+	invalidateOptionsMenu();
+
+ 	return true;
     }
 
     // On item click
@@ -394,9 +441,8 @@ public class Main extends Activity
 	{
 	    Parser parser = new Parser();
 
-	    parser.startParser(urls[0]);
-
-	    publishProgress(parser.getTime());
+	    if (parser.startParser(urls[0]) == true)
+		publishProgress(parser.getTime());
 
 	    return parser.getTable();
 	}
@@ -413,19 +459,22 @@ public class Main extends Activity
 	// delivers the result from doInBackground()
 	protected void onPostExecute(Map<String, Double> table)
 	{
-	    valueList.clear();
-
-	    for (String s: nameList)
+	    if (!table.isEmpty())
 	    {
-		int index = currencyNameList.indexOf(s);
+		valueList.clear();
 
-		Double v = table.get(s);
-		String value = String.format("%1.3f", v);
+		for (String s: nameList)
+		{
+		    int index = currencyNameList.indexOf(s);
 
-		valueList.add(value);
+		    Double v = table.get(s);
+		    String value = String.format("%1.3f", v);
+
+		    valueList.add(value);
+		}
+
+		adapter.notifyDataSetChanged();
 	    }
-
-	    adapter.notifyDataSetChanged();
 	}
     }
 }
