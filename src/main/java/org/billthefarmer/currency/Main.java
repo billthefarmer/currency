@@ -548,9 +548,34 @@ public class Main extends Activity
     public void onItemClick(AdapterView parent, View view,
 			    int position, long id)
     {
+	String value;
+	int oldIndex;
+	double oldValue;
+
 	switch (mode)
 	{
 	case NORMAL_MODE:
+	    oldIndex = currentIndex;
+	    oldValue = currentValue;
+
+	    currentIndex = position;
+	    currentValue = valueMap.get(nameList.get(position));
+
+	    value = String.format("%1.3f", currentValue);
+	    editView.setText(symbolList.get(position));
+
+	    flagView.setImageResource(flagList.get(position));
+	    nameView.setText(nameList.get(position));
+	    symbolView.setText(symbolList.get(position));
+	    longNameView.setText(longNameList.get(position));
+
+	    flagList.add(0, flagList.get(oldIndex));
+	    nameList.add(0, nameList.get(oldIndex));
+	    symbolList.add(0, symbolList.get(oldIndex));
+	    longNameList.add(longNameList.get(oldIndex));
+
+	    value = String.format("%1.3f", currentValue);
+	    valueList.add(0, value);
 	    break;
 
 	case SELECT_MODE:
