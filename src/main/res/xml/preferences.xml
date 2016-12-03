@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings">
+
+  <PreferenceCategory
+      android:key="pref_update_category"
+      android:title="@string/pref_update_category">
+
+    <CheckBoxPreference
+	android:key="pref_wifi"
+	android:icon="@drawable/ic_pref_wifi"
+	android:title="@string/pref_wifi"
+	android:summary="@string/pref_wifi_summ"
+	android:persistent="true"
+	android:defaultValue="true" />
+
+    <CheckBoxPreference
+	android:key="pref_roaming"
+	android:icon="@drawable/ic_pref_roaming"
+	android:title="@string/pref_roaming"
+	android:summary="@string/pref_roaming_summ"
+	android:persistent="true"
+	android:defaultValue="false" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:key="pref_about_category"
+      android:title="@string/pref_about">
+
+    <org.billthefarmer.currency.AboutPreference
+	android:key="pref_about"
+	android:icon="@drawable/ic_pref_about"
+	android:dialogIcon="@drawable/ic_pref_about"
+	android:negativeButtonText=""
+	android:title="@string/pref_about"
+	android:summary="@string/pref_about_summ"
+	android:dialogLayout="@layout/about_dialog" />
+
+  </PreferenceCategory>
+
+</PreferenceScreen>

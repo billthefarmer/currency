@@ -1,0 +1,16 @@
+
+language: android
+
+jdk:
+  - oraclejdk8
+
+android:
+  components:
+    - platform-tools
+    - tools
+     
+    - build-tools-25
+
+    - android-17
+
+script: ./gradlew build

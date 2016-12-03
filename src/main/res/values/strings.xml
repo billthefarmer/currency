@@ -7,6 +7,8 @@
   <string name="remove">Remove</string>
   <string name="done">Done</string>
   <string name="settings">Settings</string>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer</string>
+  <string name="licence">Licence: GNU GPLv3</string>
 
   <string name="cancel">Cancel</string>
 
@@ -15,9 +17,22 @@
   <string name="time">Not updated</string>
   <string name="updated">Updated: %s</string>
   <string name="ok">OK</string>
-  <string name="offline">Offline</string>
+  <string name="updating">Updating</string>
+  <string name="failed">Failed</string>
+  <string name="no_connection">No connection</string>
+  <string name="no_wifi">No WiFi</string>
+  <string name="roaming">Roaming</string>  
 
   <string name="decimal">Enter decimal value</string>
+
+  <string name="pref_about">About</string>
+  <string name="pref_about_summ">Currency version %s</string>
+  <string name="pref_update_category">Update</string>
+  <string name="pref_wifi">WiFi</string>
+  <string name="pref_wifi_summ">Update on WiFi only</string>
+  <string name="pref_roaming">Roaming</string>
+  <string name="pref_roaming_summ">Update while roaming</string>
+
 
   <string name="EUR">Euro</string>
   <string name="USD">US dollar</string>
