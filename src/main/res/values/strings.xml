@@ -13,7 +13,7 @@
   <string name="cancel">Cancel</string>
 
   <string name="EUR_symbol">€</string>
-  <string name="num_one">1.0</string>
+  <string name="num_one">1.000</string>
   <string name="time">Not updated</string>
   <string name="updated">Updated: %s</string>
   <string name="ok">OK</string>

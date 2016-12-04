@@ -45,6 +45,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.json.JSONArray;
@@ -117,6 +119,7 @@ public class Main extends Activity
 	R.drawable.flag_thb, R.drawable.flag_zar
     };
 
+    public static final String PREF_MAP = "map";
     public static final String PREF_TIME = "time";
     public static final String PREF_NAMES = "names";
     public static final String PREF_INDEX = "index";
@@ -212,10 +215,75 @@ public class Main extends Activity
 	currentIndex = preferences.getInt(PREF_INDEX, 0);
 	currentValue = preferences.getFloat(PREF_VALUE, 1.0f);
 
+	flagView.setImageResource(CURRENCY_FLAG[currentIndex]);
 	nameView.setText(CURRENCY_NAME[currentIndex]);
+	symbolView.setText(CURRENCY_SYMBOL[currentIndex]);
+	longNameView.setText(CURRENCY_LONGNAME[currentIndex]);
 
+	String value = String.format("%1.3f", currentValue);
+	editView.setText(value);
+
+	String mapJSON = preferences.getString(PREF_MAP, null);
 	String namesJSON = preferences.getString(PREF_NAMES, null);
 	String valuesJSON = preferences.getString(PREF_VALUES, null);
+
+	if (mapJSON != null)
+	{
+	    try
+	    {
+
+		JSONObject mapObject = new JSONObject(mapJSON);
+		valueMap = new Hashtable<String, Double>();
+		Iterator<String> keys = mapObject.keys();
+		while (keys.hasNext())
+		{
+		    String key = keys.next();
+		    valueMap.put(key, mapObject.getDouble(key));
+		}
+	    }
+
+	    catch (Exception e)
+	    {
+		Parser parser = new Parser();
+		parser.startParser(this, R.raw.eurofxref_daily);
+
+		String time = parser.getTime();
+
+		if (time != null)
+		{
+		    String format = resources.getString(R.string.updated);
+		    String updated = String.format(format, time);
+
+		    timeView.setText(updated);
+		}
+
+		else
+		    statusView.setText(R.string.failed);
+
+		valueMap = parser.getTable();
+	    }
+	}
+
+	else
+	{
+	    Parser parser = new Parser();
+	    parser.startParser(this, R.raw.eurofxref_daily);
+
+	    String time = parser.getTime();
+
+	    if (time != null)
+	    {
+		String format = resources.getString(R.string.updated);
+		String updated = String.format(format, time);
+
+		timeView.setText(updated);
+	    }
+
+	    else
+		statusView.setText(R.string.failed);
+
+	    valueMap = parser.getTable();
+	}
 
 	if (namesJSON != null)
 	{
@@ -248,35 +316,17 @@ public class Main extends Activity
 		for (int i = 0; !valuesArray.isNull(i); i++)
 		{
 		    Double v = valuesArray.getDouble(i);
-		    String value = String.format("%1.3f", v);
+		    value = String.format("%1.3f", v);
 		    valueList.add(value);
 		}
 	    }
 
 	    catch (Exception e)
 	    {
-		Parser parser = new Parser();
-		parser.startParser(this, R.raw.eurofxref_daily);
-
-		String time = parser.getTime();
-
-		if (time != null)
-		{
-		    String format = resources.getString(R.string.updated);
-		    String updated = String.format(format, time);
-
-		    timeView.setText(updated);
-		}
-
-		else
-		    statusView.setText(R.string.failed);
-
-		valueMap = parser.getTable();
-
 		for (String s: nameList)
 		{
 		    Double v = valueMap.get(s);
-		    String value = String.format("%1.3f", v);
+		    value = String.format("%1.3f", v);
 
 		    valueList.add(value);
 		}
@@ -285,32 +335,30 @@ public class Main extends Activity
 
 	else
 	{
-	    Parser parser = new Parser();
-	    parser.startParser(this, R.raw.eurofxref_daily);
-
-	    String time = parser.getTime();
-
-	    if (time != null)
-	    {
-		String format = resources.getString(R.string.updated);
-		String updated = String.format(format, time);
-
-		timeView.setText(updated);
-	    }
-
-	    else
-		statusView.setText(R.string.failed);
-
-	    valueMap = parser.getTable();
-
 	    for (String s: nameList)
 	    {
 		    Double v = valueMap.get(s);
-		    String value = String.format("%1.3f", v);
+		    value = String.format("%1.3f", v);
 
 		    valueList.add(value);
 	    }
 	}
+
+	// Get editor
+	SharedPreferences.Editor editor = preferences.edit();
+
+	// Get entries
+	JSONObject valueObject = new JSONObject(valueMap);
+	JSONArray nameArray = new JSONArray(nameList);
+	JSONArray valueArray = new JSONArray(valueList);
+
+	// Update preferences
+	editor.putString(PREF_MAP, valueObject.toString());
+	editor.putString(PREF_NAMES, nameArray.toString());
+	editor.putString(PREF_VALUES, valueArray.toString());
+	editor.putInt(PREF_INDEX, currentIndex);
+	editor.putFloat(PREF_VALUE, (float)currentValue);
+	editor.apply();
 
 	for (String s: nameList)
 	{
@@ -558,16 +606,22 @@ public class Main extends Activity
 	    oldIndex = currentIndex;
 	    oldValue = currentValue;
 
-	    currentIndex = position;
+	    currentIndex = nameList.indexOf(nameList.get(position));
 	    currentValue = valueMap.get(nameList.get(position));
 
 	    value = String.format("%1.3f", currentValue);
-	    editView.setText(symbolList.get(position));
+	    editView.setText(value);
 
 	    flagView.setImageResource(flagList.get(position));
 	    nameView.setText(nameList.get(position));
 	    symbolView.setText(symbolList.get(position));
 	    longNameView.setText(longNameList.get(position));
+
+	    flagList.remove(position);
+	    nameList.remove(position);
+	    symbolList.remove(position);
+	    valueList.remove(position);
+	    longNameList.remove(position);
 
 	    flagList.add(0, flagList.get(oldIndex));
 	    nameList.add(0, nameList.get(oldIndex));
@@ -576,6 +630,26 @@ public class Main extends Activity
 
 	    value = String.format("%1.3f", currentValue);
 	    valueList.add(0, value);
+
+	    // Get preferences
+	    SharedPreferences preferences =
+		PreferenceManager.getDefaultSharedPreferences(this);
+
+	    // Get editor
+	    SharedPreferences.Editor editor = preferences.edit();
+
+	    // Get entries
+	    JSONArray nameArray = new JSONArray(nameList);
+	    JSONArray valueArray = new JSONArray(valueList);
+
+	    // Update preferences
+	    editor.putString(PREF_NAMES, nameArray.toString());
+	    editor.putString(PREF_VALUES, valueArray.toString());
+	    editor.putInt(PREF_INDEX, currentIndex);
+	    editor.putFloat(PREF_VALUE, (float)currentValue);
+	    editor.apply();
+
+	    adapter.notifyDataSetChanged();
 	    break;
 
 	case SELECT_MODE:
@@ -719,10 +793,12 @@ public class Main extends Activity
 		SharedPreferences.Editor editor = preferences.edit();
 
 		// Get entries
+		JSONObject valueObject = new JSONObject(valueMap);
 		JSONArray nameArray = new JSONArray(nameList);
 		JSONArray valueArray = new JSONArray(valueList);
 
 		// Update preferences
+		editor.putString(PREF_MAP, valueObject.toString());
 		editor.putString(PREF_NAMES, nameArray.toString());
 		editor.putString(PREF_VALUES, valueArray.toString());
 		editor.apply();
