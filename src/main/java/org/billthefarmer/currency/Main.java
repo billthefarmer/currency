@@ -606,16 +606,16 @@ public class Main extends Activity
 	    oldIndex = currentIndex;
 	    oldValue = currentValue;
 
-	    currentIndex = nameList.indexOf(nameList.get(position));
+	    currentIndex = currencyNameList.indexOf(nameList.get(position));
 	    currentValue = valueMap.get(nameList.get(position));
 
 	    value = String.format("%1.3f", currentValue);
 	    editView.setText(value);
 
-	    flagView.setImageResource(flagList.get(position));
-	    nameView.setText(nameList.get(position));
-	    symbolView.setText(symbolList.get(position));
-	    longNameView.setText(longNameList.get(position));
+	    flagView.setImageResource(CURRENCY_FLAG[currentIndex]);
+	    nameView.setText(CURRENCY_NAME[currentIndex]);
+	    symbolView.setText(CURRENCY_SYMBOL[currentIndex]);
+	    longNameView.setText(CURRENCY_LONGNAME[currentIndex]);
 
 	    flagList.remove(position);
 	    nameList.remove(position);
@@ -623,10 +623,10 @@ public class Main extends Activity
 	    valueList.remove(position);
 	    longNameList.remove(position);
 
-	    flagList.add(0, flagList.get(oldIndex));
-	    nameList.add(0, nameList.get(oldIndex));
-	    symbolList.add(0, symbolList.get(oldIndex));
-	    longNameList.add(longNameList.get(oldIndex));
+	    flagList.add(0, CURRENCY_FLAG[oldIndex]);
+	    nameList.add(0, CURRENCY_NAME[oldIndex]);
+	    symbolList.add(0, CURRENCY_SYMBOL[oldIndex]);
+	    longNameList.add(0, CURRENCY_LONGNAME[oldIndex]);
 
 	    value = String.format("%1.3f", currentValue);
 	    valueList.add(0, value);
