@@ -80,7 +80,7 @@
 	android:id="@+id/time"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:text="@string/time"
+	android:text="@string/not_updated"
 	android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView

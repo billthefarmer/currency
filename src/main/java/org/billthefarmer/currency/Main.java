@@ -132,7 +132,7 @@ public class Main extends Activity
 
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roamning";
-    public static final String PREF_DIGITS = "digits";
+    public static final String PREF_DIGITS = "pref_digits";
 
     public static final String ECB_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
@@ -387,11 +387,12 @@ public class Main extends Activity
 	editor.putString(PREF_VALUES, valueArray.toString());
 	editor.putInt(PREF_INDEX, currentIndex);
 	editor.putFloat(PREF_VALUE, (float)currentValue);
+	editor.putString(PREF_TIME, time);
 	editor.apply();
 
-	for (String s: nameList)
+	for (String name: nameList)
 	{
-	    int index = currencyNameList.indexOf(s);
+	    int index = currencyNameList.indexOf(name);
 
 	    flagList.add(CURRENCY_FLAG[index]);
 	    symbolList.add(CURRENCY_SYMBOL[index]);

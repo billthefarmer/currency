@@ -12,7 +12,13 @@ android {
     compileSdkVersion 'android-17'
     buildToolsVersion '24.0.2'
 
-    lintOptions {
-        abortOnError false
-    }
+    // lintOptions {
+    //     abortOnError false
+    // }
 }
+
+// gradle.projectsEvaluated {
+//     tasks.withType(JavaCompile) {
+//         options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//     }
+// }
