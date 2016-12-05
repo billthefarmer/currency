@@ -12,6 +12,7 @@
 
   <string name="cancel">Cancel</string>
 
+  <string name="EUR_name">EUR</string>
   <string name="EUR_symbol">€</string>
   <string name="num_one">1.000</string>
   <string name="time">Not updated</string>
@@ -32,7 +33,9 @@
   <string name="pref_wifi_summ">Update on WiFi only</string>
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Update while roaming</string>
-
+  <string name="pref_numbers">Numbers</string>
+  <string name="pref_digits">Fraction digits</string>
+  <string name="pref_digit_default">3</string>
 
   <string name="EUR">Euro</string>
   <string name="USD">US dollar</string>
@@ -40,7 +43,6 @@
   <string name="BGN">Bulgarian lev</string>
   <string name="CZK">Czech koruna</string>
   <string name="DKK">Danish krone</string>
-  <string name="EEK">Estonian kroon</string>
   <string name="GBP">Pound sterling</string>
   <string name="HUF">Hungarian forint</string>
   <string name="PLN">Polish zloty</string>

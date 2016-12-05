@@ -35,7 +35,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="8dp"
-	    android:text="EUR"
+	    android:text="@string/EUR_name"
 	    android:textAppearance="?android:attr/textAppearanceLarge" />
 	<TextView
 	    android:id="@+id/symbol"
@@ -51,6 +51,7 @@
 	    android:inputType="numberDecimal"
 	    android:hint="@string/decimal"
 	    android:text="@string/num_one"
+	    android:imeOptions="actionDone"
 	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
       </LinearLayout>
@@ -60,6 +61,7 @@
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
 	  android:layout_marginLeft="8dp"
+	  android:layout_marginBottom="8dp"
 	  android:text="@string/EUR"
 	  android:textAppearance="?android:attr/textAppearanceMedium" />
 

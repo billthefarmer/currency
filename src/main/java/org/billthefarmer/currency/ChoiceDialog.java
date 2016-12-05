@@ -28,14 +28,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import java.util.Arrays;
 import java.util.List;
 
 public class ChoiceDialog extends Activity
-    implements AdapterView.OnItemClickListener
+    implements AdapterView.OnItemClickListener, View.OnClickListener
 {
     private ListView listView;
+    private Button button;
 
     private List<Integer> flagList;
     private List<String> nameList;
@@ -51,7 +53,11 @@ public class ChoiceDialog extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose);
 
+	button = (Button)findViewById(R.id.cancel);
  	listView = (ListView)findViewById(R.id.list);
+
+	if (button != null)
+	    button.setOnClickListener(this);
 
 	if (listView != null)
 	    listView.setOnItemClickListener(this);
@@ -65,6 +71,15 @@ public class ChoiceDialog extends Activity
 
 	if (listView != null)
 	    listView.setAdapter(adapter);
+    }
+
+    // On click
+
+    @Override
+    public void onClick(View v)
+    {
+	setResult(RESULT_CANCELED);
+	finish();
     }
 
     // On item click

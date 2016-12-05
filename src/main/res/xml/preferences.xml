@@ -26,6 +26,22 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+      android:key="pref_numbers_category"
+      android:title="@string/pref_numbers">
+
+    <ListPreference
+	android:key="pref_digits"
+	android:title="@string/pref_digits"
+	android:dialogTitle="@string/pref_digits"
+	android:icon="@drawable/ic_pref_digits"
+	android:dialogIcon="@drawable/ic_pref_digits"
+	android:entries="@array/pref_digit_entries"
+	android:entryValues="@array/pref_digit_values"
+	android:defaultValue="@string/pref_digit_default"/>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
       android:key="pref_about_category"
       android:title="@string/pref_about">
 
@@ -36,7 +52,7 @@
 	android:negativeButtonText=""
 	android:title="@string/pref_about"
 	android:summary="@string/pref_about_summ"
-	android:dialogLayout="@layout/about_dialog" />
+	android:dialogLayout="@layout/about" />
 
   </PreferenceCategory>
 

@@ -34,6 +34,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,6 +45,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -55,7 +58,8 @@ import org.json.JSONObject;
 // Main class
 
 public class Main extends Activity
-    implements AdapterView.OnItemClickListener,
+    implements EditText.OnEditorActionListener,
+	       AdapterView.OnItemClickListener,
 	       AdapterView.OnItemLongClickListener
 {
     // Initial currency name list
@@ -128,6 +132,7 @@ public class Main extends Activity
 
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roamning";
+    public static final String PREF_DIGITS = "digits";
 
     public static final String ECB_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
@@ -141,9 +146,11 @@ public class Main extends Activity
 
     private boolean wifi = true;
     private boolean roaming = false;
+    private int digits = 3;
 
     private int currentIndex = 0;
     private double currentValue = 1.0;
+    private double convertValue = 1.0;
 
     private ImageView flagView;
     private TextView nameView;
@@ -187,6 +194,9 @@ public class Main extends Activity
 	statusView = (TextView)findViewById(R.id.status);
 	listView = (ListView)findViewById(R.id.list);
 
+	if (editView != null)
+	    editView.setOnEditorActionListener(this);
+
 	if (listView != null)
 	{
 	    listView.setOnItemClickListener(this);
@@ -211,16 +221,24 @@ public class Main extends Activity
 
 	wifi = preferences.getBoolean(PREF_WIFI, true);
 	roaming = preferences.getBoolean(PREF_ROAMING, false);
+	digits = Integer.parseInt(preferences.getString(PREF_DIGITS, "3"));
 
 	currentIndex = preferences.getInt(PREF_INDEX, 0);
 	currentValue = preferences.getFloat(PREF_VALUE, 1.0f);
+	String time = preferences.getString(PREF_TIME, "");
+	String format = resources.getString(R.string.updated);
+	String updated = String.format(format, time);
+	timeView.setText(updated);
 
 	flagView.setImageResource(CURRENCY_FLAG[currentIndex]);
 	nameView.setText(CURRENCY_NAME[currentIndex]);
 	symbolView.setText(CURRENCY_SYMBOL[currentIndex]);
 	longNameView.setText(CURRENCY_LONGNAME[currentIndex]);
 
-	String value = String.format("%1.3f", currentValue);
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	numberFormat.setMinimumFractionDigits(digits);
+	String value = numberFormat.format(currentValue);
+	// String value = String.format("%1.3f", currentValue);
 	editView.setText(value);
 
 	String mapJSON = preferences.getString(PREF_MAP, null);
@@ -247,12 +265,12 @@ public class Main extends Activity
 		Parser parser = new Parser();
 		parser.startParser(this, R.raw.eurofxref_daily);
 
-		String time = parser.getTime();
+		time = parser.getTime();
 
 		if (time != null)
 		{
-		    String format = resources.getString(R.string.updated);
-		    String updated = String.format(format, time);
+		    format = resources.getString(R.string.updated);
+		    updated = String.format(format, time);
 
 		    timeView.setText(updated);
 		}
@@ -269,12 +287,12 @@ public class Main extends Activity
 	    Parser parser = new Parser();
 	    parser.startParser(this, R.raw.eurofxref_daily);
 
-	    String time = parser.getTime();
+	    time = parser.getTime();
 
 	    if (time != null)
 	    {
-		String format = resources.getString(R.string.updated);
-		String updated = String.format(format, time);
+		format = resources.getString(R.string.updated);
+		updated = String.format(format, time);
 
 		timeView.setText(updated);
 	    }
@@ -313,20 +331,26 @@ public class Main extends Activity
 		JSONArray valuesArray = new JSONArray(valuesJSON);
 		valueList = new ArrayList<String>();
 
+		numberFormat = NumberFormat.getInstance();
+		numberFormat.setMinimumFractionDigits(digits);
 		for (int i = 0; !valuesArray.isNull(i); i++)
 		{
 		    Double v = valuesArray.getDouble(i);
-		    value = String.format("%1.3f", v);
+		    value = numberFormat.format(v);
+		    // value = String.format("%1.3f", v);
 		    valueList.add(value);
 		}
 	    }
 
 	    catch (Exception e)
 	    {
+		numberFormat = NumberFormat.getInstance();
+		numberFormat.setMinimumFractionDigits(digits);
 		for (String s: nameList)
 		{
 		    Double v = valueMap.get(s);
-		    value = String.format("%1.3f", v);
+		    value = numberFormat.format(v);
+		    // value = String.format("%1.3f", v);
 
 		    valueList.add(value);
 		}
@@ -335,14 +359,19 @@ public class Main extends Activity
 
 	else
 	{
+	    numberFormat = NumberFormat.getInstance();
+	    numberFormat.setMinimumFractionDigits(digits);
 	    for (String s: nameList)
 	    {
-		    Double v = valueMap.get(s);
-		    value = String.format("%1.3f", v);
+		Double v = valueMap.get(s);
+		value = numberFormat.format(v);
+		// value = String.format("%1.3f", v);
 
-		    valueList.add(value);
+		valueList.add(value);
 	    }
 	}
+
+	convertValue = valueMap.get(CURRENCY_NAME[currentIndex]);
 
 	// Get editor
 	SharedPreferences.Editor editor = preferences.edit();
@@ -590,6 +619,59 @@ public class Main extends Activity
 	return true;
     }
 
+    // On editor action
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+    {
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	numberFormat.setMinimumFractionDigits(digits);
+
+	switch (actionId)
+	{
+        case  EditorInfo.IME_ACTION_DONE:
+
+	    try
+	    {
+	    	Number number = numberFormat.parse(v.getText().toString());
+	    	currentValue = number.doubleValue();
+	    }
+
+	    catch (Exception e)
+	    {
+		e.printStackTrace();
+		currentValue = 1.0;
+	    }
+
+	    valueList.clear();
+	    for (String name: nameList)
+	    {
+		Double value = (currentValue / convertValue) *
+		    valueMap.get(name);
+
+		String s = numberFormat.format(value);
+		// String s = String.format("%1.3f", value);
+		valueList.add(s);
+	    }
+
+	    // Get preferences
+	    SharedPreferences preferences =
+		PreferenceManager.getDefaultSharedPreferences(this);
+
+	    // Get editor
+	    SharedPreferences.Editor editor = preferences.edit();
+
+	    editor.putFloat(PREF_VALUE, (float)currentValue);
+	    editor.apply();
+
+	    adapter.notifyDataSetChanged();
+
+	    return false;
+        }
+
+        return false;
+    }
+
     // On item click
 
     @Override
@@ -600,6 +682,9 @@ public class Main extends Activity
 	int oldIndex;
 	double oldValue;
 
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	numberFormat.setMinimumFractionDigits(digits);
+
 	switch (mode)
 	{
 	case NORMAL_MODE:
@@ -607,9 +692,14 @@ public class Main extends Activity
 	    oldValue = currentValue;
 
 	    currentIndex = currencyNameList.indexOf(nameList.get(position));
-	    currentValue = valueMap.get(nameList.get(position));
 
-	    value = String.format("%1.3f", currentValue);
+	    currentValue = (oldValue / convertValue) *
+		valueMap.get(CURRENCY_NAME[currentIndex]);
+
+	    convertValue = valueMap.get(CURRENCY_NAME[currentIndex]);
+
+	    value = numberFormat.format(currentValue);
+	    // value = String.format("%1.3f", currentValue);
 	    editView.setText(value);
 
 	    flagView.setImageResource(CURRENCY_FLAG[currentIndex]);
@@ -628,7 +718,8 @@ public class Main extends Activity
 	    symbolList.add(0, CURRENCY_SYMBOL[oldIndex]);
 	    longNameList.add(0, CURRENCY_LONGNAME[oldIndex]);
 
-	    value = String.format("%1.3f", currentValue);
+	    value = numberFormat.format(oldValue);
+	    // value = String.format("%1.3f", oldValue);
 	    valueList.add(0, value);
 
 	    // Get preferences
@@ -700,10 +791,15 @@ public class Main extends Activity
 	symbolList.add(CURRENCY_SYMBOL[index]);
 	longNameList.add(CURRENCY_LONGNAME[index]);
 
-	Double v = valueMap.get(CURRENCY_NAME[index]);
-	String value = String.format("%1.3f", v);
+	Double value = (currentValue / convertValue) *
+	    valueMap.get(CURRENCY_NAME[index]);
 
-	valueList.add(value);
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	numberFormat.setMinimumFractionDigits(digits);
+	String s = numberFormat.format(value);
+	// String s = String.format("%1.3f", value);
+
+	valueList.add(s);
 
 	// Get preferences
 	SharedPreferences preferences =
@@ -775,14 +871,21 @@ public class Main extends Activity
 
 		valueList.clear();
 
-		for (String s: nameList)
+		convertValue = valueMap.get(CURRENCY_NAME[currentIndex]);
+
+		NumberFormat numberFormat = NumberFormat.getInstance();
+		numberFormat.setMinimumFractionDigits(digits);
+		for (String name: nameList)
 		{
-		    int index = currencyNameList.indexOf(s);
+		    int index = currencyNameList.indexOf(name);
 
-		    Double v = valueMap.get(s);
-		    String value = String.format("%1.3f", v);
+		    Double value = (currentValue / convertValue) *
+			valueMap.get(name);
 
-		    valueList.add(value);
+		    String s = numberFormat.format(value);
+		    // String s = String.format("%1.3f", value);
+
+		    valueList.add(s);
 		}
 
 		// Get preferences

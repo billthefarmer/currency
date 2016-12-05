@@ -51,6 +51,8 @@ public class AboutPreference extends DialogPreference
     @Override
     protected void onBindDialogView(View view)
     {
+	super.onBindDialogView(view);
+
 	// Get version text view
 
 	TextView version = (TextView) view.findViewById(R.id.about);
