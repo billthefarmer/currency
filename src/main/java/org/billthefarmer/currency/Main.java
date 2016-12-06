@@ -277,7 +277,6 @@ public class Main extends Activity
 	    {
 		format = resources.getString(R.string.updated);
 		updated = String.format(format, time);
-
 		timeView.setText(updated);
 	    }
 
@@ -315,16 +314,8 @@ public class Main extends Activity
 		JSONArray valuesArray = new JSONArray(valuesJSON);
 		valueList = new ArrayList<String>();
 
-		numberFormat = NumberFormat.getInstance();
-		numberFormat.setMinimumFractionDigits(digits);
-		numberFormat.setMaximumFractionDigits(digits);
 		for (int i = 0; !valuesArray.isNull(i); i++)
-		{
-		    Double v = valuesArray.getDouble(i);
-		    value = numberFormat.format(v);
-		    // value = String.format("%1.3f", v);
-		    valueList.add(value);
-		}
+		    valueList.add(valuesArray.getString(i));
 	    }
 
 	    catch (Exception e)
@@ -640,6 +631,10 @@ public class Main extends Activity
 	    // Get editor
 	    SharedPreferences.Editor editor = preferences.edit();
 
+	    JSONArray valueArray = new JSONArray(valueList);
+
+	    // Update preferences
+	    editor.putString(PREF_VALUES, valueArray.toString());
 	    editor.putFloat(PREF_VALUE, (float)currentValue);
 	    editor.apply();
 
