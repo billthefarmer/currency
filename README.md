@@ -17,12 +17,13 @@ The icons in the toolbar from left to right are:
  * **Add** a currency to the list. A scrollable list of currencies
    will pop up. Touch an entry to select it or touch the **Cancel**
    button below the list.
- * **Update** Get the day's currency rates from the European Central
-   Bank. The date shown on the left above the currency list will be
-   updated. It may show the previous day because the rates are updated
-   at around 14:15 CET. The status display on the right above the
-   currency list will show 'OK', 'No Connection', 'No WiFi' or
-   'Roaming' according to the update settings.
+ * **Update** Get the day's currency rates from the
+   [European Central Bank](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html). The
+   date shown on the left above the currency list will be updated. It
+   may show the previous day because the rates are updated at around
+   14:15 CET. The status display on the right above the currency list
+   will show 'OK', 'No Connection', 'No WiFi' or 'Roaming' according
+   to the update settings.
  * **Settings** Display the settings screen.
 
 Touch a currency entry in the list to make it current. The current
