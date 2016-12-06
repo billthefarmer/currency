@@ -6,6 +6,8 @@
     <item>One fraction digit</item>
     <item>Two fraction digits</item>
     <item>Three fraction digits</item>
+    <item>Four fraction digits</item>
+    <item>Five fraction digits</item>
   </string-array>
 
   <string-array
@@ -13,6 +15,8 @@
     <item>1</item>
     <item>2</item>
     <item>3</item>
+    <item>4</item>
+    <item>5</item>
   </string-array>
 
 </resources>

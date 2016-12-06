@@ -262,23 +262,7 @@ public class Main extends Activity
 
 	    catch (Exception e)
 	    {
-		Parser parser = new Parser();
-		parser.startParser(this, R.raw.eurofxref_daily);
-
-		time = parser.getTime();
-
-		if (time != null)
-		{
-		    format = resources.getString(R.string.updated);
-		    updated = String.format(format, time);
-
-		    timeView.setText(updated);
-		}
-
-		else
-		    statusView.setText(R.string.failed);
-
-		valueMap = parser.getTable();
+		e.printStackTrace();
 	    }
 	}
 
@@ -315,7 +299,7 @@ public class Main extends Activity
 
 	    catch (Exception e)
 	    {
-		nameList = new ArrayList<String>(Arrays.asList(CURRENCY_LIST));
+		e.printStackTrace();
 	    }
 	}
 
@@ -333,6 +317,7 @@ public class Main extends Activity
 
 		numberFormat = NumberFormat.getInstance();
 		numberFormat.setMinimumFractionDigits(digits);
+		numberFormat.setMaximumFractionDigits(digits);
 		for (int i = 0; !valuesArray.isNull(i); i++)
 		{
 		    Double v = valuesArray.getDouble(i);
@@ -344,16 +329,7 @@ public class Main extends Activity
 
 	    catch (Exception e)
 	    {
-		numberFormat = NumberFormat.getInstance();
-		numberFormat.setMinimumFractionDigits(digits);
-		for (String s: nameList)
-		{
-		    Double v = valueMap.get(s);
-		    value = numberFormat.format(v);
-		    // value = String.format("%1.3f", v);
-
-		    valueList.add(value);
-		}
+		e.printStackTrace();
 	    }
 	}
 
@@ -361,6 +337,7 @@ public class Main extends Activity
 	{
 	    numberFormat = NumberFormat.getInstance();
 	    numberFormat.setMinimumFractionDigits(digits);
+	    numberFormat.setMaximumFractionDigits(digits);
 	    for (String s: nameList)
 	    {
 		Double v = valueMap.get(s);
@@ -627,6 +604,7 @@ public class Main extends Activity
     {
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
+	numberFormat.setMaximumFractionDigits(digits);
 
 	switch (actionId)
 	{
@@ -685,6 +663,7 @@ public class Main extends Activity
 
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
+	numberFormat.setMaximumFractionDigits(digits);
 
 	switch (mode)
 	{
@@ -797,6 +776,7 @@ public class Main extends Activity
 
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
+	numberFormat.setMaximumFractionDigits(digits);
 	String s = numberFormat.format(value);
 	// String s = String.format("%1.3f", value);
 
@@ -876,6 +856,7 @@ public class Main extends Activity
 
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		numberFormat.setMinimumFractionDigits(digits);
+		numberFormat.setMaximumFractionDigits(digits);
 		for (String name: nameList)
 		{
 		    int index = currencyNameList.indexOf(name);

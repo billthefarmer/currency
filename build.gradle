@@ -6,15 +6,17 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.0'
     }
 }
+
 apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 'android-17'
     buildToolsVersion '24.0.2'
 
-    // lintOptions {
-    //     abortOnError false
-    // }
+    lintOptions {
+	disable 'IconLocation'
+	// abortOnError false
+    }
 }
 
 // gradle.projectsEvaluated {
