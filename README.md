@@ -14,10 +14,10 @@ Android currency conversion.
 
 The icons in the toolbar from left to right are:
 
- * **Add** a currency to the list. U scrollable list of currencies
+ * **Add** a currency to the list. A scrollable list of currencies
    will pop up. Touch an entry to select it or touch the **Cancel**
    button below the list.
- * **Update** Get the days currency rates from the European Central
+ * **Update** Get the day's currency rates from the European Central
    Bank. The date shown on the left above the currency list will be
    updated. It may show the previous day because the rates are updated
    at around 14:15 CET. The status display on the right above the
@@ -28,8 +28,9 @@ The icons in the toolbar from left to right are:
 Touch a currency entry in the list to make it current. The current
 currency will move to the top of the list. Long touch a currency entry
 to select it. Once one currency is selected others may be added to the
-selection by touching them. another long touch on another currency
-will clear the list and select the new currency. The icons in the toolbar will change to:
+selection by touching them. Another long touch on another currency
+will clear the list and select the new currency. The icons in the
+toolbar will change to:
 
  * **Done** Clear the selection.
  * **Remove** the selected currencies.
