@@ -14,7 +14,7 @@ android {
     buildToolsVersion '24.0.2'
 
     lintOptions {
-	disable 'IconLocation'
+	disable 'IconLocation', 'IconDensities'
 	// abortOnError false
     }
 }
