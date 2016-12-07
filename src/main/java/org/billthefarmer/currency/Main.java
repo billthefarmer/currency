@@ -123,16 +123,17 @@ public class Main extends Activity
 	R.drawable.flag_thb, R.drawable.flag_zar
     };
 
-    public static final String PREF_MAP = "map";
-    public static final String PREF_TIME = "time";
-    public static final String PREF_NAMES = "names";
-    public static final String PREF_INDEX = "index";
-    public static final String PREF_VALUE = "value";
-    public static final String PREF_VALUES = "values";
+    public static final String PREF_MAP = "pref_map";
+    public static final String PREF_TIME = "pref_time";
+    public static final String PREF_NAMES = "pref_names";
+    public static final String PREF_INDEX = "pref_index";
+    public static final String PREF_VALUE = "pref_value";
+    public static final String PREF_VALUES = "pref_values";
 
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roamning";
     public static final String PREF_DIGITS = "pref_digits";
+    public static final String PREF_ABOUT = "pref_about";
 
     public static final String ECB_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";

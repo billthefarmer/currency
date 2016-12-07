@@ -38,9 +38,8 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 public class SettingsFragment extends PreferenceFragment
+    implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-    private static final String KEY_PREF_ABOUT = "pref_about";
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -53,9 +52,18 @@ public class SettingsFragment extends PreferenceFragment
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(getActivity());
 
+	preferences.registerOnSharedPreferenceChangeListener(this);
+
+	ListPreference preference =
+	    (ListPreference)findPreference(Main.PREF_DIGITS);
+
+	// Set summary to be the user-description for the selected value
+
+	preference.setSummary(preference.getEntry());
+
 	// Get about summary
 
-	Preference about = findPreference(KEY_PREF_ABOUT);
+	Preference about = findPreference(Main.PREF_ABOUT);
 	String sum = (String) about.getSummary();
 
 	// Get context and package manager
@@ -102,5 +110,21 @@ public class SettingsFragment extends PreferenceFragment
     	}
 
     	return result;
+    }
+
+    // On shared preference changed
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences preferences,
+					  String key)
+    {
+	if (key.equals(Main.PREF_DIGITS))
+	{
+	    ListPreference preference = (ListPreference)findPreference(key);
+
+	    // Set summary to be the user-description for the selected value
+
+	    preference.setSummary(preference.getEntry());
+	}
     }
 }
