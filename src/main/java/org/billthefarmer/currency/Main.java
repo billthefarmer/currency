@@ -65,7 +65,7 @@ public class Main extends Activity
     // Initial currency name list
     public static final String CURRENCY_LIST[] =
     {
-	"EUR", "USD", "GBP", "CAD", "AUD"
+	"USD", "GBP", "CAD", "AUD"
     };
 
     // Currency names
@@ -152,6 +152,7 @@ public class Main extends Activity
     private int currentIndex = 0;
     private double currentValue = 1.0;
     private double convertValue = 1.0;
+    private String time;
 
     private ImageView flagView;
     private TextView nameView;
@@ -212,6 +213,14 @@ public class Main extends Activity
 	longNameList = new ArrayList<Integer>();
 
 	selectList = new ArrayList<Integer>();
+    }
+
+    // On resume
+
+    @Override
+    protected void onResume()
+    {
+	super.onResume();
 
 	// Get resources
 	resources = getResources();
@@ -226,11 +235,12 @@ public class Main extends Activity
 
 	currentIndex = preferences.getInt(PREF_INDEX, 0);
 	currentValue = preferences.getFloat(PREF_VALUE, 1.0f);
-	String time = preferences.getString(PREF_TIME, "");
+	time = preferences.getString(PREF_TIME, "");
 	String format = resources.getString(R.string.updated);
 	String updated = String.format(format, time);
 	timeView.setText(updated);
 
+	// Set current currency
 	flagView.setImageResource(CURRENCY_FLAG[currentIndex]);
 	nameView.setText(CURRENCY_NAME[currentIndex]);
 	symbolView.setText(CURRENCY_SYMBOL[currentIndex]);
@@ -238,19 +248,21 @@ public class Main extends Activity
 
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
+	numberFormat.setMaximumFractionDigits(digits);
 	String value = numberFormat.format(currentValue);
 	// String value = String.format("%1.3f", currentValue);
 	editView.setText(value);
 
+	// Get saved currency rates and list
 	String mapJSON = preferences.getString(PREF_MAP, null);
 	String namesJSON = preferences.getString(PREF_NAMES, null);
 	String valuesJSON = preferences.getString(PREF_VALUES, null);
 
+	// Check saved rates
 	if (mapJSON != null)
 	{
 	    try
 	    {
-
 		JSONObject mapObject = new JSONObject(mapJSON);
 		valueMap = new Hashtable<String, Double>();
 		Iterator<String> keys = mapObject.keys();
@@ -267,6 +279,7 @@ public class Main extends Activity
 	    }
 	}
 
+	// Get old rates from resources
 	else
 	{
 	    Parser parser = new Parser();
@@ -287,6 +300,7 @@ public class Main extends Activity
 	    valueMap = parser.getTable();
 	}
 
+	// Check saved name list
 	if (namesJSON != null)
 	{
 	    try
@@ -303,11 +317,13 @@ public class Main extends Activity
 	    }
 	}
 
+	// Use the default list
 	else
 	{
 	    nameList = new ArrayList<String>(Arrays.asList(CURRENCY_LIST));
 	}
 
+	// Get the saved value list
 	if (valuesJSON != null)
 	{
 	    try
@@ -325,6 +341,7 @@ public class Main extends Activity
 	    }
 	}
 
+	// Calculate value list
 	else
 	{
 	    numberFormat = NumberFormat.getInstance();
@@ -340,25 +357,10 @@ public class Main extends Activity
 	    }
 	}
 
+	// Get the current conversion rate
 	convertValue = valueMap.get(CURRENCY_NAME[currentIndex]);
 
-	// Get editor
-	SharedPreferences.Editor editor = preferences.edit();
-
-	// Get entries
-	JSONObject valueObject = new JSONObject(valueMap);
-	JSONArray nameArray = new JSONArray(nameList);
-	JSONArray valueArray = new JSONArray(valueList);
-
-	// Update preferences
-	editor.putString(PREF_MAP, valueObject.toString());
-	editor.putString(PREF_NAMES, nameArray.toString());
-	editor.putString(PREF_VALUES, valueArray.toString());
-	editor.putInt(PREF_INDEX, currentIndex);
-	editor.putFloat(PREF_VALUE, (float)currentValue);
-	editor.putString(PREF_TIME, time);
-	editor.apply();
-
+	// Populate the lists
 	for (String name: nameList)
 	{
 	    int index = currencyNameList.indexOf(name);
@@ -368,19 +370,13 @@ public class Main extends Activity
 	    longNameList.add(CURRENCY_LONGNAME[index]);
 	}
 
+	// Create the adapter
 	adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList,
 				      symbolList, valueList, longNameList);
 
+	// Set the list view adapter
 	if (listView != null)
 	    listView.setAdapter(adapter);
-    }
-
-    // On resume
-
-    @Override
-    protected void onResume()
-    {
-	super.onResume();
 
 	// Check connectivity before update
 	ConnectivityManager manager =
@@ -409,6 +405,35 @@ public class Main extends Activity
 	statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_URL);
+    }
+
+    // On pause
+
+    @Override
+    protected void onPause()
+    {
+	super.onPause();
+
+	// Get preferences
+	SharedPreferences preferences =
+ 	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	// Get editor
+	SharedPreferences.Editor editor = preferences.edit();
+
+	// Get entries
+	JSONObject valueObject = new JSONObject(valueMap);
+	JSONArray nameArray = new JSONArray(nameList);
+	JSONArray valueArray = new JSONArray(valueList);
+
+	// Update preferences
+	editor.putString(PREF_MAP, valueObject.toString());
+	editor.putString(PREF_NAMES, nameArray.toString());
+	editor.putString(PREF_VALUES, valueArray.toString());
+	editor.putInt(PREF_INDEX, currentIndex);
+	editor.putFloat(PREF_VALUE, (float)currentValue);
+	editor.putString(PREF_TIME, time);
+	editor.apply();
     }
 
     // On create options menu
