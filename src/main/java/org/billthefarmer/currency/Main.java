@@ -803,6 +803,7 @@ public class Main extends Activity
 	extends AsyncTask<String, String, Map<String, Double>>
     {
 	Context context;
+	String time;
 
 	private ParseTask(Context context)
 	{
@@ -831,6 +832,8 @@ public class Main extends Activity
 		String updated = String.format(format, time[0]);
 
 		timeView.setText(updated);
+
+		this.time = time[0];
 	    }
 
 	    else
@@ -882,7 +885,11 @@ public class Main extends Activity
 		editor.putString(PREF_MAP, valueObject.toString());
 		editor.putString(PREF_NAMES, nameArray.toString());
 		editor.putString(PREF_VALUES, valueArray.toString());
+
+		editor.putString(PREF_TIME, time);
 		editor.apply();
+
+		time = this.time;
 
 		statusView.setText(R.string.ok);
 		adapter.notifyDataSetChanged();
