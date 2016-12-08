@@ -34,6 +34,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -69,7 +70,7 @@ public class Main extends Activity
     };
 
     // Currency names
-    public static final String CURRENCY_NAME[] =
+    public static final String CURRENCY_NAMES[] =
     {
 	"EUR", "USD", "JPY", "BGN",
 	"CZK", "DKK", "GBP", "HUF",
@@ -82,7 +83,7 @@ public class Main extends Activity
     };
 
     // Currency symbols
-    public static final String CURRENCY_SYMBOL[] =
+    public static final String CURRENCY_SYMBOLS[] =
     {
 	"€", "$", "¥", " ",
 	" ", " ", "£", " ",
@@ -95,20 +96,20 @@ public class Main extends Activity
     };
 
     // Currency long names
-    public static final Integer CURRENCY_LONGNAME[] =
+    public static final Integer CURRENCY_LONGNAMES[] =
     {
-	R.string.EUR, R.string.USD, R.string.JPY, R.string.BGN,
-	R.string.CZK, R.string.DKK, R.string.GBP, R.string.HUF,
-	R.string.PLN, R.string.RON, R.string.SEK, R.string.CHF,
-	R.string.NOK, R.string.HRK, R.string.RUB, R.string.TRY,
-	R.string.AUD, R.string.BRL, R.string.CAD, R.string.CNY,
-	R.string.HKD, R.string.IDR, R.string.ILS, R.string.INR,
-	R.string.KRW, R.string.MXN, R.string.MYR, R.string.NZD,
-	R.string.PHP, R.string.SGD, R.string.THB, R.string.ZAR
+	R.string.eur, R.string.usd, R.string.jpy, R.string.bgn,
+	R.string.czk, R.string.dkk, R.string.gbp, R.string.huf,
+	R.string.pln, R.string.ron, R.string.sek, R.string.chf,
+	R.string.nok, R.string.hrk, R.string.rub, R.string.trl,
+	R.string.aud, R.string.brl, R.string.cad, R.string.cny,
+	R.string.hkd, R.string.idr, R.string.ils, R.string.inr,
+	R.string.krw, R.string.mxn, R.string.myr, R.string.nzd,
+	R.string.php, R.string.sgd, R.string.thb, R.string.zar
     };
 	
     // Currency flags
-    public static final Integer CURRENCY_FLAG[] =
+    public static final Integer CURRENCY_FLAGS[] =
     { 
 	R.drawable.flag_eur, R.drawable.flag_usd, R.drawable.flag_jpy,
 	R.drawable.flag_bgn, R.drawable.flag_czk, R.drawable.flag_dkk,
@@ -122,6 +123,8 @@ public class Main extends Activity
 	R.drawable.flag_nzd, R.drawable.flag_php, R.drawable.flag_sgd,
 	R.drawable.flag_thb, R.drawable.flag_zar
     };
+
+    public static final String TAG = "Main";
 
     public static final String PREF_MAP = "pref_map";
     public static final String PREF_TIME = "pref_time";
@@ -205,14 +208,7 @@ public class Main extends Activity
 	    listView.setOnItemLongClickListener(this);
 	}
 
-	currencyNameList = Arrays.asList(CURRENCY_NAME);
-
-	flagList = new ArrayList<Integer>();
-	symbolList = new ArrayList<String>();
-	valueList = new ArrayList<String>();
-	longNameList = new ArrayList<Integer>();
-
-	selectList = new ArrayList<Integer>();
+	currencyNameList = Arrays.asList(CURRENCY_NAMES);
     }
 
     // On resume
@@ -221,6 +217,14 @@ public class Main extends Activity
     protected void onResume()
     {
 	super.onResume();
+
+	// Create lists
+	flagList = new ArrayList<Integer>();
+	symbolList = new ArrayList<String>();
+	valueList = new ArrayList<String>();
+	longNameList = new ArrayList<Integer>();
+
+	selectList = new ArrayList<Integer>();
 
 	// Get resources
 	resources = getResources();
@@ -241,10 +245,10 @@ public class Main extends Activity
 	timeView.setText(updated);
 
 	// Set current currency
-	flagView.setImageResource(CURRENCY_FLAG[currentIndex]);
-	nameView.setText(CURRENCY_NAME[currentIndex]);
-	symbolView.setText(CURRENCY_SYMBOL[currentIndex]);
-	longNameView.setText(CURRENCY_LONGNAME[currentIndex]);
+	flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
+	nameView.setText(CURRENCY_NAMES[currentIndex]);
+	symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
+	longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
 
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
@@ -358,16 +362,16 @@ public class Main extends Activity
 	}
 
 	// Get the current conversion rate
-	convertValue = valueMap.get(CURRENCY_NAME[currentIndex]);
+	convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
 	// Populate the lists
 	for (String name: nameList)
 	{
 	    int index = currencyNameList.indexOf(name);
 
-	    flagList.add(CURRENCY_FLAG[index]);
-	    symbolList.add(CURRENCY_SYMBOL[index]);
-	    longNameList.add(CURRENCY_LONGNAME[index]);
+	    flagList.add(CURRENCY_FLAGS[index]);
+	    symbolList.add(CURRENCY_SYMBOLS[index]);
+	    longNameList.add(CURRENCY_LONGNAMES[index]);
 	}
 
 	// Create the adapter
@@ -695,18 +699,18 @@ public class Main extends Activity
 	    currentIndex = currencyNameList.indexOf(nameList.get(position));
 
 	    currentValue = (oldValue / convertValue) *
-		valueMap.get(CURRENCY_NAME[currentIndex]);
+		valueMap.get(CURRENCY_NAMES[currentIndex]);
 
-	    convertValue = valueMap.get(CURRENCY_NAME[currentIndex]);
+	    convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
 	    value = numberFormat.format(currentValue);
 	    // value = String.format("%1.3f", currentValue);
 	    editView.setText(value);
 
-	    flagView.setImageResource(CURRENCY_FLAG[currentIndex]);
-	    nameView.setText(CURRENCY_NAME[currentIndex]);
-	    symbolView.setText(CURRENCY_SYMBOL[currentIndex]);
-	    longNameView.setText(CURRENCY_LONGNAME[currentIndex]);
+	    flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
+	    nameView.setText(CURRENCY_NAMES[currentIndex]);
+	    symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
+	    longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
 
 	    flagList.remove(position);
 	    nameList.remove(position);
@@ -714,10 +718,10 @@ public class Main extends Activity
 	    valueList.remove(position);
 	    longNameList.remove(position);
 
-	    flagList.add(0, CURRENCY_FLAG[oldIndex]);
-	    nameList.add(0, CURRENCY_NAME[oldIndex]);
-	    symbolList.add(0, CURRENCY_SYMBOL[oldIndex]);
-	    longNameList.add(0, CURRENCY_LONGNAME[oldIndex]);
+	    flagList.add(0, CURRENCY_FLAGS[oldIndex]);
+	    nameList.add(0, CURRENCY_NAMES[oldIndex]);
+	    symbolList.add(0, CURRENCY_SYMBOLS[oldIndex]);
+	    longNameList.add(0, CURRENCY_LONGNAMES[oldIndex]);
 
 	    value = numberFormat.format(oldValue);
 	    // value = String.format("%1.3f", oldValue);
@@ -760,9 +764,9 @@ public class Main extends Activity
 	mode = SELECT_MODE;
 	invalidateOptionsMenu();
 
-	for (int i: selectList)
+	for (int index: selectList)
 	{
-	    View v = parent.getChildAt(i);
+	    View v = parent.getChildAt(index);
 	    v.setBackgroundResource(0);
 	}
 
@@ -784,24 +788,31 @@ public class Main extends Activity
 	if (resultCode != RESULT_OK)
 	    return;
 
-	// Get index from intent
-	int index = data.getIntExtra(CHOICE, 0);
+	// Get index list from intent
+	List<Integer> indexList = data.getIntegerArrayListExtra(CHOICE);
 
-	flagList.add(CURRENCY_FLAG[index]);
-	nameList.add(CURRENCY_NAME[index]);
-	symbolList.add(CURRENCY_SYMBOL[index]);
-	longNameList.add(CURRENCY_LONGNAME[index]);
+	// Add currencies from list
+	for (int index: indexList)
+	{
+	    if (nameList.contains(CURRENCY_NAMES[index]))
+		continue;
 
-	Double value = (currentValue / convertValue) *
-	    valueMap.get(CURRENCY_NAME[index]);
+	    flagList.add(CURRENCY_FLAGS[index]);
+	    nameList.add(CURRENCY_NAMES[index]);
+	    symbolList.add(CURRENCY_SYMBOLS[index]);
+	    longNameList.add(CURRENCY_LONGNAMES[index]);
 
-	NumberFormat numberFormat = NumberFormat.getInstance();
-	numberFormat.setMinimumFractionDigits(digits);
-	numberFormat.setMaximumFractionDigits(digits);
-	String s = numberFormat.format(value);
-	// String s = String.format("%1.3f", value);
+	    Double value = (currentValue / convertValue) *
+		valueMap.get(CURRENCY_NAMES[index]);
 
-	valueList.add(s);
+	    NumberFormat numberFormat = NumberFormat.getInstance();
+	    numberFormat.setMinimumFractionDigits(digits);
+	    numberFormat.setMaximumFractionDigits(digits);
+	    String s = numberFormat.format(value);
+	    // String s = String.format("%1.3f", value);
+
+	    valueList.add(s);
+	}
 
 	// Get preferences
 	SharedPreferences preferences =
@@ -870,14 +881,17 @@ public class Main extends Activity
 	@Override
 	protected void onPostExecute(Map<String, Double> table)
 	{
+	    // Check the table
 	    if (!table.isEmpty())
 	    {
 		valueMap = table;
 
+		// Empty the value list
 		valueList.clear();
 
-		convertValue = valueMap.get(CURRENCY_NAME[currentIndex]);
+		convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
+		// Populate a new value list
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		numberFormat.setMinimumFractionDigits(digits);
 		numberFormat.setMaximumFractionDigits(digits);

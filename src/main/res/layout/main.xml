@@ -38,14 +38,14 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="8dp"
-	    android:text="@string/EUR_name"
+	    android:text="@string/euro_name"
 	    android:textAppearance="?android:attr/textAppearanceLarge" />
 	<TextView
 	    android:id="@+id/symbol"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="8dp"
-	    android:text="@string/EUR_symbol"
+	    android:text="@string/euro_symbol"
 	    android:textAppearance="?android:attr/textAppearanceLarge" />
 	<EditText
 	    android:id="@+id/edit"
@@ -65,7 +65,7 @@
 	  android:layout_height="wrap_content"
 	  android:layout_marginLeft="8dp"
 	  android:layout_marginBottom="8dp"
-	  android:text="@string/EUR"
+	  android:text="@string/eur"
 	  android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>

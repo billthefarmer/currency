@@ -30,20 +30,29 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Choice dialog
+
 public class ChoiceDialog extends Activity
-    implements AdapterView.OnItemClickListener, View.OnClickListener
+    implements View.OnClickListener, AdapterView.OnItemClickListener,
+	       AdapterView.OnItemLongClickListener
 {
     private ListView listView;
-    private Button button;
+    private Button select;
+    private Button cancel;
+
+    private ArrayList<Integer> selectList;
 
     private List<Integer> flagList;
     private List<String> nameList;
     private List<Integer> longNameList;
 
     private ChoiceAdapter adapter;
+
+    private int mode = Main.NORMAL_MODE;
 
     // On create
 
@@ -53,22 +62,35 @@ public class ChoiceDialog extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose);
 
-	button = (Button)findViewById(R.id.cancel);
+	select = (Button)findViewById(R.id.select);
+	cancel = (Button)findViewById(R.id.cancel);
  	listView = (ListView)findViewById(R.id.list);
 
-	if (button != null)
-	    button.setOnClickListener(this);
+	// Set the listeners
+	if (select != null)
+	    select.setOnClickListener(this);
+
+	if (cancel != null)
+	    cancel.setOnClickListener(this);
 
 	if (listView != null)
+	{
 	    listView.setOnItemClickListener(this);
+	    listView.setOnItemLongClickListener(this);
+	}
 
-	flagList = Arrays.asList(Main.CURRENCY_FLAG);
-	nameList = Arrays.asList(Main.CURRENCY_NAME);
-	longNameList = Arrays.asList(Main.CURRENCY_LONGNAME);
+	selectList = new ArrayList<Integer>();
 
+	// Populate the lists
+	flagList = Arrays.asList(Main.CURRENCY_FLAGS);
+	nameList = Arrays.asList(Main.CURRENCY_NAMES);
+	longNameList = Arrays.asList(Main.CURRENCY_LONGNAMES);
+
+	// Create the adapter
 	adapter = new ChoiceAdapter(this, R.layout.choice, flagList,
 				    nameList, longNameList);
 
+	// Set the adapter
 	if (listView != null)
 	    listView.setAdapter(adapter);
     }
@@ -78,8 +100,25 @@ public class ChoiceDialog extends Activity
     @Override
     public void onClick(View v)
     {
-	setResult(RESULT_CANCELED);
-	finish();
+	int id = v.getId();
+
+	switch(id)
+	{
+	    // Cancel
+	case R.id.cancel:
+	    setResult(RESULT_CANCELED);
+	    finish();
+	    break;
+
+	    // Select
+	case R.id.select:
+	    // Return new currency list in intent
+	    Intent intent = new Intent();
+	    intent.putIntegerArrayListExtra(Main.CHOICE, selectList);
+	    setResult(RESULT_OK, intent);
+	    finish();
+	    break;
+	}
     }
 
     // On item click
@@ -88,11 +127,46 @@ public class ChoiceDialog extends Activity
     public void onItemClick(AdapterView parent, View view,
 			    int position, long id)
     {
-	// Return new currency in intent
-	Intent intent = new Intent();
-	intent.putExtra(Main.CHOICE,
-			position);
-	setResult(RESULT_OK, intent);
-	finish();
+	// Check mode
+	switch (mode)
+	{
+	    // Normal
+	case Main.NORMAL_MODE:
+	    selectList.add(position);
+	    // Return new currency in intent
+	    Intent intent = new Intent();
+	    intent.putIntegerArrayListExtra(Main.CHOICE, selectList);
+	    setResult(RESULT_OK, intent);
+	    finish();
+	    break;
+
+	    // Select
+	case Main.SELECT_MODE:
+	    selectList.add(position);
+	    view.setBackgroundResource(android.R.color.holo_blue_dark);
+	    break;
+	}
+    }
+
+    // On item long click
+
+    @Override
+    public boolean onItemLongClick(AdapterView parent, View view,
+				int position, long id)
+    {
+	mode = Main.SELECT_MODE;
+
+	// Clear exising selection
+	for (int index: selectList)
+	{
+	    View v = parent.getChildAt(index);
+	    v.setBackgroundResource(0);
+	}
+
+	// Start a new one
+	selectList.clear();
+	selectList.add(position);
+	view.setBackgroundResource(android.R.color.holo_blue_dark);
+	return true;
     }
 }
