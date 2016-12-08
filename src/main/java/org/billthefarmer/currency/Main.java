@@ -98,14 +98,17 @@ public class Main extends Activity
     // Currency long names
     public static final Integer CURRENCY_LONGNAMES[] =
     {
-	R.string.eur, R.string.usd, R.string.jpy, R.string.bgn,
-	R.string.czk, R.string.dkk, R.string.gbp, R.string.huf,
-	R.string.pln, R.string.ron, R.string.sek, R.string.chf,
-	R.string.nok, R.string.hrk, R.string.rub, R.string.trl,
-	R.string.aud, R.string.brl, R.string.cad, R.string.cny,
-	R.string.hkd, R.string.idr, R.string.ils, R.string.inr,
-	R.string.krw, R.string.mxn, R.string.myr, R.string.nzd,
-	R.string.php, R.string.sgd, R.string.thb, R.string.zar
+	R.string.long_eur, R.string.long_usd, R.string.long_jpy,
+	R.string.long_bgn, R.string.long_czk, R.string.long_dkk,
+	R.string.long_gbp, R.string.long_huf, R.string.long_pln,
+	R.string.long_ron, R.string.long_sek, R.string.long_chf,
+	R.string.long_nok, R.string.long_hrk, R.string.long_rub,
+	R.string.long_try, R.string.long_aud, R.string.long_brl,
+	R.string.long_cad, R.string.long_cny, R.string.long_hkd,
+	R.string.long_idr, R.string.long_ils, R.string.long_inr,
+	R.string.long_krw, R.string.long_mxn, R.string.long_myr,
+	R.string.long_nzd, R.string.long_php, R.string.long_sgd,
+	R.string.long_thb, R.string.long_zar
     };
 	
     // Currency flags
