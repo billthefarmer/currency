@@ -13,4 +13,4 @@ android:
 
     - android-17
 
-script: gradle build
+script: ./gradlew build
