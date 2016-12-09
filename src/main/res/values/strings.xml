@@ -11,6 +11,7 @@
   <string name="licence">Licence: GNU GPLv3</string>
 
   <string name="select">Select</string>
+  <string name="clear">Clear</string>
   <string name="cancel">Cancel</string>
 
   <string name="euro_name">EUR</string>

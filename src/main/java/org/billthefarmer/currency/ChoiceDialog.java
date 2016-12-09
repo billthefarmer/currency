@@ -41,8 +41,9 @@ public class ChoiceDialog extends Activity
 	       AdapterView.OnItemLongClickListener
 {
     private ListView listView;
-    private Button select;
     private Button cancel;
+    private Button clear;
+    private Button select;
 
     private ArrayList<Integer> selectList;
 
@@ -62,22 +63,27 @@ public class ChoiceDialog extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose);
 
-	select = (Button)findViewById(R.id.select);
-	cancel = (Button)findViewById(R.id.cancel);
  	listView = (ListView)findViewById(R.id.list);
 
+	cancel = (Button)findViewById(R.id.cancel);
+	clear = (Button)findViewById(R.id.clear);
+	select = (Button)findViewById(R.id.select);
+
 	// Set the listeners
-	if (select != null)
-	    select.setOnClickListener(this);
-
-	if (cancel != null)
-	    cancel.setOnClickListener(this);
-
 	if (listView != null)
 	{
 	    listView.setOnItemClickListener(this);
 	    listView.setOnItemLongClickListener(this);
 	}
+
+	if (cancel != null)
+	    cancel.setOnClickListener(this);
+
+	if (clear != null)
+	    clear.setOnClickListener(this);
+
+	if (select != null)
+	    select.setOnClickListener(this);
 
 	selectList = new ArrayList<Integer>();
 
@@ -108,6 +114,21 @@ public class ChoiceDialog extends Activity
 	case R.id.cancel:
 	    setResult(RESULT_CANCELED);
 	    finish();
+	    break;
+
+	    // Clear
+	case R.id.clear:
+	    mode = Main.NORMAL_MODE;
+
+	    // Clear exising selection
+	    for (int index: selectList)
+	    {
+		View view = listView.getChildAt(index);
+		view.setBackgroundResource(0);
+	    }
+
+	    // Start a new one
+	    selectList.clear();
 	    break;
 
 	    // Select
