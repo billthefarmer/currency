@@ -38,6 +38,10 @@
 	android:theme="@android:style/Theme.Holo.Dialog">
     </activity>
     <activity
+	android:name="HelpActivity"
+        android:label="@string/help">
+    </activity>
+    <activity
 	android:name="SettingsActivity"
         android:label="@string/settings">
     </activity>

@@ -3,19 +3,25 @@
 
   <item
       android:id="@+id/action_add"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/add"
       android:icon="@drawable/ic_action_add" />
 
   <item
       android:id="@+id/action_refresh"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/refresh"
       android:icon="@drawable/ic_action_refresh" />
 
   <item
+      android:id="@+id/action_help"
+      android:showAsAction="always"
+      android:title="@string/help"
+      android:icon="@drawable/ic_action_help" />
+
+  <item
       android:id="@+id/action_settings"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/settings"
       android:icon="@drawable/ic_action_settings" />
 

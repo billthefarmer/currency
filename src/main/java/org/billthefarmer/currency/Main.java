@@ -477,17 +477,20 @@ public class Main extends Activity
 	int id = item.getItemId();
 	switch (id)
 	{
-	case R.id.action_done:
-	    return onDoneClick();
-
 	case R.id.action_add:
 	    return onAddClick();
 
-	case R.id.action_remove:
-	    return onRemoveClick();
-
 	case R.id.action_refresh:
 	    return onRefreshClick();
+
+	case R.id.action_help:
+	    return onHelpClick();
+
+	case R.id.action_done:
+	    return onDoneClick();
+
+	case R.id.action_remove:
+	    return onRemoveClick();
 
 	    // Settings
 
@@ -496,6 +499,16 @@ public class Main extends Activity
 	}
 
 	return false;
+    }
+
+    // On add click
+
+    private boolean onAddClick()
+    {
+	Intent intent = new Intent(this, ChoiceDialog.class);
+	startActivityForResult(intent, 0);
+
+	return true;
     }
 
     // on done click
@@ -512,16 +525,6 @@ public class Main extends Activity
 	}
 
 	selectList.clear();
-
-	return true;
-    }
-
-    // On add click
-
-    private boolean onAddClick()
-    {
-	Intent intent = new Intent(this, ChoiceDialog.class);
-	startActivityForResult(intent, 0);
 
 	return true;
     }
@@ -608,6 +611,16 @@ public class Main extends Activity
 	statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_URL);
+	return true;
+    }
+
+    // On help click
+
+    private boolean onHelpClick()
+    {
+	Intent intent = new Intent(this, HelpActivity.class);
+	startActivity(intent);
+
 	return true;
     }
 
