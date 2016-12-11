@@ -37,7 +37,7 @@ The icons in the toolbar from left to right are:
   'No Connection', 'No WiFi' or 'Roaming' according to the update
   settings.
 
-* **Help** Display this help text.
+* **Help** Display help text.
 * **Settings** Display the settings screen.
 
 ### Edit currency list
