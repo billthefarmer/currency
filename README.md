@@ -1,4 +1,4 @@
-# Currency [![Build Status](https://travis-ci.org/billthefarmer/currency.svg?branch=master)](https://travis-ci.org/billthefarmer/currency) [![Get it on F-Droid](https://f-droid.org/badge/get-it-on.png)](https://f-droid.org/app/org.billthefarmer.currency)
+# Currency [![Build Status](https://travis-ci.org/billthefarmer/currency.svg?branch=master)](https://travis-ci.org/billthefarmer/currency)
 
 Android currency conversion.
 
