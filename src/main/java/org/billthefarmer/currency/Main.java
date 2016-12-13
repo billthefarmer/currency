@@ -34,6 +34,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 import android.view.KeyEvent;
@@ -61,7 +63,8 @@ import org.json.JSONObject;
 public class Main extends Activity
     implements EditText.OnEditorActionListener,
 	       AdapterView.OnItemClickListener,
-	       AdapterView.OnItemLongClickListener
+	       AdapterView.OnItemLongClickListener,
+	       TextWatcher
 {
     // Initial currency name list
     public static final String CURRENCY_LIST[] =
@@ -203,7 +206,10 @@ public class Main extends Activity
 	listView = (ListView)findViewById(R.id.list);
 
 	if (editView != null)
+	{
+	    editView.addTextChangedListener(this);
 	    editView.setOnEditorActionListener(this);
+	}
 
 	if (listView != null)
 	{
@@ -241,7 +247,22 @@ public class Main extends Activity
 	digits = Integer.parseInt(preferences.getString(PREF_DIGITS, "3"));
 
 	currentIndex = preferences.getInt(PREF_INDEX, 0);
-	currentValue = preferences.getFloat(PREF_VALUE, 1.0f);
+
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	numberFormat.setMinimumFractionDigits(digits);
+	numberFormat.setMaximumFractionDigits(digits);
+	try
+	{
+	    String value = preferences.getString(PREF_VALUE, "1.0");
+	    Number number = numberFormat.parse(value); 
+	    currentValue = number.doubleValue();
+	}
+
+	catch (Exception e)
+	{
+	    currentValue = 1.0;
+	}
+
 	time = preferences.getString(PREF_TIME, "");
 	String format = resources.getString(R.string.updated);
 	String updated = String.format(format, time);
@@ -253,11 +274,7 @@ public class Main extends Activity
 	symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
 	longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
 
-	NumberFormat numberFormat = NumberFormat.getInstance();
-	numberFormat.setMinimumFractionDigits(digits);
-	numberFormat.setMaximumFractionDigits(digits);
 	String value = numberFormat.format(currentValue);
-	// String value = String.format("%1.3f", currentValue);
 	editView.setText(value);
 
 	// Get saved currency rates and list
@@ -351,9 +368,6 @@ public class Main extends Activity
 	// Calculate value list
 	else
 	{
-	    numberFormat = NumberFormat.getInstance();
-	    numberFormat.setMinimumFractionDigits(digits);
-	    numberFormat.setMaximumFractionDigits(digits);
 	    for (String s: nameList)
 	    {
 		Double v = valueMap.get(s);
@@ -438,7 +452,12 @@ public class Main extends Activity
 	editor.putString(PREF_NAMES, nameArray.toString());
 	editor.putString(PREF_VALUES, valueArray.toString());
 	editor.putInt(PREF_INDEX, currentIndex);
-	editor.putFloat(PREF_VALUE, (float)currentValue);
+
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	numberFormat.setMinimumFractionDigits(digits);
+	numberFormat.setMaximumFractionDigits(digits);
+	String value = numberFormat.format(currentValue);
+	editor.putString(PREF_VALUE, value);
 	editor.putString(PREF_TIME, time);
 	editor.apply();
     }
@@ -554,24 +573,7 @@ public class Main extends Activity
 	    longNameList.remove(i);
 	}
 
-	// Get preferences
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(this);
-
-	// Get editor
-	SharedPreferences.Editor editor = preferences.edit();
-
-	// Get entries
-	JSONArray nameArray = new JSONArray(nameList);
-	JSONArray valueArray = new JSONArray(valueList);
-
-	// Update preferences
-	editor.putString(PREF_NAMES, nameArray.toString());
-	editor.putString(PREF_VALUES, valueArray.toString());
-	editor.apply();
-
 	selectList.clear();
-
 	adapter.notifyDataSetChanged();
 
 	mode = NORMAL_MODE;
@@ -580,7 +582,7 @@ public class Main extends Activity
  	return true;
     }
 
-    // On resfresh click
+    // On refresh click
 
     private boolean onRefreshClick()
     {
@@ -634,6 +636,58 @@ public class Main extends Activity
 	return true;
     }
 
+    // After text changed
+
+    @Override
+    public void afterTextChanged(Editable editable)
+    {
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	numberFormat.setMinimumFractionDigits(digits);
+	numberFormat.setMaximumFractionDigits(digits);
+ 
+	try
+	{
+	    String n = editable.toString().replaceAll(",", "");
+	    if (n.length() > 0)
+	    {
+		Number number = numberFormat.parse(n);
+		currentValue = number.doubleValue();
+	    }
+	}
+
+	catch (Exception e)
+	{
+	    e.printStackTrace();
+	    currentValue = 1.0;
+	    editView.setText(R.string.num_one);
+	}
+
+	if (nameList != null)
+	{
+	    valueList.clear();
+	    for (String name: nameList)
+	    {
+		Double value = (currentValue / convertValue) *
+		    valueMap.get(name);
+
+		String s = numberFormat.format(value);
+		valueList.add(s);
+	    }
+
+	    adapter.notifyDataSetChanged();
+	}
+    }
+
+    @Override
+    public void beforeTextChanged (CharSequence s, int start,
+				   int count,  int after)
+    {}
+
+    @Override
+    public void onTextChanged (CharSequence s, int start, 
+			       int before, int count)
+    {}
+
     // On editor action
 
     @Override
@@ -649,15 +703,23 @@ public class Main extends Activity
 
 	    try
 	    {
-	    	Number number = numberFormat.parse(v.getText().toString());
-	    	currentValue = number.doubleValue();
+		String n = v.getText().toString().replaceAll(",", "");
+		if (n.length() > 0)
+		{
+		    Number number = numberFormat.parse(n);
+		    currentValue = number.doubleValue();
+		}
 	    }
 
 	    catch (Exception e)
 	    {
 		e.printStackTrace();
 		currentValue = 1.0;
+		editView.setText(R.string.num_one);
 	    }
+
+	    String s = numberFormat.format(currentValue);
+	    editView.setText(s);
 
 	    valueList.clear();
 	    for (String name: nameList)
@@ -665,28 +727,13 @@ public class Main extends Activity
 		Double value = (currentValue / convertValue) *
 		    valueMap.get(name);
 
-		String s = numberFormat.format(value);
-		// String s = String.format("%1.3f", value);
+		s = numberFormat.format(value);
 		valueList.add(s);
 	    }
 
-	    // Get preferences
-	    SharedPreferences preferences =
-		PreferenceManager.getDefaultSharedPreferences(this);
-
-	    // Get editor
-	    SharedPreferences.Editor editor = preferences.edit();
-
-	    JSONArray valueArray = new JSONArray(valueList);
-
-	    // Update preferences
-	    editor.putString(PREF_VALUES, valueArray.toString());
-	    editor.putFloat(PREF_VALUE, (float)currentValue);
-	    editor.apply();
-
 	    adapter.notifyDataSetChanged();
 
-	    return false;
+	    return false; // Or the keypad won't go away
         }
 
         return false;
@@ -825,7 +872,6 @@ public class Main extends Activity
 	    numberFormat.setMinimumFractionDigits(digits);
 	    numberFormat.setMaximumFractionDigits(digits);
 	    String s = numberFormat.format(value);
-	    // String s = String.format("%1.3f", value);
 
 	    valueList.add(s);
 	}
@@ -919,7 +965,6 @@ public class Main extends Activity
 			valueMap.get(name);
 
 		    String s = numberFormat.format(value);
-		    // String s = String.format("%1.3f", value);
 
 		    valueList.add(s);
 		}
