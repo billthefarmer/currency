@@ -1,6 +1,6 @@
 # Currency [![Build Status](https://travis-ci.org/billthefarmer/currency.svg?branch=master)](https://travis-ci.org/billthefarmer/currency)
 
-Android currency conversion.
+Android currency conversion. The app is avalable on [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.currency) and [here](https://github.com/billthefarmer/currency/releases).
 
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/currency.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/choose.png)
 
