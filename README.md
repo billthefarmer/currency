@@ -1,4 +1,4 @@
-# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Currency [![Build Status](https://travis-ci.org/billthefarmer/currency.svg?branch=master)](https://travis-ci.org/billthefarmer/currency) [![F-Droid](fdroid.png)](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.currency)
+# ![Logo](src/main/res/drawable-mdpi/ic_launcher.png) Currency [![Build Status](https://travis-ci.org/billthefarmer/currency.svg?branch=master)](https://travis-ci.org/billthefarmer/currency) [![F-Droid](fdroid.png)](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.currency)
 
 Android currency conversion. The app is avalable on [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.currency) and [here](https://github.com/billthefarmer/currency/releases).
 
