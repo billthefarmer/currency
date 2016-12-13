@@ -14,10 +14,12 @@ Android currency conversion. The app is avalable on [F-Droid](https://f-droid.or
 ## Usage
 ### Edit
 
-Touch the current currency value field to edit the current
-value. Touch the **Done** button on the numeric keypad to update the
-display. The values shown against each currency in the display will be
-updated.
+Touch the current currency value field to edit the value. The display
+will be updated dynamically as you type. Touch the **Done** button on
+the numeric keypad to update the value field. The values shown against
+each currency in the display will be updated.
+
+### Toolbar
 
 The icons in the toolbar from left to right are:
 
