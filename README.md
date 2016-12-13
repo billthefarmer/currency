@@ -22,7 +22,7 @@ updated.
 The icons in the toolbar from left to right are:
 
 * **Add** a currency to the list. A scrollable list of currencies will
-   pop up. Touch an entry to select it or touch the **Cancel** button
+   pop up. Touch an entry to add it or touch the **Cancel** button
    below the list. Long touch an entry to select it. Once one currency
    is selected others may be added to the selection by touching
    them. Another long touch on another currency will clear the list
