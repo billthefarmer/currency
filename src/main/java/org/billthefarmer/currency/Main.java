@@ -486,7 +486,7 @@ public class Main extends Activity
 	case R.id.action_help:
 	    return onHelpClick();
 
-	case R.id.action_done:
+	case R.id.action_clear:
 	    return onDoneClick();
 
 	case R.id.action_remove:

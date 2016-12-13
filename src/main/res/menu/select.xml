@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
   <item
-      android:id="@+id/action_done"
+      android:id="@+id/action_clear"
       android:showAsAction="ifRoom"
-      android:title="@string/done"
-      android:icon="@drawable/ic_action_done" />
+      android:title="@string/clear"
+      android:icon="@drawable/ic_action_clear" />
 
   <item
       android:id="@+id/action_remove"
