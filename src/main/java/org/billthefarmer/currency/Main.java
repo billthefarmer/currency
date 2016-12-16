@@ -25,6 +25,8 @@ package org.billthefarmer.currency;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ClipboardManager;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -511,6 +513,9 @@ public class Main extends Activity
 	case R.id.action_clear:
 	    return onDoneClick();
 
+	case R.id.action_copy:
+	    return onCopyClick();
+
 	case R.id.action_remove:
 	    return onRemoveClick();
 
@@ -537,9 +542,6 @@ public class Main extends Activity
 
     private boolean onDoneClick()
     {
-	mode = NORMAL_MODE;
-	invalidateOptionsMenu();
-
 	for (int i: selectList)
 	{
 	    View v = listView.getChildAt(i);
@@ -547,6 +549,47 @@ public class Main extends Activity
 	}
 
 	selectList.clear();
+
+	mode = NORMAL_MODE;
+	invalidateOptionsMenu();
+
+	return true;
+    }
+
+    // On copy click
+
+    private boolean onCopyClick()
+    {
+	ClipboardManager clipboard =
+	    (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	numberFormat.setMinimumFractionDigits(digits);
+	numberFormat.setMaximumFractionDigits(digits);
+
+	String clip = null;
+	for (int i: selectList)
+	{
+	    View v = listView.getChildAt(i);
+	    v.setBackgroundResource(0);
+
+	    try
+	    {
+		numberFormat.setGroupingUsed(true);
+		Number number = numberFormat.parse(valueList.get(i));
+		Double value = number.doubleValue();
+
+		numberFormat.setGroupingUsed(false);
+		clip = numberFormat.format(value);
+	    }
+
+	    catch (Exception e) {}
+	}
+
+	clipboard.setPrimaryClip(ClipData.newPlainText("Currency clip", clip));
+
+	mode = NORMAL_MODE;
+	invalidateOptionsMenu();
 
 	return true;
     }
