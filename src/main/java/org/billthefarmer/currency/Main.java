@@ -511,7 +511,7 @@ public class Main extends Activity
 	    return onHelpClick();
 
 	case R.id.action_clear:
-	    return onDoneClick();
+	    return onClearClick();
 
 	case R.id.action_copy:
 	    return onCopyClick();
@@ -538,9 +538,9 @@ public class Main extends Activity
 	return true;
     }
 
-    // on done click
+    // On clear click
 
-    private boolean onDoneClick()
+    private boolean onClearClick()
     {
 	for (int i: selectList)
 	{
@@ -726,13 +726,11 @@ public class Main extends Activity
 
     @Override
     public void beforeTextChanged (CharSequence s, int start,
-				   int count,  int after)
-    {}
+				   int count,  int after) {}
 
     @Override
     public void onTextChanged (CharSequence s, int start, 
-			       int before, int count)
-    {}
+			       int before, int count) {}
 
     // On editor action
 
