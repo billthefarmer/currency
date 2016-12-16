@@ -16,7 +16,7 @@
 
   <string name="euro_name">EUR</string>
   <string name="euro_symbol">€</string>
-  <string name="num_one">1.000</string>
+  <string name="num_one">1</string>
   <string name="not_updated">Not updated</string>
   <string name="updated">Updated: %s</string>
   <string name="ok">OK</string>

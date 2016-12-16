@@ -53,6 +53,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.List;
 import java.util.Map;
 import org.json.JSONArray;
@@ -265,7 +266,7 @@ public class Main extends Activity
 
 	time = preferences.getString(PREF_TIME, "");
 	String format = resources.getString(R.string.updated);
-	String updated = String.format(format, time);
+	String updated = String.format(Locale.getDefault(), format, time);
 	timeView.setText(updated);
 
 	// Set current currency
@@ -274,6 +275,7 @@ public class Main extends Activity
 	symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
 	longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
 
+	numberFormat.setGroupingUsed(false);
 	String value = numberFormat.format(currentValue);
 	editView.setText(value);
 
@@ -314,7 +316,7 @@ public class Main extends Activity
 	    if (time != null)
 	    {
 		format = resources.getString(R.string.updated);
-		updated = String.format(format, time);
+		updated = String.format(Locale.getDefault(), format, time);
 		timeView.setText(updated);
 	    }
 
@@ -456,6 +458,7 @@ public class Main extends Activity
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
 	numberFormat.setMaximumFractionDigits(digits);
+	numberFormat.setGroupingUsed(false);
 	String value = numberFormat.format(currentValue);
 	editor.putString(PREF_VALUE, value);
 	editor.putString(PREF_TIME, time);
@@ -647,7 +650,7 @@ public class Main extends Activity
  
 	try
 	{
-	    String n = editable.toString().replaceAll(",", "");
+	    String n = editable.toString();
 	    if (n.length() > 0)
 	    {
 		Number number = numberFormat.parse(n);
@@ -703,7 +706,7 @@ public class Main extends Activity
 
 	    try
 	    {
-		String n = v.getText().toString().replaceAll(",", "");
+		String n = v.getText().toString();
 		if (n.length() > 0)
 		{
 		    Number number = numberFormat.parse(n);
@@ -717,11 +720,12 @@ public class Main extends Activity
 		currentValue = 1.0;
 		editView.setText(R.string.num_one);
 	    }
-
+	    numberFormat.setGroupingUsed(false);
 	    String s = numberFormat.format(currentValue);
 	    editView.setText(s);
 
 	    valueList.clear();
+	    numberFormat.setGroupingUsed(true);
 	    for (String name: nameList)
 	    {
 		Double value = (currentValue / convertValue) *
@@ -766,6 +770,7 @@ public class Main extends Activity
 
 	    convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
+	    numberFormat.setGroupingUsed(false);
 	    value = numberFormat.format(currentValue);
 	    // value = String.format("%1.3f", currentValue);
 	    editView.setText(value);
@@ -786,6 +791,7 @@ public class Main extends Activity
 	    symbolList.add(0, CURRENCY_SYMBOLS[oldIndex]);
 	    longNameList.add(0, CURRENCY_LONGNAMES[oldIndex]);
 
+	    numberFormat.setGroupingUsed(true);
 	    value = numberFormat.format(oldValue);
 	    // value = String.format("%1.3f", oldValue);
 	    valueList.add(0, value);
@@ -927,7 +933,8 @@ public class Main extends Activity
 	    if (time[0] != null)
 	    {
 		String format = resources.getString(R.string.updated);
-		String updated = String.format(format, time[0]);
+		String updated = String.format(Locale.getDefault(),
+					       format, time[0]);
 
 		timeView.setText(updated);
 
