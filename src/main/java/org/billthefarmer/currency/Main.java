@@ -586,7 +586,7 @@ public class Main extends Activity
 	    catch (Exception e) {}
 	}
 
-	clipboard.setPrimaryClip(ClipData.newPlainText("Currency clip", clip));
+	clipboard.setPrimaryClip(ClipData.newPlainText("Currency", clip));
 
 	mode = NORMAL_MODE;
 	invalidateOptionsMenu();
