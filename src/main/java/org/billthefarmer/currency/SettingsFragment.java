@@ -27,9 +27,9 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
+// import android.content.pm.PackageInfo;
+// import android.content.pm.PackageManager;
+// import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -66,31 +66,10 @@ public class SettingsFragment extends PreferenceFragment
 	Preference about = findPreference(Main.PREF_ABOUT);
 	String sum = (String) about.getSummary();
 
-	// Get context and package manager
-
-	Context context = getActivity();
-	PackageManager manager = context.getPackageManager();
-
-	// Get info
-
-	PackageInfo info = null;
-	try
-	{
-	    info = manager.getPackageInfo("org.billthefarmer.currency", 0);
-	}
-	
-	catch (NameNotFoundException e)
-	{
-	    e.printStackTrace();
-	}
-
 	// Set version in text view
 
-	if (info != null)
-	{
-	    String s = String.format(sum, info.versionName);
-	    about.setSummary(s);
-	}
+	String s = String.format(sum, BuildConfig.VERSION_NAME);
+	about.setSummary(s);
     }
 
     // On preference tree click

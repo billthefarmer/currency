@@ -28,9 +28,9 @@
 package org.billthefarmer.currency;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
+// import android.content.pm.PackageInfo;
+// import android.content.pm.PackageManager;
+// import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
@@ -57,31 +57,10 @@ public class AboutPreference extends DialogPreference
 
 	TextView version = (TextView) view.findViewById(R.id.about);
 
-	// Get context and package manager
-
-	Context context = getContext();
-	PackageManager manager = context.getPackageManager();
-
-	// Get info
-
-	PackageInfo info = null;
-	try
-	{
-	    info = manager.getPackageInfo("org.billthefarmer.currency", 0);
-	}
-		
-	catch (NameNotFoundException e)
-	{
-	    e.printStackTrace();
-	}
-
 	// Set version in text view
 
-	if (info != null)
-	{
-	    String v = (String) version.getText();
-	    String s = String.format(v, info.versionName);
-	    version.setText(s);
-	}
+	String v = (String) version.getText();
+	String s = String.format(v, BuildConfig.VERSION_NAME);
+	version.setText(s);
     }
 }
