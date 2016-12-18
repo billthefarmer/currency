@@ -52,7 +52,7 @@ will clear the list and select the new currency. The icons in the
 toolbar will change to:
 
 * **Clear** Clear the selection.
-* **Gopy** Copy selection value to clipboard. Only one value will be copied.
+* **Copy** Copy selection value to clipboard. Only one value will be copied.
 * **Remove** the selected currencies.
 
 ## Settings
