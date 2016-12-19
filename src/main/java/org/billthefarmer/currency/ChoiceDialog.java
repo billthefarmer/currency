@@ -173,14 +173,14 @@ public class ChoiceDialog extends Activity
 
     @Override
     public boolean onItemLongClick(AdapterView parent, View view,
-				int position, long id)
+				   int position, long id)
     {
 	mode = Main.SELECT_MODE;
 
 	// Clear exising selection
 	for (int index: selectList)
 	{
-	    View v = parent.getChildAt(index);
+	    View v = listView.getChildAt(index);
 	    v.setBackgroundResource(0);
 	}
 

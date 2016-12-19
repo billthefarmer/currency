@@ -876,7 +876,7 @@ public class Main extends Activity
 
 	for (int index: selectList)
 	{
-	    View v = parent.getChildAt(index);
+	    View v = listView.getChildAt(index);
 	    v.setBackgroundResource(0);
 	}
 
