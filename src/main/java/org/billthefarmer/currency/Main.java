@@ -91,14 +91,14 @@ public class Main extends Activity
     // Currency symbols
     public static final String CURRENCY_SYMBOLS[] =
     {
-	"€", "$", "¥", " ",
-	" ", " ", "£", " ",
-	" ", " ", " ", " ",
-	" ", " ", " ", " ",
-	"$", " ", "$", " ",
-	"$", " ", " ", " ",
-	" ", " ", " ", "$",
-	" ", "$", " ", " "
+	"€", "$", "¥", "лв",
+	"Kč", "kr", "£", "Ft",
+	"zł", "lei", "kr", "",
+	"kr", "kn", "₽", "₺",
+	"$", "R$", "$", "¥",
+	"$", "Rp", "₪", "₹",
+	"₩", "$", "RM", "$",
+	"₱", "$", "฿", "S"
     };
 
     // Currency long names
