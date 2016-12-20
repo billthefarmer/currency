@@ -37,7 +37,7 @@
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Update while roaming</string>
   <string name="pref_select">Selection</string>
-  <string name="pref_select_summ">Select all when clicked</string>
+  <string name="pref_select_summ">Select all when touched</string>
   <string name="pref_numbers">Numbers</string>
   <string name="pref_digits">Fraction digits</string>
   <string name="pref_digit_default">3</string>
