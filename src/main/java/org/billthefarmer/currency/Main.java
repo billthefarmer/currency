@@ -703,12 +703,12 @@ public class Main extends Activity
 		view.requestFocus();
 	    }
 
-	    select = true;
+	    select = false;
 	    break;
 
 	default:
 	    editView.setSelection(0);
-	    select = false;
+	    select = true;
 	}
     }
 
