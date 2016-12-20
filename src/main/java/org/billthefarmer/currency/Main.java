@@ -67,7 +67,7 @@ public class Main extends Activity
     implements EditText.OnEditorActionListener,
 	       AdapterView.OnItemClickListener,
 	       AdapterView.OnItemLongClickListener,
-	       TextWatcher
+	       View.OnClickListener, TextWatcher
 {
     // Initial currency name list
     public static final String CURRENCY_LIST[] =
@@ -143,7 +143,8 @@ public class Main extends Activity
     public static final String PREF_VALUES = "pref_values";
 
     public static final String PREF_WIFI = "pref_wifi";
-    public static final String PREF_ROAMING = "pref_roamning";
+    public static final String PREF_ROAMING = "pref_roaming";
+    public static final String PREF_SELECT = "pref_select";
     public static final String PREF_DIGITS = "pref_digits";
     public static final String PREF_ABOUT = "pref_about";
 
@@ -159,6 +160,8 @@ public class Main extends Activity
 
     private boolean wifi = true;
     private boolean roaming = false;
+    private boolean selectAll = true;
+    private boolean select = true;
     private int digits = 3;
 
     private int currentIndex = 0;
@@ -208,10 +211,23 @@ public class Main extends Activity
 	statusView = (TextView)findViewById(R.id.status);
 	listView = (ListView)findViewById(R.id.list);
 
+	if (flagView != null)
+	    flagView.setOnClickListener(this);
+
+	if (nameView != null)
+	    nameView.setOnClickListener(this);
+
+	if (symbolView != null)
+	    symbolView.setOnClickListener(this);
+
+	if (longNameView != null)
+	    longNameView.setOnClickListener(this);
+
 	if (editView != null)
 	{
 	    editView.addTextChangedListener(this);
 	    editView.setOnEditorActionListener(this);
+	    editView.setOnClickListener(this);
 	}
 
 	if (listView != null)
@@ -247,6 +263,7 @@ public class Main extends Activity
 
 	wifi = preferences.getBoolean(PREF_WIFI, true);
 	roaming = preferences.getBoolean(PREF_ROAMING, false);
+	selectAll = preferences.getBoolean(PREF_SELECT, true);
 	digits = Integer.parseInt(preferences.getString(PREF_DIGITS, "3"));
 
 	currentIndex = preferences.getInt(PREF_INDEX, 0);
@@ -669,6 +686,30 @@ public class Main extends Activity
 	startActivity(intent);
 
 	return true;
+    }
+
+    // On click
+
+    public void onClick(View view)
+    {
+	int id = view.getId();
+
+	switch (id)
+	{
+	case R.id.edit:
+	    if (selectAll && select)
+	    {
+		view.clearFocus();
+		view.requestFocus();
+	    }
+
+	    select = true;
+	    break;
+
+	default:
+	    editView.setSelection(0);
+	    select = false;
+	}
     }
 
     // After text changed

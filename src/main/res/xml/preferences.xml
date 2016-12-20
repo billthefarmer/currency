@@ -26,6 +26,20 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+      android:key="pref_select_category"
+      android:title="@string/pref_select">
+
+    <CheckBoxPreference
+	android:key="pref_select"
+	android:icon="@drawable/ic_pref_select_all"
+	android:title="@string/pref_select"
+	android:summary="@string/pref_select_summ"
+	android:persistent="true"
+	android:defaultValue="true" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
       android:key="pref_numbers_category"
       android:title="@string/pref_numbers">
 
