@@ -16,8 +16,11 @@ Android currency conversion. The app is available on [F-Droid](https://f-droid.o
 
 Touch the current currency value field to edit the value. The display
 will be updated dynamically as you type. Touch the **Done** button on
-the numeric keypad to update the value field. The values shown against
-each currency in the display will be updated.
+the numeric keypad to update the value field.  The whole value field
+is selected by default when touched so it will be overwritten by
+typing in a new value. To deselect the text, touch an adjacent area,
+like the currency flag. This behaviour can be disabled in the settings
+below.
 
 ### Toolbar
 
@@ -51,8 +54,8 @@ selection by touching them. Another long touch on another currency
 will clear the list and select the new currency. The icons in the
 toolbar will change to:
 
-* **Clear** Clear the selection.
-* **Copy** Copy selection value to clipboard. Only one value will be copied.
+* **Clear** the selection.
+* **Copy** selection value to clipboard. Only one value will be copied.
 * **Remove** the selected currencies.
 
 ## Settings
@@ -61,7 +64,11 @@ toolbar will change to:
 
 * **WiFi** Update while connected on WiFi only
 * **Roaming** Update while roaming
- 
+
+### Selection
+
+* **Selection** Select all current currency value text when touched.
+  
 ### Numbers
  
 * **Fraction digits** Select the number of digits to display after the
