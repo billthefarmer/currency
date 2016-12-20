@@ -397,7 +397,8 @@ public class Main extends Activity
 
 	// Create the adapter
 	adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList,
-				      symbolList, valueList, longNameList);
+				      symbolList, valueList, longNameList,
+				      selectList);
 
 	// Set the list view adapter
 	if (listView != null)
@@ -542,17 +543,11 @@ public class Main extends Activity
 
     private boolean onClearClick()
     {
-	for (int i: selectList)
-	{
-	    View v = listView.getChildAt(i);
-	    v.setBackgroundResource(0);
-	}
-
-	selectList.clear();
-
 	mode = NORMAL_MODE;
 	invalidateOptionsMenu();
 
+	selectList.clear();
+	adapter.notifyDataSetChanged();
 	return true;
     }
 
@@ -570,9 +565,6 @@ public class Main extends Activity
 	String clip = null;
 	for (int i: selectList)
 	{
-	    View v = listView.getChildAt(i);
-	    v.setBackgroundResource(0);
-
 	    try
 	    {
 		numberFormat.setGroupingUsed(true);
@@ -591,6 +583,8 @@ public class Main extends Activity
 	mode = NORMAL_MODE;
 	invalidateOptionsMenu();
 
+	selectList.clear();
+	adapter.notifyDataSetChanged();
 	return true;
     }
 
@@ -601,12 +595,7 @@ public class Main extends Activity
 	List<String> removeList = new ArrayList<String>();
 
 	for (int i: selectList)
-	{
 	    removeList.add(nameList.get(i));
-
-	    View v = listView.getChildAt(i);
-	    v.setBackgroundResource(0);
-	}
 
 	for (String s: removeList)
 	{
@@ -860,7 +849,7 @@ public class Main extends Activity
 
 	case SELECT_MODE:
 	    selectList.add(position);
-	    view.setBackgroundResource(android.R.color.holo_blue_dark);
+	    adapter.notifyDataSetChanged();
 	    break;
 	}
     }
@@ -874,17 +863,9 @@ public class Main extends Activity
 	mode = SELECT_MODE;
 	invalidateOptionsMenu();
 
-	for (int index: selectList)
-	{
-	    View v = listView.getChildAt(index);
-	    v.setBackgroundResource(0);
-	}
-
 	selectList.clear();
 	selectList.add(position);
-
-	view.setBackgroundResource(android.R.color.holo_blue_dark);
-
+	adapter.notifyDataSetChanged();
 	return true;
     }
 

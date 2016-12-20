@@ -38,14 +38,17 @@ public class CurrencyAdapter extends BaseAdapter
 
     private List<Integer> flags;
     private List<Integer> longNames;
+    private List<Integer> selection;
     private List<String> names;
     private List<String> symbols;
     private List<String> values;
+
     private int resource;
 
     public CurrencyAdapter(Context context, int resource, List<Integer> flags,
 			   List<String> names, List<String> symbols,
-			   List<String> values, List<Integer> longNames)
+			   List<String> values, List<Integer> longNames,
+			   List<Integer> selection)
     {
 	inflater = LayoutInflater.from(context);
 
@@ -55,6 +58,7 @@ public class CurrencyAdapter extends BaseAdapter
 	this.names = names;
 	this.values = values;
 	this.longNames = longNames;
+	this.selection = selection;
     }
 
     public int getCount()
@@ -106,6 +110,12 @@ public class CurrencyAdapter extends BaseAdapter
 
 	if (longName != null)
 	    longName.setText(longNames.get(position));
+
+	if (selection.contains(position))
+	    convertView.setBackgroundResource(android.R.color.holo_blue_dark);
+
+	else
+	    convertView.setBackgroundResource(0);
 
         return convertView;
     }

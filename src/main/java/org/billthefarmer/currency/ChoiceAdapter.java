@@ -37,13 +37,16 @@ public class ChoiceAdapter extends BaseAdapter
     private LayoutInflater inflater;
 
     private List<Integer> flags;
+    private List<Integer> longNames;
+    private List<Integer> selection;
     private List<String> names;
     private List<String> symbols;
-    private List<Integer> longNames;
+
     private int resource;
 
     public ChoiceAdapter(Context context, int resource, List<Integer> flags,
-			   List<String> names, List<Integer> longNames)
+			 List<String> names, List<Integer> longNames,
+			 List<Integer> selection)
     {
 	inflater = LayoutInflater.from(context);
 
@@ -51,6 +54,7 @@ public class ChoiceAdapter extends BaseAdapter
 	this.flags = flags;
 	this.names = names;
 	this.longNames = longNames;
+	this.selection = selection;
     }
 
     public int getCount()
@@ -90,6 +94,12 @@ public class ChoiceAdapter extends BaseAdapter
 
 	if (longName != null)
 	    longName.setText(longNames.get(position));
+
+	if (selection.contains(position))
+	    convertView.setBackgroundResource(android.R.color.holo_blue_dark);
+
+	else
+	    convertView.setBackgroundResource(0);
 
         return convertView;
     }

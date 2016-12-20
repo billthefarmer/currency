@@ -51,6 +51,7 @@
 	    android:id="@+id/edit"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
+	    android:selectAllOnFocus="true"
 	    android:inputType="numberDecimal"
 	    android:hint="@string/decimal"
 	    android:text="@string/num_one"

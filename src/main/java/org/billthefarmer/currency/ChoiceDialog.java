@@ -45,7 +45,7 @@ public class ChoiceDialog extends Activity
     private Button clear;
     private Button select;
 
-    private ArrayList<Integer> selectList;
+    private List<Integer> selectList;
 
     private List<Integer> flagList;
     private List<String> nameList;
@@ -94,7 +94,7 @@ public class ChoiceDialog extends Activity
 
 	// Create the adapter
 	adapter = new ChoiceAdapter(this, R.layout.choice, flagList,
-				    nameList, longNameList);
+				    nameList, longNameList, selectList);
 
 	// Set the adapter
 	if (listView != null)
@@ -120,22 +120,16 @@ public class ChoiceDialog extends Activity
 	case R.id.clear:
 	    mode = Main.NORMAL_MODE;
 
-	    // Clear exising selection
-	    for (int index: selectList)
-	    {
-		View view = listView.getChildAt(index);
-		view.setBackgroundResource(0);
-	    }
-
-	    // Start a new one
+	    // Start a new selection
 	    selectList.clear();
+	    adapter.notifyDataSetChanged();
 	    break;
 
 	    // Select
 	case R.id.select:
 	    // Return new currency list in intent
 	    Intent intent = new Intent();
-	    intent.putIntegerArrayListExtra(Main.CHOICE, selectList);
+	    intent.putIntegerArrayListExtra(Main.CHOICE, (ArrayList)selectList);
 	    setResult(RESULT_OK, intent);
 	    finish();
 	    break;
@@ -156,7 +150,7 @@ public class ChoiceDialog extends Activity
 	    selectList.add(position);
 	    // Return new currency in intent
 	    Intent intent = new Intent();
-	    intent.putIntegerArrayListExtra(Main.CHOICE, selectList);
+	    intent.putIntegerArrayListExtra(Main.CHOICE, (ArrayList)selectList);
 	    setResult(RESULT_OK, intent);
 	    finish();
 	    break;
@@ -164,7 +158,7 @@ public class ChoiceDialog extends Activity
 	    // Select
 	case Main.SELECT_MODE:
 	    selectList.add(position);
-	    view.setBackgroundResource(android.R.color.holo_blue_dark);
+	    adapter.notifyDataSetChanged();
 	    break;
 	}
     }
@@ -177,17 +171,10 @@ public class ChoiceDialog extends Activity
     {
 	mode = Main.SELECT_MODE;
 
-	// Clear exising selection
-	for (int index: selectList)
-	{
-	    View v = listView.getChildAt(index);
-	    v.setBackgroundResource(0);
-	}
-
-	// Start a new one
+	// Start a new selection
 	selectList.clear();
 	selectList.add(position);
-	view.setBackgroundResource(android.R.color.holo_blue_dark);
+	adapter.notifyDataSetChanged();
 	return true;
     }
 }
