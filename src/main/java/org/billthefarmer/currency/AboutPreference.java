@@ -28,9 +28,6 @@
 package org.billthefarmer.currency;
 
 import android.content.Context;
-// import android.content.pm.PackageInfo;
-// import android.content.pm.PackageManager;
-// import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
