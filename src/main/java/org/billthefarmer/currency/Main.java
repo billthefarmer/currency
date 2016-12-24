@@ -141,6 +141,7 @@ public class Main extends Activity
     public static final String PREF_INDEX = "pref_index";
     public static final String PREF_VALUE = "pref_value";
     public static final String PREF_VALUES = "pref_values";
+    public static final String PREF_SELECTION = "pref_selection";
 
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roaming";
@@ -302,6 +303,7 @@ public class Main extends Activity
 	String mapJSON = preferences.getString(PREF_MAP, null);
 	String namesJSON = preferences.getString(PREF_NAMES, null);
 	String valuesJSON = preferences.getString(PREF_VALUES, null);
+	String selectJSON = preferences.getString(PREF_SELECTION, null);
 
 	// Check saved rates
 	if (mapJSON != null)
@@ -399,6 +401,27 @@ public class Main extends Activity
 	    }
 	}
 
+	// Get the saved selection list
+	if (selectJSON != null)
+	{
+	    try
+	    {
+		JSONArray selectArray = new JSONArray(selectJSON);
+		selectList = new ArrayList<Integer>();
+
+		for (int i = 0; !selectArray.isNull(i); i++)
+		    selectList.add(selectArray.getInt(i));
+	    }
+
+	    catch (Exception e)
+	    {
+		e.printStackTrace();
+	    }
+	}
+
+	else
+	    selectList = new ArrayList<Integer>();
+
 	// Get the current conversion rate
 	convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
@@ -468,11 +491,14 @@ public class Main extends Activity
 	JSONObject valueObject = new JSONObject(valueMap);
 	JSONArray nameArray = new JSONArray(nameList);
 	JSONArray valueArray = new JSONArray(valueList);
+	JSONArray selectArray = new JSONArray(selectList);
 
 	// Update preferences
 	editor.putString(PREF_MAP, valueObject.toString());
 	editor.putString(PREF_NAMES, nameArray.toString());
 	editor.putString(PREF_VALUES, valueArray.toString());
+	editor.putString(PREF_SELECTION, selectArray.toString());
+
 	editor.putInt(PREF_INDEX, currentIndex);
 
 	NumberFormat numberFormat = NumberFormat.getInstance();
