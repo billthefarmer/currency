@@ -37,7 +37,6 @@ import android.widget.TextView;
 
 public class HelpActivity extends Activity
 {
-
     // On create
 
     @Override
@@ -59,7 +58,19 @@ public class HelpActivity extends Activity
 	if (actionBar != null)
 	    actionBar.setDisplayHomeAsUpEnabled(true);
     }
-    
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedState)
+    {
+	super.onRestoreInstanceState(savedState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+	super.onSaveInstanceState(outState);
+    }
+
     // On options item selected
 
     @Override

@@ -30,9 +30,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.json.JSONArray;
 
 // Choice dialog
 
@@ -41,6 +44,7 @@ public class ChoiceDialog extends Activity
 	       AdapterView.OnItemLongClickListener
 {
     private ListView listView;
+
     private Button cancel;
     private Button clear;
     private Button select;
@@ -99,6 +103,46 @@ public class ChoiceDialog extends Activity
 	// Set the adapter
 	if (listView != null)
 	    listView.setAdapter(adapter);
+    }
+
+    // On restore
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedState)
+    {
+    	List<Integer> list  =
+	    savedState.getIntegerArrayList(Main.SAVE_SELECT);
+
+	if (list != null)
+	{
+	    for (int index: list)
+		    selectList.add(index);
+
+	    if (selectList.isEmpty())
+		mode = Main.NORMAL_MODE;
+
+	    else
+		mode = Main.SELECT_MODE;
+	}
+
+	else
+	{
+	    mode = Main.NORMAL_MODE;
+	}
+
+	adapter.notifyDataSetChanged();
+	super.onRestoreInstanceState(savedState);
+    }
+
+    // On save
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+	super.onSaveInstanceState(outState);
+
+	outState.putIntegerArrayList(Main.SAVE_SELECT,
+				     (ArrayList<Integer>)selectList);
     }
 
     // On click

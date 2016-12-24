@@ -35,6 +35,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -50,6 +51,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.List;
 import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -141,7 +144,10 @@ public class Main extends Activity
     public static final String PREF_INDEX = "pref_index";
     public static final String PREF_VALUE = "pref_value";
     public static final String PREF_VALUES = "pref_values";
-    public static final String PREF_SELECTION = "pref_selection";
+
+    public static final String SAVE_LIST = "save_list";
+    public static final String SAVE_MENU = "save_menu";
+    public static final String SAVE_SELECT = "save_select";
 
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roaming";
@@ -191,6 +197,8 @@ public class Main extends Activity
 
     private Map<String, Double> valueMap;
 
+    private Parcelable listState;
+
     private CurrencyAdapter adapter;
 
     private Resources resources;
@@ -238,6 +246,36 @@ public class Main extends Activity
 	}
 
 	currencyNameList = Arrays.asList(CURRENCY_NAMES);
+	selectList = new ArrayList<Integer>();
+    }
+
+    // On restore
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedState)
+    {
+	listState = savedState.getParcelable(SAVE_LIST);
+
+    	List<Integer> list  = savedState.getIntegerArrayList(SAVE_SELECT);
+
+	if (list != null)
+	{
+	    for (int index: list)
+		    selectList.add(index);
+
+	    if (selectList.isEmpty())
+		mode = Main.NORMAL_MODE;
+
+	    else
+		mode = Main.SELECT_MODE;
+	}
+
+	else
+	{
+	    mode = Main.NORMAL_MODE;
+	}
+
+	super.onRestoreInstanceState(savedState);
     }
 
     // On resume
@@ -252,8 +290,6 @@ public class Main extends Activity
 	symbolList = new ArrayList<String>();
 	valueList = new ArrayList<String>();
 	longNameList = new ArrayList<Integer>();
-
-	selectList = new ArrayList<Integer>();
 
 	// Get resources
 	resources = getResources();
@@ -303,7 +339,6 @@ public class Main extends Activity
 	String mapJSON = preferences.getString(PREF_MAP, null);
 	String namesJSON = preferences.getString(PREF_NAMES, null);
 	String valuesJSON = preferences.getString(PREF_VALUES, null);
-	String selectJSON = preferences.getString(PREF_SELECTION, null);
 
 	// Check saved rates
 	if (mapJSON != null)
@@ -401,27 +436,6 @@ public class Main extends Activity
 	    }
 	}
 
-	// Get the saved selection list
-	if (selectJSON != null)
-	{
-	    try
-	    {
-		JSONArray selectArray = new JSONArray(selectJSON);
-		selectList = new ArrayList<Integer>();
-
-		for (int i = 0; !selectArray.isNull(i); i++)
-		    selectList.add(selectArray.getInt(i));
-	    }
-
-	    catch (Exception e)
-	    {
-		e.printStackTrace();
-	    }
-	}
-
-	else
-	    selectList = new ArrayList<Integer>();
-
 	// Get the current conversion rate
 	convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
@@ -442,7 +456,12 @@ public class Main extends Activity
 
 	// Set the list view adapter
 	if (listView != null)
+	{
 	    listView.setAdapter(adapter);
+
+	    if (listState != null)
+		listView.onRestoreInstanceState(listState);
+	}
 
 	// Check connectivity before update
 	ConnectivityManager manager =
@@ -491,13 +510,11 @@ public class Main extends Activity
 	JSONObject valueObject = new JSONObject(valueMap);
 	JSONArray nameArray = new JSONArray(nameList);
 	JSONArray valueArray = new JSONArray(valueList);
-	JSONArray selectArray = new JSONArray(selectList);
 
 	// Update preferences
 	editor.putString(PREF_MAP, valueObject.toString());
 	editor.putString(PREF_NAMES, nameArray.toString());
 	editor.putString(PREF_VALUES, valueArray.toString());
-	editor.putString(PREF_SELECTION, selectArray.toString());
 
 	editor.putInt(PREF_INDEX, currentIndex);
 
@@ -509,6 +526,23 @@ public class Main extends Activity
 	editor.putString(PREF_VALUE, value);
 	editor.putString(PREF_TIME, time);
 	editor.apply();
+    }
+
+    // On save
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+	super.onSaveInstanceState(outState);
+
+	if (listView != null)
+	{
+	    Parcelable state = listView.onSaveInstanceState();
+	    outState.putParcelable(SAVE_LIST, state);
+	}
+
+	outState.putIntegerArrayList(SAVE_SELECT,
+				     (ArrayList<Integer>)selectList);
     }
 
     // On create options menu
@@ -532,6 +566,14 @@ public class Main extends Activity
 	    break;
 	}
 
+	return true;
+    }
+
+    // On prepare options menu
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
 	return true;
     }
 
