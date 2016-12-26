@@ -246,7 +246,23 @@ public class Main extends Activity
 	}
 
 	currencyNameList = Arrays.asList(CURRENCY_NAMES);
+
+	// Create lists
+	flagList = new ArrayList<Integer>();
+	nameList = new ArrayList<String>();
+	symbolList = new ArrayList<String>();
+	valueList = new ArrayList<String>();
+	longNameList = new ArrayList<Integer>();
 	selectList = new ArrayList<Integer>();
+
+	// Create the adapter
+	adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList,
+				      symbolList, valueList, longNameList,
+				      selectList);
+
+	// Set the list view adapter
+	if (listView != null)
+	    listView.setAdapter(adapter);
     }
 
     // On restore
@@ -284,12 +300,6 @@ public class Main extends Activity
     protected void onResume()
     {
 	super.onResume();
-
-	// Create lists
-	flagList = new ArrayList<Integer>();
-	symbolList = new ArrayList<String>();
-	valueList = new ArrayList<String>();
-	longNameList = new ArrayList<Integer>();
 
 	// Get resources
 	resources = getResources();
@@ -388,7 +398,7 @@ public class Main extends Activity
 	    try
 	    {
 		JSONArray namesArray = new JSONArray(namesJSON);
-		nameList = new ArrayList<String>();
+		nameList.clear();
 		for (int i = 0; !namesArray.isNull(i); i++)
 		    nameList.add(namesArray.getString(i));
 	    }
@@ -402,7 +412,7 @@ public class Main extends Activity
 	// Use the default list
 	else
 	{
-	    nameList = new ArrayList<String>(Arrays.asList(CURRENCY_LIST));
+	    nameList.addAll(Arrays.asList(CURRENCY_LIST));
 	}
 
 	// Get the saved value list
@@ -411,7 +421,7 @@ public class Main extends Activity
 	    try
 	    {
 		JSONArray valuesArray = new JSONArray(valuesJSON);
-		valueList = new ArrayList<String>();
+		valueList.clear();
 
 		for (int i = 0; !valuesArray.isNull(i); i++)
 		    valueList.add(valuesArray.getString(i));
@@ -449,19 +459,12 @@ public class Main extends Activity
 	    longNameList.add(CURRENCY_LONGNAMES[index]);
 	}
 
-	// Create the adapter
-	adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList,
-				      symbolList, valueList, longNameList,
-				      selectList);
+	// Update the adapter
+	adapter.notifyDataSetChanged();
 
-	// Set the list view adapter
-	if (listView != null)
-	{
-	    listView.setAdapter(adapter);
-
-	    if (listState != null)
-		listView.onRestoreInstanceState(listState);
-	}
+	// Restore list view state
+	if (listView != null && listState != null)
+	    listView.onRestoreInstanceState(listState);
 
 	// Check connectivity before update
 	ConnectivityManager manager =
