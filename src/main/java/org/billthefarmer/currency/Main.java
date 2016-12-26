@@ -436,6 +436,8 @@ public class Main extends Activity
 	// Calculate value list
 	else
 	{
+	    valueList.clear();
+
 	    for (String s: nameList)
 	    {
 		Double v = valueMap.get(s);
@@ -448,6 +450,10 @@ public class Main extends Activity
 
 	// Get the current conversion rate
 	convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
+
+	flagList.clear();
+	symbolList.clear();
+	longNameList.clear();
 
 	// Populate the lists
 	for (String name: nameList)
