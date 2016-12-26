@@ -451,6 +451,7 @@ public class Main extends Activity
 	// Get the current conversion rate
 	convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
+	// Clear lists
 	flagList.clear();
 	symbolList.clear();
 	longNameList.clear();
@@ -966,7 +967,18 @@ public class Main extends Activity
 	    break;
 
 	case SELECT_MODE:
-	    selectList.add(position);
+	    if (selectList.contains(position))
+		selectList.remove(selectList.indexOf(position));
+
+	    else
+		selectList.add(position);
+
+	    if (selectList.isEmpty())
+	    {
+		mode = NORMAL_MODE;
+		invalidateOptionsMenu();
+	    }
+
 	    adapter.notifyDataSetChanged();
 	    break;
 	}

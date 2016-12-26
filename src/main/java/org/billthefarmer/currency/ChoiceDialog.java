@@ -201,7 +201,12 @@ public class ChoiceDialog extends Activity
 
 	    // Select
 	case Main.SELECT_MODE:
-	    selectList.add(position);
+	    if (selectList.contains(position))
+		selectList.remove(selectList.indexOf(position));
+
+	    else
+		selectList.add(position);
+
 	    adapter.notifyDataSetChanged();
 	    break;
 	}
