@@ -119,10 +119,18 @@ public class ChoiceDialog extends Activity
 		    selectList.add(index);
 
 	    if (selectList.isEmpty())
+	    {
+		clear.setEnabled(false);
+		select.setEnabled(false);
 		mode = Main.NORMAL_MODE;
+	    }
 
 	    else
+	    {
+		clear.setEnabled(true);
+		select.setEnabled(true);
 		mode = Main.SELECT_MODE;
+	    }
 	}
 
 	else
@@ -207,6 +215,13 @@ public class ChoiceDialog extends Activity
 	    else
 		selectList.add(position);
 
+	    if (selectList.isEmpty())
+	    {
+		clear.setEnabled(false);
+		select.setEnabled(false);
+		mode = Main.NORMAL_MODE;
+	    }
+
 	    adapter.notifyDataSetChanged();
 	    break;
 	}
@@ -218,6 +233,8 @@ public class ChoiceDialog extends Activity
     public boolean onItemLongClick(AdapterView parent, View view,
 				   int position, long id)
     {
+	clear.setEnabled(true);
+	select.setEnabled(true);
 	mode = Main.SELECT_MODE;
 
 	// Start a new selection

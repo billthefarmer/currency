@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 	style="?android:attr/buttonBarButtonStyle"
+	android:enabled="false"
 	android:text="@string/clear" />
 
     <Button
@@ -37,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 	style="?android:attr/buttonBarButtonStyle"
+	android:enabled="false"
 	android:text="@string/select" />
 
   </LinearLayout>
