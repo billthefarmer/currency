@@ -25,12 +25,17 @@ package org.billthefarmer.currency;
 
 import android.content.Context;
 import android.content.res.Resources;
+
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -40,12 +45,16 @@ import org.xml.sax.helpers.DefaultHandler;
 // Parser class
 public class Parser
 {
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+
     private Map<String, Double> table;
-    private String time;
+    private SimpleDateFormat dateFormat;
+    private Date date;
 
     // Create parser
     private XMLReader createParser()
     {
+	dateFormat = new SimpleDateFormat(Parser.DATE_FORMAT);
 	table = new Hashtable<String, Double>();
 	table.put("EUR", 1.0);
 
@@ -75,10 +84,10 @@ public class Parser
 	return table;
     }
 
-    // Get time
-    public String getTime()
+    // Get date
+    public Date getDate()
     {
-	return time;
+	return date;
     }
 
     // Start parser
@@ -145,7 +154,19 @@ public class Parser
 		for (int i = 0; i < attributes.getLength(); i++)
 		{
 		    if (attributes.getLocalName(i) == "time")
-			time = attributes.getValue(i);
+		    {
+			String time = attributes.getValue(i);
+
+			try
+			{
+			    date = dateFormat.parse(time);
+			}
+
+			catch (Exception e)
+			{
+			    e.printStackTrace();
+			}
+		    }
 
 		    else if (attributes.getLocalName(i) == "currency")
 		    {

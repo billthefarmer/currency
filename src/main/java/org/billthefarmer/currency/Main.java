@@ -53,9 +53,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
+import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.List;
@@ -139,7 +141,7 @@ public class Main extends Activity
     public static final String TAG = "Main";
 
     public static final String PREF_MAP = "pref_map";
-    public static final String PREF_TIME = "pref_time";
+    public static final String PREF_DATE = "pref_date";
     public static final String PREF_NAMES = "pref_names";
     public static final String PREF_INDEX = "pref_index";
     public static final String PREF_VALUE = "pref_value";
@@ -174,14 +176,14 @@ public class Main extends Activity
     private int currentIndex = 0;
     private double currentValue = 1.0;
     private double convertValue = 1.0;
-    private String time;
+    private String date;
 
     private ImageView flagView;
     private TextView nameView;
     private TextView symbolView;
     private EditText editView;
     private TextView longNameView;
-    private TextView timeView;
+    private TextView dateView;
     private TextView statusView;
     private ListView listView;
 
@@ -216,7 +218,7 @@ public class Main extends Activity
 	symbolView = (TextView)findViewById(R.id.symbol);
 	editView = (EditText)findViewById(R.id.edit);
 	longNameView = (TextView)findViewById(R.id.long_name);
-	timeView = (TextView)findViewById(R.id.time);
+	dateView = (TextView)findViewById(R.id.date);
 	statusView = (TextView)findViewById(R.id.status);
 	listView = (ListView)findViewById(R.id.list);
 
@@ -330,10 +332,10 @@ public class Main extends Activity
 	    currentValue = 1.0;
 	}
 
-	time = preferences.getString(PREF_TIME, "");
+	date = preferences.getString(PREF_DATE, "");
 	String format = resources.getString(R.string.updated);
-	String updated = String.format(Locale.getDefault(), format, time);
-	timeView.setText(updated);
+	String updated = String.format(Locale.getDefault(), format, date);
+	dateView.setText(updated);
 
 	// Set current currency
 	flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
@@ -377,13 +379,17 @@ public class Main extends Activity
 	    Parser parser = new Parser();
 	    parser.startParser(this, R.raw.eurofxref_daily);
 
-	    time = parser.getTime();
+	    Date latest = parser.getDate();
+	    DateFormat dateFormat =
+		DateFormat.getDateInstance(DateFormat.MEDIUM);
 
-	    if (time != null)
+	    date = dateFormat.format(latest);
+
+	    if (latest != null)
 	    {
 		format = resources.getString(R.string.updated);
-		updated = String.format(Locale.getDefault(), format, time);
-		timeView.setText(updated);
+		updated = String.format(Locale.getDefault(), format, date);
+		dateView.setText(updated);
 	    }
 
 	    else
@@ -534,7 +540,7 @@ public class Main extends Activity
 	numberFormat.setGroupingUsed(false);
 	String value = numberFormat.format(currentValue);
 	editor.putString(PREF_VALUE, value);
-	editor.putString(PREF_TIME, time);
+	editor.putString(PREF_DATE, date);
 	editor.apply();
     }
 
@@ -1056,7 +1062,7 @@ public class Main extends Activity
     // ParseTask class
 
     private class ParseTask
-	extends AsyncTask<String, String, Map<String, Double>>
+	extends AsyncTask<String, Date, Map<String, Double>>
     {
 	Context context;
 	String latest;
@@ -1074,23 +1080,25 @@ public class Main extends Activity
 	    Parser parser = new Parser();
 
 	    if (parser.startParser(urls[0]) == true)
-		publishProgress(parser.getTime());
+		publishProgress(parser.getDate());
 
 	    return parser.getTable();
 	}
 
 	@Override
-	protected void onProgressUpdate(String... time)
+	protected void onProgressUpdate(Date... date)
 	{
-	    if (time[0] != null)
+	    if (date[0] != null)
 	    {
+		DateFormat dateFormat =
+		    DateFormat.getDateInstance(DateFormat.MEDIUM);
+		latest = dateFormat.format(date[0]);
+
 		String format = resources.getString(R.string.updated);
 		String updated = String.format(Locale.getDefault(),
-					       format, time[0]);
+					       format, latest);
 
-		timeView.setText(updated);
-
-		latest = time[0];
+		dateView.setText(updated);
 	    }
 
 	    else
@@ -1145,10 +1153,10 @@ public class Main extends Activity
 		editor.putString(PREF_NAMES, nameArray.toString());
 		editor.putString(PREF_VALUES, valueArray.toString());
 
-		editor.putString(PREF_TIME, latest);
+		editor.putString(PREF_DATE, latest);
 		editor.apply();
 
-		time = latest;
+		date = latest;
 
 		statusView.setText(R.string.ok);
 		adapter.notifyDataSetChanged();

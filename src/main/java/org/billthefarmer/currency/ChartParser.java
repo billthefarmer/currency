@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
@@ -44,12 +45,14 @@ import org.xml.sax.helpers.DefaultHandler;
 public class ChartParser
 {
     private Map<Date, Map<String, Double>> table;
-    private String time;
+    private Map<String, Double> entry;
+    private SimpleDateFormat dateFormat;
 
     // Create parser
     private XMLReader createParser()
     {
 	table = new Hashtable<Date, Map<String, Double>>();
+	dateFormat = new SimpleDateFormat(Parser.DATE_FORMAT);
 
 	try
 	{
@@ -72,15 +75,9 @@ public class ChartParser
     }
 
     // Get table
-    public Map<String, Double> getTable()
+    public Map<Date, Map<String, Double>> getTable()
     {
 	return table;
-    }
-
-    // Get time
-    public String getTime()
-    {
-	return time;
     }
 
     // Start parser
@@ -148,7 +145,20 @@ public class ChartParser
 		{
 		    if (attributes.getLocalName(i) == "time")
 		    {
-			time = attributes.getValue(i);
+			String time = attributes.getValue(i);
+
+			try
+			{
+			    Date date = dateFormat.parse(time);
+
+			    entry = new Hashtable<String, Double>();
+			    table.put(date, entry);
+			}
+
+			catch (Exception e)
+			{
+			    e.printStackTrace();
+			}
 		    }
 
 		    else if (attributes.getLocalName(i) == "currency")
@@ -168,8 +178,8 @@ public class ChartParser
 			    rate = 1.0;
 			}
 
-			// add new element to the table
-			table.put(name, rate);
+			// add new element to the entry
+			entry.put(name, rate);
 		    }
 		}
 	    }
