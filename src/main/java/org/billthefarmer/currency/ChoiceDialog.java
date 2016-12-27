@@ -170,6 +170,8 @@ public class ChoiceDialog extends Activity
 
 	    // Clear
 	case R.id.clear:
+	    clear.setEnabled(false);
+	    select.setEnabled(false);
 	    mode = Main.NORMAL_MODE;
 
 	    // Start a new selection
