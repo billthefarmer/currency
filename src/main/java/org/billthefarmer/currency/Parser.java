@@ -25,12 +25,15 @@ package org.billthefarmer.currency;
 
 import android.content.Context;
 import android.content.res.Resources;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Hashtable;
 import java.util.Map;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -38,10 +41,11 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 // Parser class
+
 public class Parser
 {
     private Map<String, Double> table;
-    private String time;
+    private String date;
 
     // Create parser
     private XMLReader createParser()
@@ -75,10 +79,10 @@ public class Parser
 	return table;
     }
 
-    // Get time
-    public String getTime()
+    // Get date
+    public String getDate()
     {
-	return time;
+	return date;
     }
 
     // Start parser
@@ -145,7 +149,7 @@ public class Parser
 		for (int i = 0; i < attributes.getLength(); i++)
 		{
 		    if (attributes.getLocalName(i) == "time")
-			time = attributes.getValue(i);
+			date = attributes.getValue(i);
 
 		    else if (attributes.getLocalName(i) == "currency")
 		    {
