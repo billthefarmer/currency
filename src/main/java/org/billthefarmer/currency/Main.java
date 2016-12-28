@@ -147,15 +147,17 @@ public class Main extends Activity
     public static final String PREF_VALUE = "pref_value";
     public static final String PREF_VALUES = "pref_values";
 
-    public static final String SAVE_LIST = "save_list";
-    public static final String SAVE_MENU = "save_menu";
-    public static final String SAVE_SELECT = "save_select";
-
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roaming";
     public static final String PREF_SELECT = "pref_select";
     public static final String PREF_DIGITS = "pref_digits";
     public static final String PREF_ABOUT = "pref_about";
+
+    public static final String SAVE_LIST = "save_list";
+    public static final String SAVE_SELECT = "save_select";
+
+    public static final String CHART_CURRENT = "chart_current";
+    public static final String CHART_CURRENCY = "chart_currency";
 
     public static final String ECB_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
@@ -615,11 +617,14 @@ public class Main extends Activity
 	case R.id.action_clear:
 	    return onClearClick();
 
-	case R.id.action_copy:
-	    return onCopyClick();
-
 	case R.id.action_remove:
 	    return onRemoveClick();
+
+	case R.id.action_chart:
+	    return onChartClick();
+
+	case R.id.action_copy:
+	    return onCopyClick();
 
 	    // Settings
 
@@ -716,6 +721,24 @@ public class Main extends Activity
 	invalidateOptionsMenu();
 
  	return true;
+    }
+
+    // On chart click
+
+    private boolean onChartClick()
+    {
+	Intent intent = new Intent(this, ChartActivity.class);
+	intent.putExtra(CHART_CURRENT, currentIndex);
+	intent.putExtra(CHART_CURRENCY, selectList.get(0));
+	startActivity(intent);
+
+	selectList.clear();
+	adapter.notifyDataSetChanged();
+
+	mode = NORMAL_MODE;
+	invalidateOptionsMenu();
+
+	return true;
     }
 
     // On refresh click

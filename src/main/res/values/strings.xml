@@ -14,6 +14,11 @@
   <string name="copy">Copy</string>
   <string name="clear">Clear</string>
   <string name="cancel">Cancel</string>
+  <string name="chart">Chart</string>
+
+  <string name="week">1W</string>
+  <string name="month">1M</string>
+  <string name="quarter">3M</string>
 
   <string name="euro_name">EUR</string>
   <string name="euro_symbol">€</string>

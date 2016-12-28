@@ -30,6 +30,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -52,7 +53,8 @@ public class ChartParser
     private XMLReader createParser()
     {
 	table = new Hashtable<Date, Map<String, Double>>();
-	dateFormat = new SimpleDateFormat(Parser.DATE_FORMAT);
+	dateFormat =
+	    new SimpleDateFormat(Parser.DATE_FORMAT, Locale.getDefault());
 
 	try
 	{

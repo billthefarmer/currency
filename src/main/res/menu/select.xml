@@ -8,15 +8,21 @@
       android:icon="@drawable/ic_action_clear" />
 
   <item
+      android:id="@+id/action_remove"
+      android:showAsAction="ifRoom"
+      android:title="@string/remove"
+      android:icon="@drawable/ic_action_remove" />
+
+  <item
       android:id="@+id/action_copy"
       android:showAsAction="ifRoom"
       android:title="@string/copy"
       android:icon="@drawable/ic_action_copy" />
 
   <item
-      android:id="@+id/action_remove"
+      android:id="@+id/action_chart"
       android:showAsAction="ifRoom"
-      android:title="@string/remove"
-      android:icon="@drawable/ic_action_remove" />
+      android:title="@string/chart"
+      android:icon="@drawable/ic_action_picture" />
 
 </menu>

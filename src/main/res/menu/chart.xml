@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+      android:id="@+id/action_week"
+      android:showAsAction="ifRoom"
+      android:title="@string/week" />
+
+  <item
+      android:id="@+id/action_month"
+      android:showAsAction="ifRoom"
+      android:title="@string/month" />
+
+  <item
+      android:id="@+id/action_quarter"
+      android:showAsAction="ifRoom"
+      android:title="@string/quarter" />
+
+</menu>
