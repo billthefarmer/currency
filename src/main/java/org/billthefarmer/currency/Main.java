@@ -54,6 +54,8 @@ import android.widget.TextView;
 
 import java.text.NumberFormat;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -139,6 +141,8 @@ public class Main extends Activity
     };
 
     public static final String TAG = "Main";
+
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
 
     public static final String PREF_MAP = "pref_map";
     public static final String PREF_DATE = "pref_date";
@@ -381,14 +385,26 @@ public class Main extends Activity
 	    Parser parser = new Parser();
 	    parser.startParser(this, R.raw.eurofxref_daily);
 
-	    Date latest = parser.getDate();
+	    SimpleDateFormat dateParser =
+		new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 	    DateFormat dateFormat =
 		DateFormat.getDateInstance(DateFormat.MEDIUM);
 
-	    date = dateFormat.format(latest);
+	    String latest = parser.getDate();
 
 	    if (latest != null)
 	    {
+		try
+		{
+		    Date update = dateParser.parse(latest);
+		    date = dateFormat.format(update);
+		}
+
+		catch (Exception e)
+		{
+		    e.printStackTrace();
+		}
+
 		format = resources.getString(R.string.updated);
 		updated = String.format(Locale.getDefault(), format, date);
 		dateView.setText(updated);
@@ -1085,7 +1101,7 @@ public class Main extends Activity
     // ParseTask class
 
     private class ParseTask
-	extends AsyncTask<String, Date, Map<String, Double>>
+	extends AsyncTask<String, String, Map<String, Double>>
     {
 	Context context;
 	String latest;
@@ -1109,13 +1125,25 @@ public class Main extends Activity
 	}
 
 	@Override
-	protected void onProgressUpdate(Date... date)
+	protected void onProgressUpdate(String... date)
 	{
+	    SimpleDateFormat dateParser =
+		new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+	    DateFormat dateFormat =
+		DateFormat.getDateInstance(DateFormat.MEDIUM);
+
 	    if (date[0] != null)
 	    {
-		DateFormat dateFormat =
-		    DateFormat.getDateInstance(DateFormat.MEDIUM);
-		latest = dateFormat.format(date[0]);
+		try
+		{
+		    Date update = dateParser.parse(date[0]);
+		    latest = dateFormat.format(update);
+		}
+
+		catch (Exception e)
+		{
+		    e.printStackTrace();
+		}
 
 		String format = resources.getString(R.string.updated);
 		String updated = String.format(Locale.getDefault(),

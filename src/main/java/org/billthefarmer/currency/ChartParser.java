@@ -25,10 +25,10 @@ package org.billthefarmer.currency;
 
 import android.content.Context;
 import android.content.res.Resources;
+
 import java.io.InputStream;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
@@ -45,16 +45,13 @@ import org.xml.sax.helpers.DefaultHandler;
 // Parser class
 public class ChartParser
 {
-    private Map<Date, Map<String, Double>> table;
+    private Map<String, Map<String, Double>> table;
     private Map<String, Double> entry;
-    private SimpleDateFormat dateFormat;
 
     // Create parser
     private XMLReader createParser()
     {
-	table = new Hashtable<Date, Map<String, Double>>();
-	dateFormat =
-	    new SimpleDateFormat(Parser.DATE_FORMAT, Locale.getDefault());
+	table = new Hashtable<String, Map<String, Double>>();
 
 	try
 	{
@@ -77,7 +74,7 @@ public class ChartParser
     }
 
     // Get table
-    public Map<Date, Map<String, Double>> getTable()
+    public Map<String, Map<String, Double>> getTable()
     {
 	return table;
     }
@@ -147,20 +144,11 @@ public class ChartParser
 		{
 		    if (attributes.getLocalName(i) == "time")
 		    {
-			String time = attributes.getValue(i);
+			String date = attributes.getValue(i);
 
-			try
-			{
-			    Date date = dateFormat.parse(time);
-
-			    entry = new Hashtable<String, Double>();
-			    table.put(date, entry);
-			}
-
-			catch (Exception e)
-			{
-			    e.printStackTrace();
-			}
+			entry = new Hashtable<String, Double>();
+			entry.put("EUR", 1.0);
+			table.put(date, entry);
 		    }
 
 		    else if (attributes.getLocalName(i) == "currency")

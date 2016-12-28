@@ -28,8 +28,7 @@ import android.content.res.Resources;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
@@ -46,17 +45,12 @@ import org.xml.sax.helpers.DefaultHandler;
 // Parser class
 public class Parser
 {
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
-
     private Map<String, Double> table;
-    private SimpleDateFormat dateFormat;
-    private Date date;
+    private String date;
 
     // Create parser
     private XMLReader createParser()
     {
-	dateFormat =
-	    new SimpleDateFormat(Parser.DATE_FORMAT, Locale.getDefault());
 	table = new Hashtable<String, Double>();
 	table.put("EUR", 1.0);
 
@@ -87,7 +81,7 @@ public class Parser
     }
 
     // Get date
-    public Date getDate()
+    public String getDate()
     {
 	return date;
     }
@@ -157,17 +151,7 @@ public class Parser
 		{
 		    if (attributes.getLocalName(i) == "time")
 		    {
-			String time = attributes.getValue(i);
-
-			try
-			{
-			    date = dateFormat.parse(time);
-			}
-
-			catch (Exception e)
-			{
-			    e.printStackTrace();
-			}
+			date = attributes.getValue(i);
 		    }
 
 		    else if (attributes.getLocalName(i) == "currency")
