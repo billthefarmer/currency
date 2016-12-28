@@ -163,7 +163,7 @@ public class Main extends Activity
     public static final String CHART_CURRENT = "chart_current";
     public static final String CHART_CURRENCY = "chart_currency";
 
-    public static final String ECB_URL =
+    public static final String ECB_DAILY_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
 
     protected final static String CHOICE = "choice";
@@ -523,7 +523,7 @@ public class Main extends Activity
 
 	statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
-	parseTask.execute(ECB_URL);
+	parseTask.execute(ECB_DAILY_URL);
     }
 
     // On pause
@@ -787,7 +787,7 @@ public class Main extends Activity
 
 	statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
-	parseTask.execute(ECB_URL);
+	parseTask.execute(ECB_DAILY_URL);
 	return true;
     }
 
@@ -1148,7 +1148,6 @@ public class Main extends Activity
 		String format = resources.getString(R.string.updated);
 		String updated = String.format(Locale.getDefault(),
 					       format, latest);
-
 		dateView.setText(updated);
 	    }
 

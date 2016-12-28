@@ -6,6 +6,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+  <TextView
+      android:id="@+id/current"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="@string/euro_name"
+      android:textAppearance="?android:attr/textAppearanceMedium" />
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp">
+
+    <TextView
+	android:id="@+id/date"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="@string/not_updated"
+	android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+	android:id="@+id/status"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="right"
+	android:text="@string/ok"
+	android:textAppearance="?android:attr/textAppearanceSmall" />
+
+  </LinearLayout>
+
   <com.github.mikephil.charting.charts.LineChart
       android:id="@+id/chart"
       android:layout_width="match_parent"
