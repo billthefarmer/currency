@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -47,11 +48,13 @@ public class ChartParser
 {
     private Map<String, Map<String, Double>> table;
     private Map<String, Double> entry;
+    private String latest;
 
     // Create parser
     private XMLReader createParser()
     {
-	table = new Hashtable<String, Map<String, Double>>();
+	table = new LinkedHashMap<String, Map<String, Double>>();
+	latest = "1970-01-01";
 
 	try
 	{
@@ -71,6 +74,12 @@ public class ChartParser
 	}
 		
 	return null;
+    }
+
+    // Get latest
+    public String getLatest()
+    {
+	return latest;
     }
 
     // Get table
@@ -145,6 +154,9 @@ public class ChartParser
 		    if (attributes.getLocalName(i) == "time")
 		    {
 			String date = attributes.getValue(i);
+
+			if (date.compareTo(latest) > 0)
+			    latest = date;
 
 			entry = new Hashtable<String, Double>();
 			entry.put("EUR", 1.0);

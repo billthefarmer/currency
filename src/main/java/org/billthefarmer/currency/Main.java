@@ -745,7 +745,10 @@ public class Main extends Activity
     {
 	Intent intent = new Intent(this, ChartActivity.class);
 	intent.putExtra(CHART_CURRENT, currentIndex);
-	intent.putExtra(CHART_CURRENCY, selectList.get(0));
+
+	String currencyName = nameList.get(selectList.get(0));
+	int currencyIndex = currencyNameList.indexOf(currencyName);
+	intent.putExtra(CHART_CURRENCY, currencyIndex);
 	startActivity(intent);
 
 	selectList.clear();

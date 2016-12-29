@@ -2,18 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
   <item
-      android:id="@+id/action_week"
+      android:id="@+id/action_invert"
       android:showAsAction="ifRoom"
-      android:title="@string/week" />
+      android:title="@string/invert"
+      android:icon="@drawable/ic_action_shuffle" />
 
   <item
-      android:id="@+id/action_month"
+      android:id="@+id/action_refresh"
       android:showAsAction="ifRoom"
-      android:title="@string/month" />
+      android:title="@string/refresh"
+      android:icon="@drawable/ic_action_refresh" />
 
   <item
-      android:id="@+id/action_quarter"
+      android:id="@+id/action_years"
       android:showAsAction="ifRoom"
-      android:title="@string/quarter" />
+      android:title="@string/years"
+      android:icon="@drawable/ic_action_time" />
 
 </menu>

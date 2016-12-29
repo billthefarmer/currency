@@ -34,6 +34,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,10 +42,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-
+import com.github.mikephil.charting.formatter.DefaultFillFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import java.text.NumberFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -61,6 +67,8 @@ import java.util.Map;
 
 public class ChartActivity extends Activity
 {
+    public static final String TAG = "Chart";
+
     public static final String ECB_QUARTER_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
     public static final String ECB_HIST_URL =
@@ -70,6 +78,7 @@ public class ChartActivity extends Activity
 
     private TextView dateView;
     private TextView statusView;
+    private TextView currentView;
 
     private LineChart chart;
 
@@ -101,6 +110,7 @@ public class ChartActivity extends Activity
 
 	dateView = (TextView)findViewById(R.id.date);
 	statusView = (TextView)findViewById(R.id.status);
+	currentView = (TextView)findViewById(R.id.current);
 
 	chart = (LineChart) findViewById(R.id.chart);
 
@@ -113,21 +123,7 @@ public class ChartActivity extends Activity
 	currencyName = Main.CURRENCY_NAMES[currency];
 
 	String label = currencyName + " / " + currentName;
-
-	entryList = new ArrayList<Entry>();
-	dataSet = new LineDataSet(entryList, label);
-
-	// dataSet.setColor(...);
-	// dataSet.setValueTextColor(...);
-
-	LineData lineData = new LineData(dataSet);
-	chart.setData(lineData);
-
-	chart.setDrawBorders(true);
-	chart.setAutoScaleMinMaxEnabled(true);
-	chart.setKeepPositionOnRotation(true);
-
-	chart.invalidate();
+	currentView.setText(label);
     }
 
     // On resume
@@ -136,6 +132,10 @@ public class ChartActivity extends Activity
     protected void onResume()
     {
 	super.onResume();
+
+	// Don't refresh if list populated
+	if (entryList != null && !entryList.isEmpty())
+	    return;
 
 	// Get preferences
 	SharedPreferences preferences =
@@ -211,6 +211,12 @@ public class ChartActivity extends Activity
 	    finish();
 	    break;
 
+	case R.id.action_refresh:
+	    return onRefreshClick(ECB_QUARTER_URL);
+
+	case R.id.action_years:
+	    return onRefreshClick(ECB_HIST_URL);
+
 	default:
 	    return false;
 	}
@@ -218,10 +224,51 @@ public class ChartActivity extends Activity
 	return true;
     }
 
+    // on refresh click
+    private boolean onRefreshClick(String url)
+    {
+	// Get preferences
+	SharedPreferences preferences =
+ 	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	wifi = preferences.getBoolean(Main.PREF_WIFI, true);
+	roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
+
+	// Check connectivity before update
+	ConnectivityManager manager =
+	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+	NetworkInfo info = manager.getActiveNetworkInfo();
+
+	// Update online
+	if (info == null || !info.isConnected())
+	{
+	    statusView.setText(R.string.no_connection);
+	    return false;
+	}
+
+	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+	{
+	    statusView.setText(R.string.no_wifi);
+	    return false;
+	}
+
+	if (!roaming && info.isRoaming())
+	{
+	    statusView.setText(R.string.roaming);
+	    return false;
+	}
+
+	statusView.setText(R.string.updating);
+	ParseTask parseTask = new ParseTask(this);
+	parseTask.execute(url);
+
+	return true;
+    }
+
     // ParseTask class
 
     private class ParseTask
-	extends AsyncTask<String, Void, Map<String, Map<String, Double>>>
+	extends AsyncTask<String, String, Map<String, Map<String, Double>>>
     {
 	Context context;
 
@@ -238,14 +285,16 @@ public class ChartActivity extends Activity
 	    ChartParser parser = new ChartParser();
 
 	    if (parser.startParser(urls[0]) == true)
-		publishProgress((Void)null);
+		publishProgress(parser.getLatest());
 
 	    return parser.getTable();
 	}
 
 	@Override
-	protected void onProgressUpdate(Void... data)
+	protected void onProgressUpdate(String... date)
 	{
+	    SimpleDateFormat dateParser =
+		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 	    DateFormat dateFormat =
 		DateFormat.getDateInstance(DateFormat.MEDIUM);
 
@@ -268,6 +317,9 @@ public class ChartActivity extends Activity
 	{
 	    SimpleDateFormat dateParser =
 		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+	    Resources resources = context.getResources();
+
+	    entryList = new ArrayList<Entry>();
 
 	    for (String key: table.keySet())
 	    {
@@ -291,7 +343,58 @@ public class ChartActivity extends Activity
 		entryList.add(0, new Entry(day, value));
 	    }
 
+	    int dark = resources.getColor(android.R.color.secondary_text_dark);
+	    int bright = resources.getColor(android.R.color.holo_blue_bright);
+
+	    dataSet = new LineDataSet(entryList, currencyName);
+
+	    dataSet.setDrawCircles(false);
+	    dataSet.setDrawValues(false);
+	    dataSet.setColor(bright);
+
+	    lineData = new LineData(dataSet);
+
+	    // chart.setDrawBorders(true);
+	    // chart.setBorderColor(dark);
+
+	    chart.setAutoScaleMinMaxEnabled(true);
+	    chart.setKeepPositionOnRotation(true);
+	    chart.setDescription(null);
+
+	    XAxis xAxis = chart.getXAxis();
+	    xAxis.setValueFormatter(new dateAxisValueFormatter());
+	    xAxis.setGranularity(1f);
+	    xAxis.setTextColor(dark);
+
+	    YAxis leftAxis = chart.getAxisLeft();
+	    leftAxis.setTextColor(dark);
+
+	    YAxis rightAxis = chart.getAxisRight();
+	    rightAxis.setTextColor(dark);
+
+	    Legend legend = chart.getLegend();
+	    legend.setEnabled(false);
+
+	    chart.setData(lineData);
 	    chart.invalidate();
+	}
+    }
+
+    private class dateAxisValueFormatter implements IAxisValueFormatter
+    {
+	DateFormat dateFormat;
+
+	private dateAxisValueFormatter()
+	{
+	    dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+	}
+
+	@Override
+	public String getFormattedValue(float value, AxisBase axis)
+	{
+	    // "value" represents the position of the label on the axis (x or y)
+	    Date date = new Date((int)value * MSEC_DAY);
+	    return dateFormat.format(date);
 	}
     }
 }
