@@ -82,6 +82,8 @@ public class ChartActivity extends Activity
 
     private LineChart chart;
 
+    private Map<String, Map<String,Double>> histMap;
+
     private List<Entry> entryList;
     private LineDataSet dataSet;
     private LineData lineData;
@@ -106,11 +108,17 @@ public class ChartActivity extends Activity
 	// Enable back navigation on action bar
 	ActionBar actionBar = getActionBar();
 	if (actionBar != null)
+	{
 	    actionBar.setDisplayHomeAsUpEnabled(true);
+
+	    actionBar.setCustomView(R.layout.text);
+	    actionBar.setDisplayShowCustomEnabled(true);
+
+	    currentView = (TextView)actionBar.getCustomView();
+	}
 
 	dateView = (TextView)findViewById(R.id.date);
 	statusView = (TextView)findViewById(R.id.status);
-	currentView = (TextView)findViewById(R.id.current);
 
 	chart = (LineChart) findViewById(R.id.chart);
 
@@ -122,7 +130,7 @@ public class ChartActivity extends Activity
 	currentName = Main.CURRENCY_NAMES[current];
 	currencyName = Main.CURRENCY_NAMES[currency];
 
-	String label = currencyName + " / " + currentName;
+	String label = currencyName + "/" + currentName;
 	currentView.setText(label);
     }
 
@@ -132,10 +140,6 @@ public class ChartActivity extends Activity
     protected void onResume()
     {
 	super.onResume();
-
-	// Don't refresh if list populated
-	if (entryList != null && !entryList.isEmpty())
-	    return;
 
 	// Get preferences
 	SharedPreferences preferences =
@@ -211,6 +215,9 @@ public class ChartActivity extends Activity
 	    finish();
 	    break;
 
+	case R.id.action_invert:
+	    return onInvertClick();
+
 	case R.id.action_refresh:
 	    return onRefreshClick(ECB_QUARTER_URL);
 
@@ -220,6 +227,55 @@ public class ChartActivity extends Activity
 	default:
 	    return false;
 	}
+
+	return true;
+    }
+
+    // on invert click
+    private boolean onInvertClick()
+    {
+	SimpleDateFormat dateParser =
+	    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+	Resources resources = getResources();
+
+	int index = current;
+	current = currency;
+	currency = index;
+
+	currentName = Main.CURRENCY_NAMES[current];
+	currencyName = Main.CURRENCY_NAMES[currency];
+
+	String label = currencyName + "/" + currentName;
+	currentView.setText(label);
+
+	entryList.clear();
+
+	for (String key: histMap.keySet())
+	{
+	    float day = 0;
+
+	    try
+	    {
+		Date date = dateParser.parse(key);
+		day = date.getTime() / MSEC_DAY;
+	    }
+
+	    catch (Exception e) {}
+
+	    Map<String, Double> entryMap = histMap.get(key);
+
+	    double current = entryMap.get(currentName);
+	    double currency = entryMap.get(currencyName);
+
+	    float value = (float)(current / currency);
+
+	    entryList.add(0, new Entry(day, value));
+	}
+
+	dataSet.setValues(entryList);
+	lineData.notifyDataChanged();
+	chart.notifyDataSetChanged();
+	chart.invalidate();
 
 	return true;
     }
@@ -315,6 +371,12 @@ public class ChartActivity extends Activity
 	@Override
 	protected void onPostExecute(Map<String, Map<String,Double>> table)
 	{
+	    // Check table
+	    if (table == null)
+		return;
+
+	    histMap = table;
+
 	    SimpleDateFormat dateParser =
 		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 	    Resources resources = context.getResources();
@@ -345,6 +407,7 @@ public class ChartActivity extends Activity
 
 	    int dark = resources.getColor(android.R.color.secondary_text_dark);
 	    int bright = resources.getColor(android.R.color.holo_blue_bright);
+	    String updating = resources.getString(R.string.updating);
 
 	    dataSet = new LineDataSet(entryList, currencyName);
 
@@ -360,6 +423,8 @@ public class ChartActivity extends Activity
 	    chart.setAutoScaleMinMaxEnabled(true);
 	    chart.setKeepPositionOnRotation(true);
 	    chart.setDescription(null);
+	    chart.setNoDataText(updating);
+	    chart.setNoDataTextColor(dark);
 
 	    XAxis xAxis = chart.getXAxis();
 	    xAxis.setValueFormatter(new dateAxisValueFormatter());
