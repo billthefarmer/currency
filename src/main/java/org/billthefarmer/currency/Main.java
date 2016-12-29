@@ -52,9 +52,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Date;
