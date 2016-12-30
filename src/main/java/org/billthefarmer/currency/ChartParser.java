@@ -29,7 +29,7 @@ import android.content.res.Resources;
 import java.io.InputStream;
 import java.net.URL;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -46,15 +46,15 @@ import org.xml.sax.helpers.DefaultHandler;
 // Parser class
 public class ChartParser
 {
-    private Map<String, Map<String, Double>> table;
+    private Map<String, Map<String, Double>> map;
     private Map<String, Double> entry;
-    private String latest;
+    private String date;
 
     // Create parser
     private XMLReader createParser()
     {
-	table = new LinkedHashMap<String, Map<String, Double>>();
-	latest = "1970-01-01";
+	map = new LinkedHashMap<String, Map<String, Double>>();
+	date = "1970-01-01";
 
 	try
 	{
@@ -70,22 +70,22 @@ public class ChartParser
 
 	catch (Exception e)
 	{
-	    table.clear();
+	    map.clear();
 	}
 		
 	return null;
     }
 
-    // Get latest
-    public String getLatest()
+    // Get data
+    public String getDate()
     {
-	return latest;
+	return date;
     }
 
-    // Get table
-    public Map<String, Map<String, Double>> getTable()
+    // Get map
+    public Map<String, Map<String, Double>> getMap()
     {
-	return table;
+	return map;
     }
 
     // Start parser
@@ -105,7 +105,7 @@ public class ChartParser
 
 	    catch (Exception e)
 	    {
-		table.clear();
+		map.clear();
 	    }
 	}
 
@@ -129,7 +129,7 @@ public class ChartParser
 
 	    catch (Exception e)
 	    {
-		table.clear();
+		map.clear();
 	    }
 	}
 
@@ -153,14 +153,14 @@ public class ChartParser
 		{
 		    if (attributes.getLocalName(i) == "time")
 		    {
-			String date = attributes.getValue(i);
+			String time = attributes.getValue(i);
 
-			if (date.compareTo(latest) > 0)
-			    latest = date;
+			if (time.compareTo(date) > 0)
+			    date = time;
 
-			entry = new Hashtable<String, Double>();
+			entry = new HashMap<String, Double>();
 			entry.put("EUR", 1.0);
-			table.put(date, entry);
+			map.put(time, entry);
 		    }
 
 		    else if (attributes.getLocalName(i) == "currency")

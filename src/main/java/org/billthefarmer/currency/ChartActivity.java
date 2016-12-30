@@ -25,6 +25,8 @@ package org.billthefarmer.currency;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -51,6 +53,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.DefaultFillFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+
 import java.text.NumberFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -58,7 +61,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -68,6 +70,7 @@ import java.util.Map;
 public class ChartActivity extends Activity
 {
     public static final String TAG = "Chart";
+    public static final String DATA_TAG = "data";
 
     public static final String ECB_QUARTER_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
@@ -75,6 +78,8 @@ public class ChartActivity extends Activity
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml";
 
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
+
+    private DataFragment dataFragment;
 
     private TextView dateView;
     private TextView statusView;
@@ -105,12 +110,25 @@ public class ChartActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chart);
 
+        // Find the retained fragment on activity restarts
+        FragmentManager fm = getFragmentManager();
+        dataFragment = (DataFragment) fm.findFragmentByTag(DATA_TAG);
+
+        // Create the fragment the first time
+        if (dataFragment == null)
+	{
+            // add the fragment
+            dataFragment = new DataFragment();
+            fm.beginTransaction().add(dataFragment, DATA_TAG).commit();
+        }
+
 	// Enable back navigation on action bar
 	ActionBar actionBar = getActionBar();
 	if (actionBar != null)
 	{
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 
+	    // Set custom view
 	    actionBar.setCustomView(R.layout.text);
 	    actionBar.setDisplayShowCustomEnabled(true);
 
@@ -120,7 +138,33 @@ public class ChartActivity extends Activity
 	dateView = (TextView)findViewById(R.id.date);
 	statusView = (TextView)findViewById(R.id.status);
 
-	chart = (LineChart) findViewById(R.id.chart);
+	chart = (LineChart)findViewById(R.id.chart);
+
+	Resources resources = getResources();
+
+	int dark = resources.getColor(android.R.color.secondary_text_dark);
+	String updating = resources.getString(R.string.updating);
+
+	chart.setNoDataText(updating);
+	chart.setNoDataTextColor(dark);
+
+	chart.setAutoScaleMinMaxEnabled(true);
+	chart.setKeepPositionOnRotation(true);
+	chart.setDescription(null);
+
+	XAxis xAxis = chart.getXAxis();
+	xAxis.setValueFormatter(new dateAxisValueFormatter());
+	xAxis.setGranularity(1f);
+	xAxis.setTextColor(dark);
+
+	YAxis leftAxis = chart.getAxisLeft();
+	leftAxis.setTextColor(dark);
+
+	YAxis rightAxis = chart.getAxisRight();
+	rightAxis.setTextColor(dark);
+
+	Legend legend = chart.getLegend();
+	legend.setEnabled(false);
 
 	Intent intent = getIntent();
 
@@ -140,6 +184,56 @@ public class ChartActivity extends Activity
     protected void onResume()
     {
 	super.onResume();
+
+	// Get data fragment
+	if (dataFragment != null)
+	    histMap = dataFragment.getData();
+
+	// Check retained data
+	if (histMap != null)
+	{
+	    SimpleDateFormat dateParser =
+		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+	    Resources resources = getResources();
+
+	    entryList = new ArrayList<Entry>();
+
+	    for (String key: histMap.keySet())
+	    {
+		float day = 0;
+
+		try
+		{
+		    Date date = dateParser.parse(key);
+		    day = date.getTime() / MSEC_DAY;
+		}
+
+		catch (Exception e) {}
+
+		Map<String, Double> entryMap = histMap.get(key);
+
+		double current = entryMap.get(currentName);
+		double currency = entryMap.get(currencyName);
+
+		float value = (float)(current / currency);
+
+		entryList.add(0, new Entry(day, value));
+	    }
+
+	    int bright = resources.getColor(android.R.color.holo_blue_bright);
+
+	    dataSet = new LineDataSet(entryList, currencyName);
+
+	    dataSet.setDrawCircles(false);
+	    dataSet.setDrawValues(false);
+	    dataSet.setColor(bright);
+
+	    lineData = new LineData(dataSet);
+
+	    chart.setData(lineData);
+	    chart.invalidate();
+	    return;
+	}
 
 	// Get preferences
 	SharedPreferences preferences =
@@ -183,6 +277,16 @@ public class ChartActivity extends Activity
     protected void onPause()
     {
 	super.onPause();
+    }
+
+    // On destroy
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        // store the data in the fragment
+        dataFragment.setData(histMap);
     }
 
     // On create options menu
@@ -341,9 +445,9 @@ public class ChartActivity extends Activity
 	    ChartParser parser = new ChartParser();
 
 	    if (parser.startParser(urls[0]) == true)
-		publishProgress(parser.getLatest());
+		publishProgress(parser.getDate());
 
-	    return parser.getTable();
+	    return parser.getMap();
 	}
 
 	@Override
@@ -369,13 +473,14 @@ public class ChartActivity extends Activity
 	// The system calls this to perform work in the UI thread and
 	// delivers the result from doInBackground()
 	@Override
-	protected void onPostExecute(Map<String, Map<String,Double>> table)
+	protected void onPostExecute(Map<String, Map<String,Double>> map)
 	{
-	    // Check table
-	    if (table == null)
+	    // Check map
+	    if (map == null)
 		return;
 
-	    histMap = table;
+	    // Save map
+	    histMap = map;
 
 	    SimpleDateFormat dateParser =
 		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
@@ -383,7 +488,7 @@ public class ChartActivity extends Activity
 
 	    entryList = new ArrayList<Entry>();
 
-	    for (String key: table.keySet())
+	    for (String key: map.keySet())
 	    {
 		float day = 0;
 
@@ -395,7 +500,7 @@ public class ChartActivity extends Activity
 
 		catch (Exception e) {}
 
-		Map<String, Double> entryMap = table.get(key);
+		Map<String, Double> entryMap = map.get(key);
 
 		double current = entryMap.get(currentName);
 		double currency = entryMap.get(currencyName);
@@ -405,9 +510,8 @@ public class ChartActivity extends Activity
 		entryList.add(0, new Entry(day, value));
 	    }
 
-	    int dark = resources.getColor(android.R.color.secondary_text_dark);
 	    int bright = resources.getColor(android.R.color.holo_blue_bright);
-	    String updating = resources.getString(R.string.updating);
+	    int dark = resources.getColor(android.R.color.secondary_text_dark);
 
 	    dataSet = new LineDataSet(entryList, currencyName);
 
@@ -416,29 +520,6 @@ public class ChartActivity extends Activity
 	    dataSet.setColor(bright);
 
 	    lineData = new LineData(dataSet);
-
-	    // chart.setDrawBorders(true);
-	    // chart.setBorderColor(dark);
-
-	    chart.setAutoScaleMinMaxEnabled(true);
-	    chart.setKeepPositionOnRotation(true);
-	    chart.setDescription(null);
-	    chart.setNoDataText(updating);
-	    chart.setNoDataTextColor(dark);
-
-	    XAxis xAxis = chart.getXAxis();
-	    xAxis.setValueFormatter(new dateAxisValueFormatter());
-	    xAxis.setGranularity(1f);
-	    xAxis.setTextColor(dark);
-
-	    YAxis leftAxis = chart.getAxisLeft();
-	    leftAxis.setTextColor(dark);
-
-	    YAxis rightAxis = chart.getAxisRight();
-	    rightAxis.setTextColor(dark);
-
-	    Legend legend = chart.getLegend();
-	    legend.setEnabled(false);
 
 	    chart.setData(lineData);
 	    chart.invalidate();

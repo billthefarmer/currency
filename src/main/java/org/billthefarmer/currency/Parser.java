@@ -29,7 +29,7 @@ import android.content.res.Resources;
 import java.io.InputStream;
 import java.net.URL;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -45,14 +45,14 @@ import org.xml.sax.helpers.DefaultHandler;
 // Parser class
 public class Parser
 {
-    private Map<String, Double> table;
+    private Map<String, Double> map;
     private String date;
 
     // Create parser
     private XMLReader createParser()
     {
-	table = new Hashtable<String, Double>();
-	table.put("EUR", 1.0);
+	map = new HashMap<String, Double>();
+	map.put("EUR", 1.0);
 
 	try
 	{
@@ -68,16 +68,16 @@ public class Parser
 
 	catch (Exception e)
 	{
-	    table.clear();
+	    map.clear();
 	}
 		
 	return null;
     }
 
-    // Get table
-    public Map<String, Double> getTable()
+    // Get map
+    public Map<String, Double> getMap()
     {
-	return table;
+	return map;
     }
 
     // Get date
@@ -103,7 +103,7 @@ public class Parser
 
 	    catch (Exception e)
 	    {
-		table.clear();
+		map.clear();
 	    }
 	}
 
@@ -127,7 +127,7 @@ public class Parser
 
 	    catch (Exception e)
 	    {
-		table.clear();
+		map.clear();
 	    }
 	}
 
@@ -171,8 +171,8 @@ public class Parser
 			    rate = 1.0;
 			}
 
-			// add new element to the table
-			table.put(name, rate);
+			// add new element to the map
+			map.put(name, rate);
 		    }
 		}
 	    }

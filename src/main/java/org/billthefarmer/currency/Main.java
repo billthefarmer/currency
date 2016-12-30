@@ -25,6 +25,8 @@ package org.billthefarmer.currency;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.ClipboardManager;
 import android.content.ClipData;
 import android.content.Context;
@@ -58,7 +60,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
@@ -141,6 +143,7 @@ public class Main extends Activity
     };
 
     public static final String TAG = "Main";
+    public static final String DATA_TAG = "data";
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -193,6 +196,8 @@ public class Main extends Activity
     private TextView statusView;
     private ListView listView;
 
+    private DataFragment dataFragment;
+
     private List<String> currencyNameList;
 
     private List<Integer> flagList;
@@ -218,6 +223,18 @@ public class Main extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        // Find the retained fragment on activity restarts
+        FragmentManager fm = getFragmentManager();
+        dataFragment = (DataFragment) fm.findFragmentByTag(DATA_TAG);
+
+        // Create the fragment the first time
+        if (dataFragment == null)
+	{
+            // add the fragment
+            dataFragment = new DataFragment();
+            fm.beginTransaction().add(dataFragment, DATA_TAG).commit();
+        }
 
 	flagView = (ImageView)findViewById(R.id.flag);
 	nameView = (TextView)findViewById(R.id.name);
@@ -364,7 +381,7 @@ public class Main extends Activity
 	    try
 	    {
 		JSONObject mapObject = new JSONObject(mapJSON);
-		valueMap = new Hashtable<String, Double>();
+		valueMap = new HashMap<String, Double>();
 		Iterator<String> keys = mapObject.keys();
 		while (keys.hasNext())
 		{
@@ -413,7 +430,7 @@ public class Main extends Activity
 	    else
 		statusView.setText(R.string.failed);
 
-	    valueMap = parser.getTable();
+	    valueMap = parser.getMap();
 	}
 
 	// Check saved name list
@@ -497,6 +514,15 @@ public class Main extends Activity
 	if (listView != null && listState != null)
 	    listView.onRestoreInstanceState(listState);
 
+	// Get data fragment
+	Map map = null;
+	if (dataFragment != null)
+	    map = dataFragment.getMap();
+
+	// Check retained data
+	if (map != null)
+	    return;
+
 	// Check connectivity before update
 	ConnectivityManager manager =
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
@@ -577,6 +603,16 @@ public class Main extends Activity
 
 	outState.putIntegerArrayList(SAVE_SELECT,
 				     (ArrayList<Integer>)selectList);
+    }
+
+    // On destroy
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        // store the data in the fragment
+        dataFragment.setMap(valueMap);
     }
 
     // On create options menu
@@ -769,7 +805,6 @@ public class Main extends Activity
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
 	NetworkInfo info = manager.getActiveNetworkInfo();
 
-	// Update online
 	if (info == null || !info.isConnected())
 	{
 	    statusView.setText(R.string.no_connection);
@@ -788,6 +823,7 @@ public class Main extends Activity
 	    return false;
 	}
 
+	// Update online
 	statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_DAILY_URL);
@@ -1124,7 +1160,7 @@ public class Main extends Activity
 	    if (parser.startParser(urls[0]) == true)
 		publishProgress(parser.getDate());
 
-	    return parser.getTable();
+	    return parser.getMap();
 	}
 
 	@Override
