@@ -45,6 +45,7 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.components.Legend;
@@ -81,8 +82,6 @@ public class ChartActivity extends Activity
 
     private DataFragment dataFragment;
 
-    private TextView dateView;
-    private TextView statusView;
     private TextView currentView;
 
     private LineChart chart;
@@ -135,9 +134,6 @@ public class ChartActivity extends Activity
 	    currentView = (TextView)actionBar.getCustomView();
 	}
 
-	dateView = (TextView)findViewById(R.id.date);
-	statusView = (TextView)findViewById(R.id.status);
-
 	chart = (LineChart)findViewById(R.id.chart);
 
 	Resources resources = getResources();
@@ -150,7 +146,6 @@ public class ChartActivity extends Activity
 
 	chart.setAutoScaleMinMaxEnabled(true);
 	chart.setKeepPositionOnRotation(true);
-	chart.setDescription(null);
 
 	XAxis xAxis = chart.getXAxis();
 	xAxis.setValueFormatter(new dateAxisValueFormatter());
@@ -165,6 +160,9 @@ public class ChartActivity extends Activity
 
 	Legend legend = chart.getLegend();
 	legend.setEnabled(false);
+
+	Description description = chart.getDescription();
+	description.setEnabled(false);
 
 	Intent intent = getIntent();
 
@@ -184,6 +182,13 @@ public class ChartActivity extends Activity
     protected void onResume()
     {
 	super.onResume();
+
+	// Get preferences
+	SharedPreferences preferences =
+ 	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	wifi = preferences.getBoolean(Main.PREF_WIFI, true);
+	roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
 
 	// Get data fragment
 	if (dataFragment != null)
@@ -235,13 +240,6 @@ public class ChartActivity extends Activity
 	    return;
 	}
 
-	// Get preferences
-	SharedPreferences preferences =
- 	    PreferenceManager.getDefaultSharedPreferences(this);
-
-	wifi = preferences.getBoolean(Main.PREF_WIFI, true);
-	roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
-
 	// Check connectivity before update
 	ConnectivityManager manager =
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
@@ -249,24 +247,14 @@ public class ChartActivity extends Activity
 
 	// Update online
 	if (info == null || !info.isConnected())
-	{
-	    statusView.setText(R.string.no_connection);
 	    return;
-	}
 
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
-	{
-	    statusView.setText(R.string.no_wifi);
 	    return;
-	}
 
 	if (!roaming && info.isRoaming())
-	{
-	    statusView.setText(R.string.roaming);
 	    return;
-	}
 
-	statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_QUARTER_URL);
     }
@@ -387,13 +375,6 @@ public class ChartActivity extends Activity
     // on refresh click
     private boolean onRefreshClick(String url)
     {
-	// Get preferences
-	SharedPreferences preferences =
- 	    PreferenceManager.getDefaultSharedPreferences(this);
-
-	wifi = preferences.getBoolean(Main.PREF_WIFI, true);
-	roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
-
 	// Check connectivity before update
 	ConnectivityManager manager =
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
@@ -401,24 +382,19 @@ public class ChartActivity extends Activity
 
 	// Update online
 	if (info == null || !info.isConnected())
-	{
-	    statusView.setText(R.string.no_connection);
 	    return false;
-	}
 
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
-	{
-	    statusView.setText(R.string.no_wifi);
 	    return false;
-	}
 
 	if (!roaming && info.isRoaming())
-	{
-	    statusView.setText(R.string.roaming);
 	    return false;
-	}
 
-	statusView.setText(R.string.updating);
+	Resources resources = getResources();
+	String updating = resources.getString(R.string.updating);
+
+	currentView.setText(updating);
+
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(url);
 
@@ -451,24 +427,7 @@ public class ChartActivity extends Activity
 	}
 
 	@Override
-	protected void onProgressUpdate(String... date)
-	{
-	    SimpleDateFormat dateParser =
-		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
-	    DateFormat dateFormat =
-		DateFormat.getDateInstance(DateFormat.MEDIUM);
-
-	    Date update = new Date();
-	    String latest = dateFormat.format(update);
-
-	    Resources resources = context.getResources();
-
-	    String format = resources.getString(R.string.updated);
-	    String updated = String.format(Locale.getDefault(),
-					   format, latest);
-	    dateView.setText(updated);
-	    statusView.setText(R.string.ok);
-	}
+	protected void onProgressUpdate(String... date) {}
 
 	// The system calls this to perform work in the UI thread and
 	// delivers the result from doInBackground()
@@ -520,6 +479,9 @@ public class ChartActivity extends Activity
 	    dataSet.setColor(bright);
 
 	    lineData = new LineData(dataSet);
+
+	    String label = currencyName + "/" + currentName;
+	    currentView.setText(label);
 
 	    chart.setData(lineData);
 	    chart.invalidate();
