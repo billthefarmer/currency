@@ -163,8 +163,8 @@ public class Main extends Activity
     public static final String SAVE_LIST = "save_list";
     public static final String SAVE_SELECT = "save_select";
 
-    public static final String CHART_CURRENT = "chart_current";
-    public static final String CHART_CURRENCY = "chart_currency";
+    public static final String CHART_FIRST = "chart_first";
+    public static final String CHART_SECOND = "chart_second";
 
     public static final String ECB_DAILY_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
@@ -789,11 +789,27 @@ public class Main extends Activity
     private boolean onChartClick()
     {
 	Intent intent = new Intent(this, ChartActivity.class);
-	intent.putExtra(CHART_CURRENT, currentIndex);
 
-	String currencyName = nameList.get(selectList.get(0));
-	int currencyIndex = currencyNameList.indexOf(currencyName);
-	intent.putExtra(CHART_CURRENCY, currencyIndex);
+	if (selectList.size() == 1)
+	{
+	    intent.putExtra(CHART_FIRST, currentIndex);
+
+	    String secondName = nameList.get(selectList.get(0));
+	    int secondIndex = currencyNameList.indexOf(secondName);
+	    intent.putExtra(CHART_SECOND, secondIndex);
+	}
+
+	else if (selectList.size() > 1)
+	{
+	    String firstName = nameList.get(selectList.get(0));
+	    int firstIndex = currencyNameList.indexOf(firstName);
+	    intent.putExtra(CHART_FIRST, firstIndex);
+
+	    String secondName = nameList.get(selectList.get(1));
+	    int secondIndex = currencyNameList.indexOf(secondName);
+	    intent.putExtra(CHART_SECOND, secondIndex);
+	}
+
 	startActivity(intent);
 
 	selectList.clear();

@@ -95,11 +95,11 @@ public class ChartActivity extends Activity
     private boolean wifi = true;
     private boolean roaming = false;
 
-    private int current;
-    private int currency;
+    private int first;
+    private int second;
 
-    private String currentName;
-    private String currencyName;
+    private String firstName;
+    private String secondName;
 
     // On create
 
@@ -166,13 +166,13 @@ public class ChartActivity extends Activity
 
 	Intent intent = getIntent();
 
-	current = intent.getIntExtra(Main.CHART_CURRENT, 0);
-	currency = intent.getIntExtra(Main.CHART_CURRENCY, 0);
+	first = intent.getIntExtra(Main.CHART_FIRST, 0);
+	second = intent.getIntExtra(Main.CHART_SECOND, 0);
 
-	currentName = Main.CURRENCY_NAMES[current];
-	currencyName = Main.CURRENCY_NAMES[currency];
+	firstName = Main.CURRENCY_NAMES[first];
+	secondName = Main.CURRENCY_NAMES[second];
 
-	String label = currencyName + "/" + currentName;
+	String label = secondName + "/" + firstName;
 	currentView.setText(label);
     }
 
@@ -217,17 +217,17 @@ public class ChartActivity extends Activity
 
 		Map<String, Double> entryMap = histMap.get(key);
 
-		double current = entryMap.get(currentName);
-		double currency = entryMap.get(currencyName);
+		double first = entryMap.get(firstName);
+		double second = entryMap.get(secondName);
 
-		float value = (float)(current / currency);
+		float value = (float)(first / second);
 
 		entryList.add(0, new Entry(day, value));
 	    }
 
 	    int bright = resources.getColor(android.R.color.holo_blue_bright);
 
-	    dataSet = new LineDataSet(entryList, currencyName);
+	    dataSet = new LineDataSet(entryList, secondName);
 
 	    dataSet.setDrawCircles(false);
 	    dataSet.setDrawValues(false);
@@ -330,14 +330,14 @@ public class ChartActivity extends Activity
 	    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 	Resources resources = getResources();
 
-	int index = current;
-	current = currency;
-	currency = index;
+	int index = first;
+	first = second;
+	second = index;
 
-	currentName = Main.CURRENCY_NAMES[current];
-	currencyName = Main.CURRENCY_NAMES[currency];
+	firstName = Main.CURRENCY_NAMES[first];
+	secondName = Main.CURRENCY_NAMES[second];
 
-	String label = currencyName + "/" + currentName;
+	String label = secondName + "/" + firstName;
 	currentView.setText(label);
 
 	entryList.clear();
@@ -356,10 +356,10 @@ public class ChartActivity extends Activity
 
 	    Map<String, Double> entryMap = histMap.get(key);
 
-	    double current = entryMap.get(currentName);
-	    double currency = entryMap.get(currencyName);
+	    double first = entryMap.get(firstName);
+	    double second = entryMap.get(secondName);
 
-	    float value = (float)(current / currency);
+	    float value = (float)(first / second);
 
 	    entryList.add(0, new Entry(day, value));
 	}
@@ -461,10 +461,10 @@ public class ChartActivity extends Activity
 
 		Map<String, Double> entryMap = map.get(key);
 
-		double current = entryMap.get(currentName);
-		double currency = entryMap.get(currencyName);
+		double first = entryMap.get(firstName);
+		double second = entryMap.get(secondName);
 
-		float value = (float)(current / currency);
+		float value = (float)(first / second);
 
 		entryList.add(0, new Entry(day, value));
 	    }
@@ -472,7 +472,7 @@ public class ChartActivity extends Activity
 	    int bright = resources.getColor(android.R.color.holo_blue_bright);
 	    int dark = resources.getColor(android.R.color.secondary_text_dark);
 
-	    dataSet = new LineDataSet(entryList, currencyName);
+	    dataSet = new LineDataSet(entryList, secondName);
 
 	    dataSet.setDrawCircles(false);
 	    dataSet.setDrawValues(false);
@@ -480,7 +480,7 @@ public class ChartActivity extends Activity
 
 	    lineData = new LineData(dataSet);
 
-	    String label = currencyName + "/" + currentName;
+	    String label = secondName + "/" + firstName;
 	    currentView.setText(label);
 
 	    chart.setData(lineData);
