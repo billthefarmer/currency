@@ -302,7 +302,7 @@ public class Main extends Activity
 	if (list != null)
 	{
 	    for (int index: list)
-		    selectList.add(index);
+		selectList.add(index);
 
 	    if (selectList.isEmpty())
 		mode = Main.NORMAL_MODE;
@@ -370,68 +370,78 @@ public class Main extends Activity
 	String value = numberFormat.format(currentValue);
 	editView.setText(value);
 
-	// Get saved currency rates and list
-	String mapJSON = preferences.getString(PREF_MAP, null);
-	String namesJSON = preferences.getString(PREF_NAMES, null);
-	String valuesJSON = preferences.getString(PREF_VALUES, null);
+	// Check data fragment
+	if (dataFragment != null)
+	    valueMap = dataFragment.getMap();
 
-	// Check saved rates
-	if (mapJSON != null)
+	// Check retained data
+	if (valueMap == null)
 	{
-	    try
-	    {
-		JSONObject mapObject = new JSONObject(mapJSON);
-		valueMap = new HashMap<String, Double>();
-		Iterator<String> keys = mapObject.keys();
-		while (keys.hasNext())
-		{
-		    String key = keys.next();
-		    valueMap.put(key, mapObject.getDouble(key));
-		}
-	    }
+	    // Get saved currency rates
+	    String mapJSON = preferences.getString(PREF_MAP, null);
 
-	    catch (Exception e)
-	    {
-		e.printStackTrace();
-	    }
-	}
-
-	// Get old rates from resources
-	else
-	{
-	    Parser parser = new Parser();
-	    parser.startParser(this, R.raw.eurofxref_daily);
-
-	    SimpleDateFormat dateParser =
-		new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
-	    DateFormat dateFormat =
-		DateFormat.getDateInstance(DateFormat.MEDIUM);
-
-	    String latest = parser.getDate();
-
-	    if (latest != null)
+	    // Check saved rates
+	    if (mapJSON != null)
 	    {
 		try
 		{
-		    Date update = dateParser.parse(latest);
-		    date = dateFormat.format(update);
+		    JSONObject mapObject = new JSONObject(mapJSON);
+		    valueMap = new HashMap<String, Double>();
+		    Iterator<String> keys = mapObject.keys();
+		    while (keys.hasNext())
+		    {
+			String key = keys.next();
+			valueMap.put(key, mapObject.getDouble(key));
+		    }
 		}
 
 		catch (Exception e)
 		{
 		    e.printStackTrace();
 		}
-
-		format = resources.getString(R.string.updated);
-		updated = String.format(Locale.getDefault(), format, date);
-		dateView.setText(updated);
 	    }
 
+	    // Get old rates from resources
 	    else
-		statusView.setText(R.string.failed);
+	    {
+		Parser parser = new Parser();
+		parser.startParser(this, R.raw.eurofxref_daily);
 
-	    valueMap = parser.getMap();
+		SimpleDateFormat dateParser =
+		    new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+		DateFormat dateFormat =
+		    DateFormat.getDateInstance(DateFormat.MEDIUM);
+
+		String latest = parser.getDate();
+
+		if (latest != null)
+		{
+		    try
+		    {
+			Date update = dateParser.parse(latest);
+			date = dateFormat.format(update);
+		    }
+
+		    catch (Exception e)
+		    {
+			e.printStackTrace();
+		    }
+
+		    format = resources.getString(R.string.updated);
+		    updated = String.format(Locale.getDefault(), format, date);
+		    dateView.setText(updated);
+		}
+
+		else
+		    statusView.setText(R.string.failed);
+
+		valueMap = parser.getMap();
+	    }
 	}
+
+	// Get saved currency lists
+	String namesJSON = preferences.getString(PREF_NAMES, null);
+	String valuesJSON = preferences.getString(PREF_VALUES, null);
 
 	// Check saved name list
 	if (namesJSON != null)
@@ -514,14 +524,13 @@ public class Main extends Activity
 	if (listView != null && listState != null)
 	    listView.onRestoreInstanceState(listState);
 
-	// Get data fragment
-	Map map = null;
+	// Check data fragment
 	if (dataFragment != null)
-	    map = dataFragment.getMap();
-
-	// Check retained data
-	if (map != null)
-	    return;
+	{
+	    // Check retained data
+	    if (dataFragment.getMap() != null)
+		return;
+	}
 
 	// Check connectivity before update
 	ConnectivityManager manager =
