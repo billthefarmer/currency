@@ -58,7 +58,26 @@ icons in the toolbar will change to:
 
 * **Clear** the selection.
 * **Remove** the selected currencies.
+* **Chart** Display a chart of selected currencies. If one is
+  selected, the chart will be of the current currency and the selected
+  currency. If two currencies are selected the chart will be of those
+  currencies.
 * **Copy** selection value to clipboard. Only one value will be copied.
+
+## Chart
+
+The display shows an interactive chart of the last 90 days of
+historical rates from the
+[ECB](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html"). The
+chart responds to two finger pinch and expand gestures and will scroll
+once expanded. The toolbar icons from left to right are:
+
+* **Invert** the chart.
+* **Update** the chart.
+* **Eighteen years** The chart will be updated with nearly eighteen
+  years of historical data currently dating from 1
+  April 1999. **Caution** - this will take a while, depending on the
+  connection, and will download more than 6Mb of data.
 
 ## Settings
 
