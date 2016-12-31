@@ -6,6 +6,10 @@ Android currency conversion. The app is available on [F-Droid](https://f-droid.o
 
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/settings.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/about.png)
 
+![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/chart.png)
+
+![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/hist.png)
+
  * Currency rates from the [European Central Bank](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html)
  * 32 international currencies
  * Currency rates updated daily
