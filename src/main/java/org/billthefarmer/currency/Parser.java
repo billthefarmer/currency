@@ -57,9 +57,11 @@ public class Parser
 
 	try
 	{
+	    // Get a parser
 	    SAXParserFactory factory = SAXParserFactory.newInstance();
 	    SAXParser parser = factory.newSAXParser();
 
+	    // Get a reader
 	    XMLReader reader = parser.getXMLReader();
 	    Handler handler = new Handler();
 	    reader.setContentHandler(handler);
@@ -90,10 +92,12 @@ public class Parser
     // Start parser
     public boolean startParser(String s)
     {
+	// Get a reader
 	XMLReader reader = createParser();
 
 	if(reader != null)
 	{
+	    // Read the xml from the url
 	    try
 	    {
 		URL url = new URL(s);
@@ -115,10 +119,13 @@ public class Parser
     public boolean startParser(Context context, int id)
     {
 	Resources resources = context.getResources();
+
+	// Get a reader
 	XMLReader reader = createParser();
 
 	if(reader != null)
 	{
+	    // Read the xml from the resources
 	    try
 	    {
 		InputStream stream = resources.openRawResource(id);
@@ -150,14 +157,17 @@ public class Parser
 	    {
 		for (int i = 0; i < attributes.getLength(); i++)
 		{
+		    // Get the date
 		    if (attributes.getLocalName(i) == "time")
 			date = attributes.getValue(i);
 
+		    // Get the currency name
 		    else if (attributes.getLocalName(i) == "currency")
 		    {
 			name = attributes.getValue(i);
 		    }
 
+		    // Get the currency rate
 		    else if (attributes.getLocalName(i) == "rate")
 		    {
 			try
@@ -170,7 +180,7 @@ public class Parser
 			    rate = 1.0;
 			}
 
-			// add new element to the map
+			// Add new currency to the map
 			map.put(name, rate);
 		    }
 		}

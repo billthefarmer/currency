@@ -57,7 +57,7 @@ public class ChoiceDialog extends Activity
 
     private ChoiceAdapter adapter;
 
-    private int mode = Main.NORMAL_MODE;
+    private int mode = Main.DISPLAY_MODE;
 
     // On create
 
@@ -67,6 +67,7 @@ public class ChoiceDialog extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose);
 
+	// Find views
  	listView = (ListView)findViewById(R.id.list);
 
 	cancel = (Button)findViewById(R.id.cancel);
@@ -115,16 +116,19 @@ public class ChoiceDialog extends Activity
 
 	if (list != null)
 	{
+	    // Update the selection list
 	    for (int index: list)
 		    selectList.add(index);
 
+	    // Disable buttons if empty
 	    if (selectList.isEmpty())
 	    {
 		clear.setEnabled(false);
 		select.setEnabled(false);
-		mode = Main.NORMAL_MODE;
+		mode = Main.DISPLAY_MODE;
 	    }
 
+	    // Enable buttons if selection
 	    else
 	    {
 		clear.setEnabled(true);
@@ -133,11 +137,13 @@ public class ChoiceDialog extends Activity
 	    }
 	}
 
+	// No saved list
 	else
 	{
-	    mode = Main.NORMAL_MODE;
+	    mode = Main.DISPLAY_MODE;
 	}
 
+	// Notify adapter
 	adapter.notifyDataSetChanged();
 	super.onRestoreInstanceState(savedState);
     }
@@ -149,6 +155,7 @@ public class ChoiceDialog extends Activity
     {
 	super.onSaveInstanceState(outState);
 
+	// Save the selection list
 	outState.putIntegerArrayList(Main.SAVE_SELECT,
 				     (ArrayList<Integer>)selectList);
     }
@@ -172,7 +179,7 @@ public class ChoiceDialog extends Activity
 	case R.id.clear:
 	    clear.setEnabled(false);
 	    select.setEnabled(false);
-	    mode = Main.NORMAL_MODE;
+	    mode = Main.DISPLAY_MODE;
 
 	    // Start a new selection
 	    selectList.clear();
@@ -200,7 +207,7 @@ public class ChoiceDialog extends Activity
 	switch (mode)
 	{
 	    // Normal
-	case Main.NORMAL_MODE:
+	case Main.DISPLAY_MODE:
 	    selectList.add(position);
 	    // Return new currency in intent
 	    Intent intent = new Intent();
@@ -221,7 +228,7 @@ public class ChoiceDialog extends Activity
 	    {
 		clear.setEnabled(false);
 		select.setEnabled(false);
-		mode = Main.NORMAL_MODE;
+		mode = Main.DISPLAY_MODE;
 	    }
 
 	    adapter.notifyDataSetChanged();

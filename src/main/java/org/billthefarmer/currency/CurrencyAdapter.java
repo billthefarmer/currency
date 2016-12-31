@@ -52,6 +52,7 @@ public class CurrencyAdapter extends BaseAdapter
     {
 	inflater = LayoutInflater.from(context);
 
+	// Save all the parameters
 	this.resource = resource;
 	this.flags = flags;
 	this.symbols = symbols;
@@ -61,22 +62,26 @@ public class CurrencyAdapter extends BaseAdapter
 	this.selection = selection;
     }
 
+    @Override
     public int getCount()
     {
         return names.size();
     }
 
+    @Override
     public Object getItem(int position)
     {
         return null;
     }
 
+    @Override
     public long getItemId(int position)
     {
         return position;
     }
 
-    // create a new View for each item referenced by the Adapter
+    // Create a new View for each item referenced by the adapter
+    @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
         ImageView flag;
@@ -85,17 +90,18 @@ public class CurrencyAdapter extends BaseAdapter
 	TextView value;
 	TextView longName;
 
-	// convertView = super.getView(position, convertView, parent);
-
+	// Create a new view
         if (convertView == null)
 	    convertView = inflater.inflate(resource, parent, false);
 
+	// Find the views
 	flag = (ImageView)convertView.findViewById(R.id.flag);
 	name = (TextView)convertView.findViewById(R.id.name);
 	symbol = (TextView)convertView.findViewById(R.id.symbol);
 	value = (TextView)convertView.findViewById(R.id.value);
 	longName = (TextView)convertView.findViewById(R.id.long_name);
 
+	// Update the views
 	if (flag != null)
 	    flag.setImageResource(flags.get(position));
 
@@ -111,9 +117,11 @@ public class CurrencyAdapter extends BaseAdapter
 	if (longName != null)
 	    longName.setText(longNames.get(position));
 
+	// Highlight if selected
 	if (selection.contains(position))
 	    convertView.setBackgroundResource(android.R.color.holo_blue_dark);
 
+	// Clear highlight
 	else
 	    convertView.setBackgroundResource(0);
 

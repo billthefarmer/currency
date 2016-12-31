@@ -172,10 +172,10 @@ public class Main extends Activity
 
     protected final static String CHOICE = "choice";
 
-    public static final int NORMAL_MODE = 0;
+    public static final int DISPLAY_MODE = 0;
     public static final int SELECT_MODE = 1;
 
-    private int mode = NORMAL_MODE;
+    private int mode = DISPLAY_MODE;
 
     private boolean wifi = true;
     private boolean roaming = false;
@@ -237,6 +237,7 @@ public class Main extends Activity
             fm.beginTransaction().add(dataFragment, DATA_TAG).commit();
         }
 
+	// Find views
 	flagView = (ImageView)findViewById(R.id.flag);
 	nameView = (TextView)findViewById(R.id.name);
 	symbolView = (TextView)findViewById(R.id.symbol);
@@ -271,6 +272,7 @@ public class Main extends Activity
 	    listView.setOnItemLongClickListener(this);
 	}
 
+	// Create currency name list
 	currencyNameList = Arrays.asList(CURRENCY_NAMES);
 
 	// Create lists
@@ -285,7 +287,6 @@ public class Main extends Activity
 	adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList,
 				      symbolList, valueList, longNameList,
 				      selectList);
-
 	// Set the list view adapter
 	if (listView != null)
 	    listView.setAdapter(adapter);
@@ -296,25 +297,30 @@ public class Main extends Activity
     @Override
     public void onRestoreInstanceState(Bundle savedState)
     {
+	// Get the list view state to restore after it's been updated
 	listState = savedState.getParcelable(SAVE_LIST);
 
+	// Get the saved select list
     	List<Integer> list  = savedState.getIntegerArrayList(SAVE_SELECT);
 
+	// Update select list
 	if (list != null)
 	{
 	    for (int index: list)
 		selectList.add(index);
 
+	    // Set mode
 	    if (selectList.isEmpty())
-		mode = Main.NORMAL_MODE;
+		mode = Main.DISPLAY_MODE;
 
 	    else
 		mode = Main.SELECT_MODE;
 	}
 
+	// Normal mode if no saved list
 	else
 	{
-	    mode = Main.NORMAL_MODE;
+	    mode = Main.DISPLAY_MODE;
 	}
 
 	super.onRestoreInstanceState(savedState);
@@ -339,8 +345,10 @@ public class Main extends Activity
 	selectAll = preferences.getBoolean(PREF_SELECT, true);
 	digits = Integer.parseInt(preferences.getString(PREF_DIGITS, "3"));
 
+	// Get current currency
 	currentIndex = preferences.getInt(PREF_INDEX, 0);
 
+	// Get current value
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
 	numberFormat.setMaximumFractionDigits(digits);
@@ -540,25 +548,28 @@ public class Main extends Activity
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
 	NetworkInfo info = manager.getActiveNetworkInfo();
 
-	// Update online
+	// Check connected
 	if (info == null || !info.isConnected())
 	{
 	    statusView.setText(R.string.no_connection);
 	    return;
 	}
 
+	// Check wifi
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
 	{
 	    statusView.setText(R.string.no_wifi);
 	    return;
 	}
 
+	// Check roaming
 	if (!roaming && info.isRoaming())
 	{
 	    statusView.setText(R.string.roaming);
 	    return;
 	}
 
+	// Schedule update
 	statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_DAILY_URL);
@@ -599,7 +610,7 @@ public class Main extends Activity
 	editor.putString(PREF_DATE, date);
 	editor.apply();
 
-        // store the value map in the fragment
+        // Save the value map in the data fragment
         dataFragment.setMap(valueMap);
     }
 
@@ -610,12 +621,14 @@ public class Main extends Activity
     {
 	super.onSaveInstanceState(outState);
 
+	// Save the list view state
 	if (listView != null)
 	{
 	    Parcelable state = listView.onSaveInstanceState();
 	    outState.putParcelable(SAVE_LIST, state);
 	}
 
+	// Save the select list
 	outState.putIntegerArrayList(SAVE_SELECT,
 				     (ArrayList<Integer>)selectList);
     }
@@ -630,9 +643,10 @@ public class Main extends Activity
 
 	MenuInflater inflater = getMenuInflater();
 
+	// Check mode
 	switch (mode)
 	{
-	case NORMAL_MODE:
+	case DISPLAY_MODE:
 	    inflater.inflate(R.menu.main, menu);
 	    break;
 
@@ -702,6 +716,7 @@ public class Main extends Activity
 
     private boolean onAddClick()
     {
+	// Start the choice dialog
 	Intent intent = new Intent(this, ChoiceDialog.class);
 	startActivityForResult(intent, 0);
 
@@ -712,9 +727,11 @@ public class Main extends Activity
 
     private boolean onClearClick()
     {
-	mode = NORMAL_MODE;
+	// Restore the menu
+	mode = DISPLAY_MODE;
 	invalidateOptionsMenu();
 
+	// Clear the list and update the adapter
 	selectList.clear();
 	adapter.notifyDataSetChanged();
 	return true;
@@ -731,6 +748,7 @@ public class Main extends Activity
 	numberFormat.setMinimumFractionDigits(digits);
 	numberFormat.setMaximumFractionDigits(digits);
 
+	// Copy value to clip
 	String clip = null;
 	for (int i: selectList)
 	{
@@ -740,6 +758,7 @@ public class Main extends Activity
 		Number number = numberFormat.parse(valueList.get(i));
 		Double value = number.doubleValue();
 
+		// Remove grouping from value
 		numberFormat.setGroupingUsed(false);
 		clip = numberFormat.format(value);
 	    }
@@ -747,11 +766,14 @@ public class Main extends Activity
 	    catch (Exception e) {}
 	}
 
+	// Copy clip to clipboard
 	clipboard.setPrimaryClip(ClipData.newPlainText("Currency", clip));
 
-	mode = NORMAL_MODE;
+	// Restore menu
+	mode = DISPLAY_MODE;
 	invalidateOptionsMenu();
 
+	// Clear selection
 	selectList.clear();
 	adapter.notifyDataSetChanged();
 	return true;
@@ -763,13 +785,16 @@ public class Main extends Activity
     {
 	List<String> removeList = new ArrayList<String>();
 
+	// Create a list of currency names to remove
 	for (int i: selectList)
 	    removeList.add(nameList.get(i));
 
 	for (String s: removeList)
 	{
+	    // Look up name
 	    int i = nameList.indexOf(s);
 
+	    // Remove from the lists
 	    flagList.remove(i);
 	    nameList.remove(i);
 	    symbolList.remove(i);
@@ -777,10 +802,12 @@ public class Main extends Activity
 	    longNameList.remove(i);
 	}
 
+	// Clear list and update adapter
 	selectList.clear();
 	adapter.notifyDataSetChanged();
 
-	mode = NORMAL_MODE;
+	// Restore menu
+	mode = DISPLAY_MODE;
 	invalidateOptionsMenu();
 
  	return true;
@@ -792,32 +819,30 @@ public class Main extends Activity
     {
 	Intent intent = new Intent(this, ChartActivity.class);
 
-	if (selectList.size() == 1)
-	{
-	    intent.putExtra(CHART_FIRST, currentIndex);
+	int firstIndex = currentIndex;
+	int secondIndex = currentIndex;
 
-	    String secondName = nameList.get(selectList.get(0));
-	    int secondIndex = currencyNameList.indexOf(secondName);
-	    intent.putExtra(CHART_SECOND, secondIndex);
+	// Iterate through the list to get the last two
+	for (int index: selectList)
+	{
+	    firstIndex = secondIndex;
+	    String name = nameList.get(index);
+	    secondIndex = currencyNameList.indexOf(name);
 	}
 
-	else if (selectList.size() > 1)
-	{
-	    String firstName = nameList.get(selectList.get(0));
-	    int firstIndex = currencyNameList.indexOf(firstName);
-	    intent.putExtra(CHART_FIRST, firstIndex);
+	// Put the currency indices
+	intent.putExtra(CHART_FIRST, firstIndex);
+	intent.putExtra(CHART_SECOND, secondIndex);
 
-	    String secondName = nameList.get(selectList.get(1));
-	    int secondIndex = currencyNameList.indexOf(secondName);
-	    intent.putExtra(CHART_SECOND, secondIndex);
-	}
-
+	// Start chart activity
 	startActivity(intent);
 
+	// Clear list and update adapter
 	selectList.clear();
 	adapter.notifyDataSetChanged();
 
-	mode = NORMAL_MODE;
+	// Restore menu
+	mode = DISPLAY_MODE;
 	invalidateOptionsMenu();
 
 	return true;
@@ -832,25 +857,28 @@ public class Main extends Activity
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
 	NetworkInfo info = manager.getActiveNetworkInfo();
 
+	// Check connected
 	if (info == null || !info.isConnected())
 	{
 	    statusView.setText(R.string.no_connection);
 	    return false;
 	}
 
+	// Check wifi
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
 	{
 	    statusView.setText(R.string.no_wifi);
 	    return false;
 	}
 
+	// Check roaming
 	if (!roaming && info.isRoaming())
 	{
 	    statusView.setText(R.string.roaming);
 	    return false;
 	}
 
-	// Update online
+	// Schedule update
 	statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_DAILY_URL);
@@ -861,6 +889,7 @@ public class Main extends Activity
 
     private boolean onHelpClick()
     {
+	// Start help activity
 	Intent intent = new Intent(this, HelpActivity.class);
 	startActivity(intent);
 
@@ -871,6 +900,7 @@ public class Main extends Activity
 
     private boolean onSettingsClick()
     {
+	// Start settings activity
 	Intent intent = new Intent(this, SettingsActivity.class);
 	startActivity(intent);
 
@@ -885,17 +915,22 @@ public class Main extends Activity
 
 	switch (id)
 	{
+	    // Value field
 	case R.id.edit:
 	    if (selectAll && select)
 	    {
+		// Forces select all
 		view.clearFocus();
 		view.requestFocus();
 	    }
 
+	    // Do it only once
 	    select = false;
 	    break;
 
+	    // Any other view
 	default:
+	    // Clear value field selection
 	    editView.setSelection(0);
 	    select = true;
 	}
@@ -909,7 +944,8 @@ public class Main extends Activity
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
 	numberFormat.setMaximumFractionDigits(digits);
- 
+
+	// Parse current value
 	try
 	{
 	    String n = editable.toString();
@@ -920,6 +956,7 @@ public class Main extends Activity
 	    }
 	}
 
+	// Set to one on exception
 	catch (Exception e)
 	{
 	    e.printStackTrace();
@@ -927,26 +964,26 @@ public class Main extends Activity
 	    editView.setText(R.string.num_one);
 	}
 
-	if (nameList != null)
+	// Recalculate all the values
+	valueList.clear();
+	for (String name: nameList)
 	{
-	    valueList.clear();
-	    for (String name: nameList)
-	    {
-		Double value = (currentValue / convertValue) *
-		    valueMap.get(name);
+	    Double value = (currentValue / convertValue) *
+		valueMap.get(name);
 
-		String s = numberFormat.format(value);
-		valueList.add(s);
-	    }
-
-	    adapter.notifyDataSetChanged();
+	    String s = numberFormat.format(value);
+	    valueList.add(s);
 	}
+
+	// Notify the adapter
+	adapter.notifyDataSetChanged();
     }
 
+    // Not used
     @Override
     public void beforeTextChanged (CharSequence s, int start,
 				   int count,  int after) {}
-
+    // Not used
     @Override
     public void onTextChanged (CharSequence s, int start, 
 			       int before, int count) {}
@@ -964,6 +1001,7 @@ public class Main extends Activity
 	{
         case  EditorInfo.IME_ACTION_DONE:
 
+	    // Parse current value
 	    try
 	    {
 		String n = v.getText().toString();
@@ -974,16 +1012,20 @@ public class Main extends Activity
 		}
 	    }
 
+	    // Set to one on exception
 	    catch (Exception e)
 	    {
 		e.printStackTrace();
 		currentValue = 1.0;
 		editView.setText(R.string.num_one);
 	    }
+
+	    // Reformat the value field
 	    numberFormat.setGroupingUsed(false);
 	    String s = numberFormat.format(currentValue);
 	    editView.setText(s);
 
+	    // Recalculate all the values
 	    valueList.clear();
 	    numberFormat.setGroupingUsed(true);
 	    for (String name: nameList)
@@ -995,6 +1037,7 @@ public class Main extends Activity
 		valueList.add(s);
 	    }
 
+	    // Notify the adapter
 	    adapter.notifyDataSetChanged();
 
 	    return false; // Or the keypad won't go away
@@ -1019,10 +1062,13 @@ public class Main extends Activity
 
 	switch (mode)
 	{
-	case NORMAL_MODE:
+	    // Display mode - replace the current currency
+	case DISPLAY_MODE:
+	    // Save the current values
 	    oldIndex = currentIndex;
 	    oldValue = currentValue;
 
+	    // Set the current currency from the list
 	    currentIndex = currencyNameList.indexOf(nameList.get(position));
 
 	    currentValue = (oldValue / convertValue) *
@@ -1040,12 +1086,14 @@ public class Main extends Activity
 	    symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
 	    longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
 
+	    // Remove the selected currency from the lists
 	    flagList.remove(position);
 	    nameList.remove(position);
 	    symbolList.remove(position);
 	    valueList.remove(position);
 	    longNameList.remove(position);
 
+	    // Add the old current currency to the start of the list
 	    flagList.add(0, CURRENCY_FLAGS[oldIndex]);
 	    nameList.add(0, CURRENCY_NAMES[oldIndex]);
 	    symbolList.add(0, CURRENCY_SYMBOLS[oldIndex]);
@@ -1074,22 +1122,26 @@ public class Main extends Activity
 	    editor.putFloat(PREF_VALUE, (float)currentValue);
 	    editor.apply();
 
+	    // Notify the adapter
 	    adapter.notifyDataSetChanged();
 	    break;
 
 	case SELECT_MODE:
+	    // Select mode - add or remove from list
 	    if (selectList.contains(position))
 		selectList.remove(selectList.indexOf(position));
 
 	    else
 		selectList.add(position);
 
+	    // Reset mode if list empty
 	    if (selectList.isEmpty())
 	    {
-		mode = NORMAL_MODE;
+		mode = DISPLAY_MODE;
 		invalidateOptionsMenu();
 	    }
 
+	    // Notify the adapter
 	    adapter.notifyDataSetChanged();
 	    break;
 	}
@@ -1101,11 +1153,15 @@ public class Main extends Activity
     public boolean onItemLongClick(AdapterView parent, View view,
 				   int position, long id)
     {
+	// Switch to select mode, update menu
 	mode = SELECT_MODE;
 	invalidateOptionsMenu();
 
+	// Clear the list and add the new selection
 	selectList.clear();
 	selectList.add(position);
+
+	// Notify the adapter
 	adapter.notifyDataSetChanged();
 	return true;
     }
