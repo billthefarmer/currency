@@ -598,6 +598,9 @@ public class Main extends Activity
 	editor.putString(PREF_VALUE, value);
 	editor.putString(PREF_DATE, date);
 	editor.apply();
+
+        // store the value map in the fragment
+        dataFragment.setMap(valueMap);
     }
 
     // On save
@@ -615,16 +618,6 @@ public class Main extends Activity
 
 	outState.putIntegerArrayList(SAVE_SELECT,
 				     (ArrayList<Integer>)selectList);
-    }
-
-    // On destroy
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        // store the data in the fragment
-        dataFragment.setMap(valueMap);
     }
 
     // On create options menu

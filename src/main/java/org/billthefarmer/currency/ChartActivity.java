@@ -265,15 +265,8 @@ public class ChartActivity extends Activity
     protected void onPause()
     {
 	super.onPause();
-    }
 
-    // On destroy
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        // store the data in the fragment
+        // store the historical data in the fragment
         dataFragment.setData(histMap);
     }
 
