@@ -59,11 +59,11 @@ public class Parser
 	{
 	    SAXParserFactory factory = SAXParserFactory.newInstance();
 	    SAXParser parser = factory.newSAXParser();
-			
+
 	    XMLReader reader = parser.getXMLReader();
 	    Handler handler = new Handler();
 	    reader.setContentHandler(handler);
-			
+
 	    return reader;
 	}
 
@@ -71,7 +71,7 @@ public class Parser
 	{
 	    map.clear();
 	}
-		
+
 	return null;
     }
 

@@ -60,11 +60,11 @@ public class ChartParser
 	{
 	    SAXParserFactory factory = SAXParserFactory.newInstance();
 	    SAXParser parser = factory.newSAXParser();
-			
+
 	    XMLReader reader = parser.getXMLReader();
 	    Handler handler = new Handler();
 	    reader.setContentHandler(handler);
-			
+
 	    return reader;
 	}
 
@@ -72,7 +72,7 @@ public class ChartParser
 	{
 	    map.clear();
 	}
-		
+
 	return null;
     }
 

@@ -29,6 +29,7 @@ package org.billthefarmer.currency;
 
 import android.content.Context;
 import android.preference.DialogPreference;
+import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -59,5 +60,14 @@ public class AboutPreference extends DialogPreference
 	String v = (String) version.getText();
 	String s = String.format(v, BuildConfig.VERSION_NAME);
 	version.setText(s);
+
+	// Get copyright text view
+
+	TextView copyright = (TextView) view.findViewById(R.id.copyright);
+
+	// Set movement method
+
+	copyright.setMovementMethod(LinkMovementMethod.getInstance());
+
     }
 }
