@@ -14,15 +14,15 @@
       android:icon="@drawable/ic_action_remove" />
 
   <item
-      android:id="@+id/action_copy"
-      android:showAsAction="ifRoom"
-      android:title="@string/copy"
-      android:icon="@drawable/ic_action_copy" />
-
-  <item
       android:id="@+id/action_chart"
       android:showAsAction="ifRoom"
       android:title="@string/chart"
       android:icon="@drawable/ic_action_picture" />
+
+  <item
+      android:id="@+id/action_copy"
+      android:showAsAction="ifRoom"
+      android:title="@string/copy"
+      android:icon="@drawable/ic_action_copy" />
 
 </menu>

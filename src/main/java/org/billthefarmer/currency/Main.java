@@ -54,14 +54,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.List;
@@ -529,6 +530,8 @@ public class Main extends Activity
 	{
 	    // Check retained data
 	    if (dataFragment.getMap() != null)
+
+		// Don't update
 		return;
 	}
 
@@ -666,31 +669,37 @@ public class Main extends Activity
 	int id = item.getItemId();
 	switch (id)
 	{
+	    // Add
 	case R.id.action_add:
 	    return onAddClick();
 
+	    // Refresh
 	case R.id.action_refresh:
 	    return onRefreshClick();
 
+	    // Help
 	case R.id.action_help:
 	    return onHelpClick();
 
+	    // Settings
+	case R.id.action_settings:
+	    return onSettingsClick();
+
+	    // Clear
 	case R.id.action_clear:
 	    return onClearClick();
 
+	    // Remove
 	case R.id.action_remove:
 	    return onRemoveClick();
 
+	    // Chart
 	case R.id.action_chart:
 	    return onChartClick();
 
+	    // Copy
 	case R.id.action_copy:
 	    return onCopyClick();
-
-	    // Settings
-
-	case R.id.action_settings:
-	    return onSettingsClick();
 	}
 
 	return false;

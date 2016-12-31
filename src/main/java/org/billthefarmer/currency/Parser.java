@@ -43,6 +43,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 // Parser class
+
 public class Parser
 {
     private Map<String, Double> map;
@@ -150,9 +151,7 @@ public class Parser
 		for (int i = 0; i < attributes.getLength(); i++)
 		{
 		    if (attributes.getLocalName(i) == "time")
-		    {
 			date = attributes.getValue(i);
-		    }
 
 		    else if (attributes.getLocalName(i) == "currency")
 		    {
