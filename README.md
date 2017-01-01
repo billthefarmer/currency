@@ -69,6 +69,9 @@ historical rates from the
 chart responds to two finger pinch and expand gestures and will scroll
 once expanded. The toolbar icons from left to right are:
 * **Invert** the chart.
+* **New chart** The scrollable list of currencies will pop up. Select
+  one or two currencies from the list as above to replace the current
+  currencies in the chart.
 * **Update** the chart.
 * **Historical** The chart will be updated with nearly eighteen years
   of historical data currently dating from 1 April 1999. Not all the
