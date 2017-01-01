@@ -17,7 +17,6 @@ Android currency conversion. The app is available on [F-Droid](https://f-droid.o
 
 ## Usage
 ### Edit
-
 Touch the current currency value field to edit the value. The display
 will be updated dynamically as you type. Touch the **Done** button on
 the numeric keypad to update the value field.  The whole value field
@@ -27,9 +26,7 @@ like the currency flag. This behaviour can be disabled in the settings
 below.
 
 ### Toolbar
-
 The icons in the toolbar from left to right are:
-
 * **Add** a currency to the list. A scrollable list of currencies will
    pop up. Touch an entry to add it or touch the **Cancel** button
    below the list. Long touch an entry to select it. Once one currency
@@ -39,7 +36,6 @@ The icons in the toolbar from left to right are:
    clear the selection. Touch the **Select** button to add the
    selection. The entries will be added to the list in the order
    selected.
-
 * **Update** Get the day's currency rates from the
   [ECB](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html). The
   date shown on the left above the currency list will be updated if
@@ -48,7 +44,6 @@ The icons in the toolbar from left to right are:
   right above the currency list will show 'OK', 'No Connection', 'No
   WiFi' or 'Roaming' according to the update settings. If may show
   'Failed' if the connection times out or fails to connect.
-
 * **Help** Display help text.
 * **Settings** Display the settings screen.
 
@@ -59,46 +54,39 @@ to select it. Once one currency is selected others may be added or
 removed from the selection by touching them. Another long touch on
 another currency will clear the list and select the new currency. The
 icons in the toolbar will change to:
-
 * **Clear** the selection.
 * **Remove** the selected currencies.
 * **Chart** Display a chart of selected currencies. If one is
   selected, the chart will be of the current currency and the selected
-  currency. If two currencies are selected the chart will be of those
-  currencies.
+  currency. If more than one currency is selected the chart will be of
+  the last two selected currencies.
 * **Copy** selection value to clipboard. Only one value will be copied.
 
 ## Chart
-
 The display shows an interactive chart of the last 90 days of
 historical rates from the
 [ECB](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html"). The
 chart responds to two finger pinch and expand gestures and will scroll
 once expanded. The toolbar icons from left to right are:
-
 * **Invert** the chart.
 * **Update** the chart.
-* **Eighteen years** The chart will be updated with nearly eighteen
-  years of historical data currently dating from 1
-  April 1999. **Caution** - this will take a while, depending on the
-  connection, and will download more than 6Mb of data.
+* **Historical** The chart will be updated with nearly eighteen years
+  of historical data currently dating from 1 April 1999. Not all the
+  currencies go back this far. **Caution** - this will take a while,
+  depending on the connection, and will download more than 6Mb of
+  data.
 
 ## Settings
-
 ### Update
-
 * **WiFi** Update while connected on WiFi only
 * **Roaming** Update while roaming
 
 ### Selection
-
 * **Selection** Select all current currency value text when touched.
   
 ### Numbers
- 
 * **Fraction digits** Select the number of digits to display after the
   decimal point. A popup list of options will be displayed.
 	
 ### About
-
 * **About** Display the version, copyright and licence.

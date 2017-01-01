@@ -67,12 +67,10 @@ public class HelpActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
 	// Get id
-
 	int id = item.getItemId();
 	switch (id)
 	{
 	    // Home
-
 	case android.R.id.home:
 	    finish();
 	    break;

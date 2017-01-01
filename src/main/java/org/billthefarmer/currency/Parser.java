@@ -52,6 +52,7 @@ public class Parser
     // Create parser
     private XMLReader createParser()
     {
+	// Create the map and add value for Euro
 	map = new HashMap<String, Double>();
 	map.put("EUR", 1.0);
 
@@ -89,7 +90,7 @@ public class Parser
 	return date;
     }
 
-    // Start parser
+    // Start parser for a url
     public boolean startParser(String s)
     {
 	// Get a reader
@@ -115,11 +116,10 @@ public class Parser
 	return false;
     }
 
-    // Start parser
+    // Start parser from a resource
     public boolean startParser(Context context, int id)
     {
 	Resources resources = context.getResources();
-
 	// Get a reader
 	XMLReader reader = createParser();
 

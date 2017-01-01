@@ -81,9 +81,7 @@ public class ChartActivity extends Activity
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
 
     private DataFragment dataFragment;
-
-    private TextView currentView;
-
+    private TextView customView;
     private LineChart chart;
 
     private Map<String, Map<String,Double>> histMap;
@@ -131,49 +129,65 @@ public class ChartActivity extends Activity
 	    actionBar.setCustomView(R.layout.text);
 	    actionBar.setDisplayShowCustomEnabled(true);
 
-	    currentView = (TextView)actionBar.getCustomView();
+	    // Get custom view
+	    customView = (TextView)actionBar.getCustomView();
 	}
 
+	// Get chart
 	chart = (LineChart)findViewById(R.id.chart);
 
+	// Get text and colour
 	Resources resources = getResources();
-
-	int dark = resources.getColor(android.R.color.secondary_text_dark);
 	String updating = resources.getString(R.string.updating);
+	int dark = resources.getColor(android.R.color.secondary_text_dark);
 
-	chart.setNoDataText(updating);
-	chart.setNoDataTextColor(dark);
+	// Set chart parameters
+	if (chart != null)
+	{
+	    // Set the no data text and colour, only seen once
+	    chart.setNoDataText(updating);
+	    chart.setNoDataTextColor(dark);
 
-	chart.setAutoScaleMinMaxEnabled(true);
-	chart.setKeepPositionOnRotation(true);
+	    // Set auto scaling
+	    chart.setAutoScaleMinMaxEnabled(true);
+	    chart.setKeepPositionOnRotation(true);
 
-	XAxis xAxis = chart.getXAxis();
-	xAxis.setValueFormatter(new dateAxisValueFormatter());
-	xAxis.setGranularity(1f);
-	xAxis.setTextColor(dark);
+	    // Set date formatter for x axis and colour
+	    XAxis xAxis = chart.getXAxis();
+	    xAxis.setValueFormatter(new DateAxisValueFormatter());
+	    xAxis.setGranularity(1f);
+	    xAxis.setTextColor(dark);
 
-	YAxis leftAxis = chart.getAxisLeft();
-	leftAxis.setTextColor(dark);
+	    // Set y axis colour
+	    YAxis leftAxis = chart.getAxisLeft();
+	    leftAxis.setTextColor(dark);
 
-	YAxis rightAxis = chart.getAxisRight();
-	rightAxis.setTextColor(dark);
+	    YAxis rightAxis = chart.getAxisRight();
+	    // Set y axis colour
+	    rightAxis.setTextColor(dark);
 
-	Legend legend = chart.getLegend();
-	legend.setEnabled(false);
+	    // No legend - only one dataset
+	    Legend legend = chart.getLegend();
+	    legend.setEnabled(false);
 
-	Description description = chart.getDescription();
-	description.setEnabled(false);
+	    // No desctription
+	    Description description = chart.getDescription();
+	    description.setEnabled(false);
+	}
 
+	// Get the intent for the parameters
 	Intent intent = getIntent();
-
 	first = intent.getIntExtra(Main.CHART_FIRST, 0);
 	second = intent.getIntExtra(Main.CHART_SECOND, 0);
 
+	// Look up the names
 	firstName = Main.CURRENCY_NAMES[first];
 	secondName = Main.CURRENCY_NAMES[second];
 
+	// Generate the label
 	String label = secondName + "/" + firstName;
-	currentView.setText(label);
+	if (customView != null)
+	    customView.setText(label);
     }
 
     // On resume
@@ -201,23 +215,32 @@ public class ChartActivity extends Activity
 		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 	    Resources resources = getResources();
 
+	    // Create the entry list
 	    entryList = new ArrayList<Entry>();
 
+	    // Iterate through the dates
 	    for (String key: histMap.keySet())
 	    {
 		float day = 0;
 
+		// Parse the date and turn it into a day number
 		try
 		{
 		    Date date = dateParser.parse(key);
 		    day = date.getTime() / MSEC_DAY;
 		}
 
-		catch (Exception e) {}
+		// Ignore invalid dates
+		catch (Exception e)
+		{
+		    continue;
+		}
 
+		// Get the map for each date
 		Map<String, Double> entryMap = histMap.get(key);
 		float value = 1;
 
+		// Get the value for each date
 		try
 		{
 		    double first = entryMap.get(firstName);
@@ -225,26 +248,37 @@ public class ChartActivity extends Activity
 		    value = (float)(first / second);
 		}
 
+		// Ignore missing values
 		catch (Exception e)
 		{
 		    continue;
 		}
 
+		// Add the entry to the list
 		entryList.add(0, new Entry(day, value));
 	    }
 
+	    // Get the colour
 	    int bright = resources.getColor(android.R.color.holo_blue_bright);
 
-	    dataSet = new LineDataSet(entryList, secondName);
+	    // Check the chart
+	    if (chart != null)
+	    {
+		// Create the dataset
+		dataSet = new LineDataSet(entryList, secondName);
 
-	    dataSet.setDrawCircles(false);
-	    dataSet.setDrawValues(false);
-	    dataSet.setColor(bright);
+		// Set dataset parameters and colour
+		dataSet.setDrawCircles(false);
+		dataSet.setDrawValues(false);
+		dataSet.setColor(bright);
 
-	    lineData = new LineData(dataSet);
+		// Add the data to the chart and refresh
+		lineData = new LineData(dataSet);
+		chart.setData(lineData);
+		chart.invalidate();
+	    }
 
-	    chart.setData(lineData);
-	    chart.invalidate();
+	    // Don't do an online update
 	    return;
 	}
 
@@ -253,16 +287,19 @@ public class ChartActivity extends Activity
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
 	NetworkInfo info = manager.getActiveNetworkInfo();
 
-	// Update online
+	// Check connection
 	if (info == null || !info.isConnected())
 	    return;
 
+	// Check wifi
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
 	    return;
 
+	// Check roaming
 	if (!roaming && info.isRoaming())
 	    return;
 
+	// Schedule the update
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_QUARTER_URL);
     }
@@ -274,8 +311,9 @@ public class ChartActivity extends Activity
     {
 	super.onPause();
 
-        // store the historical data in the fragment
-        dataFragment.setData(histMap);
+        // Store the historical data in the fragment
+	if (dataFragment != null)
+	    dataFragment.setData(histMap);
     }
 
     // On create options menu
@@ -303,18 +341,20 @@ public class ChartActivity extends Activity
 	switch (id)
 	{
 	    // Home
-
 	case android.R.id.home:
 	    finish();
 	    break;
 
+	    // Invert chart
 	case R.id.action_invert:
 	    return onInvertClick();
 
+	    // Refresh chart
 	case R.id.action_refresh:
 	    return onRefreshClick(ECB_QUARTER_URL);
 
-	case R.id.action_years:
+	    // Refresh with historical data
+	case R.id.action_hist:
 	    return onRefreshClick(ECB_HIST_URL);
 
 	default:
@@ -329,24 +369,33 @@ public class ChartActivity extends Activity
     {
 	SimpleDateFormat dateParser =
 	    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
-	Resources resources = getResources();
 
+	// Get updating text
+	Resources resources = getResources();
+	String updating = resources.getString(R.string.updating);
+
+	// Reverse currency indeces
 	int index = first;
 	first = second;
 	second = index;
 
+	// And names
 	firstName = Main.CURRENCY_NAMES[first];
 	secondName = Main.CURRENCY_NAMES[second];
 
-	String label = secondName + "/" + firstName;
-	currentView.setText(label);
+	// Set custom text to updating, since this may take a few secs
+	if (customView != null)
+	    customView.setText(updating);
 
+	// Clear the entry list
 	entryList.clear();
 
+	// Iterate through the dates
 	for (String key: histMap.keySet())
 	{
 	    float day = 0;
 
+	    // Parse the date and turn it into a day number
 	    try
 	    {
 		Date date = dateParser.parse(key);
@@ -355,9 +404,11 @@ public class ChartActivity extends Activity
 
 	    catch (Exception e) {}
 
+	    // Get the map for each date
 	    Map<String, Double> entryMap = histMap.get(key);
 	    float value = 1;
 
+	    // Get the value for each date
 	    try
 	    {
 		double first = entryMap.get(firstName);
@@ -365,18 +416,30 @@ public class ChartActivity extends Activity
 		value = (float)(first / second);
 	    }
 
+	    // Ignore missing values
 	    catch (Exception e)
 	    {
 		continue;
 	    }
 
+	    // Add the entry to the list
 	    entryList.add(0, new Entry(day, value));
 	}
 
-	dataSet.setValues(entryList);
-	lineData.notifyDataChanged();
-	chart.notifyDataSetChanged();
-	chart.invalidate();
+	// Check the chart
+	if (chart != null)
+	{
+	    // Add the data to the chart and refresh
+	    dataSet.setValues(entryList);
+	    lineData.notifyDataChanged();
+	    chart.notifyDataSetChanged();
+	    chart.invalidate();
+	}
+
+	// Restore the custom view to the current currencies
+	String label = secondName + "/" + firstName;
+	if (customView != null)
+	    customView.setText(label);
 
 	return true;
     }
@@ -389,21 +452,27 @@ public class ChartActivity extends Activity
 	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
 	NetworkInfo info = manager.getActiveNetworkInfo();
 
-	// Update online
+	// Check connection
 	if (info == null || !info.isConnected())
 	    return false;
 
+	// Check wifi
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
 	    return false;
 
+	// Check roaming
 	if (!roaming && info.isRoaming())
 	    return false;
 
+	// Get updating text
 	Resources resources = getResources();
 	String updating = resources.getString(R.string.updating);
 
-	currentView.setText(updating);
+	// Set custom text to updating, since this may take a few secs
+	if (customView != null)
+	    customView.setText(updating);
 
+	// Schedule the update
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(url);
 
@@ -417,6 +486,7 @@ public class ChartActivity extends Activity
     {
 	Context context;
 
+	// Constructor
 	private ParseTask(Context context)
 	{
 	    this.context = context;
@@ -427,14 +497,18 @@ public class ChartActivity extends Activity
 	@Override
 	protected Map doInBackground(String... urls)
 	{
+	    // Get a parser
 	    ChartParser parser = new ChartParser();
 
+	    // Start the parser and report progress with the date
 	    if (parser.startParser(urls[0]) == true)
 		publishProgress(parser.getDate());
 
+	    // Return the map
 	    return parser.getMap();
 	}
 
+	// Ignoring the date as not used
 	@Override
 	protected void onProgressUpdate(String... date) {}
 
@@ -454,23 +528,32 @@ public class ChartActivity extends Activity
 		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 	    Resources resources = context.getResources();
 
+	    // Create a new entry list
 	    entryList = new ArrayList<Entry>();
 
+	    // Iterate through the dates
 	    for (String key: map.keySet())
 	    {
 		float day = 0;
 
+		// Parse the date and turn it into a day number
 		try
 		{
 		    Date date = dateParser.parse(key);
 		    day = date.getTime() / MSEC_DAY;
 		}
 
-		catch (Exception e) {}
+		// Ignore invalid dates
+		catch (Exception e)
+		{
+		    continue;
+		}
 
+		// Get the map for each date
 		Map<String, Double> entryMap = map.get(key);
 		float value = 1;
 
+		// Get the value for each date
 		try
 		{
 		    double first = entryMap.get(firstName);
@@ -478,46 +561,61 @@ public class ChartActivity extends Activity
 		    value = (float)(first / second);
 		}
 
+		// Ignore missing values
 		catch (Exception e)
 		{
 		    continue;
 		}
 
+		// Add the entry to the list
 		entryList.add(0, new Entry(day, value));
 	    }
 
+	    // Get the colour
 	    int bright = resources.getColor(android.R.color.holo_blue_bright);
-	    int dark = resources.getColor(android.R.color.secondary_text_dark);
 
-	    dataSet = new LineDataSet(entryList, secondName);
+	    // Check the chart
+	    if (chart != null)
+	    {
+		// Create the dataset
+		dataSet = new LineDataSet(entryList, secondName);
 
-	    dataSet.setDrawCircles(false);
-	    dataSet.setDrawValues(false);
-	    dataSet.setColor(bright);
+		// Set dataset parameters and colour
+		dataSet.setDrawCircles(false);
+		dataSet.setDrawValues(false);
+		dataSet.setColor(bright);
 
-	    lineData = new LineData(dataSet);
+		lineData = new LineData(dataSet);
+		chart.setData(lineData);
+		chart.invalidate();
+	    }
 
+	    // Restore the custom view to the current currencies
 	    String label = secondName + "/" + firstName;
-	    currentView.setText(label);
-
-	    chart.setData(lineData);
-	    chart.invalidate();
+	    if(customView != null)
+		customView.setText(label);
 	}
     }
 
-    private class dateAxisValueFormatter implements IAxisValueFormatter
+    // DateAxisValueFormatter class
+
+    private class DateAxisValueFormatter implements IAxisValueFormatter
     {
 	DateFormat dateFormat;
 
-	private dateAxisValueFormatter()
+	// Constructor
+	private DateAxisValueFormatter()
 	{
 	    dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
 	}
 
+	// Get formatted value
 	@Override
 	public String getFormattedValue(float value, AxisBase axis)
 	{
-	    // "value" represents the position of the label on the axis (x or y)
+	    // "value" represents the position of the label on the
+	    // axis (x or y). Create a date from the day number and
+	    // format it.
 	    Date date = new Date((int)value * MSEC_DAY);
 	    return dateFormat.format(date);
 	}

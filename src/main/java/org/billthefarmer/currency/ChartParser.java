@@ -53,14 +53,18 @@ public class ChartParser
     // Create parser
     private XMLReader createParser()
     {
+	// Create the map
 	map = new LinkedHashMap<String, Map<String, Double>>();
+	// Oldest possible date
 	date = "1970-01-01";
 
 	try
 	{
+	    // Get a parser
 	    SAXParserFactory factory = SAXParserFactory.newInstance();
 	    SAXParser parser = factory.newSAXParser();
 
+	    // Get a reader
 	    XMLReader reader = parser.getXMLReader();
 	    Handler handler = new Handler();
 	    reader.setContentHandler(handler);
@@ -76,25 +80,27 @@ public class ChartParser
 	return null;
     }
 
-    // Get data
-    public String getDate()
-    {
-	return date;
-    }
-
     // Get map
     public Map<String, Map<String, Double>> getMap()
     {
 	return map;
     }
 
-    // Start parser
+    // Get date
+    public String getDate()
+    {
+	return date;
+    }
+
+    // Start parser for a url
     public boolean startParser(String s)
     {
+	// Get a reader
 	XMLReader reader = createParser();
 
 	if(reader != null)
 	{
+	    // Read the xml from the url
 	    try
 	    {
 		URL url = new URL(s);
@@ -112,14 +118,16 @@ public class ChartParser
 	return false;
     }
 
-    // Start parser
+    // Start parser from resources
     public boolean startParser(Context context, int id)
     {
 	Resources resources = context.getResources();
+	// Get a reader
 	XMLReader reader = createParser();
 
 	if(reader != null)
 	{
+	    // Read the xml from the resources
 	    try
 	    {
 		InputStream stream = resources.openRawResource(id);
@@ -151,23 +159,30 @@ public class ChartParser
 	    {
 		for (int i = 0; i < attributes.getLength(); i++)
 		{
+		    // Get the date
 		    if (attributes.getLocalName(i) == "time")
 		    {
 			String time = attributes.getValue(i);
 
+			// Check if more recent
 			if (time.compareTo(date) > 0)
 			    date = time;
 
+			// Create a map for this date
 			entry = new HashMap<String, Double>();
+			// Add euro to the entry
 			entry.put("EUR", 1.0);
+			// Add the entry to the map
 			map.put(time, entry);
 		    }
 
+		    // Get the currency name
 		    else if (attributes.getLocalName(i) == "currency")
 		    {
 			name = attributes.getValue(i);
 		    }
 
+		    // Get the currency rate
 		    else if (attributes.getLocalName(i) == "rate")
 		    {
 			try

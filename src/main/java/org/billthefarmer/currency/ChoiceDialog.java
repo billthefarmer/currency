@@ -123,16 +123,20 @@ public class ChoiceDialog extends Activity
 	    // Disable buttons if empty
 	    if (selectList.isEmpty())
 	    {
-		clear.setEnabled(false);
-		select.setEnabled(false);
+		if (clear != null)
+		    clear.setEnabled(false);
+		if (select != null)
+		    select.setEnabled(false);
 		mode = Main.DISPLAY_MODE;
 	    }
 
 	    // Enable buttons if selection
 	    else
 	    {
-		clear.setEnabled(true);
-		select.setEnabled(true);
+		if (clear != null)
+		    clear.setEnabled(true);
+		if (select != null)
+		    select.setEnabled(true);
 		mode = Main.SELECT_MODE;
 	    }
 	}
@@ -177,8 +181,10 @@ public class ChoiceDialog extends Activity
 
 	    // Clear
 	case R.id.clear:
-	    clear.setEnabled(false);
-	    select.setEnabled(false);
+	    if (clear != null)
+		clear.setEnabled(false);
+	    if (select != null)
+		select.setEnabled(false);
 	    mode = Main.DISPLAY_MODE;
 
 	    // Start a new selection
@@ -226,8 +232,10 @@ public class ChoiceDialog extends Activity
 
 	    if (selectList.isEmpty())
 	    {
-		clear.setEnabled(false);
-		select.setEnabled(false);
+		if (clear != null)
+		    clear.setEnabled(false);
+		if (select != null)
+		    select.setEnabled(false);
 		mode = Main.DISPLAY_MODE;
 	    }
 
@@ -242,8 +250,10 @@ public class ChoiceDialog extends Activity
     public boolean onItemLongClick(AdapterView parent, View view,
 				   int position, long id)
     {
-	clear.setEnabled(true);
-	select.setEnabled(true);
+	if (clear != null)
+	    clear.setEnabled(true);
+	if (select != null)
+	    select.setEnabled(true);
 	mode = Main.SELECT_MODE;
 
 	// Start a new selection

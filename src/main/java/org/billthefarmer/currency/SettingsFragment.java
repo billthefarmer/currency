@@ -78,6 +78,7 @@ public class SettingsFragment extends PreferenceFragment
     	boolean result =
 	    super.onPreferenceTreeClick(preferenceScreen, preference);
 
+	// Set home as up
     	if (preference instanceof PreferenceScreen)
     	{
 	    Dialog dialog = ((PreferenceScreen)preference).getDialog();
@@ -99,7 +100,6 @@ public class SettingsFragment extends PreferenceFragment
 	    ListPreference preference = (ListPreference)findPreference(key);
 
 	    // Set summary to be the user-description for the selected value
-
 	    preference.setSummary(preference.getEntry());
 	}
     }

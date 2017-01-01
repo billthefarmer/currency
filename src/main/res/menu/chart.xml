@@ -14,9 +14,9 @@
       android:icon="@drawable/ic_action_refresh" />
 
   <item
-      android:id="@+id/action_years"
+      android:id="@+id/action_hist"
       android:showAsAction="ifRoom"
-      android:title="@string/years"
+      android:title="@string/hist"
       android:icon="@drawable/ic_action_time" />
 
 </menu>

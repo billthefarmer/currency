@@ -247,6 +247,7 @@ public class Main extends Activity
 	statusView = (TextView)findViewById(R.id.status);
 	listView = (ListView)findViewById(R.id.list);
 
+	// Set the click listeners, just for the text selection logic
 	if (flagView != null)
 	    flagView.setOnClickListener(this);
 
@@ -259,6 +260,7 @@ public class Main extends Activity
 	if (longNameView != null)
 	    longNameView.setOnClickListener(this);
 
+	// Set the listeners for the value field
 	if (editView != null)
 	{
 	    editView.addTextChangedListener(this);
@@ -266,6 +268,7 @@ public class Main extends Activity
 	    editView.setOnClickListener(this);
 	}
 
+	// Set the listeners for the list view
 	if (listView != null)
 	{
 	    listView.setOnItemClickListener(this);
@@ -364,20 +367,30 @@ public class Main extends Activity
 	    currentValue = 1.0;
 	}
 
+	// Get the date and format it for display
 	date = preferences.getString(PREF_DATE, "");
 	String format = resources.getString(R.string.updated);
 	String updated = String.format(Locale.getDefault(), format, date);
-	dateView.setText(updated);
 
-	// Set current currency
-	flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
-	nameView.setText(CURRENCY_NAMES[currentIndex]);
-	symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
-	longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
+	// Check the date view
+	if (dateView != null)
+	    dateView.setText(updated);
 
+	// Set current currency flag and names
+	if (flagView != null)
+	    flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
+	if (nameView != null)
+	    nameView.setText(CURRENCY_NAMES[currentIndex]);
+	if (symbolView != null)
+	    symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
+	if (longNameView != null)
+	    longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
+
+	// Set current value
 	numberFormat.setGroupingUsed(false);
 	String value = numberFormat.format(currentValue);
-	editView.setText(value);
+	if (editView != null)
+	    editView.setText(value);
 
 	// Check data fragment
 	if (dataFragment != null)
@@ -392,10 +405,14 @@ public class Main extends Activity
 	    // Check saved rates
 	    if (mapJSON != null)
 	    {
+		// Create the value map from a JSON object
 		try
 		{
+		    // Create the JSON object
 		    JSONObject mapObject = new JSONObject(mapJSON);
 		    valueMap = new HashMap<String, Double>();
+
+		    // Use an iterator for the JSON object
 		    Iterator<String> keys = mapObject.keys();
 		    while (keys.hasNext())
 		    {
@@ -413,7 +430,10 @@ public class Main extends Activity
 	    // Get old rates from resources
 	    else
 	    {
+		// Get a parser
 		Parser parser = new Parser();
+
+		// Start the parser
 		parser.startParser(this, R.raw.eurofxref_daily);
 
 		SimpleDateFormat dateParser =
@@ -421,8 +441,10 @@ public class Main extends Activity
 		DateFormat dateFormat =
 		    DateFormat.getDateInstance(DateFormat.MEDIUM);
 
+		// Get the date from the parser
 		String latest = parser.getDate();
 
+		// Format the date for display
 		if (latest != null)
 		{
 		    try
@@ -436,12 +458,14 @@ public class Main extends Activity
 			e.printStackTrace();
 		    }
 
+		    // Show the formatted date
 		    format = resources.getString(R.string.updated);
 		    updated = String.format(Locale.getDefault(), format, date);
-		    dateView.setText(updated);
+		    if (dateView != null)
+			dateView.setText(updated);
 		}
 
-		else
+		else if (statusView != null)
 		    statusView.setText(R.string.failed);
 
 		valueMap = parser.getMap();
@@ -457,6 +481,7 @@ public class Main extends Activity
 	{
 	    try
 	    {
+		// Update name list from JSON array
 		JSONArray namesArray = new JSONArray(namesJSON);
 		nameList.clear();
 		for (int i = 0; !namesArray.isNull(i); i++)
@@ -480,9 +505,9 @@ public class Main extends Activity
 	{
 	    try
 	    {
+		// Update value list from JSON array
 		JSONArray valuesArray = new JSONArray(valuesJSON);
 		valueList.clear();
-
 		for (int i = 0; !valuesArray.isNull(i); i++)
 		    valueList.add(valuesArray.getString(i));
 	    }
@@ -498,6 +523,7 @@ public class Main extends Activity
 	{
 	    valueList.clear();
 
+	    // Format each value
 	    for (String s: nameList)
 	    {
 		Double v = valueMap.get(s);
@@ -512,18 +538,24 @@ public class Main extends Activity
 	convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
 	// Clear lists
-	flagList.clear();
-	symbolList.clear();
-	longNameList.clear();
+	if (flagList != null)
+	    flagList.clear();
+	if (symbolList != null)
+	    symbolList.clear();
+	if (longNameList != null)
+	    longNameList.clear();
 
 	// Populate the lists
 	for (String name: nameList)
 	{
 	    int index = currencyNameList.indexOf(name);
 
-	    flagList.add(CURRENCY_FLAGS[index]);
-	    symbolList.add(CURRENCY_SYMBOLS[index]);
-	    longNameList.add(CURRENCY_LONGNAMES[index]);
+	    if (flagList != null)
+		flagList.add(CURRENCY_FLAGS[index]);
+	    if (symbolList != null)
+		symbolList.add(CURRENCY_SYMBOLS[index]);
+	    if (longNameList != null)
+		longNameList.add(CURRENCY_LONGNAMES[index]);
 	}
 
 	// Update the adapter
@@ -538,7 +570,6 @@ public class Main extends Activity
 	{
 	    // Check retained data
 	    if (dataFragment.getMap() != null)
-
 		// Don't update
 		return;
 	}
@@ -551,26 +582,30 @@ public class Main extends Activity
 	// Check connected
 	if (info == null || !info.isConnected())
 	{
-	    statusView.setText(R.string.no_connection);
+	    if (statusView != null)
+		statusView.setText(R.string.no_connection);
 	    return;
 	}
 
 	// Check wifi
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
 	{
-	    statusView.setText(R.string.no_wifi);
+	    if (statusView != null)
+		statusView.setText(R.string.no_wifi);
 	    return;
 	}
 
 	// Check roaming
 	if (!roaming && info.isRoaming())
 	{
-	    statusView.setText(R.string.roaming);
+	    if (statusView != null)
+		statusView.setText(R.string.roaming);
 	    return;
 	}
 
 	// Schedule update
-	statusView.setText(R.string.updating);
+	if (statusView != null)
+	    statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_DAILY_URL);
     }
@@ -611,7 +646,8 @@ public class Main extends Activity
 	editor.apply();
 
         // Save the value map in the data fragment
-        dataFragment.setMap(valueMap);
+	if (dataFragment != null)
+	    dataFragment.setMap(valueMap);
     }
 
     // On save
@@ -655,14 +691,6 @@ public class Main extends Activity
 	    break;
 	}
 
-	return true;
-    }
-
-    // On prepare options menu
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
 	return true;
     }
 
@@ -860,26 +888,30 @@ public class Main extends Activity
 	// Check connected
 	if (info == null || !info.isConnected())
 	{
-	    statusView.setText(R.string.no_connection);
+	    if (statusView != null)
+		statusView.setText(R.string.no_connection);
 	    return false;
 	}
 
 	// Check wifi
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
 	{
-	    statusView.setText(R.string.no_wifi);
+	    if (statusView != null)
+		statusView.setText(R.string.no_wifi);
 	    return false;
 	}
 
 	// Check roaming
 	if (!roaming && info.isRoaming())
 	{
-	    statusView.setText(R.string.roaming);
+	    if (statusView != null)
+		statusView.setText(R.string.roaming);
 	    return false;
 	}
 
 	// Schedule update
-	statusView.setText(R.string.updating);
+	if (statusView != null)
+	    statusView.setText(R.string.updating);
 	ParseTask parseTask = new ParseTask(this);
 	parseTask.execute(ECB_DAILY_URL);
 	return true;
@@ -931,7 +963,8 @@ public class Main extends Activity
 	    // Any other view
 	default:
 	    // Clear value field selection
-	    editView.setSelection(0);
+	    if (editView != null)
+		editView.setSelection(0);
 	    select = true;
 	}
     }
@@ -961,7 +994,8 @@ public class Main extends Activity
 	{
 	    e.printStackTrace();
 	    currentValue = 1.0;
-	    editView.setText(R.string.num_one);
+	    if (editView != null)
+		editView.setText(R.string.num_one);
 	}
 
 	// Recalculate all the values
@@ -991,7 +1025,7 @@ public class Main extends Activity
     // On editor action
 
     @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+    public boolean onEditorAction(TextView view, int actionId, KeyEvent event)
     {
 	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMinimumFractionDigits(digits);
@@ -1004,7 +1038,7 @@ public class Main extends Activity
 	    // Parse current value
 	    try
 	    {
-		String n = v.getText().toString();
+		String n = view.getText().toString();
 		if (n.length() > 0)
 		{
 		    Number number = numberFormat.parse(n);
@@ -1017,13 +1051,13 @@ public class Main extends Activity
 	    {
 		e.printStackTrace();
 		currentValue = 1.0;
-		editView.setText(R.string.num_one);
+		view.setText(R.string.num_one);
 	    }
 
 	    // Reformat the value field
 	    numberFormat.setGroupingUsed(false);
 	    String s = numberFormat.format(currentValue);
-	    editView.setText(s);
+	    view.setText(s);
 
 	    // Recalculate all the values
 	    valueList.clear();
@@ -1079,12 +1113,17 @@ public class Main extends Activity
 	    numberFormat.setGroupingUsed(false);
 	    value = numberFormat.format(currentValue);
 	    // value = String.format("%1.3f", currentValue);
-	    editView.setText(value);
+	    if (editView != null)
+		editView.setText(value);
 
-	    flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
-	    nameView.setText(CURRENCY_NAMES[currentIndex]);
-	    symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
-	    longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
+	    if (flagView != null)
+		flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
+	    if (nameView != null)
+		nameView.setText(CURRENCY_NAMES[currentIndex]);
+	    if (symbolView != null)
+		symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
+	    if (longNameView != null)
+		longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
 
 	    // Remove the selected currency from the lists
 	    flagList.remove(position);
@@ -1182,6 +1221,7 @@ public class Main extends Activity
 	// Add currencies from list
 	for (int index: indexList)
 	{
+	    // Don't add duplicates
 	    if (nameList.contains(CURRENCY_NAMES[index]))
 		continue;
 
@@ -1228,6 +1268,7 @@ public class Main extends Activity
 	Context context;
 	String latest;
 
+	// Constructor
 	private ParseTask(Context context)
 	{
 	    this.context = context;
@@ -1238,14 +1279,18 @@ public class Main extends Activity
 	@Override
 	protected Map doInBackground(String... urls)
 	{
+	    // Get a parser
 	    Parser parser = new Parser();
 
+	    // Start the parser and report progress with the date
 	    if (parser.startParser(urls[0]) == true)
 		publishProgress(parser.getDate());
 
+	    // Return the map
 	    return parser.getMap();
 	}
 
+	// On progress update
 	@Override
 	protected void onProgressUpdate(String... date)
 	{
@@ -1254,6 +1299,7 @@ public class Main extends Activity
 	    DateFormat dateFormat =
 		DateFormat.getDateInstance(DateFormat.MEDIUM);
 
+	    // Format the date for display
 	    if (date[0] != null)
 	    {
 		try
@@ -1270,26 +1316,28 @@ public class Main extends Activity
 		String format = resources.getString(R.string.updated);
 		String updated = String.format(Locale.getDefault(),
 					       format, latest);
-		dateView.setText(updated);
+		if (dateView != null)
+		    dateView.setText(updated);
 	    }
 
-	    else
+	    else if (statusView != null)
 		statusView.setText(R.string.failed);
 	}
 
 	// The system calls this to perform work in the UI thread and
 	// delivers the result from doInBackground()
 	@Override
-	protected void onPostExecute(Map<String, Double> table)
+	protected void onPostExecute(Map<String, Double> map)
 	{
-	    // Check the table
-	    if (!table.isEmpty())
+	    // Check the map
+	    if (!map.isEmpty())
 	    {
-		valueMap = table;
+		valueMap = map;
 
 		// Empty the value list
 		valueList.clear();
 
+		// Get the convert value
 		convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
 		// Populate a new value list

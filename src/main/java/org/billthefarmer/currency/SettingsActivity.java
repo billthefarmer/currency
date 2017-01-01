@@ -45,10 +45,12 @@ public class SettingsActivity extends Activity
 	    .commit();
 
 	// Enable back navigation on action bar
-
 	ActionBar actionBar = getActionBar();
-	actionBar.setDisplayHomeAsUpEnabled(true);
-	actionBar.setTitle(R.string.settings);
+	if (actionBar != null)
+	{
+	    actionBar.setDisplayHomeAsUpEnabled(true);
+	    actionBar.setTitle(R.string.settings);
+	}
     }
 
     // On options item selected
@@ -57,9 +59,9 @@ public class SettingsActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
 	// Switch on item id
-
 	switch (item.getItemId())
 	{
+	    // Home, finish
 	case android.R.id.home:
 	    finish();
 	    break;
