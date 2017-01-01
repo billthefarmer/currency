@@ -216,11 +216,19 @@ public class ChartActivity extends Activity
 		catch (Exception e) {}
 
 		Map<String, Double> entryMap = histMap.get(key);
+		float value = 1;
 
-		double first = entryMap.get(firstName);
-		double second = entryMap.get(secondName);
+		try
+		{
+		    double first = entryMap.get(firstName);
+		    double second = entryMap.get(secondName);
+		    value = (float)(first / second);
+		}
 
-		float value = (float)(first / second);
+		catch (Exception e)
+		{
+		    continue;
+		}
 
 		entryList.add(0, new Entry(day, value));
 	    }
@@ -348,11 +356,19 @@ public class ChartActivity extends Activity
 	    catch (Exception e) {}
 
 	    Map<String, Double> entryMap = histMap.get(key);
+	    float value = 1;
 
-	    double first = entryMap.get(firstName);
-	    double second = entryMap.get(secondName);
+	    try
+	    {
+		double first = entryMap.get(firstName);
+		double second = entryMap.get(secondName);
+		value = (float)(first / second);
+	    }
 
-	    float value = (float)(first / second);
+	    catch (Exception e)
+	    {
+		continue;
+	    }
 
 	    entryList.add(0, new Entry(day, value));
 	}
@@ -453,11 +469,19 @@ public class ChartActivity extends Activity
 		catch (Exception e) {}
 
 		Map<String, Double> entryMap = map.get(key);
+		float value = 1;
 
-		double first = entryMap.get(firstName);
-		double second = entryMap.get(secondName);
+		try
+		{
+		    double first = entryMap.get(firstName);
+		    double second = entryMap.get(secondName);
+		    value = (float)(first / second);
+		}
 
-		float value = (float)(first / second);
+		catch (Exception e)
+		{
+		    continue;
+		}
 
 		entryList.add(0, new Entry(day, value));
 	    }
