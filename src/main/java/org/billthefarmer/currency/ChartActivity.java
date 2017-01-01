@@ -69,6 +69,7 @@ import java.util.Map;
 // ChartActivity class
 
 public class ChartActivity extends Activity
+    implements DataFragment.TaskCallbacks
 {
     public static final String TAG = "Chart";
 
@@ -301,8 +302,8 @@ public class ChartActivity extends Activity
 	    return;
 
 	// Schedule the update
-	ParseTask parseTask = new ParseTask(this);
-	parseTask.execute(ECB_QUARTER_URL);
+	if (dataFragment != null)
+	    dataFragment.startParseTask(ECB_QUARTER_URL);
     }
 
     // On pause
@@ -491,8 +492,8 @@ public class ChartActivity extends Activity
 	    customView.setText(updating);
 
 	// Schedule the update
-	ParseTask parseTask = new ParseTask(this);
-	parseTask.execute(url);
+	if (dataFragment != null)
+	    dataFragment.startParseTask(url);
 
 	return true;
     }
@@ -587,126 +588,95 @@ public class ChartActivity extends Activity
 	    customView.setText(label);
     }
 
-    // ParseTask class
+    // Ignoring the date as not used
+    @Override
+    public void onProgressUpdate(String... date) {}
 
-    private class ParseTask
-	extends AsyncTask<String, String, Map<String, Map<String, Double>>>
+    // The system calls this to perform work in the UI thread and
+    // delivers the result from doInBackground()
+    @Override
+    public void onPostExecute(Map<String, Map<String,Double>> map)
     {
-	Context context;
+	// Check map
+	if (map == null)
+	    return;
 
-	// Constructor
-	private ParseTask(Context context)
+	// Save map
+	histMap = map;
+
+	SimpleDateFormat dateParser =
+	    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+	Resources resources = getResources();
+
+	// Create a new entry list
+	entryList = new ArrayList<Entry>();
+
+	// Iterate through the dates
+	for (String key: map.keySet())
 	{
-	    this.context = context;
-	}
+	    float day = 0;
 
-	// The system calls this to perform work in a worker thread
-	// and delivers it the parameters given to AsyncTask.execute()
-	@Override
-	protected Map doInBackground(String... urls)
-	{
-	    // Get a parser
-	    ChartParser parser = new ChartParser();
-
-	    // Start the parser and report progress with the date
-	    if (parser.startParser(urls[0]) == true)
-		publishProgress(parser.getDate());
-
-	    // Return the map
-	    return parser.getMap();
-	}
-
-	// Ignoring the date as not used
-	@Override
-	protected void onProgressUpdate(String... date) {}
-
-	// The system calls this to perform work in the UI thread and
-	// delivers the result from doInBackground()
-	@Override
-	protected void onPostExecute(Map<String, Map<String,Double>> map)
-	{
-	    // Check map
-	    if (map == null)
-		return;
-
-	    // Save map
-	    histMap = map;
-
-	    SimpleDateFormat dateParser =
-		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
-	    Resources resources = context.getResources();
-
-	    // Create a new entry list
-	    entryList = new ArrayList<Entry>();
-
-	    // Iterate through the dates
-	    for (String key: map.keySet())
+	    // Parse the date and turn it into a day number
+	    try
 	    {
-		float day = 0;
-
-		// Parse the date and turn it into a day number
-		try
-		{
-		    Date date = dateParser.parse(key);
-		    day = date.getTime() / MSEC_DAY;
-		}
-
-		// Ignore invalid dates
-		catch (Exception e)
-		{
-		    continue;
-		}
-
-		// Get the map for each date
-		Map<String, Double> entryMap = map.get(key);
-		float value = 1;
-
-		// Get the value for each date
-		try
-		{
-		    double first = entryMap.get(firstName);
-		    double second = entryMap.get(secondName);
-		    value = (float)(first / second);
-		}
-
-		// Ignore missing values
-		catch (Exception e)
-		{
-		    continue;
-		}
-
-		// Add the entry to the list
-		entryList.add(0, new Entry(day, value));
+		Date date = dateParser.parse(key);
+		day = date.getTime() / MSEC_DAY;
 	    }
 
-	    // Get the colour
-	    int bright = resources.getColor(android.R.color.holo_blue_bright);
-
-	    // Check the chart
-	    if (chart != null)
+	    // Ignore invalid dates
+	    catch (Exception e)
 	    {
-		// Create the dataset
-		dataSet = new LineDataSet(entryList, secondName);
-
-		// Set dataset parameters and colour
-		dataSet.setDrawCircles(false);
-		dataSet.setDrawValues(false);
-		dataSet.setColor(bright);
-
-		lineData = new LineData(dataSet);
-		chart.setData(lineData);
-		chart.invalidate();
+		continue;
 	    }
 
-	    // Restore the custom view to the current currencies
-	    String label = secondName + "/" + firstName;
-	    if(customView != null)
-		customView.setText(label);
+	    // Get the map for each date
+	    Map<String, Double> entryMap = map.get(key);
+	    float value = 1;
+
+	    // Get the value for each date
+	    try
+	    {
+		double first = entryMap.get(firstName);
+		double second = entryMap.get(secondName);
+		value = (float)(first / second);
+	    }
+
+	    // Ignore missing values
+	    catch (Exception e)
+	    {
+		continue;
+	    }
+
+	    // Add the entry to the list
+	    entryList.add(0, new Entry(day, value));
 	}
+
+	// Get the colour
+	int bright = resources.getColor(android.R.color.holo_blue_bright);
+
+	// Check the chart
+	if (chart != null)
+	{
+	    // Create the dataset
+	    dataSet = new LineDataSet(entryList, secondName);
+
+	    // Set dataset parameters and colour
+	    dataSet.setDrawCircles(false);
+	    dataSet.setDrawValues(false);
+	    dataSet.setColor(bright);
+
+	    lineData = new LineData(dataSet);
+	    chart.setData(lineData);
+	    chart.invalidate();
+	}
+
+	// Restore the custom view to the current currencies
+	String label = secondName + "/" + firstName;
+	if(customView != null)
+	    customView.setText(label);
     }
 
     // DateAxisValueFormatter class
-
     private class DateAxisValueFormatter implements IAxisValueFormatter
     {
 	DateFormat dateFormat;
