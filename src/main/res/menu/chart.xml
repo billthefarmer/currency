@@ -8,6 +8,12 @@
       android:icon="@drawable/ic_action_shuffle" />
 
   <item
+      android:id="@+id/action_new_chart"
+      android:showAsAction="ifRoom"
+      android:title="@string/new_chart"
+      android:icon="@drawable/ic_action_new_picture" />
+
+  <item
       android:id="@+id/action_refresh"
       android:showAsAction="ifRoom"
       android:title="@string/refresh"

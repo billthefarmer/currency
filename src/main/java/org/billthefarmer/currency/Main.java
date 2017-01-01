@@ -234,7 +234,9 @@ public class Main extends Activity
 	{
             // add the fragment
             dataFragment = new DataFragment();
-            fm.beginTransaction().add(dataFragment, DATA_TAG).commit();
+            fm.beginTransaction()
+		.add(dataFragment, DATA_TAG)
+		.commit();
         }
 
 	// Find views

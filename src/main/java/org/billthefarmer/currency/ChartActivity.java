@@ -71,7 +71,6 @@ import java.util.Map;
 public class ChartActivity extends Activity
 {
     public static final String TAG = "Chart";
-    public static final String DATA_TAG = "data";
 
     public static final String ECB_QUARTER_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
@@ -93,8 +92,8 @@ public class ChartActivity extends Activity
     private boolean wifi = true;
     private boolean roaming = false;
 
-    private int first;
-    private int second;
+    private int firstIndex;
+    private int secondIndex;
 
     private String firstName;
     private String secondName;
@@ -109,14 +108,16 @@ public class ChartActivity extends Activity
 
         // Find the retained fragment on activity restarts
         FragmentManager fm = getFragmentManager();
-        dataFragment = (DataFragment) fm.findFragmentByTag(DATA_TAG);
+        dataFragment = (DataFragment) fm.findFragmentByTag(Main.DATA_TAG);
 
         // Create the fragment the first time
         if (dataFragment == null)
 	{
             // add the fragment
             dataFragment = new DataFragment();
-            fm.beginTransaction().add(dataFragment, DATA_TAG).commit();
+            fm.beginTransaction()
+		.add(dataFragment, Main.DATA_TAG)
+		.commit();
         }
 
 	// Enable back navigation on action bar
@@ -177,12 +178,12 @@ public class ChartActivity extends Activity
 
 	// Get the intent for the parameters
 	Intent intent = getIntent();
-	first = intent.getIntExtra(Main.CHART_FIRST, 0);
-	second = intent.getIntExtra(Main.CHART_SECOND, 0);
+	firstIndex = intent.getIntExtra(Main.CHART_FIRST, 0);
+	secondIndex = intent.getIntExtra(Main.CHART_SECOND, 0);
 
 	// Look up the names
-	firstName = Main.CURRENCY_NAMES[first];
-	secondName = Main.CURRENCY_NAMES[second];
+	firstName = Main.CURRENCY_NAMES[firstIndex];
+	secondName = Main.CURRENCY_NAMES[secondIndex];
 
 	// Generate the label
 	String label = secondName + "/" + firstName;
@@ -349,6 +350,10 @@ public class ChartActivity extends Activity
 	case R.id.action_invert:
 	    return onInvertClick();
 
+	    // New chart
+	case R.id.action_new_chart:
+	    return onNewClick();
+
 	    // Refresh chart
 	case R.id.action_refresh:
 	    return onRefreshClick(ECB_QUARTER_URL);
@@ -374,14 +379,14 @@ public class ChartActivity extends Activity
 	Resources resources = getResources();
 	String updating = resources.getString(R.string.updating);
 
-	// Reverse currency indeces
-	int index = first;
-	first = second;
-	second = index;
+	// Reverse currency indices
+	int index = firstIndex;
+	firstIndex = secondIndex;
+	secondIndex = index;
 
-	// And names
-	firstName = Main.CURRENCY_NAMES[first];
-	secondName = Main.CURRENCY_NAMES[second];
+	// Update names
+	firstName = Main.CURRENCY_NAMES[firstIndex];
+	secondName = Main.CURRENCY_NAMES[secondIndex];
 
 	// Set custom text to updating, since this may take a few secs
 	if (customView != null)
@@ -444,6 +449,19 @@ public class ChartActivity extends Activity
 	return true;
     }
 
+    // On new click
+
+    private boolean onNewClick()
+    {
+	// Start the choice dialog
+	Intent intent = new Intent(this, ChoiceDialog.class);
+	startActivityForResult(intent, 0);
+
+	return true;
+    }
+
+    // On clear click
+
     // on refresh click
     private boolean onRefreshClick(String url)
     {
@@ -477,6 +495,96 @@ public class ChartActivity extends Activity
 	parseTask.execute(url);
 
 	return true;
+    }
+
+    // On activity result
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+				    Intent data)
+    {
+	// Do nothing if cancelled
+	if (resultCode != RESULT_OK)
+	    return;
+
+	SimpleDateFormat dateParser =
+	    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+
+	// Get updating text
+	Resources resources = getResources();
+	String updating = resources.getString(R.string.updating);
+
+	// Get index list from intent
+	List<Integer> selectList = data.getIntegerArrayListExtra(Main.CHOICE);
+
+	// Iterate through the list to get the last two
+	for (int index: selectList)
+	{
+	    firstIndex = secondIndex;
+	    secondIndex = index;
+	}
+
+	// Update names
+	firstName = Main.CURRENCY_NAMES[firstIndex];
+	secondName = Main.CURRENCY_NAMES[secondIndex];
+
+	// Set custom text to updating, since this may take a few secs
+	if (customView != null)
+	    customView.setText(updating);
+
+	// Clear the entry list
+	entryList.clear();
+
+	// Iterate through the dates
+	for (String key: histMap.keySet())
+	{
+	    float day = 0;
+
+	    // Parse the date and turn it into a day number
+	    try
+	    {
+		Date date = dateParser.parse(key);
+		day = date.getTime() / MSEC_DAY;
+	    }
+
+	    catch (Exception e) {}
+
+	    // Get the map for each date
+	    Map<String, Double> entryMap = histMap.get(key);
+	    float value = 1;
+
+	    // Get the value for each date
+	    try
+	    {
+		double first = entryMap.get(firstName);
+		double second = entryMap.get(secondName);
+		value = (float)(first / second);
+	    }
+
+	    // Ignore missing values
+	    catch (Exception e)
+	    {
+		continue;
+	    }
+
+	    // Add the entry to the list
+	    entryList.add(0, new Entry(day, value));
+	}
+
+	// Check the chart
+	if (chart != null)
+	{
+	    // Add the data to the chart and refresh
+	    dataSet.setValues(entryList);
+	    lineData.notifyDataChanged();
+	    chart.notifyDataSetChanged();
+	    chart.invalidate();
+	}
+
+	// Restore the custom view to the current currencies
+	String label = secondName + "/" + firstName;
+	if (customView != null)
+	    customView.setText(label);
     }
 
     // ParseTask class
