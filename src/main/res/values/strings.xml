@@ -49,6 +49,8 @@
   <string name="pref_numbers">Numbers</string>
   <string name="pref_digits">Fraction digits</string>
   <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Fill</string>
+  <string name="pref_fill_summ">Fill the chart trace</string>
 
   <string name="long_eur">Euro</string>
   <string name="long_usd">US dollar</string>

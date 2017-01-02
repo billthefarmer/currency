@@ -71,7 +71,7 @@ import java.util.Map;
 public class ChartActivity extends Activity
     implements ChartFragment.TaskCallbacks
 {
-    public static final String TAG = "Chart";
+    public static final String TAG = "ChartActivity";
     public static final String CHART_TAG = "chart";
 
     public static final String ECB_QUARTER_URL =
@@ -93,6 +93,7 @@ public class ChartActivity extends Activity
 
     private boolean wifi = true;
     private boolean roaming = false;
+    private boolean fill = true;
 
     private int firstIndex;
     private int secondIndex;
@@ -224,6 +225,7 @@ public class ChartActivity extends Activity
 
 	wifi = preferences.getBoolean(Main.PREF_WIFI, true);
 	roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
+	fill = preferences.getBoolean(Main.PREF_FILL, false);
 
 	// Check data fragment
 	if (chartFragment != null)
@@ -281,6 +283,7 @@ public class ChartActivity extends Activity
 
 	    // Get the colour
 	    int bright = resources.getColor(android.R.color.holo_blue_bright);
+	    int dark = resources.getColor(android.R.color.holo_blue_dark);
 
 	    // Check the chart
 	    if (chart != null)
@@ -292,6 +295,13 @@ public class ChartActivity extends Activity
 		dataSet.setDrawCircles(false);
 		dataSet.setDrawValues(false);
 		dataSet.setColor(bright);
+
+		// Check preference
+		if (fill)
+		{
+		    dataSet.setFillColor(dark);
+		    dataSet.setDrawFilled(true);
+		}
 
 		// Add the data to the chart and refresh
 		lineData = new LineData(dataSet);
@@ -673,6 +683,7 @@ public class ChartActivity extends Activity
 
 	// Get the colour
 	int bright = resources.getColor(android.R.color.holo_blue_bright);
+	int dark = resources.getColor(android.R.color.holo_blue_dark);
 
 	// Check the chart
 	if (chart != null)
@@ -684,6 +695,13 @@ public class ChartActivity extends Activity
 	    dataSet.setDrawCircles(false);
 	    dataSet.setDrawValues(false);
 	    dataSet.setColor(bright);
+
+	    // Check preference
+	    if (fill)
+	    {
+		dataSet.setFillColor(dark);
+		dataSet.setDrawFilled(true);
+	    }
 
 	    lineData = new LineData(dataSet);
 	    chart.setData(lineData);
