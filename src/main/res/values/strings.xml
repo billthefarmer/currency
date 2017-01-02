@@ -33,7 +33,8 @@
   <string name="failed">Failed</string>
   <string name="no_connection">No connection</string>
   <string name="no_wifi">No WiFi</string>
-  <string name="roaming">Roaming</string>  
+  <string name="roaming">Roaming</string>
+  <string name="update_failed">Update failed</string>
 
   <string name="decimal">Enter decimal value</string>
 

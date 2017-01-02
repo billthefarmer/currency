@@ -37,11 +37,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -225,7 +227,7 @@ public class ChartActivity extends Activity
 
 	wifi = preferences.getBoolean(Main.PREF_WIFI, true);
 	roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
-	fill = preferences.getBoolean(Main.PREF_FILL, false);
+	fill = preferences.getBoolean(Main.PREF_FILL, true);
 
 	// Check data fragment
 	if (chartFragment != null)
@@ -320,15 +322,24 @@ public class ChartActivity extends Activity
 
 	// Check connection
 	if (info == null || !info.isConnected())
+	{
+	    showToast(R.string.no_connection);
 	    return;
+	}
 
 	// Check wifi
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+	{
+	    showToast(R.string.no_wifi);
 	    return;
+	}
 
 	// Check roaming
 	if (!roaming && info.isRoaming())
+	{
+	    showToast(R.string.roaming);
 	    return;
+	}
 
 	// Schedule the update
 	if (chartFragment != null)
@@ -503,15 +514,24 @@ public class ChartActivity extends Activity
 
 	// Check connection
 	if (info == null || !info.isConnected())
+	{
+	    showToast(R.string.no_connection);
 	    return false;
+	}
 
 	// Check wifi
 	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+	{
+	    showToast(R.string.no_wifi);
 	    return false;
+	}
 
 	// Check roaming
 	if (!roaming && info.isRoaming())
+	{
+	    showToast(R.string.roaming);
 	    return false;
+	}
 
 	// Get updating text
 	Resources resources = getResources();
@@ -628,90 +648,120 @@ public class ChartActivity extends Activity
     public void onPostExecute(Map<String, Map<String,Double>> map)
     {
 	// Check map
-	if (map == null)
-	    return;
-
-	// Save map
-	histMap = map;
-
-	SimpleDateFormat dateParser =
-	    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
-	Resources resources = getResources();
-
-	// Create a new entry list
-	entryList = new ArrayList<Entry>();
-
-	// Iterate through the dates
-	for (String key: map.keySet())
+	if (!map.isEmpty())
 	{
-	    float day = 0;
+	    // Save map
+	    histMap = map;
 
-	    // Parse the date and turn it into a day number
-	    try
+	    SimpleDateFormat dateParser =
+		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+	    Resources resources = getResources();
+
+	    // Create a new entry list
+	    entryList = new ArrayList<Entry>();
+
+	    // Iterate through the dates
+	    for (String key: map.keySet())
 	    {
-		Date date = dateParser.parse(key);
-		day = date.getTime() / MSEC_DAY;
+		float day = 0;
+
+		// Parse the date and turn it into a day number
+		try
+		{
+		    Date date = dateParser.parse(key);
+		    day = date.getTime() / MSEC_DAY;
+		}
+
+		// Ignore invalid dates
+		catch (Exception e)
+		{
+		    continue;
+		}
+
+		// Get the map for each date
+		Map<String, Double> entryMap = map.get(key);
+		float value = 1;
+
+		// Get the value for each date
+		try
+		{
+		    double first = entryMap.get(firstName);
+		    double second = entryMap.get(secondName);
+		    value = (float)(first / second);
+		}
+
+		// Ignore missing values
+		catch (Exception e)
+		{
+		    continue;
+		}
+
+		// Add the entry to the list
+		entryList.add(0, new Entry(day, value));
 	    }
 
-	    // Ignore invalid dates
-	    catch (Exception e)
+	    // Get the colour
+	    int bright = resources.getColor(android.R.color.holo_blue_bright);
+	    int dark = resources.getColor(android.R.color.holo_blue_dark);
+
+	    // Check the chart
+	    if (chart != null)
 	    {
-		continue;
+		// Create the dataset
+		dataSet = new LineDataSet(entryList, secondName);
+
+		// Set dataset parameters and colour
+		dataSet.setDrawCircles(false);
+		dataSet.setDrawValues(false);
+		dataSet.setColor(bright);
+
+		// Check preference
+		if (fill)
+		{
+		    dataSet.setFillColor(dark);
+		    dataSet.setDrawFilled(true);
+		}
+
+		lineData = new LineData(dataSet);
+		chart.setData(lineData);
+		chart.invalidate();
 	    }
-
-	    // Get the map for each date
-	    Map<String, Double> entryMap = map.get(key);
-	    float value = 1;
-
-	    // Get the value for each date
-	    try
-	    {
-		double first = entryMap.get(firstName);
-		double second = entryMap.get(secondName);
-		value = (float)(first / second);
-	    }
-
-	    // Ignore missing values
-	    catch (Exception e)
-	    {
-		continue;
-	    }
-
-	    // Add the entry to the list
-	    entryList.add(0, new Entry(day, value));
 	}
 
-	// Get the colour
-	int bright = resources.getColor(android.R.color.holo_blue_bright);
-	int dark = resources.getColor(android.R.color.holo_blue_dark);
-
-	// Check the chart
-	if (chart != null)
+	else
 	{
-	    // Create the dataset
-	    dataSet = new LineDataSet(entryList, secondName);
-
-	    // Set dataset parameters and colour
-	    dataSet.setDrawCircles(false);
-	    dataSet.setDrawValues(false);
-	    dataSet.setColor(bright);
-
-	    // Check preference
-	    if (fill)
-	    {
-		dataSet.setFillColor(dark);
-		dataSet.setDrawFilled(true);
-	    }
-
-	    lineData = new LineData(dataSet);
-	    chart.setData(lineData);
-	    chart.invalidate();
+	    showToast(R.string.update_failed);
 	}
 
 	// Restore the custom view to the current currencies
 	String label = secondName + "/" + firstName;
 	if(customView != null)
 	    customView.setText(label);
+    }
+
+    // Show toast.
+    void showToast(int id, Object... args)
+    {
+	// Get text from resources
+	Resources resources = getResources();
+	String text = resources.getString(id);
+	showToast(text, args);
+    }
+
+    // Show toast.
+    void showToast(String format, Object... args)
+    {
+	String text = String.format(format, args);
+	showToast(text);
+    }
+
+    // Show toast.
+    void showToast(String text)
+    {
+	// Make a new toast
+	Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+	toast.setGravity(Gravity.CENTER, 0, 0);
+	toast.show();
     }
 
     // DateAxisValueFormatter class
