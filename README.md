@@ -86,10 +86,13 @@ once expanded. The toolbar icons from left to right are:
 
 ### Selection
 * **Selection** Select all current currency value text when touched.
-  
+
 ### Numbers
 * **Fraction digits** Select the number of digits to display after the
   decimal point. A popup list of options will be displayed.
-	
+
+### Chart
+* **Fill** Fill the chart trace.
+
 ### About
 * **About** Display the version, copyright and licence.
