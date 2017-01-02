@@ -69,9 +69,10 @@ import java.util.Map;
 // ChartActivity class
 
 public class ChartActivity extends Activity
-    implements DataFragment.TaskCallbacks
+    implements ChartFragment.TaskCallbacks
 {
     public static final String TAG = "Chart";
+    public static final String CHART_TAG = "chart";
 
     public static final String ECB_QUARTER_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
@@ -80,7 +81,7 @@ public class ChartActivity extends Activity
 
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
 
-    private DataFragment dataFragment;
+    private ChartFragment chartFragment;
     private TextView customView;
     private LineChart chart;
 
@@ -109,17 +110,33 @@ public class ChartActivity extends Activity
 
         // Find the retained fragment on activity restarts
         FragmentManager fm = getFragmentManager();
-        dataFragment = (DataFragment) fm.findFragmentByTag(Main.DATA_TAG);
+        chartFragment = (ChartFragment) fm.findFragmentByTag(CHART_TAG);
 
         // Create the fragment the first time
-        if (dataFragment == null)
+        if (chartFragment == null)
 	{
             // add the fragment
-            dataFragment = new DataFragment();
+            chartFragment = new ChartFragment();
             fm.beginTransaction()
-		.add(dataFragment, Main.DATA_TAG)
+		.add(chartFragment, CHART_TAG)
 		.commit();
-        }
+
+	    // Get the intent for the parameters
+	    Intent intent = getIntent();
+	    firstIndex = intent.getIntExtra(Main.CHART_FIRST, 0);
+	    secondIndex = intent.getIntExtra(Main.CHART_SECOND, 0);
+	}
+
+	else
+	{
+	    // Get indices from fragment
+	    firstIndex = chartFragment.getFirst();
+	    secondIndex = chartFragment.getSecond();
+	}
+
+	// Look up the names
+	firstName = Main.CURRENCY_NAMES[firstIndex];
+	secondName = Main.CURRENCY_NAMES[secondIndex];
 
 	// Enable back navigation on action bar
 	ActionBar actionBar = getActionBar();
@@ -177,19 +194,21 @@ public class ChartActivity extends Activity
 	    description.setEnabled(false);
 	}
 
-	// Get the intent for the parameters
-	Intent intent = getIntent();
-	firstIndex = intent.getIntExtra(Main.CHART_FIRST, 0);
-	secondIndex = intent.getIntExtra(Main.CHART_SECOND, 0);
+	// Check fragment
+	if (chartFragment != null && chartFragment.isParsing())
+	{
+	    // Generate the label
+	    if (customView != null)
+		customView.setText(updating);
+	}
 
-	// Look up the names
-	firstName = Main.CURRENCY_NAMES[firstIndex];
-	secondName = Main.CURRENCY_NAMES[secondIndex];
-
-	// Generate the label
-	String label = secondName + "/" + firstName;
-	if (customView != null)
-	    customView.setText(label);
+	else
+	{
+	    // Generate the label
+	    String label = secondName + "/" + firstName;
+	    if (customView != null)
+		customView.setText(label);
+	}
     }
 
     // On resume
@@ -206,9 +225,9 @@ public class ChartActivity extends Activity
 	wifi = preferences.getBoolean(Main.PREF_WIFI, true);
 	roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
 
-	// Get data fragment
-	if (dataFragment != null)
-	    histMap = dataFragment.getData();
+	// Check data fragment
+	if (chartFragment != null)
+	    histMap = chartFragment.getMap();
 
 	// Check retained data
 	if (histMap != null)
@@ -302,8 +321,8 @@ public class ChartActivity extends Activity
 	    return;
 
 	// Schedule the update
-	if (dataFragment != null)
-	    dataFragment.startParseTask(ECB_QUARTER_URL);
+	if (chartFragment != null)
+	    chartFragment.startParseTask(ECB_QUARTER_URL);
     }
 
     // On pause
@@ -313,9 +332,13 @@ public class ChartActivity extends Activity
     {
 	super.onPause();
 
-        // Store the historical data in the fragment
-	if (dataFragment != null)
-	    dataFragment.setData(histMap);
+        // Store the indices and historical data in the fragment
+	if (chartFragment != null)
+	{
+	    chartFragment.setFirst(firstIndex);
+	    chartFragment.setSecond(secondIndex);
+	    chartFragment.setMap(histMap);
+	}
     }
 
     // On create options menu
@@ -451,7 +474,6 @@ public class ChartActivity extends Activity
     }
 
     // On new click
-
     private boolean onNewClick()
     {
 	// Start the choice dialog
@@ -461,9 +483,7 @@ public class ChartActivity extends Activity
 	return true;
     }
 
-    // On clear click
-
-    // on refresh click
+    // On refresh click
     private boolean onRefreshClick(String url)
     {
 	// Check connectivity before update
@@ -492,8 +512,8 @@ public class ChartActivity extends Activity
 	    customView.setText(updating);
 
 	// Schedule the update
-	if (dataFragment != null)
-	    dataFragment.startParseTask(url);
+	if (chartFragment != null)
+	    chartFragment.startParseTask(url);
 
 	return true;
     }

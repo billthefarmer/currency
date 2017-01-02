@@ -26,18 +26,22 @@ package org.billthefarmer.currency;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.Map;
 
-// DataFragment class
+// ChartFragment class
 
-public class DataFragment extends Fragment
+public class ChartFragment extends Fragment
 {
     // Data objects we want to retain
-    private Map<String,Double> map;
+    private Map<String, Map<String,Double>> map;
     private TaskCallbacks callbacks;
+
+    private int first;
+    private int second;
+
+    private boolean parsing;
 
     // This method is only called once for this fragment
     @Override
@@ -68,16 +72,46 @@ public class DataFragment extends Fragment
 	callbacks = null;
     }
 
+    // Set first
+    public void setFirst(int first)
+    {
+	this.first = first;
+    }
+
+    // Get first
+    public int getFirst()
+    {
+	return first;
+    }
+
+    // Set second
+    public void setSecond(int second)
+    {
+	this.second = second;
+    }
+
+    // Get second
+    public int getSecond()
+    {
+	return second;
+    }
+
     // Set map
-    public void setMap(Map<String,Double> map)
+    public void setMap(Map<String, Map<String,Double>> data)
     {
         this.map = map;
     }
 
     // Get map
-    public Map<String,Double> getMap()
+    public Map<String, Map<String,Double>> getMap()
     {
         return map;
+    }
+
+    // Is parsing
+    public boolean isParsing()
+    {
+	return parsing;
     }
 
     // Start parse task
@@ -85,21 +119,21 @@ public class DataFragment extends Fragment
     {
 	ParseTask parseTask = new ParseTask();
 	parseTask.execute(url);
+
+	parsing = true;
     }
 
+    // ParseTask class
     protected class ParseTask
-	extends AsyncTask<String, String, Map<String, Double>>
+	extends AsyncTask<String, String, Map<String, Map<String, Double>>>
     {
-	Context context;
-	String latest;
-
 	// The system calls this to perform work in a worker thread
 	// and delivers it the parameters given to AsyncTask.execute()
 	@Override
 	protected Map doInBackground(String... urls)
 	{
 	    // Get a parser
-	    Parser parser = new Parser();
+	    ChartParser parser = new ChartParser();
 
 	    // Start the parser and report progress with the date
 	    if (parser.startParser(urls[0]) == true)
@@ -109,7 +143,7 @@ public class DataFragment extends Fragment
 	    return parser.getMap();
 	}
 
-	// On progress update
+	// Ignoring the date as not used
 	@Override
 	protected void onProgressUpdate(String... date)
 	{
@@ -120,8 +154,10 @@ public class DataFragment extends Fragment
 	// The system calls this to perform work in the UI thread and
 	// delivers the result from doInBackground()
 	@Override
-	protected void onPostExecute(Map<String,Double> map)
+	protected void onPostExecute(Map<String, Map<String,Double>> map)
 	{
+	    parsing = false;
+
 	    if (callbacks != null)
 		callbacks.onPostExecute(map);
 	}
@@ -131,6 +167,6 @@ public class DataFragment extends Fragment
     interface TaskCallbacks
     {
 	void onProgressUpdate(String... date);
-	void onPostExecute(Map<String,Double> map);
+	void onPostExecute(Map<String, Map<String,Double>> map);
     }
 }

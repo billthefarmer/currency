@@ -77,7 +77,8 @@ public class Main extends Activity
     implements EditText.OnEditorActionListener,
 	       AdapterView.OnItemClickListener,
 	       AdapterView.OnItemLongClickListener,
-	       View.OnClickListener, TextWatcher
+	       View.OnClickListener, TextWatcher,
+	       DataFragment.TaskCallbacks
 {
     // Initial currency name list
     public static final String CURRENCY_LIST[] =
@@ -608,8 +609,10 @@ public class Main extends Activity
 	// Schedule update
 	if (statusView != null)
 	    statusView.setText(R.string.updating);
-	ParseTask parseTask = new ParseTask(this);
-	parseTask.execute(ECB_DAILY_URL);
+
+	// Start the task
+	if (dataFragment != null)
+	    dataFragment.startParseTask(ECB_DAILY_URL);;
     }
 
     // On pause
@@ -914,8 +917,10 @@ public class Main extends Activity
 	// Schedule update
 	if (statusView != null)
 	    statusView.setText(R.string.updating);
-	ParseTask parseTask = new ParseTask(this);
-	parseTask.execute(ECB_DAILY_URL);
+
+	// Start the task
+	if (dataFragment != null)
+	    dataFragment.startParseTask(ECB_DAILY_URL);;
 	return true;
     }
 
@@ -1262,130 +1267,97 @@ public class Main extends Activity
 	adapter.notifyDataSetChanged();
     }
 
-    // ParseTask class
-
-    private class ParseTask
-	extends AsyncTask<String, String, Map<String, Double>>
+    // On progress update
+    @Override
+    public void onProgressUpdate(String... date)
     {
-	Context context;
-	String latest;
+	SimpleDateFormat dateParser =
+	    new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+	DateFormat dateFormat =
+	    DateFormat.getDateInstance(DateFormat.MEDIUM);
 
-	// Constructor
-	private ParseTask(Context context)
+	// Format the date for display
+	if (date[0] != null)
 	{
-	    this.context = context;
-	}
-
-	// The system calls this to perform work in a worker thread
-	// and delivers it the parameters given to AsyncTask.execute()
-	@Override
-	protected Map doInBackground(String... urls)
-	{
-	    // Get a parser
-	    Parser parser = new Parser();
-
-	    // Start the parser and report progress with the date
-	    if (parser.startParser(urls[0]) == true)
-		publishProgress(parser.getDate());
-
-	    // Return the map
-	    return parser.getMap();
-	}
-
-	// On progress update
-	@Override
-	protected void onProgressUpdate(String... date)
-	{
-	    SimpleDateFormat dateParser =
-		new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
-	    DateFormat dateFormat =
-		DateFormat.getDateInstance(DateFormat.MEDIUM);
-
-	    // Format the date for display
-	    if (date[0] != null)
+	    try
 	    {
-		try
-		{
-		    Date update = dateParser.parse(date[0]);
-		    latest = dateFormat.format(update);
-		}
-
-		catch (Exception e)
-		{
-		    e.printStackTrace();
-		}
-
-		String format = resources.getString(R.string.updated);
-		String updated = String.format(Locale.getDefault(),
-					       format, latest);
-		if (dateView != null)
-		    dateView.setText(updated);
+		Date update = dateParser.parse(date[0]);
+		this.date = dateFormat.format(update);
 	    }
 
-	    else if (statusView != null)
-		statusView.setText(R.string.failed);
-	}
-
-	// The system calls this to perform work in the UI thread and
-	// delivers the result from doInBackground()
-	@Override
-	protected void onPostExecute(Map<String, Double> map)
-	{
-	    // Check the map
-	    if (!map.isEmpty())
+	    catch (Exception e)
 	    {
-		valueMap = map;
-
-		// Empty the value list
-		valueList.clear();
-
-		// Get the convert value
-		convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
-
-		// Populate a new value list
-		NumberFormat numberFormat = NumberFormat.getInstance();
-		numberFormat.setMinimumFractionDigits(digits);
-		numberFormat.setMaximumFractionDigits(digits);
-		for (String name: nameList)
-		{
-		    int index = currencyNameList.indexOf(name);
-
-		    Double value = (currentValue / convertValue) *
-			valueMap.get(name);
-
-		    String s = numberFormat.format(value);
-
-		    valueList.add(s);
-		}
-
-		// Get preferences
-		SharedPreferences preferences =
-		    PreferenceManager.getDefaultSharedPreferences(context);
-
-		// Get editor
-		SharedPreferences.Editor editor = preferences.edit();
-
-		// Get entries
-		JSONObject valueObject = new JSONObject(valueMap);
-		JSONArray nameArray = new JSONArray(nameList);
-		JSONArray valueArray = new JSONArray(valueList);
-
-		// Update preferences
-		editor.putString(PREF_MAP, valueObject.toString());
-		editor.putString(PREF_NAMES, nameArray.toString());
-		editor.putString(PREF_VALUES, valueArray.toString());
-
-		editor.putString(PREF_DATE, latest);
-		editor.apply();
-
-		date = latest;
-
-		statusView.setText(R.string.ok);
-		adapter.notifyDataSetChanged();
+		e.printStackTrace();
 	    }
 
-	    else
-		statusView.setText(R.string.failed);		
+	    String format = resources.getString(R.string.updated);
+	    String updated = String.format(Locale.getDefault(),
+					   format, this.date);
+	    if (dateView != null)
+		dateView.setText(updated);
 	}
+
+	else if (statusView != null)
+	    statusView.setText(R.string.failed);
+    }
+
+    // The system calls this to perform work in the UI thread and
+    // delivers the result from doInBackground()
+    @Override
+    public void onPostExecute(Map<String, Double> map)
+    {
+	// Check the map
+	if (!map.isEmpty())
+	{
+	    valueMap = map;
+
+	    // Empty the value list
+	    valueList.clear();
+
+	    // Get the convert value
+	    convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
+
+	    // Populate a new value list
+	    NumberFormat numberFormat = NumberFormat.getInstance();
+	    numberFormat.setMinimumFractionDigits(digits);
+	    numberFormat.setMaximumFractionDigits(digits);
+	    for (String name: nameList)
+	    {
+		int index = currencyNameList.indexOf(name);
+
+		Double value = (currentValue / convertValue) *
+		    valueMap.get(name);
+
+		String s = numberFormat.format(value);
+
+		valueList.add(s);
+	    }
+
+	    // Get preferences
+	    SharedPreferences preferences =
+		PreferenceManager.getDefaultSharedPreferences(this);
+
+	    // Get editor
+	    SharedPreferences.Editor editor = preferences.edit();
+
+	    // Get entries
+	    JSONObject valueObject = new JSONObject(valueMap);
+	    JSONArray nameArray = new JSONArray(nameList);
+	    JSONArray valueArray = new JSONArray(valueList);
+
+	    // Update preferences
+	    editor.putString(PREF_MAP, valueObject.toString());
+	    editor.putString(PREF_NAMES, nameArray.toString());
+	    editor.putString(PREF_VALUES, valueArray.toString());
+
+	    editor.putString(PREF_DATE, date);
+	    editor.apply();
+
+	    statusView.setText(R.string.ok);
+	    adapter.notifyDataSetChanged();
+	}
+
+	else
+	    statusView.setText(R.string.failed);		
     }
 }
