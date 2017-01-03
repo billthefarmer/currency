@@ -83,12 +83,24 @@ public class ChartActivity extends Activity
 
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
 
+    private static final int colours[] =
+    {
+	0xff00ddff, 0xff00ff00, 0xffff9900, 0xffff0000
+    };
+
+    private static final int fills[] =
+    {
+	0xff0099cc, 0xff669900, 0xffff8800, 0xffcc0000
+    };
+
     private ChartFragment chartFragment;
     private TextView customView;
     private LineChart chart;
 
     private Map<String, Map<String,Double>> histMap;
 
+    private List<Integer> chartList;
+    private List<String> nameList;
     private List<Entry> entryList;
     private LineDataSet dataSet;
     private LineData lineData;
@@ -124,22 +136,26 @@ public class ChartActivity extends Activity
 		.add(chartFragment, CHART_TAG)
 		.commit();
 
-	    // Get the intent for the parameters
+	    // Get the intent for the list
 	    Intent intent = getIntent();
-	    firstIndex = intent.getIntExtra(Main.CHART_FIRST, 0);
-	    secondIndex = intent.getIntExtra(Main.CHART_SECOND, 0);
+	    chartList = intent.getIntegerArrayListExtra(Main.CHART_LIST);
 	}
 
 	else
 	{
-	    // Get indices from fragment
-	    firstIndex = chartFragment.getFirst();
-	    secondIndex = chartFragment.getSecond();
+	    // Get list from fragment
+	    chartList = chartFragment.getList();
 	}
 
+	// Trim the list to the number of colours plus one
+	while (chartList.size() > colours.length + 1)
+	    // Remove the first entry
+	    chartList.remove(0);
+
 	// Look up the names
-	firstName = Main.CURRENCY_NAMES[firstIndex];
-	secondName = Main.CURRENCY_NAMES[secondIndex];
+	nameList = new ArrayList<String>();
+	for (int index: chartList)
+	    nameList.add(Main.CURRENCY_NAMES[index]);
 
 	// Enable back navigation on action bar
 	ActionBar actionBar = getActionBar();
@@ -357,7 +373,7 @@ public class ChartActivity extends Activity
 	if (chartFragment != null)
 	{
 	    chartFragment.setFirst(firstIndex);
-	    chartFragment.setSecond(secondIndex);
+	    chartFragment.setList(chartList);
 	    chartFragment.setMap(histMap);
 	}
     }

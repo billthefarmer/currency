@@ -166,8 +166,7 @@ public class Main extends Activity
     // public static final String SAVE_LIST = "save_list";
     public static final String SAVE_SELECT = "save_select";
 
-    public static final String CHART_FIRST = "chart_first";
-    public static final String CHART_SECOND = "chart_second";
+    public static final String CHART_LIST = "chart_list";
 
     public static final String ECB_DAILY_URL =
 	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
@@ -835,21 +834,19 @@ public class Main extends Activity
     private boolean onChartClick()
     {
 	Intent intent = new Intent(this, ChartActivity.class);
+	List chartList = new ArrayList<Integer>();
 
-	int firstIndex = currentIndex;
-	int secondIndex = currentIndex;
+	chartList.add(currentIndex);
 
 	// Iterate through the list to get the last two
 	for (int index: selectList)
 	{
-	    firstIndex = secondIndex;
 	    String name = nameList.get(index);
-	    secondIndex = currencyNameList.indexOf(name);
+	    chartList.add(currencyNameList.indexOf(name));
 	}
 
 	// Put the currency indices
-	intent.putExtra(CHART_FIRST, firstIndex);
-	intent.putExtra(CHART_SECOND, secondIndex);
+	intent.putIntegerArrayListExtra(CHART_LIST, (ArrayList)chartList);
 
 	// Start chart activity
 	startActivity(intent);
