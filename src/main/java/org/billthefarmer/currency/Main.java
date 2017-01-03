@@ -163,7 +163,7 @@ public class Main extends Activity
     public static final String PREF_FILL = "pref_fill";
     public static final String PREF_ABOUT = "pref_about";
 
-    public static final String SAVE_LIST = "save_list";
+    // public static final String SAVE_LIST = "save_list";
     public static final String SAVE_SELECT = "save_select";
 
     public static final String CHART_FIRST = "chart_first";
@@ -210,10 +210,7 @@ public class Main extends Activity
     private List<Integer> longNameList;
 
     private List<Integer> selectList;
-
     private Map<String, Double> valueMap;
-
-    private Parcelable listState;
 
     private CurrencyAdapter adapter;
 
@@ -304,9 +301,6 @@ public class Main extends Activity
     @Override
     public void onRestoreInstanceState(Bundle savedState)
     {
-	// Get the list view state to restore after it's been updated
-	listState = savedState.getParcelable(SAVE_LIST);
-
 	// Get the saved select list
     	List<Integer> list  = savedState.getIntegerArrayList(SAVE_SELECT);
 
@@ -565,10 +559,6 @@ public class Main extends Activity
 	// Update the adapter
 	adapter.notifyDataSetChanged();
 
-	// Restore list view state
-	if (listView != null && listState != null)
-	    listView.onRestoreInstanceState(listState);
-
 	// Check data fragment
 	if (dataFragment != null)
 	{
@@ -662,13 +652,6 @@ public class Main extends Activity
     public void onSaveInstanceState(Bundle outState)
     {
 	super.onSaveInstanceState(outState);
-
-	// Save the list view state
-	if (listView != null)
-	{
-	    Parcelable state = listView.onSaveInstanceState();
-	    outState.putParcelable(SAVE_LIST, state);
-	}
 
 	// Save the select list
 	outState.putIntegerArrayList(SAVE_SELECT,
