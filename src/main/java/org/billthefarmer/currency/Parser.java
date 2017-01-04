@@ -42,17 +42,20 @@ import javax.xml.parsers.SAXParserFactory;
 
 // Parser class
 
-public class Parser {
+public class Parser
+{
     private Map<String, Double> map;
     private String date;
 
     // Create parser
-    private XMLReader createParser() {
+    private XMLReader createParser()
+    {
         // Create the map and add value for Euro
         map = new HashMap<String, Double>();
         map.put("EUR", 1.0);
 
-        try {
+        try
+        {
             // Get a parser
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
@@ -63,7 +66,8 @@ public class Parser {
             reader.setContentHandler(handler);
 
             return reader;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             map.clear();
         }
 
@@ -71,28 +75,34 @@ public class Parser {
     }
 
     // Get map
-    public Map<String, Double> getMap() {
+    public Map<String, Double> getMap()
+    {
         return map;
     }
 
     // Get date
-    public String getDate() {
+    public String getDate()
+    {
         return date;
     }
 
     // Start parser for a url
-    public boolean startParser(String s) {
+    public boolean startParser(String s)
+    {
         // Get a reader
         XMLReader reader = createParser();
 
-        if (reader != null) {
+        if (reader != null)
+        {
             // Read the xml from the url
-            try {
+            try
+            {
                 URL url = new URL(s);
                 InputStream stream = url.openStream();
                 reader.parse(new InputSource(stream));
                 return true;
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 map.clear();
             }
         }
@@ -101,18 +111,22 @@ public class Parser {
     }
 
     // Start parser from a resource
-    public boolean startParser(Context context, int id) {
+    public boolean startParser(Context context, int id)
+    {
         Resources resources = context.getResources();
         // Get a reader
         XMLReader reader = createParser();
 
-        if (reader != null) {
+        if (reader != null)
+        {
             // Read the xml from the resources
-            try {
+            try
+            {
                 InputStream stream = resources.openRawResource(id);
                 reader.parse(new InputSource(stream));
                 return true;
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 map.clear();
             }
         }
@@ -121,30 +135,36 @@ public class Parser {
     }
 
     // Handler class
-    private class Handler extends DefaultHandler {
+    private class Handler extends DefaultHandler
+    {
 
         @Override
-        public void startElement(String uri, String localName, String qName,
-                                 Attributes attributes) throws SAXException {
+        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
+        {
             String name = "EUR";
             double rate = 1.0;
 
-            if (localName.equals("Cube")) {
-                for (int i = 0; i < attributes.getLength(); i++) {
+            if (localName.equals("Cube"))
+            {
+                for (int i = 0; i < attributes.getLength(); i++)
+                {
                     // Get the date
-                    if (attributes.getLocalName(i).equals("time"))
-                        date = attributes.getValue(i);
+                    if (attributes.getLocalName(i).equals("time")) date = attributes.getValue(i);
 
                         // Get the currency name
-                    else if (attributes.getLocalName(i).equals("currency")) {
+                    else if (attributes.getLocalName(i).equals("currency"))
+                    {
                         name = attributes.getValue(i);
                     }
 
                     // Get the currency rate
-                    else if (attributes.getLocalName(i).equals("rate")) {
-                        try {
+                    else if (attributes.getLocalName(i).equals("rate"))
+                    {
+                        try
+                        {
                             rate = Double.parseDouble(attributes.getValue(i));
-                        } catch (Exception e) {
+                        } catch (Exception e)
+                        {
                             rate = 1.0;
                         }
 

@@ -34,14 +34,17 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-public class AboutPreference extends DialogPreference {
+public class AboutPreference extends DialogPreference
+{
 
-    public AboutPreference(Context context, AttributeSet attrs) {
+    public AboutPreference(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(View view)
+    {
         super.onBindDialogView(view);
 
         // Get version text view

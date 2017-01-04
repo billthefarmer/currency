@@ -33,7 +33,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CurrencyAdapter extends BaseAdapter {
+public class CurrencyAdapter extends BaseAdapter
+{
     private LayoutInflater inflater;
 
     private List<Integer> flags;
@@ -45,10 +46,8 @@ public class CurrencyAdapter extends BaseAdapter {
 
     private int resource;
 
-    public CurrencyAdapter(Context context, int resource, List<Integer> flags,
-                           List<String> names, List<String> symbols,
-                           List<String> values, List<Integer> longNames,
-                           List<Integer> selection) {
+    public CurrencyAdapter(Context context, int resource, List<Integer> flags, List<String> names, List<String> symbols, List<String> values, List<Integer> longNames, List<Integer> selection)
+    {
         inflater = LayoutInflater.from(context);
 
         // Save all the parameters
@@ -62,23 +61,27 @@ public class CurrencyAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return names.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return null;
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return position;
     }
 
     // Create a new View for each item referenced by the adapter
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         ImageView flag;
         TextView name;
         TextView symbol;
@@ -86,8 +89,7 @@ public class CurrencyAdapter extends BaseAdapter {
         TextView longName;
 
         // Create a new view
-        if (convertView == null)
-            convertView = inflater.inflate(resource, parent, false);
+        if (convertView == null) convertView = inflater.inflate(resource, parent, false);
 
         // Find the views
         flag = (ImageView) convertView.findViewById(R.id.flag);
@@ -97,28 +99,22 @@ public class CurrencyAdapter extends BaseAdapter {
         longName = (TextView) convertView.findViewById(R.id.long_name);
 
         // Update the views
-        if (flag != null)
-            flag.setImageResource(flags.get(position));
+        if (flag != null) flag.setImageResource(flags.get(position));
 
-        if (name != null)
-            name.setText(names.get(position));
+        if (name != null) name.setText(names.get(position));
 
-        if (symbol != null)
-            symbol.setText(symbols.get(position));
+        if (symbol != null) symbol.setText(symbols.get(position));
 
-        if (value != null)
-            value.setText(values.get(position));
+        if (value != null) value.setText(values.get(position));
 
-        if (longName != null)
-            longName.setText(longNames.get(position));
+        if (longName != null) longName.setText(longNames.get(position));
 
         // Highlight if selected
         if (selection.contains(position))
             convertView.setBackgroundResource(android.R.color.holo_blue_dark);
 
             // Clear highlight
-        else
-            convertView.setBackgroundResource(0);
+        else convertView.setBackgroundResource(0);
 
         return convertView;
     }

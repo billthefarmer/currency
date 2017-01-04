@@ -65,75 +65,22 @@ import java.util.Map;
 
 // Main class
 
-public class Main extends Activity
-        implements EditText.OnEditorActionListener,
-        AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener,
-        View.OnClickListener, TextWatcher,
-        DataFragment.TaskCallbacks {
+public class Main extends Activity implements EditText.OnEditorActionListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnClickListener, TextWatcher, DataFragment.TaskCallbacks
+{
     // Initial currency name list
-    public static final String CURRENCY_LIST[] =
-            {
-                    "USD", "GBP", "CAD", "AUD"
-            };
+    public static final String CURRENCY_LIST[] = {"USD", "GBP", "CAD", "AUD"};
 
     // Currency names
-    public static final String CURRENCY_NAMES[] =
-            {
-                    "EUR", "USD", "JPY", "BGN",
-                    "CZK", "DKK", "GBP", "HUF",
-                    "PLN", "RON", "SEK", "CHF",
-                    "NOK", "HRK", "RUB", "TRY",
-                    "AUD", "BRL", "CAD", "CNY",
-                    "HKD", "IDR", "ILS", "INR",
-                    "KRW", "MXN", "MYR", "NZD",
-                    "PHP", "SGD", "THB", "ZAR"
-            };
+    public static final String CURRENCY_NAMES[] = {"EUR", "USD", "JPY", "BGN", "CZK", "DKK", "GBP", "HUF", "PLN", "RON", "SEK", "CHF", "NOK", "HRK", "RUB", "TRY", "AUD", "BRL", "CAD", "CNY", "HKD", "IDR", "ILS", "INR", "KRW", "MXN", "MYR", "NZD", "PHP", "SGD", "THB", "ZAR"};
 
     // Currency symbols
-    public static final String CURRENCY_SYMBOLS[] =
-            {
-                    "€", "$", "¥", "лв",
-                    "Kč", "kr", "£", "Ft",
-                    "zł", "lei", "kr", "",
-                    "kr", "kn", "₽", "₺",
-                    "$", "R$", "$", "¥",
-                    "$", "Rp", "₪", "₹",
-                    "₩", "$", "RM", "$",
-                    "₱", "$", "฿", "S"
-            };
+    public static final String CURRENCY_SYMBOLS[] = {"€", "$", "¥", "лв", "Kč", "kr", "£", "Ft", "zł", "lei", "kr", "", "kr", "kn", "₽", "₺", "$", "R$", "$", "¥", "$", "Rp", "₪", "₹", "₩", "$", "RM", "$", "₱", "$", "฿", "S"};
 
     // Currency long names
-    public static final Integer CURRENCY_LONGNAMES[] =
-            {
-                    R.string.long_eur, R.string.long_usd, R.string.long_jpy,
-                    R.string.long_bgn, R.string.long_czk, R.string.long_dkk,
-                    R.string.long_gbp, R.string.long_huf, R.string.long_pln,
-                    R.string.long_ron, R.string.long_sek, R.string.long_chf,
-                    R.string.long_nok, R.string.long_hrk, R.string.long_rub,
-                    R.string.long_try, R.string.long_aud, R.string.long_brl,
-                    R.string.long_cad, R.string.long_cny, R.string.long_hkd,
-                    R.string.long_idr, R.string.long_ils, R.string.long_inr,
-                    R.string.long_krw, R.string.long_mxn, R.string.long_myr,
-                    R.string.long_nzd, R.string.long_php, R.string.long_sgd,
-                    R.string.long_thb, R.string.long_zar
-            };
+    public static final Integer CURRENCY_LONGNAMES[] = {R.string.long_eur, R.string.long_usd, R.string.long_jpy, R.string.long_bgn, R.string.long_czk, R.string.long_dkk, R.string.long_gbp, R.string.long_huf, R.string.long_pln, R.string.long_ron, R.string.long_sek, R.string.long_chf, R.string.long_nok, R.string.long_hrk, R.string.long_rub, R.string.long_try, R.string.long_aud, R.string.long_brl, R.string.long_cad, R.string.long_cny, R.string.long_hkd, R.string.long_idr, R.string.long_ils, R.string.long_inr, R.string.long_krw, R.string.long_mxn, R.string.long_myr, R.string.long_nzd, R.string.long_php, R.string.long_sgd, R.string.long_thb, R.string.long_zar};
 
     // Currency flags
-    public static final Integer CURRENCY_FLAGS[] =
-            {
-                    R.drawable.flag_eur, R.drawable.flag_usd, R.drawable.flag_jpy,
-                    R.drawable.flag_bgn, R.drawable.flag_czk, R.drawable.flag_dkk,
-                    R.drawable.flag_gbp, R.drawable.flag_huf, R.drawable.flag_pln,
-                    R.drawable.flag_ron, R.drawable.flag_sek, R.drawable.flag_chf,
-                    R.drawable.flag_nok, R.drawable.flag_hrk, R.drawable.flag_rub,
-                    R.drawable.flag_try, R.drawable.flag_aud, R.drawable.flag_brl,
-                    R.drawable.flag_cad, R.drawable.flag_cny, R.drawable.flag_hkd,
-                    R.drawable.flag_idr, R.drawable.flag_ils, R.drawable.flag_inr,
-                    R.drawable.flag_kpw, R.drawable.flag_mxn, R.drawable.flag_myr,
-                    R.drawable.flag_nzd, R.drawable.flag_php, R.drawable.flag_sgd,
-                    R.drawable.flag_thb, R.drawable.flag_zar
-            };
+    public static final Integer CURRENCY_FLAGS[] = {R.drawable.flag_eur, R.drawable.flag_usd, R.drawable.flag_jpy, R.drawable.flag_bgn, R.drawable.flag_czk, R.drawable.flag_dkk, R.drawable.flag_gbp, R.drawable.flag_huf, R.drawable.flag_pln, R.drawable.flag_ron, R.drawable.flag_sek, R.drawable.flag_chf, R.drawable.flag_nok, R.drawable.flag_hrk, R.drawable.flag_rub, R.drawable.flag_try, R.drawable.flag_aud, R.drawable.flag_brl, R.drawable.flag_cad, R.drawable.flag_cny, R.drawable.flag_hkd, R.drawable.flag_idr, R.drawable.flag_ils, R.drawable.flag_inr, R.drawable.flag_kpw, R.drawable.flag_mxn, R.drawable.flag_myr, R.drawable.flag_nzd, R.drawable.flag_php, R.drawable.flag_sgd, R.drawable.flag_thb, R.drawable.flag_zar};
 
     public static final String TAG = "Main";
     public static final String DATA_TAG = "data";
@@ -160,8 +107,7 @@ public class Main extends Activity
     public static final String CHART_FIRST = "chart_first";
     public static final String CHART_SECOND = "chart_second";
 
-    public static final String ECB_DAILY_URL =
-            "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+    public static final String ECB_DAILY_URL = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
     public static final int DISPLAY_MODE = 0;
     public static final int SELECT_MODE = 1;
     protected final static String CHOICE = "choice";
@@ -205,7 +151,8 @@ public class Main extends Activity
     private Resources resources;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -214,12 +161,11 @@ public class Main extends Activity
         dataFragment = (DataFragment) fm.findFragmentByTag(DATA_TAG);
 
         // Create the fragment the first time
-        if (dataFragment == null) {
+        if (dataFragment == null)
+        {
             // add the fragment
             dataFragment = new DataFragment();
-            fm.beginTransaction()
-                    .add(dataFragment, DATA_TAG)
-                    .commit();
+            fm.beginTransaction().add(dataFragment, DATA_TAG).commit();
         }
 
         // Find views
@@ -233,27 +179,25 @@ public class Main extends Activity
         listView = (ListView) findViewById(R.id.list);
 
         // Set the click listeners, just for the text selection logic
-        if (flagView != null)
-            flagView.setOnClickListener(this);
+        if (flagView != null) flagView.setOnClickListener(this);
 
-        if (nameView != null)
-            nameView.setOnClickListener(this);
+        if (nameView != null) nameView.setOnClickListener(this);
 
-        if (symbolView != null)
-            symbolView.setOnClickListener(this);
+        if (symbolView != null) symbolView.setOnClickListener(this);
 
-        if (longNameView != null)
-            longNameView.setOnClickListener(this);
+        if (longNameView != null) longNameView.setOnClickListener(this);
 
         // Set the listeners for the value field
-        if (editView != null) {
+        if (editView != null)
+        {
             editView.addTextChangedListener(this);
             editView.setOnEditorActionListener(this);
             editView.setOnClickListener(this);
         }
 
         // Set the listeners for the list view
-        if (listView != null) {
+        if (listView != null)
+        {
             listView.setOnItemClickListener(this);
             listView.setOnItemLongClickListener(this);
         }
@@ -270,35 +214,33 @@ public class Main extends Activity
         selectList = new ArrayList<Integer>();
 
         // Create the adapter
-        adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList,
-                symbolList, valueList, longNameList,
-                selectList);
+        adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList, symbolList, valueList, longNameList, selectList);
 
         // Set the list view adapter
-        if (listView != null)
-            listView.setAdapter(adapter);
+        if (listView != null) listView.setAdapter(adapter);
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedState) {
+    public void onRestoreInstanceState(Bundle savedState)
+    {
         // Get the saved select list
         List<Integer> list = savedState.getIntegerArrayList(SAVE_SELECT);
 
         // Update select list
-        if (list != null) {
+        if (list != null)
+        {
             for (int index : list)
                 selectList.add(index);
 
             // Set mode
-            if (selectList.isEmpty())
-                mode = Main.DISPLAY_MODE;
+            if (selectList.isEmpty()) mode = Main.DISPLAY_MODE;
 
-            else
-                mode = Main.SELECT_MODE;
+            else mode = Main.SELECT_MODE;
         }
 
         // Normal mode if no saved list
-        else {
+        else
+        {
             mode = Main.DISPLAY_MODE;
         }
 
@@ -306,15 +248,15 @@ public class Main extends Activity
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
 
         // Get resources
         resources = getResources();
 
         // Get preferences
-        SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         wifi = preferences.getBoolean(PREF_WIFI, true);
         roaming = preferences.getBoolean(PREF_ROAMING, false);
@@ -328,11 +270,13 @@ public class Main extends Activity
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
-        try {
+        try
+        {
             String value = preferences.getString(PREF_VALUE, "1.0");
             Number number = numberFormat.parse(value);
             currentValue = number.doubleValue();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             currentValue = 1.0;
         }
 
@@ -342,85 +286,83 @@ public class Main extends Activity
         String updated = String.format(Locale.getDefault(), format, date);
 
         // Check the date view
-        if (dateView != null)
-            dateView.setText(updated);
+        if (dateView != null) dateView.setText(updated);
 
         // Set current currency flag and names
-        if (flagView != null)
-            flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
-        if (nameView != null)
-            nameView.setText(CURRENCY_NAMES[currentIndex]);
-        if (symbolView != null)
-            symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
-        if (longNameView != null)
-            longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
+        if (flagView != null) flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
+        if (nameView != null) nameView.setText(CURRENCY_NAMES[currentIndex]);
+        if (symbolView != null) symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
+        if (longNameView != null) longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
 
         // Set current value
         numberFormat.setGroupingUsed(false);
         String value = numberFormat.format(currentValue);
-        if (editView != null)
-            editView.setText(value);
+        if (editView != null) editView.setText(value);
 
         // Check data fragment
-        if (dataFragment != null)
-            valueMap = dataFragment.getMap();
+        if (dataFragment != null) valueMap = dataFragment.getMap();
 
         // Check retained data
-        if (valueMap == null) {
+        if (valueMap == null)
+        {
             // Get saved currency rates
             String mapJSON = preferences.getString(PREF_MAP, null);
 
             // Check saved rates
-            if (mapJSON != null) {
+            if (mapJSON != null)
+            {
                 // Create the value map from a JSON object
-                try {
+                try
+                {
                     // Create the JSON object
                     JSONObject mapObject = new JSONObject(mapJSON);
                     valueMap = new HashMap<String, Double>();
 
                     // Use an iterator for the JSON object
                     Iterator<String> keys = mapObject.keys();
-                    while (keys.hasNext()) {
+                    while (keys.hasNext())
+                    {
                         String key = keys.next();
                         valueMap.put(key, mapObject.getDouble(key));
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
                     e.printStackTrace();
                 }
             }
 
             // Get old rates from resources
-            else {
+            else
+            {
                 // Get a parser
                 Parser parser = new Parser();
 
                 // Start the parser
                 parser.startParser(this, R.raw.eurofxref_daily);
 
-                SimpleDateFormat dateParser =
-                        new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
-                DateFormat dateFormat =
-                        DateFormat.getDateInstance(DateFormat.MEDIUM);
+                SimpleDateFormat dateParser = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
 
                 // Get the date from the parser
                 String latest = parser.getDate();
 
                 // Format the date for display
-                if (latest != null) {
-                    try {
+                if (latest != null)
+                {
+                    try
+                    {
                         Date update = dateParser.parse(latest);
                         date = dateFormat.format(update);
-                    } catch (Exception e) {
+                    } catch (Exception e)
+                    {
                         e.printStackTrace();
                     }
 
                     // Show the formatted date
                     format = resources.getString(R.string.updated);
                     updated = String.format(Locale.getDefault(), format, date);
-                    if (dateView != null)
-                        dateView.setText(updated);
-                } else if (statusView != null)
-                    statusView.setText(R.string.failed);
+                    if (dateView != null) dateView.setText(updated);
+                } else if (statusView != null) statusView.setText(R.string.failed);
 
                 valueMap = parser.getMap();
             }
@@ -431,42 +373,51 @@ public class Main extends Activity
         String valuesJSON = preferences.getString(PREF_VALUES, null);
 
         // Check saved name list
-        if (namesJSON != null) {
-            try {
+        if (namesJSON != null)
+        {
+            try
+            {
                 // Update name list from JSON array
                 JSONArray namesArray = new JSONArray(namesJSON);
                 nameList.clear();
                 for (int i = 0; !namesArray.isNull(i); i++)
                     nameList.add(namesArray.getString(i));
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
 
         // Use the default list
-        else {
+        else
+        {
             nameList.addAll(Arrays.asList(CURRENCY_LIST));
         }
 
         // Get the saved value list
-        if (valuesJSON != null) {
-            try {
+        if (valuesJSON != null)
+        {
+            try
+            {
                 // Update value list from JSON array
                 JSONArray valuesArray = new JSONArray(valuesJSON);
                 valueList.clear();
                 for (int i = 0; !valuesArray.isNull(i); i++)
                     valueList.add(valuesArray.getString(i));
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
 
         // Calculate value list
-        else {
+        else
+        {
             valueList.clear();
 
             // Format each value
-            for (String s : nameList) {
+            for (String s : nameList)
+            {
                 Double v = valueMap.get(s);
                 value = numberFormat.format(v);
                 // value = String.format("%1.3f", v);
@@ -479,30 +430,26 @@ public class Main extends Activity
         convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
         // Clear lists
-        if (flagList != null)
-            flagList.clear();
-        if (symbolList != null)
-            symbolList.clear();
-        if (longNameList != null)
-            longNameList.clear();
+        if (flagList != null) flagList.clear();
+        if (symbolList != null) symbolList.clear();
+        if (longNameList != null) longNameList.clear();
 
         // Populate the lists
-        for (String name : nameList) {
+        for (String name : nameList)
+        {
             int index = currencyNameList.indexOf(name);
 
-            if (flagList != null)
-                flagList.add(CURRENCY_FLAGS[index]);
-            if (symbolList != null)
-                symbolList.add(CURRENCY_SYMBOLS[index]);
-            if (longNameList != null)
-                longNameList.add(CURRENCY_LONGNAMES[index]);
+            if (flagList != null) flagList.add(CURRENCY_FLAGS[index]);
+            if (symbolList != null) symbolList.add(CURRENCY_SYMBOLS[index]);
+            if (longNameList != null) longNameList.add(CURRENCY_LONGNAMES[index]);
         }
 
         // Update the adapter
         adapter.notifyDataSetChanged();
 
         // Check data fragment
-        if (dataFragment != null) {
+        if (dataFragment != null)
+        {
             // Check retained data
             if (dataFragment.getMap() != null)
                 // Don't update
@@ -510,42 +457,40 @@ public class Main extends Activity
         }
 
         // Check connectivity before update
-        ConnectivityManager manager =
-                (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
 
         // Check connected
-        if (info == null || !info.isConnected()) {
-            if (statusView != null)
-                statusView.setText(R.string.no_connection);
+        if (info == null || !info.isConnected())
+        {
+            if (statusView != null) statusView.setText(R.string.no_connection);
             return;
         }
 
         // Check wifi
-        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI) {
-            if (statusView != null)
-                statusView.setText(R.string.no_wifi);
+        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+        {
+            if (statusView != null) statusView.setText(R.string.no_wifi);
             return;
         }
 
         // Check roaming
-        if (!roaming && info.isRoaming()) {
-            if (statusView != null)
-                statusView.setText(R.string.roaming);
+        if (!roaming && info.isRoaming())
+        {
+            if (statusView != null) statusView.setText(R.string.roaming);
             return;
         }
 
         // Schedule update
-        if (statusView != null)
-            statusView.setText(R.string.updating);
+        if (statusView != null) statusView.setText(R.string.updating);
 
         // Start the task
-        if (dataFragment != null)
-            dataFragment.startParseTask(ECB_DAILY_URL);
+        if (dataFragment != null) dataFragment.startParseTask(ECB_DAILY_URL);
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
 
         // Get preferences
@@ -576,28 +521,29 @@ public class Main extends Activity
         editor.apply();
 
         // Save the value map in the data fragment
-        if (dataFragment != null)
-            dataFragment.setMap(valueMap);
+        if (dataFragment != null) dataFragment.setMap(valueMap);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState)
+    {
         super.onSaveInstanceState(outState);
 
         // Save the select list
-        outState.putIntegerArrayList(SAVE_SELECT,
-                (ArrayList<Integer>) selectList);
+        outState.putIntegerArrayList(SAVE_SELECT, (ArrayList<Integer>) selectList);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it
         // is present.
 
         MenuInflater inflater = getMenuInflater();
 
         // Check mode
-        switch (mode) {
+        switch (mode)
+        {
             case DISPLAY_MODE:
                 inflater.inflate(R.menu.main, menu);
                 break;
@@ -611,9 +557,11 @@ public class Main extends Activity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
-        switch (id) {
+        switch (id)
+        {
             // Add
             case R.id.action_add:
                 return onAddClick();
@@ -650,7 +598,8 @@ public class Main extends Activity
         return false;
     }
 
-    private boolean onAddClick() {
+    private boolean onAddClick()
+    {
         // Start the choice dialog
         Intent intent = new Intent(this, ChoiceDialog.class);
         startActivityForResult(intent, 0);
@@ -658,7 +607,8 @@ public class Main extends Activity
         return true;
     }
 
-    private boolean onClearClick() {
+    private boolean onClearClick()
+    {
         // Restore the menu
         mode = DISPLAY_MODE;
         invalidateOptionsMenu();
@@ -669,9 +619,9 @@ public class Main extends Activity
         return true;
     }
 
-    private boolean onCopyClick() {
-        ClipboardManager clipboard =
-                (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+    private boolean onCopyClick()
+    {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMinimumFractionDigits(digits);
@@ -679,8 +629,10 @@ public class Main extends Activity
 
         // Copy value to clip
         String clip = null;
-        for (int i : selectList) {
-            try {
+        for (int i : selectList)
+        {
+            try
+            {
                 numberFormat.setGroupingUsed(true);
                 Number number = numberFormat.parse(valueList.get(i));
                 Double value = number.doubleValue();
@@ -688,7 +640,8 @@ public class Main extends Activity
                 // Remove grouping from value
                 numberFormat.setGroupingUsed(false);
                 clip = numberFormat.format(value);
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
             }
         }
 
@@ -705,14 +658,16 @@ public class Main extends Activity
         return true;
     }
 
-    private boolean onRemoveClick() {
+    private boolean onRemoveClick()
+    {
         List<String> removeList = new ArrayList<String>();
 
         // Create a list of currency names to remove
         for (int i : selectList)
             removeList.add(nameList.get(i));
 
-        for (String s : removeList) {
+        for (String s : removeList)
+        {
             // Look up name
             int i = nameList.indexOf(s);
 
@@ -735,14 +690,16 @@ public class Main extends Activity
         return true;
     }
 
-    private boolean onChartClick() {
+    private boolean onChartClick()
+    {
         Intent intent = new Intent(this, ChartActivity.class);
 
         int firstIndex = currentIndex;
         int secondIndex = currentIndex;
 
         // Iterate through the list to get the last two
-        for (int index : selectList) {
+        for (int index : selectList)
+        {
             firstIndex = secondIndex;
             String name = nameList.get(index);
             secondIndex = currencyNameList.indexOf(name);
@@ -766,44 +723,43 @@ public class Main extends Activity
         return true;
     }
 
-    private boolean onRefreshClick() {
+    private boolean onRefreshClick()
+    {
         // Check connectivity before refresh
-        ConnectivityManager manager =
-                (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
 
         // Check connected
-        if (info == null || !info.isConnected()) {
-            if (statusView != null)
-                statusView.setText(R.string.no_connection);
+        if (info == null || !info.isConnected())
+        {
+            if (statusView != null) statusView.setText(R.string.no_connection);
             return false;
         }
 
         // Check wifi
-        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI) {
-            if (statusView != null)
-                statusView.setText(R.string.no_wifi);
+        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+        {
+            if (statusView != null) statusView.setText(R.string.no_wifi);
             return false;
         }
 
         // Check roaming
-        if (!roaming && info.isRoaming()) {
-            if (statusView != null)
-                statusView.setText(R.string.roaming);
+        if (!roaming && info.isRoaming())
+        {
+            if (statusView != null) statusView.setText(R.string.roaming);
             return false;
         }
 
         // Schedule update
-        if (statusView != null)
-            statusView.setText(R.string.updating);
+        if (statusView != null) statusView.setText(R.string.updating);
 
         // Start the task
-        if (dataFragment != null)
-            dataFragment.startParseTask(ECB_DAILY_URL);
+        if (dataFragment != null) dataFragment.startParseTask(ECB_DAILY_URL);
         return true;
     }
 
-    private boolean onHelpClick() {
+    private boolean onHelpClick()
+    {
         // Start help activity
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
@@ -811,7 +767,8 @@ public class Main extends Activity
         return true;
     }
 
-    private boolean onSettingsClick() {
+    private boolean onSettingsClick()
+    {
         // Start settings activity
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
@@ -819,13 +776,16 @@ public class Main extends Activity
         return true;
     }
 
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
         int id = view.getId();
 
-        switch (id) {
+        switch (id)
+        {
             // Value field
             case R.id.edit:
-                if (selectAll && select) {
+                if (selectAll && select)
+                {
                     // Forces select all
                     view.clearFocus();
                     view.requestFocus();
@@ -838,40 +798,42 @@ public class Main extends Activity
             // Any other view
             default:
                 // Clear value field selection
-                if (editView != null)
-                    editView.setSelection(0);
+                if (editView != null) editView.setSelection(0);
                 select = true;
         }
     }
 
     @Override
-    public void afterTextChanged(Editable editable) {
+    public void afterTextChanged(Editable editable)
+    {
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
 
         // Parse current value
-        try {
+        try
+        {
             String n = editable.toString();
-            if (n.length() > 0) {
+            if (n.length() > 0)
+            {
                 Number number = numberFormat.parse(n);
                 currentValue = number.doubleValue();
             }
         }
 
         // Set to one on exception
-        catch (Exception e) {
+        catch (Exception e)
+        {
             e.printStackTrace();
             currentValue = 1.0;
-            if (editView != null)
-                editView.setText(R.string.num_one);
+            if (editView != null) editView.setText(R.string.num_one);
         }
 
         // Recalculate all the values
         valueList.clear();
-        for (String name : nameList) {
-            Double value = (currentValue / convertValue) *
-                    valueMap.get(name);
+        for (String name : nameList)
+        {
+            Double value = (currentValue / convertValue) * valueMap.get(name);
 
             String s = numberFormat.format(value);
             valueList.add(s);
@@ -883,32 +845,41 @@ public class Main extends Activity
 
     // Not used
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    public void beforeTextChanged(CharSequence s, int start, int count, int after)
+    {
+    }
 
     // Not used
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+    public void onTextChanged(CharSequence s, int start, int before, int count)
+    {
+    }
 
     @Override
-    public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+    public boolean onEditorAction(TextView view, int actionId, KeyEvent event)
+    {
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
 
-        switch (actionId) {
+        switch (actionId)
+        {
             case EditorInfo.IME_ACTION_DONE:
 
                 // Parse current value
-                try {
+                try
+                {
                     String n = view.getText().toString();
-                    if (n.length() > 0) {
+                    if (n.length() > 0)
+                    {
                         Number number = numberFormat.parse(n);
                         currentValue = number.doubleValue();
                     }
                 }
 
                 // Set to one on exception
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     e.printStackTrace();
                     currentValue = 1.0;
                     view.setText(R.string.num_one);
@@ -922,9 +893,9 @@ public class Main extends Activity
                 // Recalculate all the values
                 valueList.clear();
                 numberFormat.setGroupingUsed(true);
-                for (String name : nameList) {
-                    Double value = (currentValue / convertValue) *
-                            valueMap.get(name);
+                for (String name : nameList)
+                {
+                    Double value = (currentValue / convertValue) * valueMap.get(name);
 
                     s = numberFormat.format(value);
                     valueList.add(s);
@@ -940,8 +911,8 @@ public class Main extends Activity
     }
 
     @Override
-    public void onItemClick(AdapterView parent, View view,
-                            int position, long id) {
+    public void onItemClick(AdapterView parent, View view, int position, long id)
+    {
         String value;
         int oldIndex;
         double oldValue;
@@ -950,7 +921,8 @@ public class Main extends Activity
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
 
-        switch (mode) {
+        switch (mode)
+        {
             // Display mode - replace the current currency
             case DISPLAY_MODE:
                 // Save the current values
@@ -960,25 +932,19 @@ public class Main extends Activity
                 // Set the current currency from the list
                 currentIndex = currencyNameList.indexOf(nameList.get(position));
 
-                currentValue = (oldValue / convertValue) *
-                        valueMap.get(CURRENCY_NAMES[currentIndex]);
+                currentValue = (oldValue / convertValue) * valueMap.get(CURRENCY_NAMES[currentIndex]);
 
                 convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
                 numberFormat.setGroupingUsed(false);
                 value = numberFormat.format(currentValue);
                 // value = String.format("%1.3f", currentValue);
-                if (editView != null)
-                    editView.setText(value);
+                if (editView != null) editView.setText(value);
 
-                if (flagView != null)
-                    flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
-                if (nameView != null)
-                    nameView.setText(CURRENCY_NAMES[currentIndex]);
-                if (symbolView != null)
-                    symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
-                if (longNameView != null)
-                    longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
+                if (flagView != null) flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
+                if (nameView != null) nameView.setText(CURRENCY_NAMES[currentIndex]);
+                if (symbolView != null) symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
+                if (longNameView != null) longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
 
                 // Remove the selected currency from the lists
                 flagList.remove(position);
@@ -999,8 +965,7 @@ public class Main extends Activity
                 valueList.add(0, value);
 
                 // Get preferences
-                SharedPreferences preferences =
-                        PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
                 // Get editor
                 SharedPreferences.Editor editor = preferences.edit();
@@ -1022,14 +987,13 @@ public class Main extends Activity
 
             case SELECT_MODE:
                 // Select mode - add or remove from list
-                if (selectList.contains(position))
-                    selectList.remove(selectList.indexOf(position));
+                if (selectList.contains(position)) selectList.remove(selectList.indexOf(position));
 
-                else
-                    selectList.add(position);
+                else selectList.add(position);
 
                 // Reset mode if list empty
-                if (selectList.isEmpty()) {
+                if (selectList.isEmpty())
+                {
                     mode = DISPLAY_MODE;
                     invalidateOptionsMenu();
                 }
@@ -1041,7 +1005,8 @@ public class Main extends Activity
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView parent, View view, int position, long id) {
+    public boolean onItemLongClick(AdapterView parent, View view, int position, long id)
+    {
         // Switch to select mode, update menu
         mode = SELECT_MODE;
         invalidateOptionsMenu();
@@ -1056,27 +1021,26 @@ public class Main extends Activity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         // Do nothing if cancelled
-        if (resultCode != RESULT_OK)
-            return;
+        if (resultCode != RESULT_OK) return;
 
         // Get index list from intent
         List<Integer> indexList = data.getIntegerArrayListExtra(CHOICE);
 
         // Add currencies from list
-        for (int index : indexList) {
+        for (int index : indexList)
+        {
             // Don't add duplicates
-            if (nameList.contains(CURRENCY_NAMES[index]))
-                continue;
+            if (nameList.contains(CURRENCY_NAMES[index])) continue;
 
             flagList.add(CURRENCY_FLAGS[index]);
             nameList.add(CURRENCY_NAMES[index]);
             symbolList.add(CURRENCY_SYMBOLS[index]);
             longNameList.add(CURRENCY_LONGNAMES[index]);
 
-            Double value = (currentValue / convertValue) *
-                    valueMap.get(CURRENCY_NAMES[index]);
+            Double value = (currentValue / convertValue) * valueMap.get(CURRENCY_NAMES[index]);
 
             NumberFormat numberFormat = NumberFormat.getInstance();
             numberFormat.setMinimumFractionDigits(digits);
@@ -1087,8 +1051,7 @@ public class Main extends Activity
         }
 
         // Get preferences
-        SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Get editor
         SharedPreferences.Editor editor = preferences.edit();
@@ -1106,36 +1069,37 @@ public class Main extends Activity
     }
 
     @Override
-    public void onProgressUpdate(String... date) {
-        SimpleDateFormat dateParser =
-                new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
-        DateFormat dateFormat =
-                DateFormat.getDateInstance(DateFormat.MEDIUM);
+    public void onProgressUpdate(String... date)
+    {
+        SimpleDateFormat dateParser = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
 
         // Format the date for display
-        if (date[0] != null) {
-            try {
+        if (date[0] != null)
+        {
+            try
+            {
                 Date update = dateParser.parse(date[0]);
                 this.date = dateFormat.format(update);
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
 
             String format = resources.getString(R.string.updated);
-            String updated = String.format(Locale.getDefault(),
-                    format, this.date);
-            if (dateView != null)
-                dateView.setText(updated);
-        } else if (statusView != null)
-            statusView.setText(R.string.failed);
+            String updated = String.format(Locale.getDefault(), format, this.date);
+            if (dateView != null) dateView.setText(updated);
+        } else if (statusView != null) statusView.setText(R.string.failed);
     }
 
     // The system calls this to perform work in the UI thread and
     // delivers the result from doInBackground()
     @Override
-    public void onPostExecute(Map<String, Double> map) {
+    public void onPostExecute(Map<String, Double> map)
+    {
         // Check the map
-        if (!map.isEmpty()) {
+        if (!map.isEmpty())
+        {
             valueMap = map;
 
             // Empty the value list
@@ -1148,11 +1112,11 @@ public class Main extends Activity
             NumberFormat numberFormat = NumberFormat.getInstance();
             numberFormat.setMinimumFractionDigits(digits);
             numberFormat.setMaximumFractionDigits(digits);
-            for (String name : nameList) {
+            for (String name : nameList)
+            {
                 int index = currencyNameList.indexOf(name);
 
-                Double value = (currentValue / convertValue) *
-                        valueMap.get(name);
+                Double value = (currentValue / convertValue) * valueMap.get(name);
 
                 String s = numberFormat.format(value);
 
@@ -1160,8 +1124,7 @@ public class Main extends Activity
             }
 
             // Get preferences
-            SharedPreferences preferences =
-                    PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
             // Get editor
             SharedPreferences.Editor editor = preferences.edit();
@@ -1181,7 +1144,6 @@ public class Main extends Activity
 
             statusView.setText(R.string.ok);
             adapter.notifyDataSetChanged();
-        } else
-            statusView.setText(R.string.failed);
+        } else statusView.setText(R.string.failed);
     }
 }

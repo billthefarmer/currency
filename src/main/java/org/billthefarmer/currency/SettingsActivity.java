@@ -29,22 +29,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends Activity
+{
     // On create
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         // Display the fragment as the main content.
 
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
-                .commit();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
 
         // Enable back navigation on action bar
         ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
+        if (actionBar != null)
+        {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.settings);
         }
@@ -53,9 +54,11 @@ public class SettingsActivity extends Activity {
     // On options item selected
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Switch on item id
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             // Home, finish
             case android.R.id.home:
                 finish();

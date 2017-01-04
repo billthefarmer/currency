@@ -33,14 +33,16 @@ import java.util.Map;
 
 // DataFragment class
 
-public class DataFragment extends Fragment {
+public class DataFragment extends Fragment
+{
     // Data objects we want to retain
     private Map<String, Double> map;
     private TaskCallbacks callbacks;
 
     // This method is only called once for this fragment
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         // Retain this fragment
         setRetainInstance(true);
@@ -51,7 +53,8 @@ public class DataFragment extends Fragment {
     // pass us a reference to the newly created Activity after each
     // configuration change.
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Activity activity)
+    {
         super.onAttach(activity);
         callbacks = (TaskCallbacks) activity;
     }
@@ -59,57 +62,63 @@ public class DataFragment extends Fragment {
     // Set the callback to null so we don't accidentally leak the
     // Activity instance.
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
         callbacks = null;
     }
 
     // Get map
-    public Map<String, Double> getMap() {
+    public Map<String, Double> getMap()
+    {
         return map;
     }
 
     // Set map
-    public void setMap(Map<String, Double> map) {
+    public void setMap(Map<String, Double> map)
+    {
         this.map = map;
     }
 
     // Start parse task
-    protected void startParseTask(String url) {
+    protected void startParseTask(String url)
+    {
         ParseTask parseTask = new ParseTask();
         parseTask.execute(url);
     }
 
     // TaskCallbacks interface
-    interface TaskCallbacks {
+    interface TaskCallbacks
+    {
         void onProgressUpdate(String... date);
 
         void onPostExecute(Map<String, Double> map);
     }
 
-    protected class ParseTask extends AsyncTask<String, String, Map<String, Double>> {
+    protected class ParseTask extends AsyncTask<String, String, Map<String, Double>>
+    {
         Context context;
         String latest;
 
         // The system calls this to perform work in a worker thread
         // and delivers it the parameters given to AsyncTask.execute()
         @Override
-        protected Map<String, Double> doInBackground(String... urls) {
+        protected Map<String, Double> doInBackground(String... urls)
+        {
             // Get a parser
             Parser parser = new Parser();
 
             // Start the parser and report progress with the date
-            if (parser.startParser(urls[0]))
-                publishProgress(parser.getDate());
+            if (parser.startParser(urls[0])) publishProgress(parser.getDate());
 
             // Return the map
             return parser.getMap();
         }
 
         @Override
-        protected void onProgressUpdate(String... date) {
-            if (callbacks != null)
-                callbacks.onProgressUpdate(date);
+        protected void onProgressUpdate(String... date)
+        {
+            if (callbacks != null) callbacks.onProgressUpdate(date);
         }
 
         /**
@@ -117,9 +126,9 @@ public class DataFragment extends Fragment {
          * delivers the result from doInBackground()
          */
         @Override
-        protected void onPostExecute(Map<String, Double> map) {
-            if (callbacks != null)
-                callbacks.onPostExecute(map);
+        protected void onPostExecute(Map<String, Double> map)
+        {
+            if (callbacks != null) callbacks.onPostExecute(map);
         }
     }
 }

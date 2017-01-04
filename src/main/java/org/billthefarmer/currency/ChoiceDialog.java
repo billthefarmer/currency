@@ -37,9 +37,8 @@ import java.util.List;
 
 // Choice dialog
 
-public class ChoiceDialog extends Activity
-        implements View.OnClickListener, AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener {
+public class ChoiceDialog extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener
+{
     private ListView listView;
 
     private Button cancel;
@@ -57,7 +56,8 @@ public class ChoiceDialog extends Activity
     private int mode = Main.DISPLAY_MODE;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose);
 
@@ -69,19 +69,17 @@ public class ChoiceDialog extends Activity
         select = (Button) findViewById(R.id.select);
 
         // Set the listeners
-        if (listView != null) {
+        if (listView != null)
+        {
             listView.setOnItemClickListener(this);
             listView.setOnItemLongClickListener(this);
         }
 
-        if (cancel != null)
-            cancel.setOnClickListener(this);
+        if (cancel != null) cancel.setOnClickListener(this);
 
-        if (clear != null)
-            clear.setOnClickListener(this);
+        if (clear != null) clear.setOnClickListener(this);
 
-        if (select != null)
-            select.setOnClickListener(this);
+        if (select != null) select.setOnClickListener(this);
 
         selectList = new ArrayList<Integer>();
 
@@ -91,45 +89,43 @@ public class ChoiceDialog extends Activity
         longNameList = Arrays.asList(Main.CURRENCY_LONGNAMES);
 
         // Create the adapter
-        adapter = new ChoiceAdapter(this, R.layout.choice, flagList,
-                nameList, longNameList, selectList);
+        adapter = new ChoiceAdapter(this, R.layout.choice, flagList, nameList, longNameList, selectList);
 
         // Set the adapter
-        if (listView != null)
-            listView.setAdapter(adapter);
+        if (listView != null) listView.setAdapter(adapter);
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-        List<Integer> list =
-                savedState.getIntegerArrayList(Main.SAVE_SELECT);
+    public void onRestoreInstanceState(Bundle savedState)
+    {
+        List<Integer> list = savedState.getIntegerArrayList(Main.SAVE_SELECT);
 
-        if (list != null) {
+        if (list != null)
+        {
             // Update the selection list
             for (int index : list)
                 selectList.add(index);
 
             // Disable buttons if empty
-            if (selectList.isEmpty()) {
-                if (clear != null)
-                    clear.setEnabled(false);
-                if (select != null)
-                    select.setEnabled(false);
+            if (selectList.isEmpty())
+            {
+                if (clear != null) clear.setEnabled(false);
+                if (select != null) select.setEnabled(false);
                 mode = Main.DISPLAY_MODE;
             }
 
             // Enable buttons if selection
-            else {
-                if (clear != null)
-                    clear.setEnabled(true);
-                if (select != null)
-                    select.setEnabled(true);
+            else
+            {
+                if (clear != null) clear.setEnabled(true);
+                if (select != null) select.setEnabled(true);
                 mode = Main.SELECT_MODE;
             }
         }
 
         // No saved list
-        else {
+        else
+        {
             mode = Main.DISPLAY_MODE;
         }
 
@@ -141,19 +137,21 @@ public class ChoiceDialog extends Activity
     // On save
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState)
+    {
         super.onSaveInstanceState(outState);
 
         // Save the selection list
-        outState.putIntegerArrayList(Main.SAVE_SELECT,
-                (ArrayList<Integer>) selectList);
+        outState.putIntegerArrayList(Main.SAVE_SELECT, (ArrayList<Integer>) selectList);
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         int id = v.getId();
 
-        switch (id) {
+        switch (id)
+        {
             // Cancel
             case R.id.cancel:
                 setResult(RESULT_CANCELED);
@@ -162,10 +160,8 @@ public class ChoiceDialog extends Activity
 
             // Clear
             case R.id.clear:
-                if (clear != null)
-                    clear.setEnabled(false);
-                if (select != null)
-                    select.setEnabled(false);
+                if (clear != null) clear.setEnabled(false);
+                if (select != null) select.setEnabled(false);
                 mode = Main.DISPLAY_MODE;
 
                 // Start a new selection
@@ -185,10 +181,11 @@ public class ChoiceDialog extends Activity
     }
 
     @Override
-    public void onItemClick(AdapterView parent, View view,
-                            int position, long id) {
+    public void onItemClick(AdapterView parent, View view, int position, long id)
+    {
         // Check mode
-        switch (mode) {
+        switch (mode)
+        {
             // Normal
             case Main.DISPLAY_MODE:
                 selectList.add(position);
@@ -201,17 +198,14 @@ public class ChoiceDialog extends Activity
 
             // Select
             case Main.SELECT_MODE:
-                if (selectList.contains(position))
-                    selectList.remove(selectList.indexOf(position));
+                if (selectList.contains(position)) selectList.remove(selectList.indexOf(position));
 
-                else
-                    selectList.add(position);
+                else selectList.add(position);
 
-                if (selectList.isEmpty()) {
-                    if (clear != null)
-                        clear.setEnabled(false);
-                    if (select != null)
-                        select.setEnabled(false);
+                if (selectList.isEmpty())
+                {
+                    if (clear != null) clear.setEnabled(false);
+                    if (select != null) select.setEnabled(false);
                     mode = Main.DISPLAY_MODE;
                 }
 
@@ -221,12 +215,10 @@ public class ChoiceDialog extends Activity
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView parent, View view,
-                                   int position, long id) {
-        if (clear != null)
-            clear.setEnabled(true);
-        if (select != null)
-            select.setEnabled(true);
+    public boolean onItemLongClick(AdapterView parent, View view, int position, long id)
+    {
+        if (clear != null) clear.setEnabled(true);
+        if (select != null) select.setEnabled(true);
         mode = Main.SELECT_MODE;
 
         // Start a new selection

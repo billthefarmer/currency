@@ -34,22 +34,21 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
-public class SettingsFragment extends PreferenceFragment
-        implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener
+{
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
 
-        SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         preferences.registerOnSharedPreferenceChangeListener(this);
 
-        ListPreference preference =
-                (ListPreference) findPreference(Main.PREF_DIGITS);
+        ListPreference preference = (ListPreference) findPreference(Main.PREF_DIGITS);
 
         // Set summary to be the user-description for the selected value
         preference.setSummary(preference.getEntry());
@@ -64,13 +63,13 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-                                         Preference preference) {
-        boolean result =
-                super.onPreferenceTreeClick(preferenceScreen, preference);
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
+    {
+        boolean result = super.onPreferenceTreeClick(preferenceScreen, preference);
 
         // Set home as up
-        if (preference instanceof PreferenceScreen) {
+        if (preference instanceof PreferenceScreen)
+        {
             Dialog dialog = ((PreferenceScreen) preference).getDialog();
             ActionBar actionBar = dialog.getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(false);
@@ -80,9 +79,10 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences preferences,
-                                          String key) {
-        if (key.equals(Main.PREF_DIGITS)) {
+    public void onSharedPreferenceChanged(SharedPreferences preferences, String key)
+    {
+        if (key.equals(Main.PREF_DIGITS))
+        {
             ListPreference preference = (ListPreference) findPreference(key);
 
             // Set summary to be the user-description for the selected value
