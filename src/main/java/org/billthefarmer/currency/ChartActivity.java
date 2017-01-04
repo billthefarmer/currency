@@ -124,6 +124,7 @@ public class ChartActivity extends Activity
         // Find the retained fragment on activity restarts
         FragmentManager fm = getFragmentManager();
         chartFragment = (ChartFragment) fm.findFragmentByTag(CHART_TAG);
+	List<Integer> list = null;
 
         // Create the fragment the first time
         if (chartFragment == null)
@@ -134,26 +135,30 @@ public class ChartActivity extends Activity
             .add(chartFragment, CHART_TAG)
             .commit();
 
-            // Get the intent for the list
+            // Get the intent for the parameters
             Intent intent = getIntent();
-            chartList = intent.getIntegerArrayListExtra(Main.CHART_LIST);
+	    list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
         }
 
         else
         {
             // Get list from fragment
-            chartList = chartFragment.getList();
+	    list = chartFragment.getList();
         }
 
-        // Trim the list to the number of colours plus one
-        while (chartList.size() > colours.length + 1)
-            // Remove the first entry
-            chartList.remove(0);
+	// Iterate through the list to get the last two
+	if (list != null)
+	{
+	    for (int index : list)
+	    {
+		firstIndex = secondIndex;
+		secondIndex = index;
+	    }
+	}
 
         // Look up the names
-        nameList = new ArrayList<String>();
-        for (int index : chartList)
-            nameList.add(Main.CURRENCY_NAMES[index]);
+        firstName = Main.CURRENCY_NAMES[firstIndex];
+        secondName = Main.CURRENCY_NAMES[secondIndex];
 
         // Enable back navigation on action bar
         ActionBar actionBar = getActionBar();
@@ -368,14 +373,15 @@ public class ChartActivity extends Activity
         // Store the indices and historical data in the fragment
         if (chartFragment != null)
         {
-            chartFragment.setFirst(firstIndex);
-            chartFragment.setList(chartList);
+	    List<Integer> list = new ArrayList<Integer>();
+            list.add(firstIndex);
+            list.add(secondIndex);
+	    chartFragment.setList(list);
             chartFragment.setMap(histMap);
         }
     }
 
     // On create options menu
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -392,7 +398,6 @@ public class ChartActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Get id
-
         int id = item.getItemId();
         switch (id)
         {
@@ -607,7 +612,11 @@ public class ChartActivity extends Activity
                 day = date.getTime() / MSEC_DAY;
             }
 
-            catch (Exception e) {}
+	    // Ignore invalid dates
+            catch (Exception e)
+	    {
+		continue;
+	    }
 
             // Get the map for each date
             Map<String, Double> entryMap = histMap.get(key);
@@ -731,6 +740,7 @@ public class ChartActivity extends Activity
                     dataSet.setDrawFilled(true);
                 }
 
+		// Update chart
                 lineData = new LineData(dataSet);
                 chart.setData(lineData);
                 chart.invalidate();
@@ -739,6 +749,7 @@ public class ChartActivity extends Activity
 
         else
         {
+	    // Show failed
             showToast(R.string.update_failed);
         }
 
@@ -748,7 +759,7 @@ public class ChartActivity extends Activity
             customView.setText(label);
     }
 
-    // Show toast.
+    // Show toast
     void showToast(int id, Object... args)
     {
         // Get text from resources
@@ -757,14 +768,14 @@ public class ChartActivity extends Activity
         showToast(text, args);
     }
 
-    // Show toast.
+    // Show toast
     void showToast(String format, Object... args)
     {
         String text = String.format(format, args);
         showToast(text);
     }
 
-    // Show toast.
+    // Show toast
     void showToast(String text)
     {
         // Make a new toast

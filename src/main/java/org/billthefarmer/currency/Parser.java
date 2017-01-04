@@ -43,7 +43,6 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 // Parser class
-
 public class Parser
 {
     private Map<String, Double> map;

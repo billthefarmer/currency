@@ -38,7 +38,6 @@ import java.util.List;
 import org.json.JSONArray;
 
 // Choice dialog
-
 public class ChoiceDialog extends Activity
     implements View.OnClickListener, AdapterView.OnItemClickListener,
     AdapterView.OnItemLongClickListener
@@ -60,7 +59,6 @@ public class ChoiceDialog extends Activity
     private int mode = Main.DISPLAY_MODE;
 
     // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -107,7 +105,6 @@ public class ChoiceDialog extends Activity
     }
 
     // On restore
-
     @Override
     public void onRestoreInstanceState(Bundle savedState)
     {
@@ -153,7 +150,6 @@ public class ChoiceDialog extends Activity
     }
 
     // On save
-
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
@@ -165,7 +161,6 @@ public class ChoiceDialog extends Activity
     }
 
     // On click
-
     @Override
     public void onClick(View v)
     {
@@ -204,7 +199,6 @@ public class ChoiceDialog extends Activity
     }
 
     // On item click
-
     @Override
     public void onItemClick(AdapterView parent, View view,
                             int position, long id)
@@ -245,7 +239,6 @@ public class ChoiceDialog extends Activity
     }
 
     // On item long click
-
     @Override
     public boolean onItemLongClick(AdapterView parent, View view,
                                    int position, long id)

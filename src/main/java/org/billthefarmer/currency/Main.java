@@ -72,7 +72,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 // Main class
-
 public class Main extends Activity
     implements EditText.OnEditorActionListener,
     AdapterView.OnItemClickListener,
@@ -216,7 +215,6 @@ public class Main extends Activity
     private Resources resources;
 
     // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -235,6 +233,44 @@ public class Main extends Activity
             fm.beginTransaction()
             .add(dataFragment, DATA_TAG)
             .commit();
+        }
+
+        // Find views
+        flagView = (ImageView)findViewById(R.id.flag);
+        nameView = (TextView)findViewById(R.id.name);
+        symbolView = (TextView)findViewById(R.id.symbol);
+        editView = (EditText)findViewById(R.id.edit);
+        longNameView = (TextView)findViewById(R.id.long_name);
+        dateView = (TextView)findViewById(R.id.date);
+        statusView = (TextView)findViewById(R.id.status);
+        listView = (ListView)findViewById(R.id.list);
+
+        // Set the click listeners, just for the text selection logic
+        if (flagView != null)
+            flagView.setOnClickListener(this);
+
+        if (nameView != null)
+            nameView.setOnClickListener(this);
+
+        if (symbolView != null)
+            symbolView.setOnClickListener(this);
+
+        if (longNameView != null)
+            longNameView.setOnClickListener(this);
+
+        // Set the listeners for the value field
+        if (editView != null)
+        {
+            editView.addTextChangedListener(this);
+            editView.setOnEditorActionListener(this);
+            editView.setOnClickListener(this);
+        }
+
+        // Set the listeners for the list view
+        if (listView != null)
+        {
+            listView.setOnItemClickListener(this);
+            listView.setOnItemLongClickListener(this);
         }
 
         // Find views
@@ -296,7 +332,6 @@ public class Main extends Activity
     }
 
     // On restore
-
     @Override
     public void onRestoreInstanceState(Bundle savedState)
     {
@@ -327,7 +362,6 @@ public class Main extends Activity
     }
 
     // On resume
-
     @Override
     protected void onResume()
     {
@@ -606,7 +640,6 @@ public class Main extends Activity
     }
 
     // On pause
-
     @Override
     protected void onPause()
     {
@@ -646,7 +679,6 @@ public class Main extends Activity
     }
 
     // On save
-
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
@@ -658,13 +690,11 @@ public class Main extends Activity
     }
 
     // On create options menu
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it
         // is present.
-
         MenuInflater inflater = getMenuInflater();
 
         // Check mode
@@ -683,7 +713,6 @@ public class Main extends Activity
     }
 
     // On options item selected
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -729,7 +758,6 @@ public class Main extends Activity
     }
 
     // On add click
-
     private boolean onAddClick()
     {
         // Start the choice dialog
@@ -740,7 +768,6 @@ public class Main extends Activity
     }
 
     // On clear click
-
     private boolean onClearClick()
     {
         // Restore the menu
@@ -754,7 +781,6 @@ public class Main extends Activity
     }
 
     // On copy click
-
     private boolean onCopyClick()
     {
         ClipboardManager clipboard =
@@ -796,7 +822,6 @@ public class Main extends Activity
     }
 
     // On remove click
-
     private boolean onRemoveClick()
     {
         List<String> removeList = new ArrayList<String>();
@@ -830,23 +855,23 @@ public class Main extends Activity
     }
 
     // On chart click
-
     private boolean onChartClick()
     {
         Intent intent = new Intent(this, ChartActivity.class);
-        List chartList = new ArrayList<Integer>();
+	List<Integer> list = new ArrayList<Integer>();
 
-        chartList.add(currentIndex);
+	// Add the current index
+        list.add(currentIndex);
 
-        // Iterate through the list to get the last two
+        // Add the select list to the list
         for (int index : selectList)
         {
             String name = nameList.get(index);
-            chartList.add(currencyNameList.indexOf(name));
+            list.add(currencyNameList.indexOf(name));
         }
 
-        // Put the currency indices
-        intent.putIntegerArrayListExtra(CHART_LIST, (ArrayList)chartList);
+        // Put the list
+        intent.putIntegerArrayListExtra(CHART_LIST, (ArrayList)list);
 
         // Start chart activity
         startActivity(intent);
@@ -863,7 +888,6 @@ public class Main extends Activity
     }
 
     // On refresh click
-
     private boolean onRefreshClick()
     {
         // Check connectivity before refresh
@@ -906,7 +930,6 @@ public class Main extends Activity
     }
 
     // On help click
-
     private boolean onHelpClick()
     {
         // Start help activity
@@ -917,7 +940,6 @@ public class Main extends Activity
     }
 
     // On settings click
-
     private boolean onSettingsClick()
     {
         // Start settings activity
@@ -928,7 +950,6 @@ public class Main extends Activity
     }
 
     // On click
-
     public void onClick(View view)
     {
         int id = view.getId();
@@ -958,7 +979,6 @@ public class Main extends Activity
     }
 
     // After text changed
-
     @Override
     public void afterTextChanged(Editable editable)
     {
@@ -977,13 +997,10 @@ public class Main extends Activity
             }
         }
 
-        // Set to one on exception
+        // Do nothing on exception
         catch (Exception e)
         {
-            e.printStackTrace();
-            currentValue = 1.0;
-            if (editView != null)
-                editView.setText(R.string.num_one);
+            return;
         }
 
         // Recalculate all the values
@@ -1011,7 +1028,6 @@ public class Main extends Activity
                                int before, int count) {}
 
     // On editor action
-
     @Override
     public boolean onEditorAction(TextView view, int actionId, KeyEvent event)
     {
@@ -1037,7 +1053,6 @@ public class Main extends Activity
             // Set to one on exception
             catch (Exception e)
             {
-                e.printStackTrace();
                 currentValue = 1.0;
                 view.setText(R.string.num_one);
             }
@@ -1069,7 +1084,6 @@ public class Main extends Activity
     }
 
     // On item click
-
     @Override
     public void onItemClick(AdapterView parent, View view,
                             int position, long id)
@@ -1082,6 +1096,7 @@ public class Main extends Activity
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
 
+	// Check mode
         switch (mode)
         {
         // Display mode - replace the current currency
@@ -1153,6 +1168,7 @@ public class Main extends Activity
             adapter.notifyDataSetChanged();
             break;
 
+	    // Select mode - toggle selection
         case SELECT_MODE:
             // Select mode - add or remove from list
             if (selectList.contains(position))
@@ -1175,7 +1191,6 @@ public class Main extends Activity
     }
 
     // On item long click
-
     @Override
     public boolean onItemLongClick(AdapterView parent, View view,
                                    int position, long id)
@@ -1194,7 +1209,6 @@ public class Main extends Activity
     }
 
     // On activity result
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data)
@@ -1338,7 +1352,8 @@ public class Main extends Activity
             adapter.notifyDataSetChanged();
         }
 
-        else
+	// Notify failed
+        else if (statusView != null)
             statusView.setText(R.string.failed);
     }
 }

@@ -32,7 +32,6 @@ import android.os.AsyncTask;
 import java.util.Map;
 
 // DataFragment class
-
 public class DataFragment extends Fragment
 {
     // Data objects we want to retain
@@ -87,6 +86,7 @@ public class DataFragment extends Fragment
         parseTask.execute(url);
     }
 
+    // ParseTask class
     protected class ParseTask
         extends AsyncTask<String, String, Map<String, Double>>
     {

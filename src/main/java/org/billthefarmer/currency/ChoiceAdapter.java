@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
+// ChoiceAdapter class
 public class ChoiceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
@@ -44,6 +45,7 @@ public class ChoiceAdapter extends BaseAdapter
 
     private int resource;
 
+    // Constructor
     public ChoiceAdapter(Context context, int resource, List<Integer> flags,
                          List<String> names, List<Integer> longNames,
                          List<Integer> selection)

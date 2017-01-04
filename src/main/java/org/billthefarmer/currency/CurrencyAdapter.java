@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
+// CurrencyAdapter class
 public class CurrencyAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
@@ -45,6 +46,7 @@ public class CurrencyAdapter extends BaseAdapter
 
     private int resource;
 
+    // Constructor
     public CurrencyAdapter(Context context, int resource, List<Integer> flags,
                            List<String> names, List<String> symbols,
                            List<String> values, List<Integer> longNames,

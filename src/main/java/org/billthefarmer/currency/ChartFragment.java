@@ -33,17 +33,14 @@ import java.util.List;
 import java.util.Map;
 
 // ChartFragment class
-
 public class ChartFragment extends Fragment
 {
     public static final String TAG = "ChartFragment";
     // Data objects we want to retain
     private Map<String, Map<String, Double>> map;
     private List<Integer> list;
-    private TaskCallbacks callbacks;
 
-    private int first;
-    private int second;
+    private TaskCallbacks callbacks;
 
     private boolean parsing;
 
@@ -74,18 +71,6 @@ public class ChartFragment extends Fragment
     {
         super.onDetach();
         callbacks = null;
-    }
-
-    // Set first
-    public void setFirst(int first)
-    {
-        this.first = first;
-    }
-
-    // Get first
-    public int getFirst()
-    {
-        return first;
     }
 
     // Set list
@@ -123,7 +108,6 @@ public class ChartFragment extends Fragment
     {
         ParseTask parseTask = new ParseTask();
         parseTask.execute(url);
-
         parsing = true;
     }
 
@@ -161,7 +145,6 @@ public class ChartFragment extends Fragment
         protected void onPostExecute(Map<String, Map<String, Double>> map)
         {
             parsing = false;
-
             if (callbacks != null)
                 callbacks.onPostExecute(map);
         }

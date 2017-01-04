@@ -29,17 +29,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+// SettingsActivity class
 public class SettingsActivity extends Activity
 {
     // On create
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
         // Display the fragment as the main content.
-
         getFragmentManager().beginTransaction()
         .replace(android.R.id.content, new SettingsFragment())
         .commit();
@@ -54,7 +53,6 @@ public class SettingsActivity extends Activity
     }
 
     // On options item selected
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {

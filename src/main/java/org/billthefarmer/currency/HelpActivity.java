@@ -37,10 +37,10 @@ import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+// HelpActivity class
 public class HelpActivity extends Activity
 {
     // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -62,7 +62,6 @@ public class HelpActivity extends Activity
     }
 
     // On options item selected
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
