@@ -33,11 +33,10 @@ import java.util.Map;
 
 // ChartFragment class
 
-public class ChartFragment extends Fragment
-{
+public class ChartFragment extends Fragment {
     public static final String TAG = "ChartFragment";
     // Data objects we want to retain
-    private Map<String, Map<String,Double>> map;
+    private Map<String, Map<String, Double>> map;
     private TaskCallbacks callbacks;
 
     private int first;
@@ -47,8 +46,7 @@ public class ChartFragment extends Fragment
 
     // This method is only called once for this fragment
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Retain this fragment
         setRetainInstance(true);
@@ -59,116 +57,102 @@ public class ChartFragment extends Fragment
     // pass us a reference to the newly created Activity after each
     // configuration change.
     @Override
-    public void onAttach(Activity activity)
-    {
-	super.onAttach(activity);
-	callbacks = (TaskCallbacks)activity;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        callbacks = (TaskCallbacks) activity;
     }
 
     // Set the callback to null so we don't accidentally leak the
     // Activity instance.
     @Override
-    public void onDetach()
-    {
-	super.onDetach();
-	callbacks = null;
-    }
-
-    // Set first
-    public void setFirst(int first)
-    {
-	this.first = first;
+    public void onDetach() {
+        super.onDetach();
+        callbacks = null;
     }
 
     // Get first
-    public int getFirst()
-    {
-	return first;
+    public int getFirst() {
+        return first;
     }
 
-    // Set second
-    public void setSecond(int second)
-    {
-	this.second = second;
+    // Set first
+    public void setFirst(int first) {
+        this.first = first;
     }
 
     // Get second
-    public int getSecond()
-    {
-	return second;
+    public int getSecond() {
+        return second;
     }
 
-    // Set map
-    public void setMap(Map<String, Map<String,Double>> map)
-    {
-        this.map = map;
+    // Set second
+    public void setSecond(int second) {
+        this.second = second;
     }
 
     // Get map
-    public Map<String, Map<String,Double>> getMap()
-    {
+    public Map<String, Map<String, Double>> getMap() {
         return map;
     }
 
+    // Set map
+    public void setMap(Map<String, Map<String, Double>> map) {
+        this.map = map;
+    }
+
     // Is parsing
-    public boolean isParsing()
-    {
-	return parsing;
+    public boolean isParsing() {
+        return parsing;
     }
 
     // Start parse task
-    protected void startParseTask(String url)
-    {
-	ParseTask parseTask = new ParseTask();
-	parseTask.execute(url);
+    protected void startParseTask(String url) {
+        ParseTask parseTask = new ParseTask();
+        parseTask.execute(url);
 
-	parsing = true;
+        parsing = true;
+    }
+
+    // TaskCallbacks interface
+    interface TaskCallbacks {
+        void onProgressUpdate(String... date);
+
+        void onPostExecute(Map<String, Map<String, Double>> map);
     }
 
     // ParseTask class
     protected class ParseTask
-	extends AsyncTask<String, String, Map<String, Map<String, Double>>>
-    {
-	// The system calls this to perform work in a worker thread
-	// and delivers it the parameters given to AsyncTask.execute()
-	@Override
-	protected Map doInBackground(String... urls)
-	{
-	    // Get a parser
-	    ChartParser parser = new ChartParser();
+            extends AsyncTask<String, String, Map<String, Map<String, Double>>> {
+        // The system calls this to perform work in a worker thread
+        // and delivers it the parameters given to AsyncTask.execute()
+        @Override
+        protected Map doInBackground(String... urls) {
+            // Get a parser
+            ChartParser parser = new ChartParser();
 
-	    // Start the parser and report progress with the date
-	    if (parser.startParser(urls[0]) == true)
-		publishProgress(parser.getDate());
+            // Start the parser and report progress with the date
+            if (parser.startParser(urls[0]) == true)
+                publishProgress(parser.getDate());
 
-	    // Return the map
-	    return parser.getMap();
-	}
+            // Return the map
+            return parser.getMap();
+        }
 
-	// Ignoring the date as not used
-	@Override
-	protected void onProgressUpdate(String... date)
-	{
-	    if (callbacks != null)
-		callbacks.onProgressUpdate(date);
-	}
+        // Ignoring the date as not used
+        @Override
+        protected void onProgressUpdate(String... date) {
+            if (callbacks != null)
+                callbacks.onProgressUpdate(date);
+        }
 
-	// The system calls this to perform work in the UI thread and
-	// delivers the result from doInBackground()
-	@Override
-	protected void onPostExecute(Map<String, Map<String,Double>> map)
-	{
-	    parsing = false;
+        // The system calls this to perform work in the UI thread and
+        // delivers the result from doInBackground()
+        @Override
+        protected void onPostExecute(Map<String, Map<String, Double>> map) {
+            parsing = false;
 
-	    if (callbacks != null)
-		callbacks.onPostExecute(map);
-	}
-    }
-
-    // TaskCallbacks interface
-    interface TaskCallbacks
-    {
-	void onProgressUpdate(String... date);
-	void onPostExecute(Map<String, Map<String,Double>> map);
+            if (callbacks != null)
+                callbacks.onPostExecute(map);
+        }
     }
 }

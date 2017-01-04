@@ -40,9 +40,8 @@ import org.json.JSONArray;
 // Choice dialog
 
 public class ChoiceDialog extends Activity
-    implements View.OnClickListener, AdapterView.OnItemClickListener,
-	       AdapterView.OnItemLongClickListener
-{
+        implements View.OnClickListener, AdapterView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener {
     private ListView listView;
 
     private Button cancel;
@@ -62,204 +61,190 @@ public class ChoiceDialog extends Activity
     // On create
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose);
 
-	// Find views
- 	listView = (ListView)findViewById(R.id.list);
+        // Find views
+        listView = (ListView) findViewById(R.id.list);
 
-	cancel = (Button)findViewById(R.id.cancel);
-	clear = (Button)findViewById(R.id.clear);
-	select = (Button)findViewById(R.id.select);
+        cancel = (Button) findViewById(R.id.cancel);
+        clear = (Button) findViewById(R.id.clear);
+        select = (Button) findViewById(R.id.select);
 
-	// Set the listeners
-	if (listView != null)
-	{
-	    listView.setOnItemClickListener(this);
-	    listView.setOnItemLongClickListener(this);
-	}
+        // Set the listeners
+        if (listView != null) {
+            listView.setOnItemClickListener(this);
+            listView.setOnItemLongClickListener(this);
+        }
 
-	if (cancel != null)
-	    cancel.setOnClickListener(this);
+        if (cancel != null)
+            cancel.setOnClickListener(this);
 
-	if (clear != null)
-	    clear.setOnClickListener(this);
+        if (clear != null)
+            clear.setOnClickListener(this);
 
-	if (select != null)
-	    select.setOnClickListener(this);
+        if (select != null)
+            select.setOnClickListener(this);
 
-	selectList = new ArrayList<Integer>();
+        selectList = new ArrayList<Integer>();
 
-	// Populate the lists
-	flagList = Arrays.asList(Main.CURRENCY_FLAGS);
-	nameList = Arrays.asList(Main.CURRENCY_NAMES);
-	longNameList = Arrays.asList(Main.CURRENCY_LONGNAMES);
+        // Populate the lists
+        flagList = Arrays.asList(Main.CURRENCY_FLAGS);
+        nameList = Arrays.asList(Main.CURRENCY_NAMES);
+        longNameList = Arrays.asList(Main.CURRENCY_LONGNAMES);
 
-	// Create the adapter
-	adapter = new ChoiceAdapter(this, R.layout.choice, flagList,
-				    nameList, longNameList, selectList);
+        // Create the adapter
+        adapter = new ChoiceAdapter(this, R.layout.choice, flagList,
+                nameList, longNameList, selectList);
 
-	// Set the adapter
-	if (listView != null)
-	    listView.setAdapter(adapter);
+        // Set the adapter
+        if (listView != null)
+            listView.setAdapter(adapter);
     }
 
     // On restore
 
     @Override
-    public void onRestoreInstanceState(Bundle savedState)
-    {
-    	List<Integer> list  =
-	    savedState.getIntegerArrayList(Main.SAVE_SELECT);
+    public void onRestoreInstanceState(Bundle savedState) {
+        List<Integer> list =
+                savedState.getIntegerArrayList(Main.SAVE_SELECT);
 
-	if (list != null)
-	{
-	    // Update the selection list
-	    for (int index: list)
-		    selectList.add(index);
+        if (list != null) {
+            // Update the selection list
+            for (int index : list)
+                selectList.add(index);
 
-	    // Disable buttons if empty
-	    if (selectList.isEmpty())
-	    {
-		if (clear != null)
-		    clear.setEnabled(false);
-		if (select != null)
-		    select.setEnabled(false);
-		mode = Main.DISPLAY_MODE;
-	    }
+            // Disable buttons if empty
+            if (selectList.isEmpty()) {
+                if (clear != null)
+                    clear.setEnabled(false);
+                if (select != null)
+                    select.setEnabled(false);
+                mode = Main.DISPLAY_MODE;
+            }
 
-	    // Enable buttons if selection
-	    else
-	    {
-		if (clear != null)
-		    clear.setEnabled(true);
-		if (select != null)
-		    select.setEnabled(true);
-		mode = Main.SELECT_MODE;
-	    }
-	}
+            // Enable buttons if selection
+            else {
+                if (clear != null)
+                    clear.setEnabled(true);
+                if (select != null)
+                    select.setEnabled(true);
+                mode = Main.SELECT_MODE;
+            }
+        }
 
-	// No saved list
-	else
-	{
-	    mode = Main.DISPLAY_MODE;
-	}
+        // No saved list
+        else {
+            mode = Main.DISPLAY_MODE;
+        }
 
-	// Notify adapter
-	adapter.notifyDataSetChanged();
-	super.onRestoreInstanceState(savedState);
+        // Notify adapter
+        adapter.notifyDataSetChanged();
+        super.onRestoreInstanceState(savedState);
     }
 
     // On save
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-	super.onSaveInstanceState(outState);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-	// Save the selection list
-	outState.putIntegerArrayList(Main.SAVE_SELECT,
-				     (ArrayList<Integer>)selectList);
+        // Save the selection list
+        outState.putIntegerArrayList(Main.SAVE_SELECT,
+                (ArrayList<Integer>) selectList);
     }
 
     // On click
 
     @Override
-    public void onClick(View v)
-    {
-	int id = v.getId();
+    public void onClick(View v) {
+        int id = v.getId();
 
-	switch(id)
-	{
-	    // Cancel
-	case R.id.cancel:
-	    setResult(RESULT_CANCELED);
-	    finish();
-	    break;
+        switch (id) {
+            // Cancel
+            case R.id.cancel:
+                setResult(RESULT_CANCELED);
+                finish();
+                break;
 
-	    // Clear
-	case R.id.clear:
-	    if (clear != null)
-		clear.setEnabled(false);
-	    if (select != null)
-		select.setEnabled(false);
-	    mode = Main.DISPLAY_MODE;
+            // Clear
+            case R.id.clear:
+                if (clear != null)
+                    clear.setEnabled(false);
+                if (select != null)
+                    select.setEnabled(false);
+                mode = Main.DISPLAY_MODE;
 
-	    // Start a new selection
-	    selectList.clear();
-	    adapter.notifyDataSetChanged();
-	    break;
+                // Start a new selection
+                selectList.clear();
+                adapter.notifyDataSetChanged();
+                break;
 
-	    // Select
-	case R.id.select:
-	    // Return new currency list in intent
-	    Intent intent = new Intent();
-	    intent.putIntegerArrayListExtra(Main.CHOICE, (ArrayList)selectList);
-	    setResult(RESULT_OK, intent);
-	    finish();
-	    break;
-	}
+            // Select
+            case R.id.select:
+                // Return new currency list in intent
+                Intent intent = new Intent();
+                intent.putIntegerArrayListExtra(Main.CHOICE, (ArrayList) selectList);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+        }
     }
 
     // On item click
 
     @Override
     public void onItemClick(AdapterView parent, View view,
-			    int position, long id)
-    {
-	// Check mode
-	switch (mode)
-	{
-	    // Normal
-	case Main.DISPLAY_MODE:
-	    selectList.add(position);
-	    // Return new currency in intent
-	    Intent intent = new Intent();
-	    intent.putIntegerArrayListExtra(Main.CHOICE, (ArrayList)selectList);
-	    setResult(RESULT_OK, intent);
-	    finish();
-	    break;
+                            int position, long id) {
+        // Check mode
+        switch (mode) {
+            // Normal
+            case Main.DISPLAY_MODE:
+                selectList.add(position);
+                // Return new currency in intent
+                Intent intent = new Intent();
+                intent.putIntegerArrayListExtra(Main.CHOICE, (ArrayList) selectList);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
 
-	    // Select
-	case Main.SELECT_MODE:
-	    if (selectList.contains(position))
-		selectList.remove(selectList.indexOf(position));
+            // Select
+            case Main.SELECT_MODE:
+                if (selectList.contains(position))
+                    selectList.remove(selectList.indexOf(position));
 
-	    else
-		selectList.add(position);
+                else
+                    selectList.add(position);
 
-	    if (selectList.isEmpty())
-	    {
-		if (clear != null)
-		    clear.setEnabled(false);
-		if (select != null)
-		    select.setEnabled(false);
-		mode = Main.DISPLAY_MODE;
-	    }
+                if (selectList.isEmpty()) {
+                    if (clear != null)
+                        clear.setEnabled(false);
+                    if (select != null)
+                        select.setEnabled(false);
+                    mode = Main.DISPLAY_MODE;
+                }
 
-	    adapter.notifyDataSetChanged();
-	    break;
-	}
+                adapter.notifyDataSetChanged();
+                break;
+        }
     }
 
     // On item long click
 
     @Override
     public boolean onItemLongClick(AdapterView parent, View view,
-				   int position, long id)
-    {
-	if (clear != null)
-	    clear.setEnabled(true);
-	if (select != null)
-	    select.setEnabled(true);
-	mode = Main.SELECT_MODE;
+                                   int position, long id) {
+        if (clear != null)
+            clear.setEnabled(true);
+        if (select != null)
+            select.setEnabled(true);
+        mode = Main.SELECT_MODE;
 
-	// Start a new selection
-	selectList.clear();
-	selectList.add(position);
-	adapter.notifyDataSetChanged();
-	return true;
+        // Start a new selection
+        selectList.clear();
+        selectList.add(position);
+        adapter.notifyDataSetChanged();
+        return true;
     }
 }
