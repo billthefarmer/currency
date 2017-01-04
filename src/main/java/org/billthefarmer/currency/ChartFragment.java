@@ -25,9 +25,8 @@ package org.billthefarmer.currency;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.os.Bundle;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.os.Bundle;
 
 import java.util.Map;
 
@@ -37,7 +36,7 @@ public class ChartFragment extends Fragment
 {
     public static final String TAG = "ChartFragment";
     // Data objects we want to retain
-    private Map<String, Map<String,Double>> map;
+    private Map<String, Map<String, Double>> map;
     private TaskCallbacks callbacks;
 
     private int first;
@@ -61,8 +60,8 @@ public class ChartFragment extends Fragment
     @Override
     public void onAttach(Activity activity)
     {
-	super.onAttach(activity);
-	callbacks = (TaskCallbacks)activity;
+        super.onAttach(activity);
+        callbacks = (TaskCallbacks) activity;
     }
 
     // Set the callback to null so we don't accidentally leak the
@@ -70,105 +69,102 @@ public class ChartFragment extends Fragment
     @Override
     public void onDetach()
     {
-	super.onDetach();
-	callbacks = null;
-    }
-
-    // Set first
-    public void setFirst(int first)
-    {
-	this.first = first;
+        super.onDetach();
+        callbacks = null;
     }
 
     // Get first
     public int getFirst()
     {
-	return first;
+        return first;
     }
 
-    // Set second
-    public void setSecond(int second)
+    // Set first
+    public void setFirst(int first)
     {
-	this.second = second;
+        this.first = first;
     }
 
     // Get second
     public int getSecond()
     {
-	return second;
+        return second;
     }
 
-    // Set map
-    public void setMap(Map<String, Map<String,Double>> map)
+    // Set second
+    public void setSecond(int second)
     {
-        this.map = map;
+        this.second = second;
     }
 
     // Get map
-    public Map<String, Map<String,Double>> getMap()
+    public Map<String, Map<String, Double>> getMap()
     {
         return map;
+    }
+
+    // Set map
+    public void setMap(Map<String, Map<String, Double>> map)
+    {
+        this.map = map;
     }
 
     // Is parsing
     public boolean isParsing()
     {
-	return parsing;
+        return parsing;
     }
 
     // Start parse task
     protected void startParseTask(String url)
     {
-	ParseTask parseTask = new ParseTask();
-	parseTask.execute(url);
+        ParseTask parseTask = new ParseTask();
+        parseTask.execute(url);
 
-	parsing = true;
-    }
-
-    // ParseTask class
-    protected class ParseTask
-	extends AsyncTask<String, String, Map<String, Map<String, Double>>>
-    {
-	// The system calls this to perform work in a worker thread
-	// and delivers it the parameters given to AsyncTask.execute()
-	@Override
-	protected Map doInBackground(String... urls)
-	{
-	    // Get a parser
-	    ChartParser parser = new ChartParser();
-
-	    // Start the parser and report progress with the date
-	    if (parser.startParser(urls[0]) == true)
-		publishProgress(parser.getDate());
-
-	    // Return the map
-	    return parser.getMap();
-	}
-
-	// Ignoring the date as not used
-	@Override
-	protected void onProgressUpdate(String... date)
-	{
-	    if (callbacks != null)
-		callbacks.onProgressUpdate(date);
-	}
-
-	// The system calls this to perform work in the UI thread and
-	// delivers the result from doInBackground()
-	@Override
-	protected void onPostExecute(Map<String, Map<String,Double>> map)
-	{
-	    parsing = false;
-
-	    if (callbacks != null)
-		callbacks.onPostExecute(map);
-	}
+        parsing = true;
     }
 
     // TaskCallbacks interface
     interface TaskCallbacks
     {
-	void onProgressUpdate(String... date);
-	void onPostExecute(Map<String, Map<String,Double>> map);
+        void onProgressUpdate(String... date);
+
+        void onPostExecute(Map<String, Map<String, Double>> map);
+    }
+
+    // ParseTask class
+    protected class ParseTask extends AsyncTask<String, String, Map<String, Map<String, Double>>>
+    {
+        // The system calls this to perform work in a worker thread
+        // and delivers it the parameters given to AsyncTask.execute()
+        @Override
+        protected Map doInBackground(String... urls)
+        {
+            // Get a parser
+            ChartParser parser = new ChartParser();
+
+            // Start the parser and report progress with the date
+            if (parser.startParser(urls[0])) publishProgress(parser.getDate());
+
+            // Return the map
+            return parser.getMap();
+        }
+
+        // Ignoring the date as not used
+        @Override
+        protected void onProgressUpdate(String... date)
+        {
+            if (callbacks != null) callbacks.onProgressUpdate(date);
+        }
+
+        // The system calls this to perform work in the UI thread and
+        // delivers the result from doInBackground()
+        @Override
+        protected void onPostExecute(Map<String, Map<String, Double>> map)
+        {
+            parsing = false;
+
+            if (callbacks != null) callbacks.onPostExecute(map);
+        }
     }
 }

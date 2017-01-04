@@ -1,27 +1,27 @@
+apply plugin: 'com.android.application'
+
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.0-beta1'
     }
 }
 
-apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 'android-17'
-    buildToolsVersion '24.0.2'
+    buildToolsVersion '25.0.0'
 
     lintOptions {
-	disable 'IconDensities'
-	// abortOnError false
+	    disable 'IconDensities'
+	    // abortOnError false
     }
 }
 
 repositories {
     maven {
-	url 'https://jitpack.io'
+	    url 'https://jitpack.io'
     }
 }
 
