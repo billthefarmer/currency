@@ -35,8 +35,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.json.JSONArray;
-
 // Choice dialog
 
 public class ChoiceDialog extends Activity

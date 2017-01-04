@@ -338,8 +338,6 @@ public class ChartActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Get id
-
         int id = item.getItemId();
         switch (id) {
             // Home
@@ -371,8 +369,7 @@ public class ChartActivity extends Activity
     }
 
     private boolean onInvertClick() {
-        SimpleDateFormat dateParser =
-                new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+        SimpleDateFormat dateParser = new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 
         // Get updating text
         Resources resources = getResources();
@@ -452,8 +449,7 @@ public class ChartActivity extends Activity
 
     private boolean onRefreshClick(String url) {
         // Check connectivity before update
-        ConnectivityManager manager =
-                (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
 
         // Check connection
@@ -571,8 +567,7 @@ public class ChartActivity extends Activity
 
     // Ignoring the date as not used
     @Override
-    public void onProgressUpdate(String... date) {
-    }
+    public void onProgressUpdate(String... date) {}
 
     // The system calls this to perform work in the UI thread and
     // delivers the result from doInBackground()

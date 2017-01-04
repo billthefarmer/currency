@@ -45,21 +45,17 @@ public class AboutPreference extends DialogPreference {
         super.onBindDialogView(view);
 
         // Get version text view
-
         TextView version = (TextView) view.findViewById(R.id.about);
 
         // Set version in text view
-
         String v = (String) version.getText();
         String s = String.format(v, BuildConfig.VERSION_NAME);
         version.setText(s);
 
         // Get copyright text view
-
         TextView copyright = (TextView) view.findViewById(R.id.copyright);
 
         // Set movement method
-
         copyright.setMovementMethod(LinkMovementMethod.getInstance());
 
     }

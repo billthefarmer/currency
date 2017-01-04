@@ -87,15 +87,14 @@ public class DataFragment extends Fragment {
         void onPostExecute(Map<String, Double> map);
     }
 
-    protected class ParseTask
-            extends AsyncTask<String, String, Map<String, Double>> {
+    protected class ParseTask extends AsyncTask<String, String, Map<String, Double>> {
         Context context;
         String latest;
 
         // The system calls this to perform work in a worker thread
         // and delivers it the parameters given to AsyncTask.execute()
         @Override
-        protected Map doInBackground(String... urls) {
+        protected Map<String, Double> doInBackground(String... urls) {
             // Get a parser
             Parser parser = new Parser();
 
@@ -113,8 +112,10 @@ public class DataFragment extends Fragment {
                 callbacks.onProgressUpdate(date);
         }
 
-        // The system calls this to perform work in the UI thread and
-        // delivers the result from doInBackground()
+        /**
+         * The system calls this to perform work in the UI thread and
+         * delivers the result from doInBackground()
+         */
         @Override
         protected void onPostExecute(Map<String, Double> map) {
             if (callbacks != null)

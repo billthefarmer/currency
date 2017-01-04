@@ -41,7 +41,6 @@ public class SettingsFragment extends PreferenceFragment
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
-
         addPreferencesFromResource(R.xml.preferences);
 
         SharedPreferences preferences =
@@ -53,16 +52,13 @@ public class SettingsFragment extends PreferenceFragment
                 (ListPreference) findPreference(Main.PREF_DIGITS);
 
         // Set summary to be the user-description for the selected value
-
         preference.setSummary(preference.getEntry());
 
         // Get about summary
-
         Preference about = findPreference(Main.PREF_ABOUT);
         String sum = (String) about.getSummary();
 
         // Set version in text view
-
         String s = String.format(sum, BuildConfig.VERSION_NAME);
         about.setSummary(s);
     }

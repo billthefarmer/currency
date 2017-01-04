@@ -273,6 +273,7 @@ public class Main extends Activity
         adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList,
                 symbolList, valueList, longNameList,
                 selectList);
+
         // Set the list view adapter
         if (listView != null)
             listView.setAdapter(adapter);
@@ -548,8 +549,7 @@ public class Main extends Activity
         super.onPause();
 
         // Get preferences
-        SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Get editor
         SharedPreferences.Editor editor = preferences.edit();
@@ -883,17 +883,11 @@ public class Main extends Activity
 
     // Not used
     @Override
-    public void beforeTextChanged(CharSequence s, int start,
-                                  int count, int after) {
-    }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
     // Not used
     @Override
-    public void onTextChanged(CharSequence s, int start,
-                              int before, int count) {
-    }
-
-    // On editor action
+    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
     @Override
     public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
@@ -1047,8 +1041,7 @@ public class Main extends Activity
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView parent, View view,
-                                   int position, long id) {
+    public boolean onItemLongClick(AdapterView parent, View view, int position, long id) {
         // Switch to select mode, update menu
         mode = SELECT_MODE;
         invalidateOptionsMenu();
@@ -1063,8 +1056,7 @@ public class Main extends Activity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Do nothing if cancelled
         if (resultCode != RESULT_OK)
             return;
