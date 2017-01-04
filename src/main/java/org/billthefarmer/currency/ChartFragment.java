@@ -25,9 +25,8 @@ package org.billthefarmer.currency;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.os.Bundle;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.os.Bundle;
 
 import java.util.Map;
 
@@ -131,7 +130,7 @@ public class ChartFragment extends Fragment {
             ChartParser parser = new ChartParser();
 
             // Start the parser and report progress with the date
-            if (parser.startParser(urls[0]) == true)
+            if (parser.startParser(urls[0]))
                 publishProgress(parser.getDate());
 
             // Return the map

@@ -26,22 +26,20 @@ package org.billthefarmer.currency;
 import android.content.Context;
 import android.content.res.Resources;
 
-import java.io.InputStream;
-import java.net.URL;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 // Parser class
 public class ChartParser {
@@ -133,10 +131,10 @@ public class ChartParser {
             String name = "EUR";
             double rate = 1.0;
 
-            if (localName == "Cube") {
+            if (localName.equals("Cube")) {
                 for (int i = 0; i < attributes.getLength(); i++) {
                     // Get the date
-                    if (attributes.getLocalName(i) == "time") {
+                    if (attributes.getLocalName(i).equals("time")) {
                         String time = attributes.getValue(i);
 
                         // Check if more recent
@@ -152,12 +150,12 @@ public class ChartParser {
                     }
 
                     // Get the currency name
-                    else if (attributes.getLocalName(i) == "currency") {
+                    else if (attributes.getLocalName(i).equals("currency")) {
                         name = attributes.getValue(i);
                     }
 
                     // Get the currency rate
-                    else if (attributes.getLocalName(i) == "rate") {
+                    else if (attributes.getLocalName(i).equals("rate")) {
                         try {
                             rate = Double.parseDouble(attributes.getValue(i));
                         } catch (Exception e) {

@@ -175,7 +175,7 @@ public class ChartActivity extends Activity
             Legend legend = chart.getLegend();
             legend.setEnabled(false);
 
-            // No desctription
+            // No description
             Description description = chart.getDescription();
             description.setEnabled(false);
         }

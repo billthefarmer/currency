@@ -98,11 +98,11 @@ public class ChoiceAdapter extends BaseAdapter {
         if (longName != null)
             longName.setText(longNames.get(position));
 
-        // Hightlight if selected
+        // Highlight if selected
         if (selection.contains(position))
             convertView.setBackgroundResource(android.R.color.holo_blue_dark);
 
-            // Clear hightlight
+            // Clear highlight
         else
             convertView.setBackgroundResource(0);
 

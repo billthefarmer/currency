@@ -47,7 +47,7 @@ public class RawTextReader {
 
         try {
             while ((line = buff.readLine()) != null)
-                text.append(line + "\n");
+                text.append(line).append("\n");
         } catch (Exception e) {
             return "";
         }

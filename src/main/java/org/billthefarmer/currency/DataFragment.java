@@ -100,7 +100,7 @@ public class DataFragment extends Fragment {
             Parser parser = new Parser();
 
             // Start the parser and report progress with the date
-            if (parser.startParser(urls[0]) == true)
+            if (parser.startParser(urls[0]))
                 publishProgress(parser.getDate());
 
             // Return the map

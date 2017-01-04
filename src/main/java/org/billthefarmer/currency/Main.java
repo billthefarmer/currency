@@ -23,53 +23,45 @@
 
 package org.billthefarmer.currency;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ClipboardManager;
 import android.content.ClipData;
-import android.content.Context;
+import android.content.ClipboardManager;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.inputmethod.EditorInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 // Main class
 
@@ -555,7 +547,6 @@ public class Main extends Activity
         // Start the task
         if (dataFragment != null)
             dataFragment.startParseTask(ECB_DAILY_URL);
-        ;
     }
 
     // On pause
@@ -837,7 +828,6 @@ public class Main extends Activity
         // Start the task
         if (dataFragment != null)
             dataFragment.startParseTask(ECB_DAILY_URL);
-        ;
         return true;
     }
 
