@@ -69,7 +69,6 @@ import java.util.Locale;
 import java.util.Map;
 
 // ChartActivity class
-
 public class ChartActivity extends Activity
     implements ChartFragment.TaskCallbacks
 {
@@ -116,7 +115,6 @@ public class ChartActivity extends Activity
     private String secondName;
 
     // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -231,7 +229,6 @@ public class ChartActivity extends Activity
     }
 
     // On resume
-
     @Override
     protected void onResume()
     {
@@ -363,7 +360,6 @@ public class ChartActivity extends Activity
     }
 
     // On pause
-
     @Override
     protected void onPause()
     {
@@ -385,7 +381,6 @@ public class ChartActivity extends Activity
     {
         // Inflate the menu; this adds items to the action bar if it
         // is present.
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.chart, menu);
 
@@ -393,7 +388,6 @@ public class ChartActivity extends Activity
     }
 
     // On options item selected
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -430,7 +424,7 @@ public class ChartActivity extends Activity
         return true;
     }
 
-    // on invert click
+    // On invert click
     private boolean onInvertClick()
     {
         SimpleDateFormat dateParser =
@@ -565,7 +559,6 @@ public class ChartActivity extends Activity
     }
 
     // On activity result
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data)
