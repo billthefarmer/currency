@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Map;
 
 // ChartFragment class
@@ -37,10 +38,9 @@ public class ChartFragment extends Fragment
     public static final String TAG = "ChartFragment";
     // Data objects we want to retain
     private Map<String, Map<String, Double>> map;
-    private TaskCallbacks callbacks;
+    private List<Integer> list;
 
-    private int first;
-    private int second;
+    private TaskCallbacks callbacks;
 
     private boolean parsing;
 
@@ -73,28 +73,16 @@ public class ChartFragment extends Fragment
         callbacks = null;
     }
 
-    // Set first
-    public void setFirst(int first)
+    // Set list
+    public void setList(List<Integer> list)
     {
-        this.first = first;
+        this.list = list;
     }
 
-    // Get first
-    public int getFirst()
+    // Get list
+    public List<Integer> getList()
     {
-        return first;
-    }
-
-    // Set second
-    public void setSecond(int second)
-    {
-        this.second = second;
-    }
-
-    // Get second
-    public int getSecond()
-    {
-        return second;
+        return list;
     }
 
     // Set map

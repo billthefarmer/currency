@@ -112,6 +112,7 @@ public class ChartActivity extends Activity
         // Find the retained fragment on activity restarts
         FragmentManager fm = getFragmentManager();
         chartFragment = (ChartFragment) fm.findFragmentByTag(CHART_TAG);
+	List<Integer> list = null;
 
         // Create the fragment the first time
         if (chartFragment == null)
@@ -124,16 +125,24 @@ public class ChartActivity extends Activity
 
             // Get the intent for the parameters
             Intent intent = getIntent();
-            firstIndex = intent.getIntExtra(Main.CHART_FIRST, 0);
-            secondIndex = intent.getIntExtra(Main.CHART_SECOND, 0);
+	    list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
         }
 
         else
         {
-            // Get indices from fragment
-            firstIndex = chartFragment.getFirst();
-            secondIndex = chartFragment.getSecond();
+            // Get list from fragment
+	    list = chartFragment.getList();
         }
+
+	// Iterate through the list to get the last two
+	if (list != null)
+	{
+	    for (int index : list)
+	    {
+		firstIndex = secondIndex;
+		secondIndex = index;
+	    }
+	}
 
         // Look up the names
         firstName = Main.CURRENCY_NAMES[firstIndex];
@@ -352,8 +361,10 @@ public class ChartActivity extends Activity
         // Store the indices and historical data in the fragment
         if (chartFragment != null)
         {
-            chartFragment.setFirst(firstIndex);
-            chartFragment.setSecond(secondIndex);
+	    List<Integer> list = new ArrayList<Integer>();
+            list.add(firstIndex);
+            list.add(secondIndex);
+	    chartFragment.setList(list);
             chartFragment.setMap(histMap);
         }
     }
