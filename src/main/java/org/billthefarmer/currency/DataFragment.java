@@ -107,7 +107,6 @@ public class DataFragment extends Fragment {
             return parser.getMap();
         }
 
-        // On progress update
         @Override
         protected void onProgressUpdate(String... date) {
             if (callbacks != null)

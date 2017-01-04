@@ -47,7 +47,6 @@ public class ChartParser {
     private Map<String, Double> entry;
     private String date;
 
-    // Create parser
     private XMLReader createParser() {
         // Create the map
         map = new LinkedHashMap<String, Map<String, Double>>();

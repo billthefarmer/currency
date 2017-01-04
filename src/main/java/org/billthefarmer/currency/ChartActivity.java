@@ -313,8 +313,6 @@ public class ChartActivity extends Activity
             chartFragment.startParseTask(ECB_QUARTER_URL);
     }
 
-    // On pause
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -327,8 +325,6 @@ public class ChartActivity extends Activity
         }
     }
 
-    // On create options menu
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it
@@ -339,8 +335,6 @@ public class ChartActivity extends Activity
 
         return true;
     }
-
-    // On options item selected
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -376,7 +370,6 @@ public class ChartActivity extends Activity
         return true;
     }
 
-    // on invert click
     private boolean onInvertClick() {
         SimpleDateFormat dateParser =
                 new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
@@ -449,7 +442,6 @@ public class ChartActivity extends Activity
         return true;
     }
 
-    // On new click
     private boolean onNewClick() {
         // Start the choice dialog
         Intent intent = new Intent(this, ChoiceDialog.class);
@@ -458,7 +450,6 @@ public class ChartActivity extends Activity
         return true;
     }
 
-    // On refresh click
     private boolean onRefreshClick(String url) {
         // Check connectivity before update
         ConnectivityManager manager =
@@ -497,8 +488,6 @@ public class ChartActivity extends Activity
 
         return true;
     }
-
-    // On activity result
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
@@ -670,7 +659,6 @@ public class ChartActivity extends Activity
             customView.setText(label);
     }
 
-    // Show toast.
     void showToast(int id, Object... args) {
         // Get text from resources
         Resources resources = getResources();
@@ -678,13 +666,11 @@ public class ChartActivity extends Activity
         showToast(text, args);
     }
 
-    // Show toast.
     void showToast(String format, Object... args) {
         String text = String.format(format, args);
         showToast(text);
     }
 
-    // Show toast.
     void showToast(String text) {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
@@ -696,12 +682,10 @@ public class ChartActivity extends Activity
     private class DateAxisValueFormatter implements IAxisValueFormatter {
         DateFormat dateFormat;
 
-        // Constructor
         private DateAxisValueFormatter() {
             dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         }
 
-        // Get formatted value
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
             // "value" represents the position of the label on the

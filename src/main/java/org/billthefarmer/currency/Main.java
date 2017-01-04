@@ -204,8 +204,6 @@ public class Main extends Activity
 
     private Resources resources;
 
-    // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -280,8 +278,6 @@ public class Main extends Activity
             listView.setAdapter(adapter);
     }
 
-    // On restore
-
     @Override
     public void onRestoreInstanceState(Bundle savedState) {
         // Get the saved select list
@@ -307,8 +303,6 @@ public class Main extends Activity
 
         super.onRestoreInstanceState(savedState);
     }
-
-    // On resume
 
     @Override
     protected void onResume() {
@@ -549,8 +543,6 @@ public class Main extends Activity
             dataFragment.startParseTask(ECB_DAILY_URL);
     }
 
-    // On pause
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -588,8 +580,6 @@ public class Main extends Activity
             dataFragment.setMap(valueMap);
     }
 
-    // On save
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -598,8 +588,6 @@ public class Main extends Activity
         outState.putIntegerArrayList(SAVE_SELECT,
                 (ArrayList<Integer>) selectList);
     }
-
-    // On create options menu
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -622,12 +610,8 @@ public class Main extends Activity
         return true;
     }
 
-    // On options item selected
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Get id
-
         int id = item.getItemId();
         switch (id) {
             // Add
@@ -666,8 +650,6 @@ public class Main extends Activity
         return false;
     }
 
-    // On add click
-
     private boolean onAddClick() {
         // Start the choice dialog
         Intent intent = new Intent(this, ChoiceDialog.class);
@@ -675,8 +657,6 @@ public class Main extends Activity
 
         return true;
     }
-
-    // On clear click
 
     private boolean onClearClick() {
         // Restore the menu
@@ -688,8 +668,6 @@ public class Main extends Activity
         adapter.notifyDataSetChanged();
         return true;
     }
-
-    // On copy click
 
     private boolean onCopyClick() {
         ClipboardManager clipboard =
@@ -727,8 +705,6 @@ public class Main extends Activity
         return true;
     }
 
-    // On remove click
-
     private boolean onRemoveClick() {
         List<String> removeList = new ArrayList<String>();
 
@@ -758,8 +734,6 @@ public class Main extends Activity
 
         return true;
     }
-
-    // On chart click
 
     private boolean onChartClick() {
         Intent intent = new Intent(this, ChartActivity.class);
@@ -791,8 +765,6 @@ public class Main extends Activity
 
         return true;
     }
-
-    // On refresh click
 
     private boolean onRefreshClick() {
         // Check connectivity before refresh
@@ -831,8 +803,6 @@ public class Main extends Activity
         return true;
     }
 
-    // On help click
-
     private boolean onHelpClick() {
         // Start help activity
         Intent intent = new Intent(this, HelpActivity.class);
@@ -841,8 +811,6 @@ public class Main extends Activity
         return true;
     }
 
-    // On settings click
-
     private boolean onSettingsClick() {
         // Start settings activity
         Intent intent = new Intent(this, SettingsActivity.class);
@@ -850,8 +818,6 @@ public class Main extends Activity
 
         return true;
     }
-
-    // On click
 
     public void onClick(View view) {
         int id = view.getId();
@@ -877,8 +843,6 @@ public class Main extends Activity
                 select = true;
         }
     }
-
-    // After text changed
 
     @Override
     public void afterTextChanged(Editable editable) {
@@ -981,8 +945,6 @@ public class Main extends Activity
         return false;
     }
 
-    // On item click
-
     @Override
     public void onItemClick(AdapterView parent, View view,
                             int position, long id) {
@@ -1084,8 +1046,6 @@ public class Main extends Activity
         }
     }
 
-    // On item long click
-
     @Override
     public boolean onItemLongClick(AdapterView parent, View view,
                                    int position, long id) {
@@ -1101,8 +1061,6 @@ public class Main extends Activity
         adapter.notifyDataSetChanged();
         return true;
     }
-
-    // On activity result
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
@@ -1155,7 +1113,6 @@ public class Main extends Activity
         adapter.notifyDataSetChanged();
     }
 
-    // On progress update
     @Override
     public void onProgressUpdate(String... date) {
         SimpleDateFormat dateParser =

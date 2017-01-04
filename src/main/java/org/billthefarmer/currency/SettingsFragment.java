@@ -67,8 +67,6 @@ public class SettingsFragment extends PreferenceFragment
         about.setSummary(s);
     }
 
-    // On preference tree click
-
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference) {
@@ -84,8 +82,6 @@ public class SettingsFragment extends PreferenceFragment
 
         return result;
     }
-
-    // On shared preference changed
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences preferences,

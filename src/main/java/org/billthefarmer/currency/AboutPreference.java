@@ -36,13 +36,9 @@ import android.widget.TextView;
 
 public class AboutPreference extends DialogPreference {
 
-    // Constructor
-
     public AboutPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
-    // On bind dialog view
 
     @Override
     protected void onBindDialogView(View view) {

@@ -58,8 +58,6 @@ public class ChoiceDialog extends Activity
 
     private int mode = Main.DISPLAY_MODE;
 
-    // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,8 +100,6 @@ public class ChoiceDialog extends Activity
         if (listView != null)
             listView.setAdapter(adapter);
     }
-
-    // On restore
 
     @Override
     public void onRestoreInstanceState(Bundle savedState) {
@@ -155,8 +151,6 @@ public class ChoiceDialog extends Activity
                 (ArrayList<Integer>) selectList);
     }
 
-    // On click
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -191,8 +185,6 @@ public class ChoiceDialog extends Activity
                 break;
         }
     }
-
-    // On item click
 
     @Override
     public void onItemClick(AdapterView parent, View view,
@@ -229,8 +221,6 @@ public class ChoiceDialog extends Activity
                 break;
         }
     }
-
-    // On item long click
 
     @Override
     public boolean onItemLongClick(AdapterView parent, View view,
