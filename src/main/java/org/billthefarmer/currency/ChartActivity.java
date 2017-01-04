@@ -77,27 +77,27 @@ public class ChartActivity extends Activity
     public static final String CHART_TAG = "chart";
 
     public static final String ECB_QUARTER_URL =
-	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
+        "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
     public static final String ECB_HIST_URL =
-	"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml";
+        "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml";
 
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
 
     private static final int colours[] =
     {
-	0xff00ddff, 0xff00ff00, 0xffff9900, 0xffff0000
+        0xff00ddff, 0xff00ff00, 0xffff9900, 0xffff0000
     };
 
     private static final int fills[] =
     {
-	0xff0099cc, 0xff669900, 0xffff8800, 0xffcc0000
+        0xff0099cc, 0xff669900, 0xffff8800, 0xffcc0000
     };
 
     private ChartFragment chartFragment;
     private TextView customView;
     private LineChart chart;
 
-    private Map<String, Map<String,Double>> histMap;
+    private Map<String, Map<String, Double>> histMap;
 
     private List<Integer> chartList;
     private List<String> nameList;
@@ -129,105 +129,105 @@ public class ChartActivity extends Activity
 
         // Create the fragment the first time
         if (chartFragment == null)
-	{
+        {
             // add the fragment
             chartFragment = new ChartFragment();
             fm.beginTransaction()
-		.add(chartFragment, CHART_TAG)
-		.commit();
+            .add(chartFragment, CHART_TAG)
+            .commit();
 
-	    // Get the intent for the list
-	    Intent intent = getIntent();
-	    chartList = intent.getIntegerArrayListExtra(Main.CHART_LIST);
-	}
+            // Get the intent for the list
+            Intent intent = getIntent();
+            chartList = intent.getIntegerArrayListExtra(Main.CHART_LIST);
+        }
 
-	else
-	{
-	    // Get list from fragment
-	    chartList = chartFragment.getList();
-	}
+        else
+        {
+            // Get list from fragment
+            chartList = chartFragment.getList();
+        }
 
-	// Trim the list to the number of colours plus one
-	while (chartList.size() > colours.length + 1)
-	    // Remove the first entry
-	    chartList.remove(0);
+        // Trim the list to the number of colours plus one
+        while (chartList.size() > colours.length + 1)
+            // Remove the first entry
+            chartList.remove(0);
 
-	// Look up the names
-	nameList = new ArrayList<String>();
-	for (int index: chartList)
-	    nameList.add(Main.CURRENCY_NAMES[index]);
+        // Look up the names
+        nameList = new ArrayList<String>();
+        for (int index : chartList)
+            nameList.add(Main.CURRENCY_NAMES[index]);
 
-	// Enable back navigation on action bar
-	ActionBar actionBar = getActionBar();
-	if (actionBar != null)
-	{
-	    actionBar.setDisplayHomeAsUpEnabled(true);
+        // Enable back navigation on action bar
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null)
+        {
+            actionBar.setDisplayHomeAsUpEnabled(true);
 
-	    // Set custom view
-	    actionBar.setCustomView(R.layout.text);
-	    actionBar.setDisplayShowCustomEnabled(true);
+            // Set custom view
+            actionBar.setCustomView(R.layout.text);
+            actionBar.setDisplayShowCustomEnabled(true);
 
-	    // Get custom view
-	    customView = (TextView)actionBar.getCustomView();
-	}
+            // Get custom view
+            customView = (TextView)actionBar.getCustomView();
+        }
 
-	// Get chart
-	chart = (LineChart)findViewById(R.id.chart);
+        // Get chart
+        chart = (LineChart)findViewById(R.id.chart);
 
-	// Get text and colour
-	Resources resources = getResources();
-	String updating = resources.getString(R.string.updating);
-	int dark = resources.getColor(android.R.color.secondary_text_dark);
+        // Get text and colour
+        Resources resources = getResources();
+        String updating = resources.getString(R.string.updating);
+        int dark = resources.getColor(android.R.color.secondary_text_dark);
 
-	// Set chart parameters
-	if (chart != null)
-	{
-	    // Set the no data text and colour, only seen once
-	    chart.setNoDataText(updating);
-	    chart.setNoDataTextColor(dark);
+        // Set chart parameters
+        if (chart != null)
+        {
+            // Set the no data text and colour, only seen once
+            chart.setNoDataText(updating);
+            chart.setNoDataTextColor(dark);
 
-	    // Set auto scaling
-	    chart.setAutoScaleMinMaxEnabled(true);
-	    chart.setKeepPositionOnRotation(true);
+            // Set auto scaling
+            chart.setAutoScaleMinMaxEnabled(true);
+            chart.setKeepPositionOnRotation(true);
 
-	    // Set date formatter for x axis and colour
-	    XAxis xAxis = chart.getXAxis();
-	    xAxis.setValueFormatter(new DateAxisValueFormatter());
-	    xAxis.setGranularity(1f);
-	    xAxis.setTextColor(dark);
+            // Set date formatter for x axis and colour
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setValueFormatter(new DateAxisValueFormatter());
+            xAxis.setGranularity(1f);
+            xAxis.setTextColor(dark);
 
-	    // Set y axis colour
-	    YAxis leftAxis = chart.getAxisLeft();
-	    leftAxis.setTextColor(dark);
+            // Set y axis colour
+            YAxis leftAxis = chart.getAxisLeft();
+            leftAxis.setTextColor(dark);
 
-	    YAxis rightAxis = chart.getAxisRight();
-	    // Set y axis colour
-	    rightAxis.setTextColor(dark);
+            YAxis rightAxis = chart.getAxisRight();
+            // Set y axis colour
+            rightAxis.setTextColor(dark);
 
-	    // No legend - only one dataset
-	    Legend legend = chart.getLegend();
-	    legend.setEnabled(false);
+            // No legend - only one dataset
+            Legend legend = chart.getLegend();
+            legend.setEnabled(false);
 
-	    // No desctription
-	    Description description = chart.getDescription();
-	    description.setEnabled(false);
-	}
+            // No desctription
+            Description description = chart.getDescription();
+            description.setEnabled(false);
+        }
 
-	// Check fragment
-	if (chartFragment != null && chartFragment.isParsing())
-	{
-	    // Generate the label
-	    if (customView != null)
-		customView.setText(updating);
-	}
+        // Check fragment
+        if (chartFragment != null && chartFragment.isParsing())
+        {
+            // Generate the label
+            if (customView != null)
+                customView.setText(updating);
+        }
 
-	else
-	{
-	    // Generate the label
-	    String label = secondName + "/" + firstName;
-	    if (customView != null)
-		customView.setText(label);
-	}
+        else
+        {
+            // Generate the label
+            String label = secondName + "/" + firstName;
+            if (customView != null)
+                customView.setText(label);
+        }
     }
 
     // On resume
@@ -235,131 +235,131 @@ public class ChartActivity extends Activity
     @Override
     protected void onResume()
     {
-	super.onResume();
+        super.onResume();
 
-	// Get preferences
-	SharedPreferences preferences =
- 	    PreferenceManager.getDefaultSharedPreferences(this);
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
 
-	wifi = preferences.getBoolean(Main.PREF_WIFI, true);
-	roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
-	fill = preferences.getBoolean(Main.PREF_FILL, true);
+        wifi = preferences.getBoolean(Main.PREF_WIFI, true);
+        roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
+        fill = preferences.getBoolean(Main.PREF_FILL, true);
 
-	// Check data fragment
-	if (chartFragment != null)
-	    histMap = chartFragment.getMap();
+        // Check data fragment
+        if (chartFragment != null)
+            histMap = chartFragment.getMap();
 
-	// Check retained data
-	if (histMap != null)
-	{
-	    SimpleDateFormat dateParser =
-		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
-	    Resources resources = getResources();
+        // Check retained data
+        if (histMap != null)
+        {
+            SimpleDateFormat dateParser =
+                new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+            Resources resources = getResources();
 
-	    // Create the entry list
-	    entryList = new ArrayList<Entry>();
+            // Create the entry list
+            entryList = new ArrayList<Entry>();
 
-	    // Iterate through the dates
-	    for (String key: histMap.keySet())
-	    {
-		float day = 0;
+            // Iterate through the dates
+            for (String key : histMap.keySet())
+            {
+                float day = 0;
 
-		// Parse the date and turn it into a day number
-		try
-		{
-		    Date date = dateParser.parse(key);
-		    day = date.getTime() / MSEC_DAY;
-		}
+                // Parse the date and turn it into a day number
+                try
+                {
+                    Date date = dateParser.parse(key);
+                    day = date.getTime() / MSEC_DAY;
+                }
 
-		// Ignore invalid dates
-		catch (Exception e)
-		{
-		    continue;
-		}
+                // Ignore invalid dates
+                catch (Exception e)
+                {
+                    continue;
+                }
 
-		// Get the map for each date
-		Map<String, Double> entryMap = histMap.get(key);
-		float value = 1;
+                // Get the map for each date
+                Map<String, Double> entryMap = histMap.get(key);
+                float value = 1;
 
-		// Get the value for each date
-		try
-		{
-		    double first = entryMap.get(firstName);
-		    double second = entryMap.get(secondName);
-		    value = (float)(first / second);
-		}
+                // Get the value for each date
+                try
+                {
+                    double first = entryMap.get(firstName);
+                    double second = entryMap.get(secondName);
+                    value = (float)(first / second);
+                }
 
-		// Ignore missing values
-		catch (Exception e)
-		{
-		    continue;
-		}
+                // Ignore missing values
+                catch (Exception e)
+                {
+                    continue;
+                }
 
-		// Add the entry to the list
-		entryList.add(0, new Entry(day, value));
-	    }
+                // Add the entry to the list
+                entryList.add(0, new Entry(day, value));
+            }
 
-	    // Get the colour
-	    int bright = resources.getColor(android.R.color.holo_blue_bright);
-	    int dark = resources.getColor(android.R.color.holo_blue_dark);
+            // Get the colour
+            int bright = resources.getColor(android.R.color.holo_blue_bright);
+            int dark = resources.getColor(android.R.color.holo_blue_dark);
 
-	    // Check the chart
-	    if (chart != null)
-	    {
-		// Create the dataset
-		dataSet = new LineDataSet(entryList, secondName);
+            // Check the chart
+            if (chart != null)
+            {
+                // Create the dataset
+                dataSet = new LineDataSet(entryList, secondName);
 
-		// Set dataset parameters and colour
-		dataSet.setDrawCircles(false);
-		dataSet.setDrawValues(false);
-		dataSet.setColor(bright);
+                // Set dataset parameters and colour
+                dataSet.setDrawCircles(false);
+                dataSet.setDrawValues(false);
+                dataSet.setColor(bright);
 
-		// Check preference
-		if (fill)
-		{
-		    dataSet.setFillColor(dark);
-		    dataSet.setDrawFilled(true);
-		}
+                // Check preference
+                if (fill)
+                {
+                    dataSet.setFillColor(dark);
+                    dataSet.setDrawFilled(true);
+                }
 
-		// Add the data to the chart and refresh
-		lineData = new LineData(dataSet);
-		chart.setData(lineData);
-		chart.invalidate();
-	    }
+                // Add the data to the chart and refresh
+                lineData = new LineData(dataSet);
+                chart.setData(lineData);
+                chart.invalidate();
+            }
 
-	    // Don't do an online update
-	    return;
-	}
+            // Don't do an online update
+            return;
+        }
 
-	// Check connectivity before update
-	ConnectivityManager manager =
-	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
-	NetworkInfo info = manager.getActiveNetworkInfo();
+        // Check connectivity before update
+        ConnectivityManager manager =
+            (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
 
-	// Check connection
-	if (info == null || !info.isConnected())
-	{
-	    showToast(R.string.no_connection);
-	    return;
-	}
+        // Check connection
+        if (info == null || !info.isConnected())
+        {
+            showToast(R.string.no_connection);
+            return;
+        }
 
-	// Check wifi
-	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
-	{
-	    showToast(R.string.no_wifi);
-	    return;
-	}
+        // Check wifi
+        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+        {
+            showToast(R.string.no_wifi);
+            return;
+        }
 
-	// Check roaming
-	if (!roaming && info.isRoaming())
-	{
-	    showToast(R.string.roaming);
-	    return;
-	}
+        // Check roaming
+        if (!roaming && info.isRoaming())
+        {
+            showToast(R.string.roaming);
+            return;
+        }
 
-	// Schedule the update
-	if (chartFragment != null)
-	    chartFragment.startParseTask(ECB_QUARTER_URL);
+        // Schedule the update
+        if (chartFragment != null)
+            chartFragment.startParseTask(ECB_QUARTER_URL);
     }
 
     // On pause
@@ -367,15 +367,15 @@ public class ChartActivity extends Activity
     @Override
     protected void onPause()
     {
-	super.onPause();
+        super.onPause();
 
         // Store the indices and historical data in the fragment
-	if (chartFragment != null)
-	{
-	    chartFragment.setFirst(firstIndex);
-	    chartFragment.setList(chartList);
-	    chartFragment.setMap(histMap);
-	}
+        if (chartFragment != null)
+        {
+            chartFragment.setFirst(firstIndex);
+            chartFragment.setList(chartList);
+            chartFragment.setMap(histMap);
+        }
     }
 
     // On create options menu
@@ -383,13 +383,13 @@ public class ChartActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-	// Inflate the menu; this adds items to the action bar if it
-	// is present.
+        // Inflate the menu; this adds items to the action bar if it
+        // is present.
 
-	MenuInflater inflater = getMenuInflater();
-	inflater.inflate(R.menu.chart, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.chart, menu);
 
-	return true;
+        return true;
     }
 
     // On options item selected
@@ -397,261 +397,261 @@ public class ChartActivity extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-	// Get id
+        // Get id
 
-	int id = item.getItemId();
-	switch (id)
-	{
-	    // Home
-	case android.R.id.home:
-	    finish();
-	    break;
+        int id = item.getItemId();
+        switch (id)
+        {
+        // Home
+        case android.R.id.home:
+            finish();
+            break;
 
-	    // Invert chart
-	case R.id.action_invert:
-	    return onInvertClick();
+        // Invert chart
+        case R.id.action_invert:
+            return onInvertClick();
 
-	    // New chart
-	case R.id.action_new_chart:
-	    return onNewClick();
+        // New chart
+        case R.id.action_new_chart:
+            return onNewClick();
 
-	    // Refresh chart
-	case R.id.action_refresh:
-	    return onRefreshClick(ECB_QUARTER_URL);
+        // Refresh chart
+        case R.id.action_refresh:
+            return onRefreshClick(ECB_QUARTER_URL);
 
-	    // Refresh with historical data
-	case R.id.action_hist:
-	    return onRefreshClick(ECB_HIST_URL);
+        // Refresh with historical data
+        case R.id.action_hist:
+            return onRefreshClick(ECB_HIST_URL);
 
-	default:
-	    return false;
-	}
+        default:
+            return false;
+        }
 
-	return true;
+        return true;
     }
 
     // on invert click
     private boolean onInvertClick()
     {
-	SimpleDateFormat dateParser =
-	    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+        SimpleDateFormat dateParser =
+            new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 
-	// Get updating text
-	Resources resources = getResources();
-	String updating = resources.getString(R.string.updating);
+        // Get updating text
+        Resources resources = getResources();
+        String updating = resources.getString(R.string.updating);
 
-	// Reverse currency indices
-	int index = firstIndex;
-	firstIndex = secondIndex;
-	secondIndex = index;
+        // Reverse currency indices
+        int index = firstIndex;
+        firstIndex = secondIndex;
+        secondIndex = index;
 
-	// Update names
-	firstName = Main.CURRENCY_NAMES[firstIndex];
-	secondName = Main.CURRENCY_NAMES[secondIndex];
+        // Update names
+        firstName = Main.CURRENCY_NAMES[firstIndex];
+        secondName = Main.CURRENCY_NAMES[secondIndex];
 
-	// Set custom text to updating, since this may take a few secs
-	if (customView != null)
-	    customView.setText(updating);
+        // Set custom text to updating, since this may take a few secs
+        if (customView != null)
+            customView.setText(updating);
 
-	// Clear the entry list
-	entryList.clear();
+        // Clear the entry list
+        entryList.clear();
 
-	// Iterate through the dates
-	for (String key: histMap.keySet())
-	{
-	    float day = 0;
+        // Iterate through the dates
+        for (String key : histMap.keySet())
+        {
+            float day = 0;
 
-	    // Parse the date and turn it into a day number
-	    try
-	    {
-		Date date = dateParser.parse(key);
-		day = date.getTime() / MSEC_DAY;
-	    }
+            // Parse the date and turn it into a day number
+            try
+            {
+                Date date = dateParser.parse(key);
+                day = date.getTime() / MSEC_DAY;
+            }
 
-	    catch (Exception e) {}
+            catch (Exception e) {}
 
-	    // Get the map for each date
-	    Map<String, Double> entryMap = histMap.get(key);
-	    float value = 1;
+            // Get the map for each date
+            Map<String, Double> entryMap = histMap.get(key);
+            float value = 1;
 
-	    // Get the value for each date
-	    try
-	    {
-		double first = entryMap.get(firstName);
-		double second = entryMap.get(secondName);
-		value = (float)(first / second);
-	    }
+            // Get the value for each date
+            try
+            {
+                double first = entryMap.get(firstName);
+                double second = entryMap.get(secondName);
+                value = (float)(first / second);
+            }
 
-	    // Ignore missing values
-	    catch (Exception e)
-	    {
-		continue;
-	    }
+            // Ignore missing values
+            catch (Exception e)
+            {
+                continue;
+            }
 
-	    // Add the entry to the list
-	    entryList.add(0, new Entry(day, value));
-	}
+            // Add the entry to the list
+            entryList.add(0, new Entry(day, value));
+        }
 
-	// Check the chart
-	if (chart != null)
-	{
-	    // Add the data to the chart and refresh
-	    dataSet.setValues(entryList);
-	    lineData.notifyDataChanged();
-	    chart.notifyDataSetChanged();
-	    chart.invalidate();
-	}
+        // Check the chart
+        if (chart != null)
+        {
+            // Add the data to the chart and refresh
+            dataSet.setValues(entryList);
+            lineData.notifyDataChanged();
+            chart.notifyDataSetChanged();
+            chart.invalidate();
+        }
 
-	// Restore the custom view to the current currencies
-	String label = secondName + "/" + firstName;
-	if (customView != null)
-	    customView.setText(label);
+        // Restore the custom view to the current currencies
+        String label = secondName + "/" + firstName;
+        if (customView != null)
+            customView.setText(label);
 
-	return true;
+        return true;
     }
 
     // On new click
     private boolean onNewClick()
     {
-	// Start the choice dialog
-	Intent intent = new Intent(this, ChoiceDialog.class);
-	startActivityForResult(intent, 0);
+        // Start the choice dialog
+        Intent intent = new Intent(this, ChoiceDialog.class);
+        startActivityForResult(intent, 0);
 
-	return true;
+        return true;
     }
 
     // On refresh click
     private boolean onRefreshClick(String url)
     {
-	// Check connectivity before update
-	ConnectivityManager manager =
-	    (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
-	NetworkInfo info = manager.getActiveNetworkInfo();
+        // Check connectivity before update
+        ConnectivityManager manager =
+            (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
 
-	// Check connection
-	if (info == null || !info.isConnected())
-	{
-	    showToast(R.string.no_connection);
-	    return false;
-	}
+        // Check connection
+        if (info == null || !info.isConnected())
+        {
+            showToast(R.string.no_connection);
+            return false;
+        }
 
-	// Check wifi
-	if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
-	{
-	    showToast(R.string.no_wifi);
-	    return false;
-	}
+        // Check wifi
+        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+        {
+            showToast(R.string.no_wifi);
+            return false;
+        }
 
-	// Check roaming
-	if (!roaming && info.isRoaming())
-	{
-	    showToast(R.string.roaming);
-	    return false;
-	}
+        // Check roaming
+        if (!roaming && info.isRoaming())
+        {
+            showToast(R.string.roaming);
+            return false;
+        }
 
-	// Get updating text
-	Resources resources = getResources();
-	String updating = resources.getString(R.string.updating);
+        // Get updating text
+        Resources resources = getResources();
+        String updating = resources.getString(R.string.updating);
 
-	// Set custom text to updating, since this may take a few secs
-	if (customView != null)
-	    customView.setText(updating);
+        // Set custom text to updating, since this may take a few secs
+        if (customView != null)
+            customView.setText(updating);
 
-	// Schedule the update
-	if (chartFragment != null)
-	    chartFragment.startParseTask(url);
+        // Schedule the update
+        if (chartFragment != null)
+            chartFragment.startParseTask(url);
 
-	return true;
+        return true;
     }
 
     // On activity result
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
-				    Intent data)
+                                    Intent data)
     {
-	// Do nothing if cancelled
-	if (resultCode != RESULT_OK)
-	    return;
+        // Do nothing if cancelled
+        if (resultCode != RESULT_OK)
+            return;
 
-	SimpleDateFormat dateParser =
-	    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+        SimpleDateFormat dateParser =
+            new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 
-	// Get updating text
-	Resources resources = getResources();
-	String updating = resources.getString(R.string.updating);
+        // Get updating text
+        Resources resources = getResources();
+        String updating = resources.getString(R.string.updating);
 
-	// Get index list from intent
-	List<Integer> selectList = data.getIntegerArrayListExtra(Main.CHOICE);
+        // Get index list from intent
+        List<Integer> selectList = data.getIntegerArrayListExtra(Main.CHOICE);
 
-	// Iterate through the list to get the last two
-	for (int index: selectList)
-	{
-	    firstIndex = secondIndex;
-	    secondIndex = index;
-	}
+        // Iterate through the list to get the last two
+        for (int index : selectList)
+        {
+            firstIndex = secondIndex;
+            secondIndex = index;
+        }
 
-	// Update names
-	firstName = Main.CURRENCY_NAMES[firstIndex];
-	secondName = Main.CURRENCY_NAMES[secondIndex];
+        // Update names
+        firstName = Main.CURRENCY_NAMES[firstIndex];
+        secondName = Main.CURRENCY_NAMES[secondIndex];
 
-	// Set custom text to updating, since this may take a few secs
-	if (customView != null)
-	    customView.setText(updating);
+        // Set custom text to updating, since this may take a few secs
+        if (customView != null)
+            customView.setText(updating);
 
-	// Clear the entry list
-	entryList.clear();
+        // Clear the entry list
+        entryList.clear();
 
-	// Iterate through the dates
-	for (String key: histMap.keySet())
-	{
-	    float day = 0;
+        // Iterate through the dates
+        for (String key : histMap.keySet())
+        {
+            float day = 0;
 
-	    // Parse the date and turn it into a day number
-	    try
-	    {
-		Date date = dateParser.parse(key);
-		day = date.getTime() / MSEC_DAY;
-	    }
+            // Parse the date and turn it into a day number
+            try
+            {
+                Date date = dateParser.parse(key);
+                day = date.getTime() / MSEC_DAY;
+            }
 
-	    catch (Exception e) {}
+            catch (Exception e) {}
 
-	    // Get the map for each date
-	    Map<String, Double> entryMap = histMap.get(key);
-	    float value = 1;
+            // Get the map for each date
+            Map<String, Double> entryMap = histMap.get(key);
+            float value = 1;
 
-	    // Get the value for each date
-	    try
-	    {
-		double first = entryMap.get(firstName);
-		double second = entryMap.get(secondName);
-		value = (float)(first / second);
-	    }
+            // Get the value for each date
+            try
+            {
+                double first = entryMap.get(firstName);
+                double second = entryMap.get(secondName);
+                value = (float)(first / second);
+            }
 
-	    // Ignore missing values
-	    catch (Exception e)
-	    {
-		continue;
-	    }
+            // Ignore missing values
+            catch (Exception e)
+            {
+                continue;
+            }
 
-	    // Add the entry to the list
-	    entryList.add(0, new Entry(day, value));
-	}
+            // Add the entry to the list
+            entryList.add(0, new Entry(day, value));
+        }
 
-	// Check the chart
-	if (chart != null)
-	{
-	    // Add the data to the chart and refresh
-	    dataSet.setValues(entryList);
-	    lineData.notifyDataChanged();
-	    chart.notifyDataSetChanged();
-	    chart.invalidate();
-	}
+        // Check the chart
+        if (chart != null)
+        {
+            // Add the data to the chart and refresh
+            dataSet.setValues(entryList);
+            lineData.notifyDataChanged();
+            chart.notifyDataSetChanged();
+            chart.invalidate();
+        }
 
-	// Restore the custom view to the current currencies
-	String label = secondName + "/" + firstName;
-	if (customView != null)
-	    customView.setText(label);
+        // Restore the custom view to the current currencies
+        String label = secondName + "/" + firstName;
+        if (customView != null)
+            customView.setText(label);
     }
 
     // Ignoring the date as not used
@@ -661,145 +661,145 @@ public class ChartActivity extends Activity
     // The system calls this to perform work in the UI thread and
     // delivers the result from doInBackground()
     @Override
-    public void onPostExecute(Map<String, Map<String,Double>> map)
+    public void onPostExecute(Map<String, Map<String, Double>> map)
     {
-	// Check map
-	if (!map.isEmpty())
-	{
-	    // Save map
-	    histMap = map;
+        // Check map
+        if (!map.isEmpty())
+        {
+            // Save map
+            histMap = map;
 
-	    SimpleDateFormat dateParser =
-		new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
-	    Resources resources = getResources();
+            SimpleDateFormat dateParser =
+                new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+            Resources resources = getResources();
 
-	    // Create a new entry list
-	    entryList = new ArrayList<Entry>();
+            // Create a new entry list
+            entryList = new ArrayList<Entry>();
 
-	    // Iterate through the dates
-	    for (String key: map.keySet())
-	    {
-		float day = 0;
+            // Iterate through the dates
+            for (String key : map.keySet())
+            {
+                float day = 0;
 
-		// Parse the date and turn it into a day number
-		try
-		{
-		    Date date = dateParser.parse(key);
-		    day = date.getTime() / MSEC_DAY;
-		}
+                // Parse the date and turn it into a day number
+                try
+                {
+                    Date date = dateParser.parse(key);
+                    day = date.getTime() / MSEC_DAY;
+                }
 
-		// Ignore invalid dates
-		catch (Exception e)
-		{
-		    continue;
-		}
+                // Ignore invalid dates
+                catch (Exception e)
+                {
+                    continue;
+                }
 
-		// Get the map for each date
-		Map<String, Double> entryMap = map.get(key);
-		float value = 1;
+                // Get the map for each date
+                Map<String, Double> entryMap = map.get(key);
+                float value = 1;
 
-		// Get the value for each date
-		try
-		{
-		    double first = entryMap.get(firstName);
-		    double second = entryMap.get(secondName);
-		    value = (float)(first / second);
-		}
+                // Get the value for each date
+                try
+                {
+                    double first = entryMap.get(firstName);
+                    double second = entryMap.get(secondName);
+                    value = (float)(first / second);
+                }
 
-		// Ignore missing values
-		catch (Exception e)
-		{
-		    continue;
-		}
+                // Ignore missing values
+                catch (Exception e)
+                {
+                    continue;
+                }
 
-		// Add the entry to the list
-		entryList.add(0, new Entry(day, value));
-	    }
+                // Add the entry to the list
+                entryList.add(0, new Entry(day, value));
+            }
 
-	    // Get the colour
-	    int bright = resources.getColor(android.R.color.holo_blue_bright);
-	    int dark = resources.getColor(android.R.color.holo_blue_dark);
+            // Get the colour
+            int bright = resources.getColor(android.R.color.holo_blue_bright);
+            int dark = resources.getColor(android.R.color.holo_blue_dark);
 
-	    // Check the chart
-	    if (chart != null)
-	    {
-		// Create the dataset
-		dataSet = new LineDataSet(entryList, secondName);
+            // Check the chart
+            if (chart != null)
+            {
+                // Create the dataset
+                dataSet = new LineDataSet(entryList, secondName);
 
-		// Set dataset parameters and colour
-		dataSet.setDrawCircles(false);
-		dataSet.setDrawValues(false);
-		dataSet.setColor(bright);
+                // Set dataset parameters and colour
+                dataSet.setDrawCircles(false);
+                dataSet.setDrawValues(false);
+                dataSet.setColor(bright);
 
-		// Check preference
-		if (fill)
-		{
-		    dataSet.setFillColor(dark);
-		    dataSet.setDrawFilled(true);
-		}
+                // Check preference
+                if (fill)
+                {
+                    dataSet.setFillColor(dark);
+                    dataSet.setDrawFilled(true);
+                }
 
-		lineData = new LineData(dataSet);
-		chart.setData(lineData);
-		chart.invalidate();
-	    }
-	}
+                lineData = new LineData(dataSet);
+                chart.setData(lineData);
+                chart.invalidate();
+            }
+        }
 
-	else
-	{
-	    showToast(R.string.update_failed);
-	}
+        else
+        {
+            showToast(R.string.update_failed);
+        }
 
-	// Restore the custom view to the current currencies
-	String label = secondName + "/" + firstName;
-	if(customView != null)
-	    customView.setText(label);
+        // Restore the custom view to the current currencies
+        String label = secondName + "/" + firstName;
+        if(customView != null)
+            customView.setText(label);
     }
 
     // Show toast.
     void showToast(int id, Object... args)
     {
-	// Get text from resources
-	Resources resources = getResources();
-	String text = resources.getString(id);
-	showToast(text, args);
+        // Get text from resources
+        Resources resources = getResources();
+        String text = resources.getString(id);
+        showToast(text, args);
     }
 
     // Show toast.
     void showToast(String format, Object... args)
     {
-	String text = String.format(format, args);
-	showToast(text);
+        String text = String.format(format, args);
+        showToast(text);
     }
 
     // Show toast.
     void showToast(String text)
     {
-	// Make a new toast
-	Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-	toast.setGravity(Gravity.CENTER, 0, 0);
-	toast.show();
+        // Make a new toast
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     // DateAxisValueFormatter class
     private class DateAxisValueFormatter implements IAxisValueFormatter
     {
-	DateFormat dateFormat;
+        DateFormat dateFormat;
 
-	// Constructor
-	private DateAxisValueFormatter()
-	{
-	    dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
-	}
+        // Constructor
+        private DateAxisValueFormatter()
+        {
+            dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        }
 
-	// Get formatted value
-	@Override
-	public String getFormattedValue(float value, AxisBase axis)
-	{
-	    // "value" represents the position of the label on the
-	    // axis (x or y). Create a date from the day number and
-	    // format it.
-	    Date date = new Date((int)value * MSEC_DAY);
-	    return dateFormat.format(date);
-	}
+        // Get formatted value
+        @Override
+        public String getFormattedValue(float value, AxisBase axis)
+        {
+            // "value" represents the position of the label on the
+            // axis (x or y). Create a date from the day number and
+            // format it.
+            Date date = new Date((int)value * MSEC_DAY);
+            return dateFormat.format(date);
+        }
     }
 }

@@ -45,17 +45,17 @@ public class ChoiceAdapter extends BaseAdapter
     private int resource;
 
     public ChoiceAdapter(Context context, int resource, List<Integer> flags,
-			 List<String> names, List<Integer> longNames,
-			 List<Integer> selection)
+                         List<String> names, List<Integer> longNames,
+                         List<Integer> selection)
     {
-	inflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
 
-	// Save all the parameters
-	this.resource = resource;
-	this.flags = flags;
-	this.names = names;
-	this.longNames = longNames;
-	this.selection = selection;
+        // Save all the parameters
+        this.resource = resource;
+        this.flags = flags;
+        this.names = names;
+        this.longNames = longNames;
+        this.selection = selection;
     }
 
     @Override
@@ -81,35 +81,35 @@ public class ChoiceAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         ImageView flag;
-	TextView name;
-	TextView longName;
+        TextView name;
+        TextView longName;
 
-	// Create a new view
+        // Create a new view
         if (convertView == null)
-	    convertView = inflater.inflate(resource, parent, false);
+            convertView = inflater.inflate(resource, parent, false);
 
-	// Find the views
-	flag = (ImageView)convertView.findViewById(R.id.flag);
-	name = (TextView)convertView.findViewById(R.id.name);
-	longName = (TextView)convertView.findViewById(R.id.long_name);
+        // Find the views
+        flag = (ImageView)convertView.findViewById(R.id.flag);
+        name = (TextView)convertView.findViewById(R.id.name);
+        longName = (TextView)convertView.findViewById(R.id.long_name);
 
-	// Update the views
-	if (flag != null)
-	    flag.setImageResource(flags.get(position));
+        // Update the views
+        if (flag != null)
+            flag.setImageResource(flags.get(position));
 
-	if (name != null)
-	    name.setText(names.get(position));
+        if (name != null)
+            name.setText(names.get(position));
 
-	if (longName != null)
-	    longName.setText(longNames.get(position));
+        if (longName != null)
+            longName.setText(longNames.get(position));
 
-	// Hightlight if selected
-	if (selection.contains(position))
-	    convertView.setBackgroundResource(android.R.color.holo_blue_dark);
+        // Hightlight if selected
+        if (selection.contains(position))
+            convertView.setBackgroundResource(android.R.color.holo_blue_dark);
 
-	// Clear hightlight
-	else
-	    convertView.setBackgroundResource(0);
+        // Clear hightlight
+        else
+            convertView.setBackgroundResource(0);
 
         return convertView;
     }
