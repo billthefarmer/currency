@@ -37,48 +37,47 @@ import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+// HelpActivity class
 public class HelpActivity extends Activity
 {
     // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help);
 
-	TextView view = (TextView)findViewById(R.id.help);
-	String text = RawTextReader.read(this, R.raw.help);
-	if (view != null)
-	{
-	    view.setMovementMethod(LinkMovementMethod.getInstance());
-	    view.setText(Html.fromHtml(text));
-	}
+        TextView view = (TextView)findViewById(R.id.help);
+        String text = RawTextReader.read(this, R.raw.help);
+        if (view != null)
+        {
+            view.setMovementMethod(LinkMovementMethod.getInstance());
+            view.setText(Html.fromHtml(text));
+        }
 
-	// Enable back navigation on action bar
-	ActionBar actionBar = getActionBar();
-	if (actionBar != null)
-	    actionBar.setDisplayHomeAsUpEnabled(true);
+        // Enable back navigation on action bar
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     // On options item selected
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-	// Get id
-	int id = item.getItemId();
-	switch (id)
-	{
-	    // Home
-	case android.R.id.home:
-	    finish();
-	    break;
+        // Get id
+        int id = item.getItemId();
+        switch (id)
+        {
+        // Home
+        case android.R.id.home:
+            finish();
+            break;
 
-	default:
-	    return false;
-	}
+        default:
+            return false;
+        }
 
-	return true;
+        return true;
     }
 }

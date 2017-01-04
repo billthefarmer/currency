@@ -34,73 +34,69 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
+// SettingsFragment class
 public class SettingsFragment extends PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener
 {
+    // On create
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-	super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-	// Load the preferences from an XML resource
+        // Load the preferences from an XML resource
+        addPreferencesFromResource(R.xml.preferences);
 
-	addPreferencesFromResource(R.xml.preferences);
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(getActivity());
+        preferences.registerOnSharedPreferenceChangeListener(this);
 
-	preferences.registerOnSharedPreferenceChangeListener(this);
+        ListPreference preference =
+            (ListPreference)findPreference(Main.PREF_DIGITS);
 
-	ListPreference preference =
-	    (ListPreference)findPreference(Main.PREF_DIGITS);
+        // Set summary to be the user-description for the selected value
+        preference.setSummary(preference.getEntry());
 
-	// Set summary to be the user-description for the selected value
+        // Get about summary
+        Preference about = findPreference(Main.PREF_ABOUT);
+        String sum = (String) about.getSummary();
 
-	preference.setSummary(preference.getEntry());
-
-	// Get about summary
-
-	Preference about = findPreference(Main.PREF_ABOUT);
-	String sum = (String) about.getSummary();
-
-	// Set version in text view
-
-	String s = String.format(sum, BuildConfig.VERSION_NAME);
-	about.setSummary(s);
+        // Set version in text view
+        String s = String.format(sum, BuildConfig.VERSION_NAME);
+        about.setSummary(s);
     }
 
     // On preference tree click
-
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-					 Preference preference)
+                                         Preference preference)
     {
-    	boolean result =
-	    super.onPreferenceTreeClick(preferenceScreen, preference);
+        boolean result =
+            super.onPreferenceTreeClick(preferenceScreen, preference);
 
-	// Set home as up
-    	if (preference instanceof PreferenceScreen)
-    	{
-	    Dialog dialog = ((PreferenceScreen)preference).getDialog();
-	    ActionBar actionBar = dialog.getActionBar();
-	    actionBar.setDisplayHomeAsUpEnabled(false);
-    	}
+        // Set home as up
+        if (preference instanceof PreferenceScreen)
+        {
+            Dialog dialog = ((PreferenceScreen)preference).getDialog();
+            ActionBar actionBar = dialog.getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
 
-    	return result;
+        return result;
     }
 
     // On shared preference changed
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences preferences,
-					  String key)
+                                          String key)
     {
-	if (key.equals(Main.PREF_DIGITS))
-	{
-	    ListPreference preference = (ListPreference)findPreference(key);
+        if (key.equals(Main.PREF_DIGITS))
+        {
+            ListPreference preference = (ListPreference)findPreference(key);
 
-	    // Set summary to be the user-description for the selected value
-	    preference.setSummary(preference.getEntry());
-	}
+            // Set summary to be the user-description for the selected value
+            preference.setSummary(preference.getEntry());
+        }
     }
 }

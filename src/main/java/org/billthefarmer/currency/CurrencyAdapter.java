@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
+// CurrencyAdapter class
 public class CurrencyAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
@@ -45,21 +46,22 @@ public class CurrencyAdapter extends BaseAdapter
 
     private int resource;
 
+    // Constructor
     public CurrencyAdapter(Context context, int resource, List<Integer> flags,
-			   List<String> names, List<String> symbols,
-			   List<String> values, List<Integer> longNames,
-			   List<Integer> selection)
+                           List<String> names, List<String> symbols,
+                           List<String> values, List<Integer> longNames,
+                           List<Integer> selection)
     {
-	inflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
 
-	// Save all the parameters
-	this.resource = resource;
-	this.flags = flags;
-	this.symbols = symbols;
-	this.names = names;
-	this.values = values;
-	this.longNames = longNames;
-	this.selection = selection;
+        // Save all the parameters
+        this.resource = resource;
+        this.flags = flags;
+        this.symbols = symbols;
+        this.names = names;
+        this.values = values;
+        this.longNames = longNames;
+        this.selection = selection;
     }
 
     @Override
@@ -85,45 +87,45 @@ public class CurrencyAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         ImageView flag;
-	TextView name;
-	TextView symbol;
-	TextView value;
-	TextView longName;
+        TextView name;
+        TextView symbol;
+        TextView value;
+        TextView longName;
 
-	// Create a new view
+        // Create a new view
         if (convertView == null)
-	    convertView = inflater.inflate(resource, parent, false);
+            convertView = inflater.inflate(resource, parent, false);
 
-	// Find the views
-	flag = (ImageView)convertView.findViewById(R.id.flag);
-	name = (TextView)convertView.findViewById(R.id.name);
-	symbol = (TextView)convertView.findViewById(R.id.symbol);
-	value = (TextView)convertView.findViewById(R.id.value);
-	longName = (TextView)convertView.findViewById(R.id.long_name);
+        // Find the views
+        flag = (ImageView)convertView.findViewById(R.id.flag);
+        name = (TextView)convertView.findViewById(R.id.name);
+        symbol = (TextView)convertView.findViewById(R.id.symbol);
+        value = (TextView)convertView.findViewById(R.id.value);
+        longName = (TextView)convertView.findViewById(R.id.long_name);
 
-	// Update the views
-	if (flag != null)
-	    flag.setImageResource(flags.get(position));
+        // Update the views
+        if (flag != null)
+            flag.setImageResource(flags.get(position));
 
-	if (name != null)
-	    name.setText(names.get(position));
+        if (name != null)
+            name.setText(names.get(position));
 
-	if (symbol != null)
-	    symbol.setText(symbols.get(position));
+        if (symbol != null)
+            symbol.setText(symbols.get(position));
 
-	if (value != null)
-	    value.setText(values.get(position));
+        if (value != null)
+            value.setText(values.get(position));
 
-	if (longName != null)
-	    longName.setText(longNames.get(position));
+        if (longName != null)
+            longName.setText(longNames.get(position));
 
-	// Highlight if selected
-	if (selection.contains(position))
-	    convertView.setBackgroundResource(android.R.color.holo_blue_dark);
+        // Highlight if selected
+        if (selection.contains(position))
+            convertView.setBackgroundResource(android.R.color.holo_blue_dark);
 
-	// Clear highlight
-	else
-	    convertView.setBackgroundResource(0);
+        // Clear highlight
+        else
+            convertView.setBackgroundResource(0);
 
         return convertView;
     }

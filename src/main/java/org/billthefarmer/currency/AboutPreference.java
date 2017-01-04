@@ -34,40 +34,34 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+// AboutPreference class
 public class AboutPreference extends DialogPreference
 {
-
     // Constructor
-
     public AboutPreference(Context context, AttributeSet attrs)
     {
-	super(context, attrs);
+        super(context, attrs);
     }
 
     // On bind dialog view
-
     @Override
     protected void onBindDialogView(View view)
     {
-	super.onBindDialogView(view);
+        super.onBindDialogView(view);
 
-	// Get version text view
+        // Get version text view
+        TextView version = (TextView) view.findViewById(R.id.about);
 
-	TextView version = (TextView) view.findViewById(R.id.about);
+        // Set version in text view
+        String v = (String) version.getText();
+        String s = String.format(v, BuildConfig.VERSION_NAME);
+        version.setText(s);
 
-	// Set version in text view
+        // Get copyright text view
+        TextView copyright = (TextView) view.findViewById(R.id.copyright);
 
-	String v = (String) version.getText();
-	String s = String.format(v, BuildConfig.VERSION_NAME);
-	version.setText(s);
-
-	// Get copyright text view
-
-	TextView copyright = (TextView) view.findViewById(R.id.copyright);
-
-	// Set movement method
-
-	copyright.setMovementMethod(LinkMovementMethod.getInstance());
+        // Set movement method
+        copyright.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 }

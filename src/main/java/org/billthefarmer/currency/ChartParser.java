@@ -53,153 +53,153 @@ public class ChartParser
     // Create parser
     private XMLReader createParser()
     {
-	// Create the map
-	map = new LinkedHashMap<String, Map<String, Double>>();
-	// Oldest possible date
-	date = "1970-01-01";
+        // Create the map
+        map = new LinkedHashMap<String, Map<String, Double>>();
+        // Oldest possible date
+        date = "1970-01-01";
 
-	try
-	{
-	    // Get a parser
-	    SAXParserFactory factory = SAXParserFactory.newInstance();
-	    SAXParser parser = factory.newSAXParser();
+        try
+        {
+            // Get a parser
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser parser = factory.newSAXParser();
 
-	    // Get a reader
-	    XMLReader reader = parser.getXMLReader();
-	    Handler handler = new Handler();
-	    reader.setContentHandler(handler);
+            // Get a reader
+            XMLReader reader = parser.getXMLReader();
+            Handler handler = new Handler();
+            reader.setContentHandler(handler);
 
-	    return reader;
-	}
+            return reader;
+        }
 
-	catch (Exception e)
-	{
-	    map.clear();
-	}
+        catch (Exception e)
+        {
+            map.clear();
+        }
 
-	return null;
+        return null;
     }
 
     // Get map
     public Map<String, Map<String, Double>> getMap()
     {
-	return map;
+        return map;
     }
 
     // Get date
     public String getDate()
     {
-	return date;
+        return date;
     }
 
     // Start parser for a url
     public boolean startParser(String s)
     {
-	// Get a reader
-	XMLReader reader = createParser();
+        // Get a reader
+        XMLReader reader = createParser();
 
-	if(reader != null)
-	{
-	    // Read the xml from the url
-	    try
-	    {
-		URL url = new URL(s);
-		InputStream stream = url.openStream();
-		reader.parse(new InputSource(stream));
-		return true;
-	    }
+        if(reader != null)
+        {
+            // Read the xml from the url
+            try
+            {
+                URL url = new URL(s);
+                InputStream stream = url.openStream();
+                reader.parse(new InputSource(stream));
+                return true;
+            }
 
-	    catch (Exception e)
-	    {
-		map.clear();
-	    }
-	}
+            catch (Exception e)
+            {
+                map.clear();
+            }
+        }
 
-	return false;
+        return false;
     }
 
     // Start parser from resources
     public boolean startParser(Context context, int id)
     {
-	Resources resources = context.getResources();
-	// Get a reader
-	XMLReader reader = createParser();
+        Resources resources = context.getResources();
+        // Get a reader
+        XMLReader reader = createParser();
 
-	if(reader != null)
-	{
-	    // Read the xml from the resources
-	    try
-	    {
-		InputStream stream = resources.openRawResource(id);
-		reader.parse(new InputSource(stream));
-		return true;
-	    }
+        if(reader != null)
+        {
+            // Read the xml from the resources
+            try
+            {
+                InputStream stream = resources.openRawResource(id);
+                reader.parse(new InputSource(stream));
+                return true;
+            }
 
-	    catch (Exception e)
-	    {
-		map.clear();
-	    }
-	}
+            catch (Exception e)
+            {
+                map.clear();
+            }
+        }
 
-	return false;
+        return false;
     }
 
     // Handler class
     private class Handler extends DefaultHandler
     {
-	// Start element
-	@Override
-	public void startElement(String uri, String localName, String qName,
-				 Attributes attributes) throws SAXException
-	{
-	    String name = "EUR";
-	    double rate = 1.0;
+        // Start element
+        @Override
+        public void startElement(String uri, String localName, String qName,
+                                 Attributes attributes) throws SAXException
+        {
+            String name = "EUR";
+            double rate = 1.0;
 
-	    if(localName == "Cube")
-	    {
-		for (int i = 0; i < attributes.getLength(); i++)
-		{
-		    // Get the date
-		    if (attributes.getLocalName(i) == "time")
-		    {
-			String time = attributes.getValue(i);
+            if(localName == "Cube")
+            {
+                for (int i = 0; i < attributes.getLength(); i++)
+                {
+                    // Get the date
+                    if (attributes.getLocalName(i) == "time")
+                    {
+                        String time = attributes.getValue(i);
 
-			// Check if more recent
-			if (time.compareTo(date) > 0)
-			    date = time;
+                        // Check if more recent
+                        if (time.compareTo(date) > 0)
+                            date = time;
 
-			// Create a map for this date
-			entry = new HashMap<String, Double>();
-			// Add euro to the entry
-			entry.put("EUR", 1.0);
-			// Add the entry to the map
-			map.put(time, entry);
-		    }
+                        // Create a map for this date
+                        entry = new HashMap<String, Double>();
+                        // Add euro to the entry
+                        entry.put("EUR", 1.0);
+                        // Add the entry to the map
+                        map.put(time, entry);
+                    }
 
-		    // Get the currency name
-		    else if (attributes.getLocalName(i) == "currency")
-		    {
-			name = attributes.getValue(i);
-		    }
+                    // Get the currency name
+                    else if (attributes.getLocalName(i) == "currency")
+                    {
+                        name = attributes.getValue(i);
+                    }
 
-		    // Get the currency rate
-		    else if (attributes.getLocalName(i) == "rate")
-		    {
-			try
-			{
-			    rate = Double.parseDouble(attributes.getValue(i));
-			}
+                    // Get the currency rate
+                    else if (attributes.getLocalName(i) == "rate")
+                    {
+                        try
+                        {
+                            rate = Double.parseDouble(attributes.getValue(i));
+                        }
 
-			catch (Exception e)
-			{
-			    rate = 1.0;
-			}
+                        catch (Exception e)
+                        {
+                            rate = 1.0;
+                        }
 
-			// add new element to the entry
-			entry.put(name, rate);
-		    }
-		}
-	    }
-	}
+                        // add new element to the entry
+                        entry.put(name, rate);
+                    }
+                }
+            }
+        }
     }
 }

@@ -32,11 +32,10 @@ import android.os.AsyncTask;
 import java.util.Map;
 
 // DataFragment class
-
 public class DataFragment extends Fragment
 {
     // Data objects we want to retain
-    private Map<String,Double> map;
+    private Map<String, Double> map;
     private TaskCallbacks callbacks;
 
     // This method is only called once for this fragment
@@ -55,8 +54,8 @@ public class DataFragment extends Fragment
     @Override
     public void onAttach(Activity activity)
     {
-	super.onAttach(activity);
-	callbacks = (TaskCallbacks)activity;
+        super.onAttach(activity);
+        callbacks = (TaskCallbacks)activity;
     }
 
     // Set the callback to null so we don't accidentally leak the
@@ -64,18 +63,18 @@ public class DataFragment extends Fragment
     @Override
     public void onDetach()
     {
-	super.onDetach();
-	callbacks = null;
+        super.onDetach();
+        callbacks = null;
     }
 
     // Set map
-    public void setMap(Map<String,Double> map)
+    public void setMap(Map<String, Double> map)
     {
         this.map = map;
     }
 
     // Get map
-    public Map<String,Double> getMap()
+    public Map<String, Double> getMap()
     {
         return map;
     }
@@ -83,54 +82,55 @@ public class DataFragment extends Fragment
     // Start parse task
     protected void startParseTask(String url)
     {
-	ParseTask parseTask = new ParseTask();
-	parseTask.execute(url);
+        ParseTask parseTask = new ParseTask();
+        parseTask.execute(url);
     }
 
+    // ParseTask class
     protected class ParseTask
-	extends AsyncTask<String, String, Map<String, Double>>
+        extends AsyncTask<String, String, Map<String, Double>>
     {
-	Context context;
-	String latest;
+        Context context;
+        String latest;
 
-	// The system calls this to perform work in a worker thread
-	// and delivers it the parameters given to AsyncTask.execute()
-	@Override
-	protected Map doInBackground(String... urls)
-	{
-	    // Get a parser
-	    Parser parser = new Parser();
+        // The system calls this to perform work in a worker thread
+        // and delivers it the parameters given to AsyncTask.execute()
+        @Override
+        protected Map doInBackground(String... urls)
+        {
+            // Get a parser
+            Parser parser = new Parser();
 
-	    // Start the parser and report progress with the date
-	    if (parser.startParser(urls[0]) == true)
-		publishProgress(parser.getDate());
+            // Start the parser and report progress with the date
+            if (parser.startParser(urls[0]) == true)
+                publishProgress(parser.getDate());
 
-	    // Return the map
-	    return parser.getMap();
-	}
+            // Return the map
+            return parser.getMap();
+        }
 
-	// On progress update
-	@Override
-	protected void onProgressUpdate(String... date)
-	{
-	    if (callbacks != null)
-		callbacks.onProgressUpdate(date);
-	}
+        // On progress update
+        @Override
+        protected void onProgressUpdate(String... date)
+        {
+            if (callbacks != null)
+                callbacks.onProgressUpdate(date);
+        }
 
-	// The system calls this to perform work in the UI thread and
-	// delivers the result from doInBackground()
-	@Override
-	protected void onPostExecute(Map<String,Double> map)
-	{
-	    if (callbacks != null)
-		callbacks.onPostExecute(map);
-	}
+        // The system calls this to perform work in the UI thread and
+        // delivers the result from doInBackground()
+        @Override
+        protected void onPostExecute(Map<String, Double> map)
+        {
+            if (callbacks != null)
+                callbacks.onPostExecute(map);
+        }
     }
 
     // TaskCallbacks interface
     interface TaskCallbacks
     {
-	void onProgressUpdate(String... date);
-	void onPostExecute(Map<String,Double> map);
+        void onProgressUpdate(String... date);
+        void onPostExecute(Map<String, Double> map);
     }
 }
