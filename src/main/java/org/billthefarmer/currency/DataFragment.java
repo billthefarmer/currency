@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import java.util.List;
 import java.util.Map;
 
 // DataFragment class
@@ -36,6 +37,8 @@ public class DataFragment extends Fragment
 {
     // Data objects we want to retain
     private Map<String, Double> map;
+    private List<Integer> list;
+
     private TaskCallbacks callbacks;
 
     // This method is only called once for this fragment
@@ -65,6 +68,18 @@ public class DataFragment extends Fragment
     {
         super.onDetach();
         callbacks = null;
+    }
+
+    // Set list
+    public void setList(List<Integer> list)
+    {
+        this.list = list;
+    }
+
+    // Get list
+    public List<Integer> getList()
+    {
+        return list;
     }
 
     // Set map

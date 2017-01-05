@@ -293,36 +293,6 @@ public class Main extends Activity
             listView.setAdapter(adapter);
     }
 
-    // On restore
-    @Override
-    public void onRestoreInstanceState(Bundle savedState)
-    {
-        // Get the saved select list
-        List<Integer> list  = savedState.getIntegerArrayList(SAVE_SELECT);
-
-        // Update select list
-        if (list != null)
-        {
-            for (int index : list)
-                selectList.add(index);
-
-            // Set mode
-            if (selectList.isEmpty())
-                mode = Main.DISPLAY_MODE;
-
-            else
-                mode = Main.SELECT_MODE;
-        }
-
-        // Normal mode if no saved list
-        else
-        {
-            mode = Main.DISPLAY_MODE;
-        }
-
-        super.onRestoreInstanceState(savedState);
-    }
-
     // On resume
     @Override
     protected void onResume()
@@ -387,7 +357,35 @@ public class Main extends Activity
 
         // Check data fragment
         if (dataFragment != null)
+	{
+	    // Get the saved select list
+	    List<Integer> list = dataFragment.getList();
+
+	    // Update select list
+	    if (list != null)
+	    {
+		selectList.clear();
+
+		for (int index : list)
+		    selectList.add(index);
+
+		// Set mode
+		if (selectList.isEmpty())
+		    mode = Main.DISPLAY_MODE;
+
+		else
+		    mode = Main.SELECT_MODE;
+	    }
+
+	    // Normal mode if no saved list
+	    else
+	    {
+		mode = Main.DISPLAY_MODE;
+	    }
+
+	    // Get the saved value map
             valueMap = dataFragment.getMap();
+	}
 
         // Check retained data
         if (valueMap == null)
@@ -635,20 +633,15 @@ public class Main extends Activity
         editor.putString(PREF_DATE, date);
         editor.apply();
 
-        // Save the value map in the data fragment
+        // Save the select list and value map in the data fragment
         if (dataFragment != null)
+	{
+	    // Copy the list
+	    List<Integer> list =
+		Arrays.asList(selectList.toArray(new Integer[0]));
+            dataFragment.setList(list);
             dataFragment.setMap(valueMap);
-    }
-
-    // On save
-    @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-
-        // Save the select list
-        outState.putIntegerArrayList(SAVE_SELECT,
-                                     (ArrayList<Integer>)selectList);
+	}
     }
 
     // On create options menu
