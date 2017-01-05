@@ -188,6 +188,9 @@ public class Main extends Activity
     private double convertValue = 1.0;
     private String date;
 
+    private DataFragment dataFragment;
+    private TextView customView;
+
     private ImageView flagView;
     private TextView nameView;
     private TextView symbolView;
@@ -196,8 +199,6 @@ public class Main extends Activity
     private TextView dateView;
     private TextView statusView;
     private ListView listView;
-
-    private DataFragment dataFragment;
 
     private List<String> currencyNameList;
 
@@ -233,6 +234,18 @@ public class Main extends Activity
             fm.beginTransaction()
             .add(dataFragment, DATA_TAG)
             .commit();
+        }
+
+        // Show custom view on action bar
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null)
+        {
+            // Set custom view
+            actionBar.setCustomView(R.layout.text);
+            actionBar.setDisplayShowCustomEnabled(true);
+
+            // Get custom view
+            customView = (TextView)actionBar.getCustomView();
         }
 
         // Find views
@@ -368,6 +381,10 @@ public class Main extends Activity
             currentValue = 1.0;
         }
 
+	// Show date in custom view
+	if (customView != null)
+            customView.setText(date);
+
         // Get the date and format it for display
         date = preferences.getString(PREF_DATE, "");
         String format = resources.getString(R.string.updated);
@@ -486,6 +503,10 @@ public class Main extends Activity
                     {
                         e.printStackTrace();
                     }
+
+		    // Show date in custom view
+		    if (customView != null)
+			customView.setText(date);
 
                     // Show the formatted date
                     format = resources.getString(R.string.updated);
@@ -1277,6 +1298,10 @@ public class Main extends Activity
             {
                 e.printStackTrace();
             }
+
+	    // Show date in custom view
+	    if (customView != null)
+		customView.setText(this.date);
 
             String format = resources.getString(R.string.updated);
             String updated = String.format(Locale.getDefault(),
