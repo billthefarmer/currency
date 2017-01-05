@@ -41,7 +41,6 @@ public class ChartFragment extends Fragment
     private List<Integer> list;
 
     private TaskCallbacks callbacks;
-
     private boolean parsing;
 
     // This method is only called once for this fragment
