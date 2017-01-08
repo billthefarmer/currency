@@ -120,8 +120,8 @@ public class ChartActivity extends Activity
             // add the fragment
             chartFragment = new ChartFragment();
             fm.beginTransaction()
-            .add(chartFragment, CHART_TAG)
-            .commit();
+		.add(chartFragment, CHART_TAG)
+		.commit();
 
             // Get the intent for the parameters
             Intent intent = getIntent();
