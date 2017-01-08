@@ -284,44 +284,6 @@ public class Main extends Activity
             listView.setOnItemLongClickListener(this);
         }
 
-        // Find views
-        flagView = (ImageView)findViewById(R.id.flag);
-        nameView = (TextView)findViewById(R.id.name);
-        symbolView = (TextView)findViewById(R.id.symbol);
-        editView = (EditText)findViewById(R.id.edit);
-        longNameView = (TextView)findViewById(R.id.long_name);
-        dateView = (TextView)findViewById(R.id.date);
-        statusView = (TextView)findViewById(R.id.status);
-        listView = (ListView)findViewById(R.id.list);
-
-        // Set the click listeners, just for the text selection logic
-        if (flagView != null)
-            flagView.setOnClickListener(this);
-
-        if (nameView != null)
-            nameView.setOnClickListener(this);
-
-        if (symbolView != null)
-            symbolView.setOnClickListener(this);
-
-        if (longNameView != null)
-            longNameView.setOnClickListener(this);
-
-        // Set the listeners for the value field
-        if (editView != null)
-        {
-            editView.addTextChangedListener(this);
-            editView.setOnEditorActionListener(this);
-            editView.setOnClickListener(this);
-        }
-
-        // Set the listeners for the list view
-        if (listView != null)
-        {
-            listView.setOnItemClickListener(this);
-            listView.setOnItemLongClickListener(this);
-        }
-
         // Create currency name list
         currencyNameList = Arrays.asList(CURRENCY_NAMES);
 
