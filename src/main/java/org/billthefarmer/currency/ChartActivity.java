@@ -25,8 +25,6 @@ package org.billthefarmer.currency;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -82,7 +80,7 @@ public class ChartActivity extends Activity
 
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
 
-    private ChartFragment chartFragment;
+    private Singleton instance;
     private TextView customView;
     private LineChart chart;
 
@@ -109,29 +107,22 @@ public class ChartActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chart);
 
-        // Find the retained fragment on activity restarts
-        FragmentManager fm = getFragmentManager();
-        chartFragment = (ChartFragment) fm.findFragmentByTag(CHART_TAG);
 	List<Integer> list = null;
-
-        // Create the fragment the first time
-        if (chartFragment == null)
-        {
-            // add the fragment
-            chartFragment = new ChartFragment();
-            fm.beginTransaction()
-		.add(chartFragment, CHART_TAG)
-		.commit();
+	// Check singleton instance
+	if (instance == null)
+	{
+	    // Get singleton instance
+	    instance = Singleton.getInstance(this);
 
             // Get the intent for the parameters
             Intent intent = getIntent();
 	    list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
-        }
+	}
 
         else
         {
-            // Get list from fragment
-	    list = chartFragment.getList();
+            // Get list from singleton instance
+	    list = instance.getList();
         }
 
 	// Iterate through the list to get the last two
@@ -204,8 +195,8 @@ public class ChartActivity extends Activity
             description.setEnabled(false);
         }
 
-        // Check fragment
-        if (chartFragment != null && chartFragment.isParsing())
+        // Check singleton instance
+        if (instance != null && instance.isParsing())
         {
             // Generate the label
             if (customView != null)
@@ -235,9 +226,9 @@ public class ChartActivity extends Activity
         roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
         fill = preferences.getBoolean(Main.PREF_FILL, true);
 
-        // Check data fragment
-        if (chartFragment != null)
-            histMap = chartFragment.getMap();
+        // Check singleton instance
+        if (instance != null)
+            histMap = instance.getMap();
 
         // Check retained data
         if (histMap != null)
@@ -348,8 +339,8 @@ public class ChartActivity extends Activity
         }
 
         // Schedule the update
-        if (chartFragment != null)
-            chartFragment.startParseTask(ECB_QUARTER_URL);
+        if (instance != null)
+            instance.startParseTask(ECB_QUARTER_URL);
     }
 
     // On pause
@@ -358,14 +349,15 @@ public class ChartActivity extends Activity
     {
         super.onPause();
 
-        // Store the indices and historical data in the fragment
-        if (chartFragment != null)
+        // Store the indices and historical data in the singleton
+        // instance
+        if (instance != null)
         {
 	    List<Integer> list = new ArrayList<Integer>();
             list.add(firstIndex);
             list.add(secondIndex);
-	    chartFragment.setList(list);
-            chartFragment.setMap(histMap);
+	    instance.setList(list);
+            instance.setMap(histMap);
         }
     }
 
@@ -545,8 +537,8 @@ public class ChartActivity extends Activity
             customView.setText(updating);
 
         // Schedule the update
-        if (chartFragment != null)
-            chartFragment.startParseTask(url);
+        if (instance != null)
+            instance.startParseTask(url);
 
         return true;
     }

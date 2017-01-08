@@ -23,53 +23,35 @@
 
 package org.billthefarmer.currency;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.os.Bundle;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.util.List;
 import java.util.Map;
 
-// ChartFragment class
-public class ChartFragment extends Fragment
+// Singleton class
+public class Singleton
 {
-    public static final String TAG = "ChartFragment";
-    // Data objects we want to retain
+    private static Singleton instance;
+
     private Map<String, Map<String, Double>> map;
     private List<Integer> list;
 
     private TaskCallbacks callbacks;
     private boolean parsing;
 
-    // This method is only called once for this fragment
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+    // Constructor
+    private Singleton(TaskCallbacks callbacks)
     {
-        super.onCreate(savedInstanceState);
-        // Retain this fragment
-        setRetainInstance(true);
+	this.callbacks = callbacks;
     }
 
-    // Hold a reference to the parent Activity so we can report the
-    // task's current progress and results. The Android framework will
-    // pass us a reference to the newly created Activity after each
-    // configuration change.
-    @Override
-    public void onAttach(Activity activity)
+    // Get instance
+    public static Singleton getInstance(TaskCallbacks callbacks)
     {
-        super.onAttach(activity);
-        callbacks = (TaskCallbacks)activity;
-    }
+	if (instance == null)
+	    instance = new Singleton(callbacks);
 
-    // Set the callback to null so we don't accidentally leak the
-    // Activity instance.
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-        callbacks = null;
+	return instance;
     }
 
     // Set list
@@ -87,13 +69,13 @@ public class ChartFragment extends Fragment
     // Set map
     public void setMap(Map<String, Map<String, Double>> map)
     {
-        this.map = map;
+	this.map = map;
     }
 
     // Get map
     public Map<String, Map<String, Double>> getMap()
     {
-        return map;
+	return map;
     }
 
     // Is parsing
