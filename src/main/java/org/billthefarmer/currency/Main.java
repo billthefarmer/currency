@@ -622,7 +622,7 @@ public class Main extends Activity
         }
 
 	// Disconnect callbacks
-	instance = Data.getInstance(this);
+	instance = Data.getInstance(null);
     }
 
     // On create options menu
