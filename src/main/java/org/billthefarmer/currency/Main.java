@@ -229,8 +229,8 @@ public class Main extends Activity
             // add the fragment
             dataFragment = new DataFragment();
             fm.beginTransaction()
-		.add(dataFragment, DATA_TAG)
-		.commit();
+            .add(dataFragment, DATA_TAG)
+            .commit();
         }
 
         // Find views
@@ -355,29 +355,29 @@ public class Main extends Activity
 
         // Check data fragment
         if (dataFragment != null)
-	{
-	    // Get the saved select list
-	    List<Integer> list = dataFragment.getList();
+        {
+            // Get the saved select list
+            List<Integer> list = dataFragment.getList();
 
-	    // Update select list
-	    if (list != null && !list.equals(selectList))
-	    {
-		selectList.clear();
+            // Update select list
+            if (list != null && !list.equals(selectList))
+            {
+                selectList.clear();
 
-		for (int index : list)
-		    selectList.add(index);
-	    }
+                for (int index : list)
+                    selectList.add(index);
+            }
 
-	    // Set mode
-	    if (selectList.isEmpty())
-		mode = Main.DISPLAY_MODE;
+            // Set mode
+            if (selectList.isEmpty())
+                mode = Main.DISPLAY_MODE;
 
-	    else
-		mode = Main.SELECT_MODE;
+            else
+                mode = Main.SELECT_MODE;
 
-	    // Get the saved value map
+            // Get the saved value map
             valueMap = dataFragment.getMap();
-	}
+        }
 
         // Check retained data
         if (valueMap == null)
@@ -627,10 +627,10 @@ public class Main extends Activity
 
         // Save the select list and value map in the data fragment
         if (dataFragment != null)
-	{
+        {
             dataFragment.setList(selectList);
             dataFragment.setMap(valueMap);
-	}
+        }
     }
 
     // On create options menu
@@ -802,9 +802,9 @@ public class Main extends Activity
     private boolean onChartClick()
     {
         Intent intent = new Intent(this, ChartActivity.class);
-	List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<Integer>();
 
-	// Add the current index
+        // Add the current index
         list.add(currentIndex);
 
         // Add the select list to the list
@@ -1040,7 +1040,7 @@ public class Main extends Activity
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
 
-	// Check mode
+        // Check mode
         switch (mode)
         {
         // Display mode - replace the current currency
@@ -1112,7 +1112,7 @@ public class Main extends Activity
             adapter.notifyDataSetChanged();
             break;
 
-	    // Select mode - toggle selection
+        // Select mode - toggle selection
         case SELECT_MODE:
             // Select mode - add or remove from list
             if (selectList.contains(position))
@@ -1296,7 +1296,7 @@ public class Main extends Activity
             adapter.notifyDataSetChanged();
         }
 
-	// Notify failed
+        // Notify failed
         else if (statusView != null)
             statusView.setText(R.string.failed);
     }

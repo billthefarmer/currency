@@ -42,16 +42,16 @@ public class Singleton
     // Constructor
     private Singleton(TaskCallbacks callbacks)
     {
-	this.callbacks = callbacks;
+        this.callbacks = callbacks;
     }
 
     // Get instance
     public static Singleton getInstance(TaskCallbacks callbacks)
     {
-	if (instance == null)
-	    instance = new Singleton(callbacks);
+        if (instance == null)
+            instance = new Singleton(callbacks);
 
-	return instance;
+        return instance;
     }
 
     // Set list
@@ -69,13 +69,13 @@ public class Singleton
     // Set map
     public void setMap(Map<String, Map<String, Double>> map)
     {
-	this.map = map;
+        this.map = map;
     }
 
     // Get map
     public Map<String, Map<String, Double>> getMap()
     {
-	return map;
+        return map;
     }
 
     // Is parsing

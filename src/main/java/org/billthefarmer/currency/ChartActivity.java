@@ -107,33 +107,33 @@ public class ChartActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chart);
 
-	List<Integer> list = null;
-	// Check singleton instance
-	if (instance == null)
-	{
-	    // Get singleton instance
-	    instance = Singleton.getInstance(this);
+        List<Integer> list = null;
+        // Check singleton instance
+        if (instance == null)
+        {
+            // Get singleton instance
+            instance = Singleton.getInstance(this);
 
             // Get the intent for the parameters
             Intent intent = getIntent();
-	    list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
-	}
+            list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
+        }
 
         else
         {
             // Get list from singleton instance
-	    list = instance.getList();
+            list = instance.getList();
         }
 
-	// Iterate through the list to get the last two
-	if (list != null)
-	{
-	    for (int index : list)
-	    {
-		firstIndex = secondIndex;
-		secondIndex = index;
-	    }
-	}
+        // Iterate through the list to get the last two
+        if (list != null)
+        {
+            for (int index : list)
+            {
+                firstIndex = secondIndex;
+                secondIndex = index;
+            }
+        }
 
         // Look up the names
         firstName = Main.CURRENCY_NAMES[firstIndex];
@@ -226,8 +226,8 @@ public class ChartActivity extends Activity
         roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
         fill = preferences.getBoolean(Main.PREF_FILL, true);
 
-	// Connect callbacks
-	instance = Singleton.getInstance(this);
+        // Connect callbacks
+        instance = Singleton.getInstance(this);
 
         // Check singleton instance
         if (instance != null)
@@ -356,15 +356,15 @@ public class ChartActivity extends Activity
         // instance
         if (instance != null)
         {
-	    List<Integer> list = new ArrayList<Integer>();
+            List<Integer> list = new ArrayList<Integer>();
             list.add(firstIndex);
             list.add(secondIndex);
-	    instance.setList(list);
+            instance.setList(list);
             instance.setMap(histMap);
         }
 
-	// Disconnect callbacks
-	instance = Singleton.getInstance(null);
+        // Disconnect callbacks
+        instance = Singleton.getInstance(null);
     }
 
     // On create options menu
@@ -598,11 +598,11 @@ public class ChartActivity extends Activity
                 day = date.getTime() / MSEC_DAY;
             }
 
-	    // Ignore invalid dates
+            // Ignore invalid dates
             catch (Exception e)
-	    {
-		continue;
-	    }
+            {
+                continue;
+            }
 
             // Get the map for each date
             Map<String, Double> entryMap = histMap.get(key);
@@ -726,7 +726,7 @@ public class ChartActivity extends Activity
                     dataSet.setDrawFilled(true);
                 }
 
-		// Update chart
+                // Update chart
                 lineData = new LineData(dataSet);
                 chart.setData(lineData);
                 chart.invalidate();
@@ -735,7 +735,7 @@ public class ChartActivity extends Activity
 
         else
         {
-	    // Show failed
+            // Show failed
             showToast(R.string.update_failed);
         }
 

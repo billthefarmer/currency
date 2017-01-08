@@ -116,27 +116,27 @@ public class ChoiceDialog extends Activity
             // Update the selection list
             for (int index : list)
                 selectList.add(index);
-	}
+        }
 
-	// Disable buttons if empty
-	if (selectList.isEmpty())
-	{
-	    if (clear != null)
-		clear.setEnabled(false);
-	    if (select != null)
-		select.setEnabled(false);
-	    mode = Main.DISPLAY_MODE;
-	}
+        // Disable buttons if empty
+        if (selectList.isEmpty())
+        {
+            if (clear != null)
+                clear.setEnabled(false);
+            if (select != null)
+                select.setEnabled(false);
+            mode = Main.DISPLAY_MODE;
+        }
 
-	// Enable buttons if selection
-	else
-	{
-	    if (clear != null)
-		clear.setEnabled(true);
-	    if (select != null)
-		select.setEnabled(true);
-	    mode = Main.SELECT_MODE;
-	}
+        // Enable buttons if selection
+        else
+        {
+            if (clear != null)
+                clear.setEnabled(true);
+            if (select != null)
+                select.setEnabled(true);
+            mode = Main.SELECT_MODE;
+        }
 
         // Notify adapter
         adapter.notifyDataSetChanged();
