@@ -40,7 +40,7 @@ public class Singleton
     private boolean parsing;
 
     // Constructor
-    private Singleton(TaskCallbacks callbacks)
+    private Singleton()
     {
         this.callbacks = callbacks;
     }
@@ -49,8 +49,9 @@ public class Singleton
     public static Singleton getInstance(TaskCallbacks callbacks)
     {
         if (instance == null)
-            instance = new Singleton(callbacks);
+            instance = new Singleton();
 
+        instance.callbacks = callbacks;
         return instance;
     }
 

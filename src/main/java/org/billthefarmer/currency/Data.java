@@ -40,17 +40,17 @@ public class Data
     private boolean parsing;
 
     // Constructor
-    private Data(TaskCallbacks callbacks)
+    private Data()
     {
-        this.callbacks = callbacks;
     }
 
     // Get instance
     public static Data getInstance(TaskCallbacks callbacks)
     {
         if (instance == null)
-            instance = new Data(callbacks);
+            instance = new Data();
 
+        instance.callbacks = callbacks;
         return instance;
     }
 
