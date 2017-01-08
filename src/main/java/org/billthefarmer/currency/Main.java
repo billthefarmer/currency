@@ -23,10 +23,7 @@
 
 package org.billthefarmer.currency;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.ClipboardManager;
 import android.content.ClipData;
 import android.content.Context;
@@ -77,7 +74,7 @@ public class Main extends Activity
     AdapterView.OnItemClickListener,
     AdapterView.OnItemLongClickListener,
     View.OnClickListener, TextWatcher,
-    DataFragment.TaskCallbacks
+    Data.TaskCallbacks
 {
     // Initial currency name list
     public static final String CURRENCY_LIST[] =
@@ -195,7 +192,7 @@ public class Main extends Activity
     private TextView statusView;
     private ListView listView;
 
-    private DataFragment dataFragment;
+    private Data instance;
 
     private List<String> currencyNameList;
 
@@ -219,19 +216,8 @@ public class Main extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        // Find the retained fragment on activity restarts
-        FragmentManager fm = getFragmentManager();
-        dataFragment = (DataFragment) fm.findFragmentByTag(DATA_TAG);
-
-        // Create the fragment the first time
-        if (dataFragment == null)
-        {
-            // add the fragment
-            dataFragment = new DataFragment();
-            fm.beginTransaction()
-            .add(dataFragment, DATA_TAG)
-            .commit();
-        }
+	// Get data instance
+	instance = Data.getInstance(this);
 
         // Find views
         flagView = (ImageView)findViewById(R.id.flag);
@@ -353,11 +339,14 @@ public class Main extends Activity
         if (editView != null)
             editView.setText(value);
 
-        // Check data fragment
-        if (dataFragment != null)
+	// Connect callbacks
+	instance = Data.getInstance(this);
+
+        // Check data instance
+        if (instance != null)
         {
             // Get the saved select list
-            List<Integer> list = dataFragment.getList();
+            List<Integer> list = instance.getList();
 
             // Update select list
             if (list != null && !list.equals(selectList))
@@ -376,7 +365,7 @@ public class Main extends Activity
                 mode = Main.SELECT_MODE;
 
             // Get the saved value map
-            valueMap = dataFragment.getMap();
+            valueMap = instance.getMap();
         }
 
         // Check retained data
@@ -544,11 +533,11 @@ public class Main extends Activity
         // Update the adapter
         adapter.notifyDataSetChanged();
 
-        // Check data fragment
-        if (dataFragment != null)
+        // Check data instance
+        if (instance != null)
         {
             // Check retained data
-            if (dataFragment.getMap() != null)
+            if (instance.getMap() != null)
                 // Don't update
                 return;
         }
@@ -587,8 +576,8 @@ public class Main extends Activity
             statusView.setText(R.string.updating);
 
         // Start the task
-        if (dataFragment != null)
-            dataFragment.startParseTask(ECB_DAILY_URL);;
+        if (instance != null)
+            instance.startParseTask(ECB_DAILY_URL);;
     }
 
     // On pause
@@ -625,12 +614,15 @@ public class Main extends Activity
         editor.putString(PREF_DATE, date);
         editor.apply();
 
-        // Save the select list and value map in the data fragment
-        if (dataFragment != null)
+        // Save the select list and value map in the data instance
+        if (instance != null)
         {
-            dataFragment.setList(selectList);
-            dataFragment.setMap(valueMap);
+            instance.setList(selectList);
+            instance.setMap(valueMap);
         }
+
+	// Disconnect callbacks
+	instance = Data.getInstance(this);
     }
 
     // On create options menu
@@ -868,8 +860,9 @@ public class Main extends Activity
             statusView.setText(R.string.updating);
 
         // Start the task
-        if (dataFragment != null)
-            dataFragment.startParseTask(ECB_DAILY_URL);;
+        if (instance != null)
+            instance.startParseTask(ECB_DAILY_URL);
+
         return true;
     }
 

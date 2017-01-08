@@ -23,51 +23,35 @@
 
 package org.billthefarmer.currency;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.os.Bundle;
-import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
 import java.util.Map;
 
-// DataFragment class
-public class DataFragment extends Fragment
+// Data class
+public class Data
 {
-    // Data objects we want to retain
+    private static Data instance;
+
     private Map<String, Double> map;
     private List<Integer> list;
 
     private TaskCallbacks callbacks;
+    private boolean parsing;
 
-    // This method is only called once for this fragment
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+    // Constructor
+    private Data(TaskCallbacks callbacks)
     {
-        super.onCreate(savedInstanceState);
-        // Retain this fragment
-        setRetainInstance(true);
+        this.callbacks = callbacks;
     }
 
-    // Hold a reference to the parent Activity so we can report the
-    // task's current progress and results. The Android framework will
-    // pass us a reference to the newly created Activity after each
-    // configuration change.
-    @Override
-    public void onAttach(Activity activity)
+    // Get instance
+    public static Data getInstance(TaskCallbacks callbacks)
     {
-        super.onAttach(activity);
-        callbacks = (TaskCallbacks)activity;
-    }
+        if (instance == null)
+            instance = new Data(callbacks);
 
-    // Set the callback to null so we don't accidentally leak the
-    // Activity instance.
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-        callbacks = null;
+        return instance;
     }
 
     // Set list
@@ -105,7 +89,6 @@ public class DataFragment extends Fragment
     protected class ParseTask
         extends AsyncTask<String, String, Map<String, Double>>
     {
-        Context context;
         String latest;
 
         // The system calls this to perform work in a worker thread
