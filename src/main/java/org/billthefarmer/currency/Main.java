@@ -162,10 +162,8 @@ public class Main extends Activity
     public static final String PREF_FILL = "pref_fill";
     public static final String PREF_ABOUT = "pref_about";
 
-    // public static final String SAVE_LIST = "save_list";
-    public static final String SAVE_SELECT = "save_select";
-
     public static final String CHART_LIST = "chart_list";
+    public static final String SAVE_SELECT = "save_select";
 
     public static final String ECB_DAILY_URL =
         "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
@@ -417,26 +415,20 @@ public class Main extends Activity
 	    List<Integer> list = dataFragment.getList();
 
 	    // Update select list
-	    if (list != null)
+	    if (list != null && !list.equals(selectList))
 	    {
 		selectList.clear();
 
 		for (int index : list)
 		    selectList.add(index);
-
-		// Set mode
-		if (selectList.isEmpty())
-		    mode = Main.DISPLAY_MODE;
-
-		else
-		    mode = Main.SELECT_MODE;
 	    }
 
-	    // Normal mode if no saved list
-	    else
-	    {
+	    // Set mode
+	    if (selectList.isEmpty())
 		mode = Main.DISPLAY_MODE;
-	    }
+
+	    else
+		mode = Main.SELECT_MODE;
 
 	    // Get the saved value map
             valueMap = dataFragment.getMap();
@@ -695,10 +687,7 @@ public class Main extends Activity
         // Save the select list and value map in the data fragment
         if (dataFragment != null)
 	{
-	    // Copy the list
-	    List<Integer> list =
-		Arrays.asList(selectList.toArray(new Integer[0]));
-            dataFragment.setList(list);
+            dataFragment.setList(selectList);
             dataFragment.setMap(valueMap);
 	}
     }
