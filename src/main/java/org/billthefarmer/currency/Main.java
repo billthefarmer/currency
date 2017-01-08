@@ -23,7 +23,6 @@
 
 package org.billthefarmer.currency;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -187,7 +186,6 @@ public class Main extends Activity
     private String date;
 
     private DataFragment dataFragment;
-    private TextView customView;
 
     private ImageView flagView;
     private TextView nameView;
@@ -232,18 +230,6 @@ public class Main extends Activity
             fm.beginTransaction()
             .add(dataFragment, DATA_TAG)
             .commit();
-        }
-
-        // Show custom view on action bar
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null)
-        {
-            // Set custom view
-            actionBar.setCustomView(R.layout.text);
-            actionBar.setDisplayShowCustomEnabled(true);
-
-            // Get custom view
-            customView = (TextView)actionBar.getCustomView();
         }
 
         // Find views
@@ -340,10 +326,6 @@ public class Main extends Activity
         {
             currentValue = 1.0;
         }
-
-	// Show date in custom view
-	if (customView != null)
-            customView.setText(date);
 
         // Get the date and format it for display
         date = preferences.getString(PREF_DATE, "");
@@ -457,10 +439,6 @@ public class Main extends Activity
                     {
                         e.printStackTrace();
                     }
-
-		    // Show date in custom view
-		    if (customView != null)
-			customView.setText(date);
 
                     // Show the formatted date
                     format = resources.getString(R.string.updated);
@@ -1249,10 +1227,6 @@ public class Main extends Activity
             {
                 e.printStackTrace();
             }
-
-	    // Show date in custom view
-	    if (customView != null)
-		customView.setText(this.date);
 
             String format = resources.getString(R.string.updated);
             String updated = String.format(Locale.getDefault(),
