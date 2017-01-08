@@ -68,7 +68,7 @@ import java.util.Map;
 
 // ChartActivity class
 public class ChartActivity extends Activity
-    implements ChartFragment.TaskCallbacks
+    implements Singleton.TaskCallbacks
 {
     public static final String TAG = "ChartActivity";
     public static final String CHART_TAG = "chart";
@@ -226,6 +226,9 @@ public class ChartActivity extends Activity
         roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
         fill = preferences.getBoolean(Main.PREF_FILL, true);
 
+	// Connect callbacks
+	instance = Singleton.getInstance(this);
+
         // Check singleton instance
         if (instance != null)
             histMap = instance.getMap();
@@ -359,6 +362,9 @@ public class ChartActivity extends Activity
 	    instance.setList(list);
             instance.setMap(histMap);
         }
+
+	// Disconnect callbacks
+	instance = Singleton.getInstance(null);
     }
 
     // On create options menu
