@@ -71,7 +71,6 @@ public class ChartActivity extends Activity
     implements Singleton.TaskCallbacks
 {
     public static final String TAG = "ChartActivity";
-    public static final String CHART_TAG = "chart";
 
     public static final String ECB_QUARTER_URL =
         "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";

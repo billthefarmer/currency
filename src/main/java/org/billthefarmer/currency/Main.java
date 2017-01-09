@@ -141,7 +141,6 @@ public class Main extends Activity
     };
 
     public static final String TAG = "Main";
-    public static final String DATA_TAG = "data";
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -216,8 +215,8 @@ public class Main extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-	// Get data instance
-	instance = Data.getInstance(this);
+        // Get data instance
+        instance = Data.getInstance(this);
 
         // Find views
         flagView = (ImageView)findViewById(R.id.flag);
@@ -339,8 +338,8 @@ public class Main extends Activity
         if (editView != null)
             editView.setText(value);
 
-	// Connect callbacks
-	instance = Data.getInstance(this);
+        // Connect callbacks
+        instance = Data.getInstance(this);
 
         // Check data instance
         if (instance != null)
@@ -621,8 +620,8 @@ public class Main extends Activity
             instance.setMap(valueMap);
         }
 
-	// Disconnect callbacks
-	instance = Data.getInstance(null);
+        // Disconnect callbacks
+        instance = Data.getInstance(null);
     }
 
     // On create options menu
