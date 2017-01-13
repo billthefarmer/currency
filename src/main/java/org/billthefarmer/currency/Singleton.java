@@ -42,7 +42,6 @@ public class Singleton
     // Constructor
     private Singleton()
     {
-        this.callbacks = callbacks;
     }
 
     // Get instance
