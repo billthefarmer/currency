@@ -4,10 +4,6 @@
 //
 //  Copyright (C) 2016	Bill Farmer
 //
-//  Accordion - An Android Accordion written in Java.
-//
-//  Copyright (C) 2014	Bill Farmer
-//
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
@@ -53,9 +49,12 @@ public class AboutPreference extends DialogPreference
         TextView version = (TextView) view.findViewById(R.id.about);
 
         // Set version in text view
-        String v = (String) version.getText();
-        String s = String.format(v, BuildConfig.VERSION_NAME);
-        version.setText(s);
+        if (version != null)
+        {
+            String v = (String) version.getText();
+            String s = String.format(v, BuildConfig.VERSION_NAME);
+            version.setText(s);
+        }
 
         // Get copyright text view
         TextView copyright = (TextView) view.findViewById(R.id.copyright);
