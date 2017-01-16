@@ -25,16 +25,10 @@ package org.billthefarmer.currency;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
-import android.os.Parcelable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 // HelpActivity class
