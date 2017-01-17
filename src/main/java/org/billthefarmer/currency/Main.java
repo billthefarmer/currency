@@ -363,6 +363,9 @@ public class Main extends Activity
             else
                 mode = Main.SELECT_MODE;
 
+            // Update menu
+            invalidateOptionsMenu();
+
             // Get the saved value map
             valueMap = instance.getMap();
         }
@@ -705,13 +708,13 @@ public class Main extends Activity
     // On clear click
     private boolean onClearClick()
     {
-        // Restore the menu
-        mode = DISPLAY_MODE;
-        invalidateOptionsMenu();
-
         // Clear the list and update the adapter
         selectList.clear();
         adapter.notifyDataSetChanged();
+
+        // Restore the menu
+        mode = DISPLAY_MODE;
+        invalidateOptionsMenu();
         return true;
     }
 
@@ -746,13 +749,13 @@ public class Main extends Activity
         // Copy clip to clipboard
         clipboard.setPrimaryClip(ClipData.newPlainText("Currency", clip));
 
-        // Restore menu
-        mode = DISPLAY_MODE;
-        invalidateOptionsMenu();
-
         // Clear selection
         selectList.clear();
         adapter.notifyDataSetChanged();
+
+        // Restore menu
+        mode = DISPLAY_MODE;
+        invalidateOptionsMenu();
         return true;
     }
 
