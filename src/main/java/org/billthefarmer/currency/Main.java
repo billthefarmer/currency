@@ -498,9 +498,9 @@ public class Main extends Activity
             valueList.clear();
 
             // Format each value
-            for (String s : nameList)
+            for (String name : nameList)
             {
-                Double v = valueMap.get(s);
+                Double v = valueMap.get(name);
                 value = numberFormat.format(v);
                 // value = String.format("%1.3f", v);
 
@@ -510,6 +510,17 @@ public class Main extends Activity
 
         // Get the current conversion rate
         convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
+
+        // Recalculate all the values
+        valueList.clear();
+        for (String name : nameList)
+        {
+            Double v = (currentValue / convertValue) *
+                valueMap.get(name);
+
+            String s = numberFormat.format(v);
+            valueList.add(s);
+        }
 
         // Clear lists
         if (flagList != null)
@@ -768,10 +779,10 @@ public class Main extends Activity
         for (int i : selectList)
             removeList.add(nameList.get(i));
 
-        for (String s : removeList)
+        for (String name : removeList)
         {
             // Look up name
-            int i = nameList.indexOf(s);
+            int i = nameList.indexOf(name);
 
             // Remove from the lists
             flagList.remove(i);
