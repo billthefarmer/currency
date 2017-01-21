@@ -265,7 +265,21 @@ public class Main extends Activity
         symbolList = new ArrayList<String>();
         valueList = new ArrayList<String>();
         longNameList = new ArrayList<Integer>();
-        selectList = new ArrayList<Integer>();
+
+        // Check instance
+        if (instance != null)
+            selectList = instance.getList();
+
+        // Check select list
+        if (selectList == null)
+            selectList = new ArrayList<Integer>();
+
+        // Set mode
+        if (selectList.isEmpty())
+            mode = Main.DISPLAY_MODE;
+
+        else
+            mode = Main.SELECT_MODE;
 
         // Create the adapter
         adapter = new CurrencyAdapter(this, R.layout.item, flagList, nameList,
@@ -343,32 +357,8 @@ public class Main extends Activity
 
         // Check data instance
         if (instance != null)
-        {
-            // Get the saved select list
-            List<Integer> list = instance.getList();
-
-            // Update select list
-            if (list != null && !list.equals(selectList))
-            {
-                selectList.clear();
-
-                for (int index : list)
-                    selectList.add(index);
-            }
-
-            // Set mode
-            if (selectList.isEmpty())
-                mode = Main.DISPLAY_MODE;
-
-            else
-                mode = Main.SELECT_MODE;
-
-            // Update menu
-            invalidateOptionsMenu();
-
             // Get the saved value map
             valueMap = instance.getMap();
-        }
 
         // Check retained data
         if (valueMap == null)
