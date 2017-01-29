@@ -656,7 +656,6 @@ public class Main extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Get id
-
         int id = item.getItemId();
         switch (id)
         {
