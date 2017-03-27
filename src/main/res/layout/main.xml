@@ -17,58 +17,58 @@
       android:gravity="center_vertical">
 
     <ImageView
-	android:id="@+id/flag"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	tools:ignore="ContentDescription"
-	android:src="@drawable/flag_eur" />
+        android:id="@+id/flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="ContentDescription"
+        android:src="@drawable/flag_eur" />
 
     <LinearLayout
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
       <LinearLayout
-	  android:orientation="horizontal"
-	  android:layout_width="match_parent"
-	  android:layout_height="wrap_content">
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
 
-	<TextView
-	    android:id="@+id/name"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="8dp"
-	    android:text="@string/euro_name"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
-	<TextView
-	    android:id="@+id/symbol"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="8dp"
-	    android:text="@string/euro_symbol"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
-	<EditText
-	    android:id="@+id/edit"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:selectAllOnFocus="true"
-	    android:inputType="numberDecimal"
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/euro_name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/euro_symbol"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:inputType="numberDecimal"
             android:digits="@string/digits"
-	    android:hint="@string/decimal"
-	    android:text="@string/num_one"
-	    android:imeOptions="actionDone"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:hint="@string/decimal"
+            android:text="@string/num_one"
+            android:imeOptions="actionDone"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
       </LinearLayout>
 
       <TextView
-	  android:id="@+id/long_name"
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:layout_marginLeft="8dp"
-	  android:layout_marginBottom="8dp"
-	  android:text="@string/long_eur"
-	  android:textAppearance="?android:attr/textAppearanceMedium" />
+          android:id="@+id/long_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="8dp"
+          android:layout_marginBottom="8dp"
+          android:text="@string/long_eur"
+          android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
 
@@ -82,19 +82,19 @@
       android:layout_marginRight="8dp">
 
     <TextView
-	android:id="@+id/date"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/not_updated"
-	android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/not_updated"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-	android:id="@+id/status"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:gravity="right"
-	android:text="@string/ok"
-	android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/ok"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
   </LinearLayout>
 
@@ -107,4 +107,3 @@
       android:layout_marginRight="8dp" />
 
 </LinearLayout>
-
