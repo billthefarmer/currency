@@ -22,7 +22,7 @@
       android:allowBackup="true"
       android:label="@string/app_name"
       android:icon="@drawable/ic_launcher"
-      android:theme="@android:style/Theme.Holo">
+      android:theme="@style/AppTheme">
     <activity
 	android:name="Main"
         android:label="@string/app_name"
@@ -39,7 +39,7 @@
     <activity
 	android:name="ChoiceDialog"
         android:label="@string/app_name"
-	android:theme="@android:style/Theme.Holo.Dialog">
+	android:theme="@style/DialogTheme">
     </activity>
     <activity
 	android:name="HelpActivity"
