@@ -9,7 +9,7 @@
 
     <CheckBoxPreference
 	android:key="pref_wifi"
-	android:icon="@drawable/ic_pref_wifi"
+	android:icon="@drawable/ic_network_wifi_white_36dp"
 	android:title="@string/pref_wifi"
 	android:summary="@string/pref_wifi_summ"
 	android:persistent="true"
@@ -17,7 +17,7 @@
 
     <CheckBoxPreference
 	android:key="pref_roaming"
-	android:icon="@drawable/ic_pref_roaming"
+	android:icon="@drawable/ic_network_cell_white_36dp"
 	android:title="@string/pref_roaming"
 	android:summary="@string/pref_roaming_summ"
 	android:persistent="true"
@@ -31,7 +31,7 @@
 
     <CheckBoxPreference
 	android:key="pref_select"
-	android:icon="@drawable/ic_pref_select_all"
+	android:icon="@drawable/ic_select_all_white_36dp"
 	android:title="@string/pref_select"
 	android:summary="@string/pref_select_summ"
 	android:persistent="true"
@@ -47,8 +47,8 @@
 	android:key="pref_digits"
 	android:title="@string/pref_digits"
 	android:dialogTitle="@string/pref_digits"
-	android:icon="@drawable/ic_pref_digits"
-	android:dialogIcon="@drawable/ic_pref_digits"
+	android:icon="@drawable/ic_list_white_36dp"
+	android:dialogIcon="@drawable/ic_list_white_36dp"
 	android:entries="@array/pref_digit_entries"
 	android:entryValues="@array/pref_digit_values"
 	android:defaultValue="@string/pref_digit_default"/>
@@ -61,7 +61,7 @@
 
     <CheckBoxPreference
 	android:key="pref_fill"
-	android:icon="@drawable/ic_pref_cloud"
+	android:icon="@drawable/ic_cloud_white_36dp"
 	android:title="@string/pref_fill"
 	android:summary="@string/pref_fill_summ"
 	android:persistent="true"
@@ -75,8 +75,8 @@
 
     <org.billthefarmer.currency.AboutPreference
 	android:key="pref_about"
-	android:icon="@drawable/ic_pref_about"
-	android:dialogIcon="@drawable/ic_pref_about"
+	android:icon="@drawable/ic_info_outline_white_36dp"
+	android:dialogIcon="@drawable/ic_info_outline_white_36dp"
 	android:negativeButtonText=""
 	android:title="@string/pref_about"
 	android:summary="@string/pref_about_summ"
