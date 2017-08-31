@@ -5,24 +5,24 @@
       android:id="@+id/action_add"
       android:showAsAction="ifRoom"
       android:title="@string/add"
-      android:icon="@drawable/ic_action_add" />
+      android:icon="@drawable/ic_add_white_36dp" />
 
   <item
       android:id="@+id/action_refresh"
       android:showAsAction="ifRoom"
       android:title="@string/refresh"
-      android:icon="@drawable/ic_action_refresh" />
+      android:icon="@drawable/ic_refresh_white_36dp" />
 
   <item
       android:id="@+id/action_help"
       android:showAsAction="ifRoom"
       android:title="@string/help"
-      android:icon="@drawable/ic_action_help" />
+      android:icon="@drawable/ic_help_outline_white_36dp" />
 
   <item
       android:id="@+id/action_settings"
       android:showAsAction="ifRoom"
       android:title="@string/settings"
-      android:icon="@drawable/ic_action_settings" />
+      android:icon="@drawable/ic_settings_white_36dp" />
 
 </menu>
