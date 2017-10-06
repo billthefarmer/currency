@@ -72,6 +72,8 @@ public class ChartActivity extends Activity
 {
     public static final String TAG = "ChartActivity";
 
+    public static final String INVERT = "invert";
+
     public static final String ECB_QUARTER_URL =
         "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
     public static final String ECB_HIST_URL =
@@ -99,12 +101,17 @@ public class ChartActivity extends Activity
     private String firstName;
     private String secondName;
 
+    private boolean invert;
+
     // On create
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chart);
+
+        if (savedInstanceState != null)
+            invert = savedInstanceState.getBoolean(INVERT);
 
         List<Integer> list = null;
         // Check singleton instance
@@ -132,6 +139,14 @@ public class ChartActivity extends Activity
                 firstIndex = secondIndex;
                 secondIndex = index;
             }
+        }
+
+        // Reverse currency indices
+        if (invert)
+        {
+            int index = firstIndex;
+            firstIndex = secondIndex;
+            secondIndex = index;
         }
 
         // Look up the names
@@ -189,7 +204,7 @@ public class ChartActivity extends Activity
             Legend legend = chart.getLegend();
             legend.setEnabled(false);
 
-            // No desctription
+            // No description
             Description description = chart.getDescription();
             description.setEnabled(false);
         }
@@ -366,6 +381,15 @@ public class ChartActivity extends Activity
         instance = Singleton.getInstance(null);
     }
 
+    // onSaveInstanceState
+    @Override
+    protected void onSaveInstanceState (Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(INVERT, invert);
+    }
+
     // On create options menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -423,6 +447,9 @@ public class ChartActivity extends Activity
         // Get updating text
         Resources resources = getResources();
         String updating = resources.getString(R.string.updating);
+
+        // Set flag
+        invert = !invert;
 
         // Reverse currency indices
         int index = firstIndex;
