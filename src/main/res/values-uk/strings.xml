@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Currency</string>
+
+  <string name="add">Додати</string>
+  <string name="refresh">Оновити</string>
+  <string name="help">Допомога</string>
+  <string name="settings">Налаштування</string>
+  <string name="copyright">
+    Copyright \u00A9 2016 Bill Farmer\nChart by <a
+    href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>
+  </string>
+  <string name="licence">Ліцензія: GNU GPLv3</string>
+
+  <string name="remove">Видалити</string>
+  <string name="select">Обрати</string>
+  <string name="copy">Копіювати</string>
+  <string name="clear">Очистити</string>
+  <string name="cancel">Скасувати</string>
+  <string name="chart">Діаграма</string>
+
+  <string name="invert">Інвертувати</string>
+  <string name="new_chart">Нова діаграма</string>
+  <string name="hist">Історично</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
+  <string name="not_updated">Не оновлено</string>
+  <string name="updated">Оновлено: %s</string>
+  <string name="ok">Гаразд</string>
+  <string name="updating">Оновлення</string>
+  <string name="failed">Не вдалося</string>
+  <string name="no_connection">Немаж з\'єднання</string>
+  <string name="no_wifi">Немає WiFi</string>
+  <string name="roaming">Роумінґ</string>
+  <string name="update_failed">Оновлення не вдалося</string>
+
+  <string name="decimal">Введіть десяткове значення</string>
+  <string name="digits">0123456789,.</string>
+
+  <string name="pref_about">Про застосунок</string>
+  <string name="pref_about_summ">Версія Currency %s</string>
+  <string name="pref_update_category">Оновлення</string>
+  <string name="pref_wifi">WiFi</string>
+  <string name="pref_wifi_summ">Оновлення лише при підключенні до Wi-Fi</string>
+  <string name="pref_roaming">Роумінґ</string>
+  <string name="pref_roaming_summ">Оновлювати у роумінґу</string>
+  <string name="pref_select">Обрати</string>
+  <string name="pref_select_summ">Обрати усе, коли торкнетеся</string>
+  <string name="pref_numbers">Числа</string>
+  <string name="pref_digits">Дробові цифри</string>
+  <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Заповнити</string>
+  <string name="pref_fill_summ">Заповнити таблицю діаграм</string>
+
+  <string name="long_eur">Євро</string>
+  <string name="long_usd">долар США</string>
+  <string name="long_jpy">Японська ієна</string>
+  <string name="long_bgn">Болгарський лев</string>
+  <string name="long_czk">Чеська крона</string>
+  <string name="long_dkk">Датська крона</string>
+  <string name="long_gbp">Фунт стерлінгів</string>
+  <string name="long_huf">Угорський форинт</string>
+  <string name="long_pln">Польський злотий</string>
+  <string name="long_ron">Румунська лей</string>
+  <string name="long_sek">Шведська крона</string>
+  <string name="long_chf">швейцарський франк</string>
+  <string name="long_nok">норвезька крона</string>
+  <string name="long_hrk">хорватський кун</string>
+  <string name="long_rub">Російський рубль</string>
+  <string name="long_try">Турецька ліра</string>
+  <string name="long_aud">Австралійський долар</string>
+  <string name="long_brl">Бразильська справжня</string>
+  <string name="long_cad">канадський долар</string>
+  <string name="long_cny">Китайський юань, відмінний від</string>
+  <string name="long_hkd">Гонконгський долар</string>
+  <string name="long_idr">Індонезійська рупія</string>
+  <string name="long_ils">ізраїльський шекель</string>
+  <string name="long_inr">індійська рупія</string>
+  <string name="long_krw">Південнокорейський виграв</string>
+  <string name="long_mxn">Мексиканське песо</string>
+  <string name="long_myr">Малайзійський ринггіт</string>
+  <string name="long_nzd">Долар Нової Зеландії</string>
+  <string name="long_php">Філіппінське песо</string>
+  <string name="long_sgd">Сінгапурський долар</string>
+  <string name="long_thb">тайський бат</string>
+  <string name="long_zar">Південноафриканський ранд</string>
+</resources>
