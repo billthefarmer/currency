@@ -14,6 +14,7 @@ Android currency conversion. The app is available on [F-Droid](https://f-droid.o
  * 32 international currencies
  * Currency rates updated daily
  * Last rate update retained for use offline
+ * Ukranian translation
 
 ## Usage
 ### Edit
