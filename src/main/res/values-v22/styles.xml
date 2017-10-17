@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--
+    Base application theme for API 22+. This theme completely replaces
+    AppBaseTheme from BOTH res/values/styles.xml and
+    res/values-v11/styles.xml on API 22+ devices.
+-->
+<style
+    name="AppBaseTheme" parent="Theme.AppCompat.Light">
+  <!-- API 22 theme customizations-->
+
+  <item name="colorPrimary">@color/colorPrimary</item>
+  <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+  <item name="colorAccent">@color/colorAccent</item>
+</style>
+
+<style
+    name="DialogBaseTheme" parent="Theme.AppCompat.Light.Dialog">
+  <!-- API 22 theme customizations -->
+
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+</style>
+
+</resources>
+

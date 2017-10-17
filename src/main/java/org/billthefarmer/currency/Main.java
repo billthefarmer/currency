@@ -36,6 +36,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -69,7 +70,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 // Main class
-public class Main extends Activity
+public class Main extends AppCompatActivity
     implements EditText.OnEditorActionListener,
     AdapterView.OnItemClickListener,
     AdapterView.OnItemLongClickListener,
