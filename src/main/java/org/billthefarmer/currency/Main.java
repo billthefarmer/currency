@@ -36,6 +36,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -75,7 +76,7 @@ public class Main extends AppCompatActivity
     AdapterView.OnItemClickListener,
     AdapterView.OnItemLongClickListener,
     View.OnClickListener, TextWatcher,
-    Data.TaskCallbacks
+    Data.TaskCallbacks, SwipeRefreshLayout.OnRefreshListener
 {
     // Initial currency name list
     public static final String CURRENCY_LIST[] =
@@ -191,6 +192,7 @@ public class Main extends AppCompatActivity
     private TextView dateView;
     private TextView statusView;
     private ListView listView;
+    private SwipeRefreshLayout swipeRefreshParent;
 
     private Data instance;
 
@@ -228,6 +230,11 @@ public class Main extends AppCompatActivity
         dateView = (TextView)findViewById(R.id.date);
         statusView = (TextView)findViewById(R.id.status);
         listView = (ListView)findViewById(R.id.list);
+        swipeRefreshParent = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshParent);
+
+        //Set the refresh listener for the swipe refresh parent
+        if(swipeRefreshParent != null)
+            swipeRefreshParent.setOnRefreshListener(this);
 
         // Set the click listeners, just for the text selection logic
         if (flagView != null)
@@ -827,8 +834,19 @@ public class Main extends AppCompatActivity
     }
 
     // On refresh click
-    private boolean onRefreshClick()
-    {
+    private boolean onRefreshClick() {
+        swipeRefreshParent.setRefreshing(true);
+
+        boolean result = refresh();
+
+        if(!result){
+            swipeRefreshParent.setRefreshing(false);
+        }
+
+        return result;
+    }
+
+    private boolean refresh(){
         // Check connectivity before refresh
         ConnectivityManager manager =
             (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
@@ -1288,12 +1306,25 @@ public class Main extends AppCompatActivity
             editor.putString(PREF_DATE, date);
             editor.apply();
 
-            statusView.setText(R.string.ok);
+            statusView.setText("");
             adapter.notifyDataSetChanged();
         }
 
         // Notify failed
         else if (statusView != null)
             statusView.setText(R.string.failed);
+
+        //If running, stop spinner
+        if(swipeRefreshParent.isRefreshing())
+            swipeRefreshParent.setRefreshing(false);
+
+    }
+
+    //Refresh data on pulldown listener
+    @Override
+    public void onRefresh() {
+        //Just call it the same as an click on the refresh button
+        if(!refresh())
+           swipeRefreshParent.setRefreshing(false);
     }
 }
