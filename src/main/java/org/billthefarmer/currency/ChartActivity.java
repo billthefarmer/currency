@@ -173,7 +173,7 @@ public class ChartActivity extends Activity
         // Get text and colour
         Resources resources = getResources();
         String updating = resources.getString(R.string.updating);
-        int dark = resources.getColor(android.R.color.secondary_text_dark);
+        int dark = resources.getColor(R.color.colorAccent);
 
         // Set chart parameters
         if (chart != null)
@@ -223,6 +223,7 @@ public class ChartActivity extends Activity
             String label = secondName + "/" + firstName;
             if (customView != null)
                 customView.setText(label);
+                customView.setTextColor(getResources().getColor(android.R.color.white));
         }
     }
 
