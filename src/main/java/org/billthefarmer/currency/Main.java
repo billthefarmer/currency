@@ -71,7 +71,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 // Main class
-public class Main extends AppCompatActivity
+public class Main extends Activity
     implements EditText.OnEditorActionListener,
     AdapterView.OnItemClickListener,
     AdapterView.OnItemLongClickListener,
