@@ -8,46 +8,45 @@
 -->
 <style
     name="AppBaseTheme" parent="android:Theme.Material.Light">
-  <!-- API 22 theme customizations-->
+    <!-- API 22 theme customizations-->
 
-  <item name="android:colorPrimary">@color/colorPrimary</item>
-  <item name="android:navigationBarColor">@color/colorPrimary</item>
-  <item name="android:windowBackground">@android:color/white</item>
-  <item name="android:colorAccent">@color/colorAccent</item>
-  <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-  <item name="android:colorForeground">@color/bright_foreground_inverse_material_dark</item>
+    <item name="android:colorPrimary">@color/colorPrimary</item>
+    <item name="android:navigationBarColor">@color/colorPrimary</item>
+    <item name="android:windowBackground">@android:color/white</item>
+    <item name="android:colorAccent">@color/colorAccent</item>
+    <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="android:colorForeground">@color/bright_foreground_inverse_material_dark</item>
+
     <item name="android:actionBarStyle">@style/ActionBarStyle</item>
     <item name="android:actionMenuTextColor">@color/colorAccent</item>
-
     <item name="android:actionOverflowButtonStyle">@style/ActionBarStyle.OverFlow</item>
 </style>
 
 
+<!--Customize the Actionbar with own colors-->
+<style name="ActionBarStyle" parent="@android:style/Widget.Material.ActionBar.Solid">
+  <item name="background">@color/colorPrimary</item>
+  <item name="android:titleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
+</style>
 
-  <style name="ActionBarStyle" parent="@android:style/Widget.Material.ActionBar.Solid">
-      <item name="background">@color/colorPrimary</item>
-      <item name="android:titleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
-  </style>
+<!--Style of the Title/Name of the App-->
+<style name="ActionBarStyle.TitleTextStyle" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
+    <item name="android:textColor">@android:color/white</item>
+</style>
 
-    <style name="ActionBarStyle.TitleTextStyle" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
-        <item name="android:textColor">@android:color/white</item>
+<!--Use own Image for overflow menu, to get it white-->
+<style name="ActionBarStyle.OverFlow" parent="@android:style/Widget.ActionButton.Overflow">
+    <item name="android:src">@drawable/ic_more</item>
+</style>
 
-    </style>
-
-
-    <style name="ActionBarStyle.OverFlow" parent="@android:style/Widget.ActionButton.Overflow">
-        <item name="android:src">@drawable/ic_more</item>
-    </style>
-
-    <style
-        name="DialogBaseTheme" parent="android:Theme.Material.Light.Dialog">
-        <!-- API 22 theme customizations -->
-        <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-
-
-    </style>
+<!--Style of the Add Currency Dialog-->
+<style
+    name="DialogBaseTheme" parent="android:Theme.Material.Light.Dialog">
+    <!-- API 22 theme customizations -->
+    <item name="android:colorPrimary">@color/colorPrimary</item>
+    <item name="android:windowBackground">@android:color/white</item>
+    <item name="android:colorAccent">@color/colorAccent</item>
+    <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+</style>
 </resources>
 
