@@ -3,11 +3,14 @@
 Android currency conversion. The app is available on [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.currency) and [here](https://github.com/billthefarmer/currency/releases).
 
 ## Pull requests
-I have had a number of pull requests on this app of mainly cosmetic changes, possibly due to a
+I have had a number of pull requests on this app of mainly cosmetic
+changes, possibly due to a
 [Reddit](https://www.reddit.com/r/androiddev/comments/5lqdvw/do_you_want_to_contribute_to_an_open_source_app)
-post about contributing to open source apps. Please feel free to contribute bug fixes, enhancement requests,
-translations, etc, or fork your own version, but not cosmetic updates to modernise the 'look', or tidy up the
-code etc. I quite like the app icons I am using and am reluctant to change them.
+post about contributing to open source apps. Please feel free to
+contribute bug fixes, enhancement requests, translations, etc, or fork
+your own version, but not cosmetic updates to modernise the 'look', or
+tidy up the code etc. I quite like the app icons I am using and am
+reluctant to change them.
 
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/currency.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/choose.png)
 
@@ -50,7 +53,7 @@ The icons in the toolbar from left to right are:
   new rates are available. It may show the previous day because the
   rates are updated at around 14:15 CET. The status display on the
   right above the currency list will show 'OK', 'No Connection', 'No
-  WiFi' or 'Roaming' according to the update settings. If may show
+  WiFi' or 'Roaming' according to the update settings. It may show
   'Failed' if the connection times out or fails to connect.
 * **Help** Display help text.
 * **Settings** Display the settings screen.
