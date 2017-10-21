@@ -9,6 +9,12 @@
   <style
       name="AppBaseTheme" parent="android:Theme.Material">
     <!-- API 21 theme customizations can go here. -->
+      <item name="android:colorPrimary">@color/colorPrimary</item>
+    <item name="android:navigationBarColor">@color/colorPrimary</item>
+    <item name="android:windowBackground">@android:color/white</item>
+    <item name="android:colorAccent">?attr/colorAccent</item>
+    <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="android:colorForeground">@color/bright_foreground_inverse_material_dark</item>
   </style>
 
   <style
