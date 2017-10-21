@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
       android:id="@+id/action_clear"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/clear"
       android:icon="@drawable/ic_action_clear" />
 
   <item
       android:id="@+id/action_remove"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/remove"
       android:icon="@drawable/ic_action_remove" />
 
   <item
       android:id="@+id/action_chart"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/chart"
       android:icon="@drawable/ic_action_picture" />
 
   <item
       android:id="@+id/action_copy"
-      android:showAsAction="ifRoom"
+      app:showAsAction="ifRoom"
       android:title="@string/copy"
       android:icon="@drawable/ic_action_copy" />
 

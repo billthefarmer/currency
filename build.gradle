@@ -4,15 +4,19 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.3'
     }
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'android-22'
+    compileSdkVersion 22
     buildToolsVersion '25.0.2'
+
+    defaultConfig {
+        targetSdkVersion 22
+    }
 
     lintOptions {
 	disable 'IconDensities'
@@ -27,5 +31,6 @@ repositories {
 }
 
 dependencies {
+    compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 }
