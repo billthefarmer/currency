@@ -6,13 +6,13 @@
   <string name="refresh">Aktualisieren</string>
   <string name="help">Hilfe</string>
   <string name="settings">Einstellungen</string>
-  <string name="copyright">
-    Copyright \u00A9 2016 Bill Farmer\nDiagramm von <a
-    href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\n
-    Ukrainian translation by <a
-    href="https://github.com/personaljesusua">Vladyslav
-    Pohrebniakov</a>\nDeutsche Übersetzung von <a
-    href="https://github.com/l1am0">L1am0</a>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\nDiagramm
+  von <a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nUkrainian
+  translation by <a
+  href="https://github.com/personaljesusua">Vladyslav
+  Pohrebniakov</a>\nDeutsche Übersetzung von <a
+  href="https://github.com/l1am0">L1am0</a>
   </string>
   <string name="licence">Lizenze: GNU GPLv3</string>
 

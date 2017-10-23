@@ -2,16 +2,14 @@
 <resources>
   <string name="app_name">Currency</string>
 
-  <string name="add">Додати</string>
-  <string name="refresh">Оновити</string>
-  <string name="help">Допомога</string>
-  <string name="settings">Налаштування</string>
-  <string name="copyright">
-    Copyright \u00A9 2016 Bill Farmer\nChart by <a
-    href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\n
-    Ukrainian translation by <a
-    href="https://github.com/personaljesusua">Vladyslav
-    Pohrebniakov</a>
+  <string name="add">Додати</string> <string
+  name="refresh">Оновити</string> <string
+  name="help">Допомога</string> <string
+  name="settings">Налаштування</string> <string
+  name="copyright">Copyright \u00A9 2016 Bill Farmer\nChart by <a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nUkrainian
+  translation by <a
+  href="https://github.com/personaljesusua">Vladyslav Pohrebniakov</a>
   </string>
   <string name="licence">Ліцензія: GNU GPLv3</string>
 
