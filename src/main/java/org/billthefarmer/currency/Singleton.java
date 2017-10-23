@@ -99,7 +99,7 @@ public class Singleton
         // The system calls this to perform work in a worker thread
         // and delivers it the parameters given to AsyncTask.execute()
         @Override
-        protected Map doInBackground(String... urls)
+        protected Map<String, Map<String, Double>> doInBackground(String... urls)
         {
             // Get a parser
             ChartParser parser = new ChartParser();

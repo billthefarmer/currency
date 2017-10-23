@@ -809,7 +809,8 @@ public class Main extends Activity
         }
 
         // Put the list
-        intent.putIntegerArrayListExtra(CHART_LIST, (ArrayList)list);
+        intent.putIntegerArrayListExtra(CHART_LIST,
+                                        (ArrayList<Integer>)list);
 
         // Start chart activity
         startActivity(intent);
@@ -1024,7 +1025,7 @@ public class Main extends Activity
 
     // On item click
     @Override
-    public void onItemClick(AdapterView parent, View view,
+    public void onItemClick(AdapterView<?> parent, View view,
                             int position, long id)
     {
         String value;
@@ -1131,7 +1132,7 @@ public class Main extends Activity
 
     // On item long click
     @Override
-    public boolean onItemLongClick(AdapterView parent, View view,
+    public boolean onItemLongClick(AdapterView<?> parent, View view,
                                    int position, long id)
     {
         // Switch to select mode, update menu

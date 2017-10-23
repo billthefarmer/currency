@@ -94,7 +94,7 @@ public class Data
         // The system calls this to perform work in a worker thread
         // and delivers it the parameters given to AsyncTask.execute()
         @Override
-        protected Map doInBackground(String... urls)
+        protected Map<String, Double> doInBackground(String... urls)
         {
             // Get a parser
             Parser parser = new Parser();
