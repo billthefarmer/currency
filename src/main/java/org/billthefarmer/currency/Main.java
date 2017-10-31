@@ -315,16 +315,30 @@ public class Main extends Activity
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
+
+        NumberFormat englishFormat = NumberFormat.getInstance(Locale.ENGLISH);
+        String value = preferences.getString(PREF_VALUE, "1.0");
+
+        // Try default locale
         try
         {
-            String value = preferences.getString(PREF_VALUE, "1.0");
             Number number = numberFormat.parse(value);
             currentValue = number.doubleValue();
         }
 
         catch (Exception e)
         {
-            currentValue = 1.0;
+            // Try English locale
+            try
+            {
+                Number number = englishFormat.parse(value);
+                currentValue = number.doubleValue();
+            }
+
+            catch (Exception ex)
+            {
+                currentValue = 1.0;
+            }
         }
 
         // Get the date and format it for display
@@ -348,7 +362,7 @@ public class Main extends Activity
 
         // Set current value
         numberFormat.setGroupingUsed(false);
-        String value = numberFormat.format(currentValue);
+        value = numberFormat.format(currentValue);
         if (editView != null)
             editView.setText(value);
 
@@ -926,21 +940,33 @@ public class Main extends Activity
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
 
-        // Parse current value
-        try
+        NumberFormat englishFormat = NumberFormat.getInstance(Locale.ENGLISH);
+
+        String n = editable.toString();
+        if (n.length() > 0)
         {
-            String n = editable.toString();
-            if (n.length() > 0)
+            // Parse current value
+            try
             {
                 Number number = numberFormat.parse(n);
                 currentValue = number.doubleValue();
             }
-        }
 
-        // Do nothing on exception
-        catch (Exception e)
-        {
-            return;
+            catch (Exception e)
+            {
+                // Try English locale
+                try
+                {
+                    Number number = englishFormat.parse(n);
+                    currentValue = number.doubleValue();
+                }
+
+                // Do nothing on exception
+                catch (Exception ex)
+                {
+                    return;
+                }
+            }
         }
 
         // Recalculate all the values
@@ -975,26 +1001,38 @@ public class Main extends Activity
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
 
+        NumberFormat englishFormat = NumberFormat.getInstance(Locale.ENGLISH);
+
         switch (actionId)
         {
         case  EditorInfo.IME_ACTION_DONE:
 
             // Parse current value
-            try
+            String n = view.getText().toString();
+            if (n.length() > 0)
             {
-                String n = view.getText().toString();
-                if (n.length() > 0)
+                try
                 {
                     Number number = numberFormat.parse(n);
                     currentValue = number.doubleValue();
                 }
-            }
 
-            // Set to one on exception
-            catch (Exception e)
-            {
-                currentValue = 1.0;
-                view.setText(R.string.num_one);
+                catch (Exception e)
+                {
+                    // Try English locale
+                    try
+                    {
+                        Number number = englishFormat.parse(n);
+                        currentValue = number.doubleValue();
+                    }
+
+                    // Set to one on exception
+                    catch (Exception ex)
+                    {
+                        currentValue = 1.0;
+                        view.setText(R.string.num_one);
+                    }
+                }
             }
 
             // Reformat the value field
