@@ -506,7 +506,6 @@ public class Main extends Activity
             {
                 Double v = valueMap.get(name);
                 value = numberFormat.format(v);
-                // value = String.format("%1.3f", v);
 
                 valueList.add(value);
             }
@@ -1093,9 +1092,20 @@ public class Main extends Activity
 
             numberFormat.setGroupingUsed(false);
             value = numberFormat.format(currentValue);
-            // value = String.format("%1.3f", currentValue);
+
             if (editView != null)
+            {
                 editView.setText(value);
+                if (selectAll)
+                {
+                    // Forces select all
+                    editView.clearFocus();
+                    editView.requestFocus();
+                }
+
+                // Do it only once
+                select = false;
+            }
 
             if (flagView != null)
                 flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
@@ -1121,7 +1131,6 @@ public class Main extends Activity
 
             numberFormat.setGroupingUsed(true);
             value = numberFormat.format(oldValue);
-            // value = String.format("%1.3f", oldValue);
             valueList.add(0, value);
 
             // Get preferences
