@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Devise</string>
+
+  <string name="add">Ajouter</string>
+  <string name="refresh">Rafraîchir</string>
+  <string name="help">Aide</string>
+  <string name="settings">Paramètres</string>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\nGraphique par
+  <a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nTraduction Ukrainienne
+  par <a
+  href="https://github.com/personaljesusua">Vladyslav
+  Pohrebniakov</a>\nTraduction allemande par <a
+  href="https://github.com/l1am0">L1am0</a>\nTraduction française par <a
+  href="https://github.com/RealAestan">Aestan</a>
+  </string>
+  <string name="licence">Licence: GNU GPLv3</string>
+
+  <string name="remove">Supprimer</string>
+  <string name="select">Sélectionner</string>
+  <string name="copy">Copier</string>
+  <string name="clear">Effacer</string>
+  <string name="cancel">Annuler</string>
+  <string name="chart">Graphique</string>
+
+  <string name="invert">Intervertir</string>
+  <string name="new_chart">Nouveau graphique</string>
+  <string name="hist">Historique</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
+  <string name="not_updated">Pas à jour</string>
+  <string name="updated">Mis à jour : %s</string>
+  <string name="ok">OK</string>
+  <string name="updating">Mise à jour</string>
+  <string name="failed">Échec</string>
+  <string name="no_connection">Pas de connexion</string>
+  <string name="no_wifi">Pas de WiFi</string>
+  <string name="roaming">Données mobiles</string>
+  <string name="update_failed">Mise à jour échoué</string>
+
+  <string name="decimal">Entrer une valeur décimale</string>
+  <string name="digits">0123456789,.</string>
+
+  <string name="pref_about">À propos</string>
+  <string name="pref_about_summ">Devise version %s</string>
+  <string name="pref_update_category">Mise à jour</string>
+  <string name="pref_wifi">WiFi</string>
+  <string name="pref_wifi_summ">Mettre à jour uniquement par WiFi</string>
+  <string name="pref_roaming">Données mobiles</string>
+  <string name="pref_roaming_summ">Mettre à jour par données mobiles (3G, 4G, etc)</string>
+  <string name="pref_select">Sélection</string>
+  <string name="pref_select_summ">Sélectionne le nombre quand la devise est changé</string>
+  <string name="pref_numbers">Nombres</string>
+  <string name="pref_digits">Nombre de décimales</string>
+  <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Remplir</string>
+  <string name="pref_fill_summ">Remplir le tracé du graphique</string>
+
+  <string name="long_eur">Euro</string>
+  <string name="long_usd">Dollar américain</string>
+  <string name="long_jpy">Yen japonais</string>
+  <string name="long_bgn">Lev bulgare</string>
+  <string name="long_czk">Couronne tchèque</string>
+  <string name="long_dkk">Couronne danoise</string>
+  <string name="long_gbp">Livre sterling</string>
+  <string name="long_huf">Forint hongrois</string>
+  <string name="long_pln">Zloty polonais</string>
+  <string name="long_ron">Leu roumain</string>
+  <string name="long_sek">Couronne suédoise</string>
+  <string name="long_chf">Franc suisse</string>
+  <string name="long_nok">Couronne norvégienne</string>
+  <string name="long_hrk">Kuna croate</string>
+  <string name="long_rub">Rouble russe</string>
+  <string name="long_try">Livre turque</string>
+  <string name="long_aud">Dollar australien</string>
+  <string name="long_brl">Réal brésilien</string>
+  <string name="long_cad">Dollar canadien</string>
+  <string name="long_cny">Yuan chinois renminbi</string>
+  <string name="long_hkd">Dollar de Hong Kong</string>
+  <string name="long_idr">Roupie indonésienne</string>
+  <string name="long_ils">Shekel israélien</string>
+  <string name="long_inr">Roupie indienne</string>
+  <string name="long_krw">Won sud-coréen</string>
+  <string name="long_mxn">Peso mexicain</string>
+  <string name="long_myr">Cloche malaisienne</string>
+  <string name="long_nzd">Dollar de Nouvelle-Zélande</string>
+  <string name="long_php">Peso philippin</string>
+  <string name="long_sgd">Dollar de Singapour</string>
+  <string name="long_thb">Baht thaïlandais</string>
+  <string name="long_zar">Rand sud-africain</string>
+</resources>
