@@ -12,6 +12,17 @@ your own version, but not cosmetic updates to modernise the 'look', or
 tidy up the code etc. I quite like the app icons I am using and am
 reluctant to change them.
 
+## Extra currencies
+I have had a number of requests for extra currencies, some offering
+possible data sources. I have decided that trying to add more
+currencies from disparate sources makes this app far too
+complicated. It was designed around the current and historical data
+freely and reliably available from the
+[European Central Bank](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html)
+and to redesign it to deal with currencies that have historical data,
+currencies that don't, data sources that might disappear and other
+potential pitfalls that I haven't found yet makes it far too complex.
+
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/currency.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/choose.png)
 
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/settings.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/about.png)
