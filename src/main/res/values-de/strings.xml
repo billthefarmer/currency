@@ -6,6 +6,7 @@
   <string name="refresh">Aktualisieren</string>
   <string name="help">Hilfe</string>
   <string name="settings">Einstellungen</string>
+  <string name="built">Gebaut %s</string>
   <string name="copyright">Copyright \u00A9 2016 Bill Farmer\nDiagramm
   von <a
   href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nUkrainian
