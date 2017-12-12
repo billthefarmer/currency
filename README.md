@@ -35,7 +35,7 @@ potential pitfalls that I haven't found yet makes it far too complex.
  * 32 international currencies
  * Currency rates updated daily
  * Last rate update retained for use offline
- * Ukrainian translation
+ * Ukrainian, German and French translation
 
 ## Usage
 ### Edit

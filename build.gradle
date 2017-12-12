@@ -14,9 +14,13 @@ android {
     compileSdkVersion 'android-22'
     buildToolsVersion '25.0.2'
 
+    defaultConfig {
+        buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
+    }
+
     lintOptions {
 	disable 'IconDensities'
-	// abortOnError false
+        abortOnError false
     }
 }
 
