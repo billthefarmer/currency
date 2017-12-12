@@ -15,7 +15,9 @@
   href="https://github.com/l1am0">L1am0</a>\nTraduction française par <a
   href="https://github.com/RealAestan">Aestan</a>
   </string>
-  <string name="licence">Licence: GNU GPLv3</string>
+  <string name="licence">Licence <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
 
   <string name="remove">Supprimer</string>
   <string name="select">Sélectionner</string>

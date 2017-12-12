@@ -14,7 +14,9 @@
   Pohrebniakov</a>\nDeutsche Übersetzung von <a
   href="https://github.com/l1am0">L1am0</a>
   </string>
-  <string name="licence">Lizenze: GNU GPLv3</string>
+  <string name="licence">Lizenze <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
 
   <string name="remove">Entfernen</string>
   <string name="select">Auswählen</string>
