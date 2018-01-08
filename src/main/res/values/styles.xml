@@ -20,6 +20,36 @@
         All customizations that are NOT specific to a particular
         API-level can go here.
     -->
+
+    <item name="pref_wifi">@drawable/ic_pref_wifi</item>
+    <item name="pref_roaming">@drawable/ic_pref_roaming</item>
+    <item name="pref_select">@drawable/ic_pref_select_all</item>
+    <item name="pref_digits">@drawable/ic_pref_digits</item>
+    <item name="pref_fill">@drawable/ic_pref_cloud</item>
+    <item name="pref_about">@drawable/ic_pref_about</item>
+
+  </style>
+
+  <!--
+      Base application theme, dependent on API level. This theme is
+      replaced by AppBaseTheme from res/values-vXX/styles.xml on newer
+      devices.
+  -->
+  <style name="AppLightBaseTheme"
+         parent="android:Theme.Holo.Light.DarkActionBar">
+    <!--
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
+    -->
+  </style>
+
+  <!-- Application theme. -->
+  <style name="AppLightTheme" parent="AppLightBaseTheme">
+    <!--
+        All customizations that are NOT specific to a particular
+        API-level can go here.
+    -->
   </style>
 
   <style name="DialogBaseTheme" parent="android:Theme.Holo.Dialog">
@@ -31,6 +61,21 @@
   </style>
 
   <style name="DialogTheme" parent="DialogBaseTheme">
+    <!--
+        All customizations that are NOT specific to a particular
+        API-level can go here.
+    -->
+  </style>
+
+  <style name="DialogLightBaseTheme" parent="android:Theme.Holo.Light.Dialog">
+    <!--
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
+    -->
+  </style>
+
+  <style name="DialogLightTheme" parent="DialogLightBaseTheme">
     <!--
         All customizations that are NOT specific to a particular
         API-level can go here.
