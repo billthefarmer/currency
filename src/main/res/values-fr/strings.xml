@@ -26,6 +26,7 @@
   <string name="clear">Effacer</string>
   <string name="cancel">Annuler</string>
   <string name="chart">Graphique</string>
+  <string name="theme">Thème</string>
 
   <string name="invert">Intervertir</string>
   <string name="new_chart">Nouveau graphique</string>
@@ -61,6 +62,10 @@
   <string name="pref_digit_default">3</string>
   <string name="pref_fill">Remplir</string>
   <string name="pref_fill_summ">Remplir le tracé du graphique</string>
+  <string name="pref_dark">Sombre</string>
+  <string name="pref_dark_summ">
+    Utiliser un thème sombre
+  </string>
 
   <string name="long_eur">Euro</string>
   <string name="long_usd">Dollar américain</string>

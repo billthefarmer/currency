@@ -33,6 +33,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -156,6 +157,7 @@ public class Main extends Activity
     public static final String PREF_SELECT = "pref_select";
     public static final String PREF_DIGITS = "pref_digits";
     public static final String PREF_FILL = "pref_fill";
+    public static final String PREF_DARK = "pref_dark";
     public static final String PREF_ABOUT = "pref_about";
 
     public static final String CHART_LIST = "chart_list";
@@ -168,6 +170,7 @@ public class Main extends Activity
 
     public static final int DISPLAY_MODE = 0;
     public static final int SELECT_MODE = 1;
+    public static final int VERSION_M = 23;
 
     private int mode = DISPLAY_MODE;
 
@@ -175,6 +178,7 @@ public class Main extends Activity
     private boolean roaming = false;
     private boolean selectAll = true;
     private boolean select = true;
+    private boolean dark = true;
     private int digits = 3;
 
     private int currentIndex = 0;
@@ -213,6 +217,16 @@ public class Main extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        dark = preferences.getBoolean(PREF_DARK, true);
+
+        if (!dark)
+            setTheme(R.style.AppLightTheme);
+
         setContentView(R.layout.main);
 
         // Get data instance
@@ -303,10 +317,16 @@ public class Main extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
+        boolean theme = dark;
+
         wifi = preferences.getBoolean(PREF_WIFI, true);
+        dark = preferences.getBoolean(PREF_DARK, true);
         roaming = preferences.getBoolean(PREF_ROAMING, false);
         selectAll = preferences.getBoolean(PREF_SELECT, true);
         digits = Integer.parseInt(preferences.getString(PREF_DIGITS, "3"));
+
+        if (theme != dark && Build.VERSION.SDK_INT != VERSION_M)
+            recreate();
 
         // Get current currency
         currentIndex = preferences.getInt(PREF_INDEX, 0);

@@ -25,7 +25,9 @@ package org.billthefarmer.currency;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
@@ -39,6 +41,16 @@ public class HelpActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        boolean theme = preferences.getBoolean(Main.PREF_DARK, true);
+
+        if (!theme)
+            setTheme(R.style.AppLightTheme);
+
         setContentView(R.layout.help);
 
         TextView view = (TextView)findViewById(R.id.help);
