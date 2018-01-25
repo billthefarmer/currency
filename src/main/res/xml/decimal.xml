@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="50dp"
+    android:keyHeight="50dp"
+    android:horizontalGap="2dp"
+    android:verticalGap="2dp" >
+  <Row >
+    <Key android:keyLabel="7" />
+    <Key android:keyLabel="8" />
+    <Key android:keyLabel="9" />
+    <Key android:codes="-5"
+         android:keyIcon="?attr/backspace" />
+  </Row>
+  <Row >
+    <Key android:keyLabel="4" />
+    <Key android:keyLabel="5" />
+    <Key android:keyLabel="6" />
+    <Key android:keyLabel="." />
+  </Row>
+  <Row >
+    <Key android:keyLabel="1" />
+    <Key android:keyLabel="2" />
+    <Key android:keyLabel="3" />
+    <Key android:keyLabel="," />
+  </Row>
+  <Row >
+    <Key android:keyLabel=" " />
+    <Key android:keyLabel="0" />
+    <Key android:keyLabel=" " />
+    <Key android:codes="-4"
+        android:keyIcon="?attr/accept" />
+  </Row>
+  ...
+</Keyboard>

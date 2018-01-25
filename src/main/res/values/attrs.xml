@@ -2,6 +2,9 @@
 <resources>
 
   <declare-styleable name="Currency">
+    <attr name="backspace" format="reference" />
+    <attr name="accept" format="reference" />
+
     <attr name="pref_wifi" format="reference" />
     <attr name="pref_roaming" format="reference" />
     <attr name="pref_select" format="reference" />
