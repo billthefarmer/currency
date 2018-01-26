@@ -21,6 +21,9 @@
         API-level can go here.
     -->
 
+    <item name="accept">@drawable/ic_action_accept</item>
+    <item name="backspace">@drawable/ic_action_backspace</item>
+
     <item name="pref_wifi">@drawable/ic_pref_wifi</item>
     <item name="pref_roaming">@drawable/ic_pref_roaming</item>
     <item name="pref_select">@drawable/ic_pref_select_all</item>
@@ -51,6 +54,9 @@
         All customizations that are NOT specific to a particular
         API-level can go here.
     -->
+
+    <item name="accept">@drawable/ic_action_accept_light</item>
+    <item name="backspace">@drawable/ic_action_backspace_light</item>
 
     <item name="pref_wifi">@drawable/ic_pref_wifi_light</item>
     <item name="pref_roaming">@drawable/ic_pref_roaming_light</item>

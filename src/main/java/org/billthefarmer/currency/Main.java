@@ -24,12 +24,14 @@
 package org.billthefarmer.currency;
 
 import android.app.Activity;
-import android.content.ClipboardManager;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.KeyboardView;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -40,12 +42,12 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.inputmethod.EditorInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -74,8 +76,7 @@ public class Main extends Activity
     implements EditText.OnEditorActionListener,
     AdapterView.OnItemClickListener,
     AdapterView.OnItemLongClickListener,
-    View.OnClickListener, TextWatcher,
-    Data.TaskCallbacks
+    View.OnClickListener, Data.TaskCallbacks
 {
     // Initial currency name list
     public static final String CURRENCY_LIST[] =
@@ -189,13 +190,16 @@ public class Main extends Activity
     private ImageView flagView;
     private TextView nameView;
     private TextView symbolView;
-    private EditText editView;
+    private EditText editText;
     private TextView longNameView;
     private TextView dateView;
     private TextView statusView;
     private ListView listView;
 
-    private Data instance;
+    private Keyboard keyboard;
+    private KeyboardView keyboardView;
+
+    private Data data;
 
     private List<String> currencyNameList;
 
@@ -230,17 +234,24 @@ public class Main extends Activity
         setContentView(R.layout.main);
 
         // Get data instance
-        instance = Data.getInstance(this);
+        data = Data.getInstance(this);
 
         // Find views
         flagView = (ImageView)findViewById(R.id.flag);
         nameView = (TextView)findViewById(R.id.name);
         symbolView = (TextView)findViewById(R.id.symbol);
-        editView = (EditText)findViewById(R.id.edit);
+        editText = (EditText)findViewById(R.id.edit);
         longNameView = (TextView)findViewById(R.id.long_name);
         dateView = (TextView)findViewById(R.id.date);
         statusView = (TextView)findViewById(R.id.status);
         listView = (ListView)findViewById(R.id.list);
+
+        keyboardView = (KeyboardView)findViewById(R.id.keyboard);
+        keyboard = new Keyboard(this, R.xml.decimal);
+        keyboardView.setKeyboard(keyboard);
+
+        // Install the key handler
+        keyboardView.setOnKeyboardActionListener(new KeyboardActionListener());
 
         // Set the click listeners, just for the text selection logic
         if (flagView != null)
@@ -256,11 +267,11 @@ public class Main extends Activity
             longNameView.setOnClickListener(this);
 
         // Set the listeners for the value field
-        if (editView != null)
+        if (editText != null)
         {
-            editView.addTextChangedListener(this);
-            editView.setOnEditorActionListener(this);
-            editView.setOnClickListener(this);
+            editText.addTextChangedListener(new EditTextWatcher());
+            editText.setOnEditorActionListener(this);
+            editText.setOnClickListener(this);
         }
 
         // Set the listeners for the list view
@@ -270,6 +281,7 @@ public class Main extends Activity
             listView.setOnItemLongClickListener(this);
         }
 
+        // 
         // Create currency name list
         currencyNameList = Arrays.asList(CURRENCY_NAMES);
 
@@ -281,8 +293,8 @@ public class Main extends Activity
         longNameList = new ArrayList<Integer>();
 
         // Check instance
-        if (instance != null)
-            selectList = instance.getList();
+        if (data != null)
+            selectList = data.getList();
 
         // Check select list
         if (selectList == null)
@@ -383,16 +395,16 @@ public class Main extends Activity
         // Set current value
         numberFormat.setGroupingUsed(false);
         value = numberFormat.format(currentValue);
-        if (editView != null)
-            editView.setText(value);
+        if (editText != null)
+            editText.setText(value);
 
         // Connect callbacks
-        instance = Data.getInstance(this);
+        data = Data.getInstance(this);
 
         // Check data instance
-        if (instance != null)
+        if (data != null)
             // Get the saved value map
-            valueMap = instance.getMap();
+            valueMap = data.getMap();
 
         // Check retained data
         if (valueMap == null)
@@ -570,10 +582,10 @@ public class Main extends Activity
         adapter.notifyDataSetChanged();
 
         // Check data instance
-        if (instance != null)
+        if (data != null)
         {
             // Check retained data
-            if (instance.getMap() != null)
+            if (data.getMap() != null)
                 // Don't update
                 return;
         }
@@ -612,8 +624,8 @@ public class Main extends Activity
             statusView.setText(R.string.updating);
 
         // Start the task
-        if (instance != null)
-            instance.startParseTask(ECB_DAILY_URL);;
+        if (data != null)
+            data.startParseTask(ECB_DAILY_URL);;
     }
 
     // On pause
@@ -651,14 +663,14 @@ public class Main extends Activity
         editor.apply();
 
         // Save the select list and value map in the data instance
-        if (instance != null)
+        if (data != null)
         {
-            instance.setList(selectList);
-            instance.setMap(valueMap);
+            data.setList(selectList);
+            data.setMap(valueMap);
         }
 
         // Disconnect callbacks
-        instance = Data.getInstance(null);
+        data = Data.getInstance(null);
     }
 
     // On create options menu
@@ -896,8 +908,8 @@ public class Main extends Activity
             statusView.setText(R.string.updating);
 
         // Start the task
-        if (instance != null)
-            instance.startParseTask(ECB_DAILY_URL);
+        if (data != null)
+            data.startParseTask(ECB_DAILY_URL);
 
         return true;
     }
@@ -945,72 +957,11 @@ public class Main extends Activity
         // Any other view
         default:
             // Clear value field selection
-            if (editView != null)
-                editView.setSelection(0);
+            if (editText != null)
+                editText.setSelection(0);
             select = true;
         }
     }
-
-    // After text changed
-    @Override
-    public void afterTextChanged(Editable editable)
-    {
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMinimumFractionDigits(digits);
-        numberFormat.setMaximumFractionDigits(digits);
-
-        NumberFormat englishFormat = NumberFormat.getInstance(Locale.ENGLISH);
-
-        String n = editable.toString();
-        if (n.length() > 0)
-        {
-            // Parse current value
-            try
-            {
-                Number number = numberFormat.parse(n);
-                currentValue = number.doubleValue();
-            }
-
-            catch (Exception e)
-            {
-                // Try English locale
-                try
-                {
-                    Number number = englishFormat.parse(n);
-                    currentValue = number.doubleValue();
-                }
-
-                // Do nothing on exception
-                catch (Exception ex)
-                {
-                    return;
-                }
-            }
-        }
-
-        // Recalculate all the values
-        valueList.clear();
-        for (String name : nameList)
-        {
-            Double value = (currentValue / convertValue) *
-                           valueMap.get(name);
-
-            String s = numberFormat.format(value);
-            valueList.add(s);
-        }
-
-        // Notify the adapter
-        adapter.notifyDataSetChanged();
-    }
-
-    // Not used
-    @Override
-    public void beforeTextChanged (CharSequence s, int start,
-                                   int count,  int after) {}
-    // Not used
-    @Override
-    public void onTextChanged (CharSequence s, int start,
-                               int before, int count) {}
 
     // On editor action
     @Override
@@ -1113,14 +1064,14 @@ public class Main extends Activity
             numberFormat.setGroupingUsed(false);
             value = numberFormat.format(currentValue);
 
-            if (editView != null)
+            if (editText != null)
             {
-                editView.setText(value);
+                editText.setText(value);
                 if (selectAll)
                 {
                     // Forces select all
-                    editView.clearFocus();
-                    editView.requestFocus();
+                    editText.clearFocus();
+                    editText.requestFocus();
                 }
 
                 // Do it only once
@@ -1362,5 +1313,113 @@ public class Main extends Activity
         // Notify failed
         else if (statusView != null)
             statusView.setText(R.string.failed);
+    }
+
+    // EditTextWatcher
+    private class EditTextWatcher
+        implements TextWatcher
+    {
+        // After text changed
+        @Override
+        public void afterTextChanged(Editable editable)
+        {
+            NumberFormat numberFormat = NumberFormat.getInstance();
+            numberFormat.setMinimumFractionDigits(digits);
+            numberFormat.setMaximumFractionDigits(digits);
+
+            NumberFormat englishFormat =
+                NumberFormat.getInstance(Locale.ENGLISH);
+
+            String n = editable.toString();
+            if (n.length() > 0)
+            {
+                // Parse current value
+                try
+                {
+                    Number number = numberFormat.parse(n);
+                    currentValue = number.doubleValue();
+                }
+
+                catch (Exception e)
+                {
+                    // Try English locale
+                    try
+                    {
+                        Number number = englishFormat.parse(n);
+                        currentValue = number.doubleValue();
+                    }
+
+                    // Do nothing on exception
+                    catch (Exception ex)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            // Recalculate all the values
+            valueList.clear();
+            for (String name : nameList)
+            {
+                Double value = (currentValue / convertValue) *
+                    valueMap.get(name);
+
+                String s = numberFormat.format(value);
+                valueList.add(s);
+            }
+
+            // Notify the adapter
+            adapter.notifyDataSetChanged();
+        }
+
+        // beforeTextChanged
+        @Override
+        public void beforeTextChanged (CharSequence s, int start,
+                                       int count,  int after) {}
+        // onTextChanged
+        @Override
+        public void onTextChanged (CharSequence s, int start,
+                                   int before, int count) {}
+    }
+
+    // KeyboardActionListener
+    private class KeyboardActionListener
+        implements KeyboardView.OnKeyboardActionListener
+    {
+        // onKey
+        @Override
+        public void onKey(int primaryCode, int[] keyCodes)
+        {
+            Editable editable = editText.getText();
+            int start = editText.getSelectionStart();
+        }
+
+        // onPress
+        @Override
+        public void onPress(int arg0) {}
+
+        // onRelease
+        @Override
+        public void onRelease(int primaryCode) {}
+
+        // onText
+        @Override
+        public void onText(CharSequence text) {}
+
+        // swipeDown
+        @Override
+        public void swipeDown() {}
+
+        // swipeLeft
+        @Override
+        public void swipeLeft() {}
+
+        // swipeRight
+        @Override
+        public void swipeRight() {}
+
+        // swipeUp
+        @Override
+        public void swipeUp() {}
     }
 }
