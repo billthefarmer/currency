@@ -101,16 +101,17 @@
   <ListView
       android:id="@+id/list"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="0dp"
+      android:layout_weight="1"
       android:layout_marginTop="8dp"
       android:layout_marginLeft="8dp"
       android:layout_marginRight="8dp" />
 
-  <KeyboardView
+  <android.inputmethodservice.KeyboardView
       android:id="@+id/keyboard"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="center_horizontal"
-      android:visibility="gone" />
+      android:visibility="visible" />
 
 </LinearLayout>
