@@ -195,7 +195,7 @@ public class Main extends Activity
     private TextView statusView;
     private ListView listView;
 
-    private Data instance;
+    private Data data;
 
     private List<String> currencyNameList;
 
@@ -230,7 +230,7 @@ public class Main extends Activity
         setContentView(R.layout.main);
 
         // Get data instance
-        instance = Data.getInstance(this);
+        data = Data.getInstance(this);
 
         // Find views
         flagView = (ImageView)findViewById(R.id.flag);
@@ -280,9 +280,9 @@ public class Main extends Activity
         valueList = new ArrayList<String>();
         longNameList = new ArrayList<Integer>();
 
-        // Check instance
-        if (instance != null)
-            selectList = instance.getList();
+        // Check data instance
+        if (data != null)
+            selectList = data.getList();
 
         // Check select list
         if (selectList == null)
@@ -387,12 +387,12 @@ public class Main extends Activity
             editView.setText(value);
 
         // Connect callbacks
-        instance = Data.getInstance(this);
+        data = Data.getInstance(this);
 
         // Check data instance
-        if (instance != null)
+        if (data != null)
             // Get the saved value map
-            valueMap = instance.getMap();
+            valueMap = data.getMap();
 
         // Check retained data
         if (valueMap == null)
@@ -419,10 +419,7 @@ public class Main extends Activity
                     }
                 }
 
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                catch (Exception e) {}
             }
 
             // Get old rates from resources
@@ -451,10 +448,7 @@ public class Main extends Activity
                         date = dateFormat.format(update);
                     }
 
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    catch (Exception e) {}
 
                     // Show the formatted date
                     format = resources.getString(R.string.updated);
@@ -486,10 +480,7 @@ public class Main extends Activity
                     nameList.add(namesArray.getString(i));
             }
 
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            catch (Exception e) {}
         }
 
         // Use the default list
@@ -510,10 +501,7 @@ public class Main extends Activity
                     valueList.add(valuesArray.getString(i));
             }
 
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            catch (Exception e) {}
         }
 
         // Calculate value list
@@ -570,10 +558,10 @@ public class Main extends Activity
         adapter.notifyDataSetChanged();
 
         // Check data instance
-        if (instance != null)
+        if (data != null)
         {
             // Check retained data
-            if (instance.getMap() != null)
+            if (data.getMap() != null)
                 // Don't update
                 return;
         }
@@ -612,8 +600,8 @@ public class Main extends Activity
             statusView.setText(R.string.updating);
 
         // Start the task
-        if (instance != null)
-            instance.startParseTask(ECB_DAILY_URL);;
+        if (data != null)
+            data.startParseTask(ECB_DAILY_URL);;
     }
 
     // On pause
@@ -651,14 +639,14 @@ public class Main extends Activity
         editor.apply();
 
         // Save the select list and value map in the data instance
-        if (instance != null)
+        if (data != null)
         {
-            instance.setList(selectList);
-            instance.setMap(valueMap);
+            data.setList(selectList);
+            data.setMap(valueMap);
         }
 
         // Disconnect callbacks
-        instance = Data.getInstance(null);
+        data = Data.getInstance(null);
     }
 
     // On create options menu
@@ -896,8 +884,8 @@ public class Main extends Activity
             statusView.setText(R.string.updating);
 
         // Start the task
-        if (instance != null)
-            instance.startParseTask(ECB_DAILY_URL);
+        if (data != null)
+            data.startParseTask(ECB_DAILY_URL);
 
         return true;
     }
@@ -1287,10 +1275,7 @@ public class Main extends Activity
                 this.date = dateFormat.format(update);
             }
 
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            catch (Exception e) {}
 
             String format = resources.getString(R.string.updated);
             String updated = String.format(Locale.getDefault(),
