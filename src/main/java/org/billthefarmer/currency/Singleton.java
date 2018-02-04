@@ -40,9 +40,7 @@ public class Singleton
     private boolean parsing;
 
     // Constructor
-    private Singleton()
-    {
-    }
+    private Singleton() {}
 
     // Get instance
     public static Singleton getInstance(TaskCallbacks callbacks)

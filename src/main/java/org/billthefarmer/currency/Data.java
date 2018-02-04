@@ -40,9 +40,7 @@ public class Data
     private boolean parsing;
 
     // Constructor
-    private Data()
-    {
-    }
+    private Data() {}
 
     // Get instance
     public static Data getInstance(TaskCallbacks callbacks)

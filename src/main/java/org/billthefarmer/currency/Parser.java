@@ -25,6 +25,7 @@ package org.billthefarmer.currency;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Xml;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -33,13 +34,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 // Parser class
@@ -47,35 +43,6 @@ public class Parser
 {
     private Map<String, Double> map;
     private String date;
-
-    // Create parser
-    private XMLReader createParser()
-    {
-        // Create the map and add value for Euro
-        map = new HashMap<String, Double>();
-        map.put("EUR", 1.0);
-
-        try
-        {
-            // Get a parser
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser parser = factory.newSAXParser();
-
-            // Get a reader
-            XMLReader reader = parser.getXMLReader();
-            Handler handler = new Handler();
-            reader.setContentHandler(handler);
-
-            return reader;
-        }
-
-        catch (Exception e)
-        {
-            map.clear();
-        }
-
-        return null;
-    }
 
     // Get map
     public Map<String, Double> getMap()
@@ -92,24 +59,23 @@ public class Parser
     // Start parser for a url
     public boolean startParser(String s)
     {
-        // Get a reader
-        XMLReader reader = createParser();
+        // Create the map and add value for Euro
+        map = new HashMap<String, Double>();
+        map.put("EUR", 1.0);
 
-        if(reader != null)
+        // Read the xml from the url
+        try
         {
-            // Read the xml from the url
-            try
-            {
-                URL url = new URL(s);
-                InputStream stream = url.openStream();
-                reader.parse(new InputSource(stream));
-                return true;
-            }
+            URL url = new URL(s);
+            InputStream stream = url.openStream();
+            Handler handler = new Handler();
+            Xml.parse(stream, Xml.Encoding.UTF_8, handler);
+            return true;
+        }
 
-            catch (Exception e)
-            {
-                map.clear();
-            }
+        catch (Exception e)
+        {
+            map.clear();
         }
 
         return false;
@@ -118,24 +84,24 @@ public class Parser
     // Start parser from a resource
     public boolean startParser(Context context, int id)
     {
+        // Create the map and add value for Euro
+        map = new HashMap<String, Double>();
+        map.put("EUR", 1.0);
+
         Resources resources = context.getResources();
-        // Get a reader
-        XMLReader reader = createParser();
 
-        if(reader != null)
+        // Read the xml from the resources
+        try
         {
-            // Read the xml from the resources
-            try
-            {
-                InputStream stream = resources.openRawResource(id);
-                reader.parse(new InputSource(stream));
-                return true;
-            }
+            InputStream stream = resources.openRawResource(id);
+            Handler handler = new Handler();
+            Xml.parse(stream, Xml.Encoding.UTF_8, handler);
+            return true;
+        }
 
-            catch (Exception e)
-            {
-                map.clear();
-            }
+        catch (Exception e)
+        {
+            map.clear();
         }
 
         return false;
