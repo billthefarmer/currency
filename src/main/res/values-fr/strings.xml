@@ -67,36 +67,37 @@
     Utiliser un thème sombre
   </string>
 
-  <string name="long_eur">Euro</string>
-  <string name="long_usd">Dollar américain</string>
-  <string name="long_jpy">Yen japonais</string>
-  <string name="long_bgn">Lev bulgare</string>
-  <string name="long_czk">Couronne tchèque</string>
-  <string name="long_dkk">Couronne danoise</string>
-  <string name="long_gbp">Livre sterling</string>
-  <string name="long_huf">Forint hongrois</string>
-  <string name="long_pln">Zloty polonais</string>
-  <string name="long_ron">Leu roumain</string>
-  <string name="long_sek">Couronne suédoise</string>
-  <string name="long_chf">Franc suisse</string>
-  <string name="long_nok">Couronne norvégienne</string>
-  <string name="long_hrk">Kuna croate</string>
-  <string name="long_rub">Rouble russe</string>
-  <string name="long_try">Livre turque</string>
   <string name="long_aud">Dollar australien</string>
+  <string name="long_bgn">Lev bulgare</string>
   <string name="long_brl">Réal brésilien</string>
   <string name="long_cad">Dollar canadien</string>
+  <string name="long_chf">Franc suisse</string>
   <string name="long_cny">Yuan chinois renminbi</string>
+  <string name="long_czk">Couronne tchèque</string>
+  <string name="long_dkk">Couronne danoise</string>
+  <string name="long_eur">Euro</string>
+  <string name="long_gbp">Livre sterling</string>
   <string name="long_hkd">Dollar de Hong Kong</string>
+  <string name="long_hrk">Kuna croate</string>
+  <string name="long_huf">Forint hongrois</string>
   <string name="long_idr">Roupie indonésienne</string>
   <string name="long_ils">Shekel israélien</string>
   <string name="long_inr">Roupie indienne</string>
+  <string name="long_isk">Couronne islandaise</string>
+  <string name="long_jpy">Yen japonais</string>
   <string name="long_krw">Won sud-coréen</string>
   <string name="long_mxn">Peso mexicain</string>
   <string name="long_myr">Cloche malaisienne</string>
+  <string name="long_nok">Couronne norvégienne</string>
   <string name="long_nzd">Dollar de Nouvelle-Zélande</string>
   <string name="long_php">Peso philippin</string>
+  <string name="long_pln">Zloty polonais</string>
+  <string name="long_ron">Leu roumain</string>
+  <string name="long_rub">Rouble russe</string>
+  <string name="long_sek">Couronne suédoise</string>
   <string name="long_sgd">Dollar de Singapour</string>
   <string name="long_thb">Baht thaïlandais</string>
+  <string name="long_try">Livre turque</string>
+  <string name="long_usd">Dollar américain</string>
   <string name="long_zar">Rand sud-africain</string>
 </resources>

@@ -66,36 +66,37 @@
     Verwenden Sie ein dunkles Thema
   </string>
 
-  <string name="long_eur">Euro</string>
-  <string name="long_usd">US dollar</string>
-  <string name="long_jpy">Japanische Yen</string>
-  <string name="long_bgn">Bulgarische Lev</string>
-  <string name="long_czk">Tschechische Kronen</string>
-  <string name="long_dkk">Dänische Kronen</string>
-  <string name="long_gbp">Pfund Sterling</string>
-  <string name="long_huf">Ungarische Forint</string>
-  <string name="long_pln">Polnische Zloty</string>
-  <string name="long_ron">Romänische Leu</string>
-  <string name="long_sek">Schwedische Kronen</string>
-  <string name="long_chf">Schweizer Franken</string>
-  <string name="long_nok">Norwegische Kronen</string>
-  <string name="long_hrk">Kroatische Kuna</string>
-  <string name="long_rub">Russische Rubel</string>
-  <string name="long_try">Türkische Lira</string>
   <string name="long_aud">Australische dollar</string>
+  <string name="long_bgn">Bulgarische Lev</string>
   <string name="long_brl">Brasilianische Real</string>
   <string name="long_cad">Canadische Dollar</string>
+  <string name="long_chf">Schweizer Franken</string>
   <string name="long_cny">Chinesische Yuan Renminbi</string>
+  <string name="long_czk">Tschechische Kronen</string>
+  <string name="long_dkk">Dänische Kronen</string>
+  <string name="long_eur">Euro</string>
+  <string name="long_gbp">Pfund Sterling</string>
   <string name="long_hkd">Hong Kong Dollar</string>
+  <string name="long_hrk">Kroatische Kuna</string>
+  <string name="long_huf">Ungarische Forint</string>
   <string name="long_idr">Indonesische Rupien</string>
   <string name="long_ils">Israelischer Schekel</string>
   <string name="long_inr">Indische Rupie</string>
+  <string name="long_isk">Isländische Kronen</string>
+  <string name="long_jpy">Japanische Yen</string>
   <string name="long_krw">Südkoreanische Won</string>
   <string name="long_mxn">Mexicanische Peso</string>
   <string name="long_myr">Malaysische Ringgit</string>
+  <string name="long_nok">Norwegische Kronen</string>
   <string name="long_nzd">Neuseeländische Dollar</string>
   <string name="long_php">Philippinische Peso</string>
+  <string name="long_pln">Polnische Zloty</string>
+  <string name="long_ron">Romänische Leu</string>
+  <string name="long_rub">Russische Rubel</string>
+  <string name="long_sek">Schwedische Kronen</string>
   <string name="long_sgd">Singapore Dollar</string>
   <string name="long_thb">Thailändische baht</string>
+  <string name="long_try">Türkische Lira</string>
+  <string name="long_usd">US dollar</string>
   <string name="long_zar">Südafrikanische Rand</string>
 </resources>
