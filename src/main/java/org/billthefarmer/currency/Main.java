@@ -1228,8 +1228,15 @@ public class Main extends Activity
             symbolList.add(CURRENCY_SYMBOLS[index]);
             longNameList.add(CURRENCY_LONGNAMES[index]);
 
-            Double value = (currentValue / convertValue) *
-                           valueMap.get(CURRENCY_NAMES[index]);
+            Double value = 1.0;
+
+            try
+            {
+                value = (currentValue / convertValue) *
+                    valueMap.get(CURRENCY_NAMES[index]);
+            }
+
+            catch (Exception e) {}
 
             NumberFormat numberFormat = NumberFormat.getInstance();
             numberFormat.setMinimumFractionDigits(digits);
