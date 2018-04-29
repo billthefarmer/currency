@@ -25,8 +25,11 @@ package org.billthefarmer.currency;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -63,6 +66,16 @@ public class ChoiceDialog extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        boolean theme = preferences.getBoolean(Main.PREF_DARK, true);
+
+        if (!theme)
+            setTheme(R.style.DialogLightTheme);
+
         setContentView(R.layout.choose);
 
         // Find views
@@ -116,27 +129,27 @@ public class ChoiceDialog extends Activity
             // Update the selection list
             for (int index : list)
                 selectList.add(index);
-	}
+        }
 
-	// Disable buttons if empty
-	if (selectList.isEmpty())
-	{
-	    if (clear != null)
-		clear.setEnabled(false);
-	    if (select != null)
-		select.setEnabled(false);
-	    mode = Main.DISPLAY_MODE;
-	}
+        // Disable buttons if empty
+        if (selectList.isEmpty())
+        {
+            if (clear != null)
+                clear.setEnabled(false);
+            if (select != null)
+                select.setEnabled(false);
+            mode = Main.DISPLAY_MODE;
+        }
 
-	// Enable buttons if selection
-	else
-	{
-	    if (clear != null)
-		clear.setEnabled(true);
-	    if (select != null)
-		select.setEnabled(true);
-	    mode = Main.SELECT_MODE;
-	}
+        // Enable buttons if selection
+        else
+        {
+            if (clear != null)
+                clear.setEnabled(true);
+            if (select != null)
+                select.setEnabled(true);
+            mode = Main.SELECT_MODE;
+        }
 
         // Notify adapter
         adapter.notifyDataSetChanged();
@@ -185,7 +198,8 @@ public class ChoiceDialog extends Activity
         case R.id.select:
             // Return new currency list in intent
             Intent intent = new Intent();
-            intent.putIntegerArrayListExtra(Main.CHOICE, (ArrayList)selectList);
+            intent.putIntegerArrayListExtra(Main.CHOICE,
+                                            (ArrayList<Integer>)selectList);
             setResult(RESULT_OK, intent);
             finish();
             break;
@@ -194,7 +208,7 @@ public class ChoiceDialog extends Activity
 
     // On item click
     @Override
-    public void onItemClick(AdapterView parent, View view,
+    public void onItemClick(AdapterView<?> parent, View view,
                             int position, long id)
     {
         // Check mode
@@ -205,7 +219,8 @@ public class ChoiceDialog extends Activity
             selectList.add(position);
             // Return new currency in intent
             Intent intent = new Intent();
-            intent.putIntegerArrayListExtra(Main.CHOICE, (ArrayList)selectList);
+            intent.putIntegerArrayListExtra(Main.CHOICE,
+                                            (ArrayList<Integer>)selectList);
             setResult(RESULT_OK, intent);
             finish();
             break;
@@ -234,7 +249,7 @@ public class ChoiceDialog extends Activity
 
     // On item long click
     @Override
-    public boolean onItemLongClick(AdapterView parent, View view,
+    public boolean onItemLongClick(AdapterView<?> parent, View view,
                                    int position, long id)
     {
         if (clear != null)

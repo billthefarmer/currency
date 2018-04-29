@@ -27,11 +27,12 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -46,21 +47,21 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.DefaultFillFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
-import java.text.NumberFormat;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +72,8 @@ public class ChartActivity extends Activity
     implements Singleton.TaskCallbacks
 {
     public static final String TAG = "ChartActivity";
-    public static final String CHART_TAG = "chart";
+
+    public static final String INVERT = "invert";
 
     public static final String ECB_QUARTER_URL =
         "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
@@ -102,40 +104,63 @@ public class ChartActivity extends Activity
     private String firstName;
     private String secondName;
 
+    private boolean invert;
+
     // On create
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        boolean theme = preferences.getBoolean(Main.PREF_DARK, true);
+
+        if (!theme)
+            setTheme(R.style.AppLightTheme);
+
         setContentView(R.layout.chart);
 
-	List<Integer> list = null;
-	// Check singleton instance
-	if (instance == null)
-	{
-	    // Get singleton instance
-	    instance = Singleton.getInstance(this);
+        if (savedInstanceState != null)
+            invert = savedInstanceState.getBoolean(INVERT);
+
+        List<Integer> list = null;
+        // Check singleton instance
+        if (instance == null)
+        {
+            // Get singleton instance
+            instance = Singleton.getInstance(this);
 
             // Get the intent for the parameters
             Intent intent = getIntent();
-	    list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
-	}
+            list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
+        }
 
         else
         {
             // Get list from singleton instance
-	    list = instance.getList();
+            list = instance.getList();
         }
 
-	// Iterate through the list to get the last two
-	if (list != null)
-	{
-	    for (int index : list)
-	    {
-		firstIndex = secondIndex;
-		secondIndex = index;
-	    }
-	}
+        // Iterate through the list to get the last two
+        if (list != null)
+        {
+            for (int index : list)
+            {
+                firstIndex = secondIndex;
+                secondIndex = index;
+            }
+        }
+
+        // Reverse currency indices
+        if (invert)
+        {
+            int index = firstIndex;
+            firstIndex = secondIndex;
+            secondIndex = index;
+        }
 
         // Look up the names
         firstName = Main.CURRENCY_NAMES[firstIndex];
@@ -228,12 +253,12 @@ public class ChartActivity extends Activity
         roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
         fill = preferences.getBoolean(Main.PREF_FILL, true);
 
-	// Connect callbacks
-	Singleton.getInstance(this);
+        // Connect callbacks
+        instance = Singleton.getInstance(this);
 
-	// Check singleton instance
-	if (instance != null)
-	    histMap = instance.getMap();
+        // Check singleton instance
+        if (instance != null)
+            histMap = instance.getMap();
 
         // Check retained data
         if (histMap != null)
@@ -354,19 +379,28 @@ public class ChartActivity extends Activity
     {
         super.onPause();
 
-	// Store the indices and historical data in the singleton
-	// instance
-	if (instance != null)
-	{
-	    List<Integer> list = new ArrayList<Integer>();
+        // Store the indices and historical data in the singleton
+        // instance
+        if (instance != null)
+        {
+            List<Integer> list = new ArrayList<Integer>();
             list.add(firstIndex);
             list.add(secondIndex);
-	    instance.setList(list);
-	    instance.setMap(histMap);
-	}
+            instance.setList(list);
+            instance.setMap(histMap);
+        }
 
-	// Disconnect callbacks
-	Singleton.getInstance(null);
+        // Disconnect callbacks
+        instance = Singleton.getInstance(null);
+    }
+
+    // onSaveInstanceState
+    @Override
+    protected void onSaveInstanceState (Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(INVERT, invert);
     }
 
     // On create options menu
@@ -426,6 +460,9 @@ public class ChartActivity extends Activity
         // Get updating text
         Resources resources = getResources();
         String updating = resources.getString(R.string.updating);
+
+        // Set flag
+        invert = !invert;
 
         // Reverse currency indices
         int index = firstIndex;
@@ -600,11 +637,11 @@ public class ChartActivity extends Activity
                 day = date.getTime() / MSEC_DAY;
             }
 
-	    // Ignore invalid dates
+            // Ignore invalid dates
             catch (Exception e)
-	    {
-		continue;
-	    }
+            {
+                continue;
+            }
 
             // Get the map for each date
             Map<String, Double> entryMap = histMap.get(key);
@@ -728,7 +765,7 @@ public class ChartActivity extends Activity
                     dataSet.setDrawFilled(true);
                 }
 
-		// Update chart
+                // Update chart
                 lineData = new LineData(dataSet);
                 chart.setData(lineData);
                 chart.invalidate();
@@ -737,7 +774,7 @@ public class ChartActivity extends Activity
 
         else
         {
-	    // Show failed
+            // Show failed
             showToast(R.string.update_failed);
         }
 

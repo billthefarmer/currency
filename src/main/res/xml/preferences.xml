@@ -9,7 +9,7 @@
 
     <CheckBoxPreference
 	android:key="pref_wifi"
-	android:icon="@drawable/ic_pref_wifi"
+	android:icon="?attr/pref_wifi"
 	android:title="@string/pref_wifi"
 	android:summary="@string/pref_wifi_summ"
 	android:persistent="true"
@@ -17,7 +17,7 @@
 
     <CheckBoxPreference
 	android:key="pref_roaming"
-	android:icon="@drawable/ic_pref_roaming"
+	android:icon="?attr/pref_roaming"
 	android:title="@string/pref_roaming"
 	android:summary="@string/pref_roaming_summ"
 	android:persistent="true"
@@ -31,7 +31,7 @@
 
     <CheckBoxPreference
 	android:key="pref_select"
-	android:icon="@drawable/ic_pref_select_all"
+	android:icon="?attr/pref_select"
 	android:title="@string/pref_select"
 	android:summary="@string/pref_select_summ"
 	android:persistent="true"
@@ -47,8 +47,8 @@
 	android:key="pref_digits"
 	android:title="@string/pref_digits"
 	android:dialogTitle="@string/pref_digits"
-	android:icon="@drawable/ic_pref_digits"
-	android:dialogIcon="@drawable/ic_pref_digits"
+	android:icon="?attr/pref_digits"
+	android:dialogIcon="?attr/pref_digits"
 	android:entries="@array/pref_digit_entries"
 	android:entryValues="@array/pref_digit_values"
 	android:defaultValue="@string/pref_digit_default"/>
@@ -56,14 +56,28 @@
   </PreferenceCategory>
 
   <PreferenceCategory
-      android:key="pref_numbers_category"
+      android:key="pref_chart_category"
       android:title="@string/chart">
 
     <CheckBoxPreference
 	android:key="pref_fill"
-	android:icon="@drawable/ic_pref_cloud"
+	android:icon="?attr/pref_fill"
 	android:title="@string/pref_fill"
 	android:summary="@string/pref_fill_summ"
+	android:persistent="true"
+	android:defaultValue="true" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:key="pref_theme_category"
+      android:title="@string/theme">
+
+    <CheckBoxPreference
+	android:key="pref_dark"
+	android:icon="?attr/pref_dark"
+	android:title="@string/pref_dark"
+	android:summary="@string/pref_dark_summ"
 	android:persistent="true"
 	android:defaultValue="true" />
 
@@ -75,8 +89,8 @@
 
     <org.billthefarmer.currency.AboutPreference
 	android:key="pref_about"
-	android:icon="@drawable/ic_pref_about"
-	android:dialogIcon="@drawable/ic_pref_about"
+	android:icon="?attr/pref_about"
+	android:dialogIcon="?attr/pref_about"
 	android:negativeButtonText=""
 	android:title="@string/pref_about"
 	android:summary="@string/pref_about_summ"

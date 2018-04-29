@@ -2,6 +2,7 @@ buildscript {
     repositories {
         jcenter()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
     }
@@ -10,14 +11,22 @@ buildscript {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'android-17'
-    buildToolsVersion '24.0.2'
+    compileSdkVersion 'android-22'
+    buildToolsVersion '25.0.2'
+
+    defaultConfig {
+        buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
+    }
 
     lintOptions {
-	disable 'IconDensities'
-	// abortOnError false
+	disable 'IconDensities', 'IconDuplicates'
+        // abortOnError false
     }
 }
+
+// tasks.withType(JavaCompile) {
+//     options.compilerArgs << "-Xlint:all"
+// }
 
 repositories {
     maven {
@@ -26,5 +35,5 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 }

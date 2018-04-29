@@ -16,7 +16,9 @@
       android:id="@+id/flag"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:ignore="ContentDescription" />
+      tools:ignore="ContentDescription"
+      android:layout_marginTop="4dp"
+      android:layout_marginBottom="4dp" />
 
   <LinearLayout
       android:orientation="vertical"

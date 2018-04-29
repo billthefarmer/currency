@@ -45,3 +45,6 @@ captures/
 
 # Emacs backups
 *~
+
+# Data
+data/

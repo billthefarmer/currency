@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Währungsumrechner</string>
+
+  <string name="add">Hinzufügen</string>
+  <string name="refresh">Aktualisieren</string>
+  <string name="help">Hilfe</string>
+  <string name="settings">Einstellungen</string>
+  <string name="built">Kompiliert am %s</string>
+  <string name="copyright">Copyright \u00A9 2018 Bill Farmer\nDiagramm
+  von <a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nUkrainische Übersetzung von <a
+  href="https://github.com/personaljesusua">Vladyslav
+  Pohrebniakov</a>\nDeutsche Übersetzung von <a
+  href="https://github.com/l1am0">L1am0</a>
+  </string>
+  <string name="licence">Lizenz steht unter <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+
+  <string name="remove">Entfernen</string>
+  <string name="select">Auswählen</string>
+  <string name="copy">Kopieren</string>
+  <string name="clear">Zurücksetzen</string>
+  <string name="cancel">Abbrechen</string>
+  <string name="chart">Diagramm</string>
+  <string name="theme">Aussehen</string>
+
+  <string name="invert">Invertieren</string>
+  <string name="new_chart">Neues Diagramm</string>
+  <string name="hist">Historie</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
+  <string name="not_updated">Nicht aktualisiert</string>
+  <string name="updated">Aktualisiert: %s</string>
+  <string name="ok">Ok</string>
+  <string name="updating">Aktualisieren</string>
+  <string name="failed">Fehlgeschlagen</string>
+  <string name="no_connection">Keine Verbindung</string>
+  <string name="no_wifi">Kein WLAN</string>
+  <string name="roaming">Roaming</string>
+  <string name="update_failed">Update fehlgeschlagen</string>
+
+  <string name="decimal">Kommazahl eingeben</string>
+  <string name="digits">0123456789,.</string>
+
+  <string name="pref_about">Über</string>
+  <string name="pref_about_summ">Währungsumrechner Version %s</string>
+  <string name="pref_update_category">Update</string>
+  <string name="pref_wifi">WLAN</string>
+  <string name="pref_wifi_summ">Update nur im WLAN</string>
+  <string name="pref_roaming">Roaming</string>
+  <string name="pref_roaming_summ">Update auch im Roaming</string>
+  <string name="pref_select">Auswahl</string>
+  <string name="pref_select_summ">Alle auswählen durch antippen</string>
+  <string name="pref_numbers">Nummern</string>
+  <string name="pref_digits">Nachkommastellen</string>
+  <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Ausfüllen</string>
+  <string name="pref_fill_summ">Diagramm ausfüllen</string>
+  <string name="pref_dark">Dunkel</string>
+  <string name="pref_dark_summ">
+    Verwenden Sie ein dunkles Thema
+  </string>
+
+  <string name="long_aud">Australischer Dollar</string>
+  <string name="long_bgn">Bulgarische Lev</string>
+  <string name="long_brl">Brasilianische Real</string>
+  <string name="long_cad">Canadische Dollar</string>
+  <string name="long_chf">Schweizer Franken</string>
+  <string name="long_cny">Chinesische Yuan Renminbi</string>
+  <string name="long_czk">Tschechische Kronen</string>
+  <string name="long_dkk">Dänische Kronen</string>
+  <string name="long_eur">Euro</string>
+  <string name="long_gbp">Pfund Sterling</string>
+  <string name="long_hkd">Hong Kong Dollar</string>
+  <string name="long_hrk">Kroatische Kuna</string>
+  <string name="long_huf">Ungarische Forint</string>
+  <string name="long_idr">Indonesische Rupien</string>
+  <string name="long_ils">Israelischer Schekel</string>
+  <string name="long_inr">Indische Rupie</string>
+  <string name="long_isk">Isländische Kronen</string>
+  <string name="long_jpy">Japanische Yen</string>
+  <string name="long_krw">Südkoreanische Won</string>
+  <string name="long_mxn">Mexicanische Peso</string>
+  <string name="long_myr">Malaysische Ringgit</string>
+  <string name="long_nok">Norwegische Kronen</string>
+  <string name="long_nzd">Neuseeländische Dollar</string>
+  <string name="long_php">Philippinische Peso</string>
+  <string name="long_pln">Polnische Zloty</string>
+  <string name="long_ron">Romänische Leu</string>
+  <string name="long_rub">Russische Rubel</string>
+  <string name="long_sek">Schwedische Kronen</string>
+  <string name="long_sgd">Singapore Dollar</string>
+  <string name="long_thb">Thailändische Baht</string>
+  <string name="long_try">Türkische Lira</string>
+  <string name="long_usd">US Dollar</string>
+  <string name="long_zar">Südafrikanische Rand</string>
+</resources>

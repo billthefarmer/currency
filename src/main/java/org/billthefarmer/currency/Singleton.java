@@ -40,18 +40,16 @@ public class Singleton
     private boolean parsing;
 
     // Constructor
-    private Singleton(TaskCallbacks callbacks)
-    {
-	this.callbacks = callbacks;
-    }
+    private Singleton() {}
 
     // Get instance
     public static Singleton getInstance(TaskCallbacks callbacks)
     {
-	if (instance == null)
-	    instance = new Singleton(callbacks);
+        if (instance == null)
+            instance = new Singleton();
 
-	return instance;
+        instance.callbacks = callbacks;
+        return instance;
     }
 
     // Set list
@@ -69,13 +67,13 @@ public class Singleton
     // Set map
     public void setMap(Map<String, Map<String, Double>> map)
     {
-	this.map = map;
+        this.map = map;
     }
 
     // Get map
     public Map<String, Map<String, Double>> getMap()
     {
-	return map;
+        return map;
     }
 
     // Is parsing
@@ -99,7 +97,7 @@ public class Singleton
         // The system calls this to perform work in a worker thread
         // and delivers it the parameters given to AsyncTask.execute()
         @Override
-        protected Map doInBackground(String... urls)
+        protected Map<String, Map<String, Double>> doInBackground(String... urls)
         {
             // Get a parser
             ChartParser parser = new ChartParser();

@@ -25,6 +25,7 @@ package org.billthefarmer.currency;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Xml;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -34,13 +35,8 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 // Parser class
@@ -48,37 +44,8 @@ public class ChartParser
 {
     private Map<String, Map<String, Double>> map;
     private Map<String, Double> entry;
-    private String date;
-
-    // Create parser
-    private XMLReader createParser()
-    {
-        // Create the map
-        map = new LinkedHashMap<String, Map<String, Double>>();
-        // Oldest possible date
-        date = "1970-01-01";
-
-        try
-        {
-            // Get a parser
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser parser = factory.newSAXParser();
-
-            // Get a reader
-            XMLReader reader = parser.getXMLReader();
-            Handler handler = new Handler();
-            reader.setContentHandler(handler);
-
-            return reader;
-        }
-
-        catch (Exception e)
-        {
-            map.clear();
-        }
-
-        return null;
-    }
+    // Oldest possible date
+    private String date = "1970-01-01";
 
     // Get map
     public Map<String, Map<String, Double>> getMap()
@@ -95,24 +62,22 @@ public class ChartParser
     // Start parser for a url
     public boolean startParser(String s)
     {
-        // Get a reader
-        XMLReader reader = createParser();
+        // Create the map
+        map = new LinkedHashMap<String, Map<String, Double>>();
 
-        if(reader != null)
+        // Read the xml from the url
+        try
         {
-            // Read the xml from the url
-            try
-            {
-                URL url = new URL(s);
-                InputStream stream = url.openStream();
-                reader.parse(new InputSource(stream));
-                return true;
-            }
+            URL url = new URL(s);
+            InputStream stream = url.openStream();
+            Handler handler = new Handler();
+            Xml.parse(stream, Xml.Encoding.UTF_8, handler);
+            return true;
+        }
 
-            catch (Exception e)
-            {
-                map.clear();
-            }
+        catch (Exception e)
+        {
+            map.clear();
         }
 
         return false;
@@ -121,24 +86,23 @@ public class ChartParser
     // Start parser from resources
     public boolean startParser(Context context, int id)
     {
+        // Create the map
+        map = new LinkedHashMap<String, Map<String, Double>>();
+
         Resources resources = context.getResources();
-        // Get a reader
-        XMLReader reader = createParser();
 
-        if(reader != null)
+        // Read the xml from the resources
+        try
         {
-            // Read the xml from the resources
-            try
-            {
-                InputStream stream = resources.openRawResource(id);
-                reader.parse(new InputSource(stream));
-                return true;
-            }
+            InputStream stream = resources.openRawResource(id);
+            Handler handler = new Handler();
+            Xml.parse(stream, Xml.Encoding.UTF_8, handler);
+            return true;
+        }
 
-            catch (Exception e)
-            {
-                map.clear();
-            }
+        catch (Exception e)
+        {
+            map.clear();
         }
 
         return false;

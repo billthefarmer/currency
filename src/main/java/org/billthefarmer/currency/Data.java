@@ -23,53 +23,33 @@
 
 package org.billthefarmer.currency;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.os.Bundle;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.util.List;
 import java.util.Map;
 
-// ChartFragment class
-public class ChartFragment extends Fragment
+// Data class
+public class Data
 {
-    public static final String TAG = "ChartFragment";
-    // Data objects we want to retain
-    private Map<String, Map<String, Double>> map;
+    private static Data instance;
+
+    private Map<String, Double> map;
     private List<Integer> list;
 
     private TaskCallbacks callbacks;
     private boolean parsing;
 
-    // This method is only called once for this fragment
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        // Retain this fragment
-        setRetainInstance(true);
-    }
+    // Constructor
+    private Data() {}
 
-    // Hold a reference to the parent Activity so we can report the
-    // task's current progress and results. The Android framework will
-    // pass us a reference to the newly created Activity after each
-    // configuration change.
-    @Override
-    public void onAttach(Activity activity)
+    // Get instance
+    public static Data getInstance(TaskCallbacks callbacks)
     {
-        super.onAttach(activity);
-        callbacks = (TaskCallbacks)activity;
-    }
+        if (instance == null)
+            instance = new Data();
 
-    // Set the callback to null so we don't accidentally leak the
-    // Activity instance.
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-        callbacks = null;
+        instance.callbacks = callbacks;
+        return instance;
     }
 
     // Set list
@@ -85,21 +65,15 @@ public class ChartFragment extends Fragment
     }
 
     // Set map
-    public void setMap(Map<String, Map<String, Double>> map)
+    public void setMap(Map<String, Double> map)
     {
         this.map = map;
     }
 
     // Get map
-    public Map<String, Map<String, Double>> getMap()
+    public Map<String, Double> getMap()
     {
         return map;
-    }
-
-    // Is parsing
-    public boolean isParsing()
-    {
-        return parsing;
     }
 
     // Start parse task
@@ -107,20 +81,21 @@ public class ChartFragment extends Fragment
     {
         ParseTask parseTask = new ParseTask();
         parseTask.execute(url);
-        parsing = true;
     }
 
     // ParseTask class
     protected class ParseTask
-        extends AsyncTask<String, String, Map<String, Map<String, Double>>>
+        extends AsyncTask<String, String, Map<String, Double>>
     {
+        String latest;
+
         // The system calls this to perform work in a worker thread
         // and delivers it the parameters given to AsyncTask.execute()
         @Override
-        protected Map doInBackground(String... urls)
+        protected Map<String, Double> doInBackground(String... urls)
         {
             // Get a parser
-            ChartParser parser = new ChartParser();
+            Parser parser = new Parser();
 
             // Start the parser and report progress with the date
             if (parser.startParser(urls[0]) == true)
@@ -130,7 +105,7 @@ public class ChartFragment extends Fragment
             return parser.getMap();
         }
 
-        // Ignoring the date as not used
+        // On progress update
         @Override
         protected void onProgressUpdate(String... date)
         {
@@ -141,9 +116,8 @@ public class ChartFragment extends Fragment
         // The system calls this to perform work in the UI thread and
         // delivers the result from doInBackground()
         @Override
-        protected void onPostExecute(Map<String, Map<String, Double>> map)
+        protected void onPostExecute(Map<String, Double> map)
         {
-            parsing = false;
             if (callbacks != null)
                 callbacks.onPostExecute(map);
         }
@@ -153,6 +127,6 @@ public class ChartFragment extends Fragment
     interface TaskCallbacks
     {
         void onProgressUpdate(String... date);
-        void onPostExecute(Map<String, Map<String, Double>> map);
+        void onPostExecute(Map<String, Double> map);
     }
 }
