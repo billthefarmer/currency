@@ -413,6 +413,15 @@ public class ChartActivity extends Activity
         return true;
     }
 
+    // onPrepareOptionsMenu
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        menu.findItem(R.id.action_invert).setEnabled(histMap != null);
+
+        return true;
+    }
+
     // On options item selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -768,6 +777,8 @@ public class ChartActivity extends Activity
                 chart.setData(lineData);
                 chart.invalidate();
             }
+
+            invalidateOptionsMenu();
         }
 
         else
