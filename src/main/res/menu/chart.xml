@@ -5,7 +5,7 @@
       android:id="@+id/action_invert"
       android:showAsAction="ifRoom"
       android:title="@string/invert"
-      android:icon="@drawable/ic_action_shuffle" />
+      android:icon="@drawable/ic_action_invert" />
 
   <item
       android:id="@+id/action_new_chart"
