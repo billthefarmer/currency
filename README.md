@@ -116,7 +116,7 @@ once expanded. The toolbar icons from left to right are:
 ### Chart
 * **Fill** Fill the chart trace.
 
-###Theme
+### Theme
 * **Dark** Use dark theme
 
 ### About
