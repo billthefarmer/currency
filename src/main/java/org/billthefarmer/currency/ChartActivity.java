@@ -220,6 +220,19 @@ public class ChartActivity extends Activity
             description.setEnabled(false);
         }
 
+        // Set listener
+        if (customView != null)
+            customView.setOnClickListener(new View.OnClickListener()
+                {
+                    // onClick
+                    @Override
+                    public void onClick(View v)
+                    {
+                        if (histMap != null)
+                            onInvertClick();
+                    }
+                });
+
         // Check singleton instance
         if (instance != null && instance.isParsing())
         {
