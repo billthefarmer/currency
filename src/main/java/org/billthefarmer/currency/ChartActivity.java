@@ -336,6 +336,9 @@ public class ChartActivity extends Activity
                 chart.invalidate();
             }
 
+            // Update menu
+            invalidateOptionsMenu();
+
             // Don't do an online update
             return;
         }
@@ -778,6 +781,7 @@ public class ChartActivity extends Activity
                 chart.invalidate();
             }
 
+            // Update menu
             invalidateOptionsMenu();
         }
 
