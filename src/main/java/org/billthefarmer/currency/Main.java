@@ -837,7 +837,7 @@ public class Main extends Activity
         // Start chart activity
         startActivity(intent);
 
-        // Clear select list and update adapter
+        // Clear list and update adapter
         selectList.clear();
         adapter.notifyDataSetChanged();
 

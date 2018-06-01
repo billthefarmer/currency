@@ -88,6 +88,8 @@ public class ChartActivity extends Activity
 
     private Map<String, Map<String, Double>> histMap;
 
+    private List<Integer> chartList;
+    private List<String> nameList;
     private List<Entry> entryList;
     private LineDataSet dataSet;
     private LineData lineData;
@@ -474,7 +476,7 @@ public class ChartActivity extends Activity
         return true;
     }
 
-    // on invert click
+    // On invert click
     private boolean onInvertClick()
     {
         SimpleDateFormat dateParser =
