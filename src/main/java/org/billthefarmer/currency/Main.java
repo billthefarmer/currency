@@ -1157,7 +1157,9 @@ public class Main extends Activity
             editor.putString(PREF_NAMES, nameArray.toString());
             editor.putString(PREF_VALUES, valueArray.toString());
             editor.putInt(PREF_INDEX, currentIndex);
-            editor.putFloat(PREF_VALUE, (float)currentValue);
+            numberFormat.setGroupingUsed(false);
+            value = numberFormat.format(currentValue);
+            editor.putString(PREF_VALUE, value);
             editor.apply();
 
             // Notify the adapter
