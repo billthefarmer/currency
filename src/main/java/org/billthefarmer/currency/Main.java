@@ -165,7 +165,7 @@ public class Main extends Activity
     public static final String SAVE_SELECT = "save_select";
 
     public static final String ECB_DAILY_URL =
-        "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+        "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
 
     protected final static String CHOICE = "choice";
 

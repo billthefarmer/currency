@@ -76,9 +76,9 @@ public class ChartActivity extends Activity
     public static final String INVERT = "invert";
 
     public static final String ECB_QUARTER_URL =
-        "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
+        "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
     public static final String ECB_HIST_URL =
-        "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml";
+        "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml";
 
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
 
