@@ -23,6 +23,8 @@ and to redesign it to deal with currencies that have historical data,
 currencies that don't, data sources that might disappear and other
 potential pitfalls that I haven't found yet makes it far too complex.
 
+More currencies, cryptocurrencies and lots of other conversions are in [Equate](https://github.com/EvanRespaut/Equate).
+
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/currency.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/choose.png)
 
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/settings.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/about.png)
