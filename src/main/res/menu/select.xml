@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/action_clear"
-        android:icon="@drawable/ic_action_clear"
-        android:showAsAction="ifRoom"
-        android:title="@string/clear" />
+  <item
+      android:id="@+id/action_clear"
+      android:icon="@drawable/ic_action_clear"
+      android:showAsAction="ifRoom"
+      android:title="@string/clear" />
 
-    <item
-        android:id="@+id/action_remove"
-        android:icon="@drawable/ic_action_remove"
-        android:showAsAction="ifRoom"
-        android:title="@string/remove" />
+  <item
+      android:id="@+id/action_remove"
+      android:icon="@drawable/ic_action_remove"
+      android:showAsAction="ifRoom"
+      android:title="@string/remove" />
 
-    <item
-        android:id="@+id/action_chart"
-        android:icon="@drawable/ic_action_picture"
-        android:showAsAction="ifRoom"
-        android:title="@string/chart" />
+  <item
+      android:id="@+id/action_chart"
+      android:icon="@drawable/ic_action_picture"
+      android:showAsAction="ifRoom"
+      android:title="@string/chart" />
 
-    <item
-        android:id="@+id/action_copy"
-        android:icon="@drawable/ic_action_copy"
-        android:showAsAction="ifRoom"
-        android:title="@string/copy" />
+  <item
+      android:id="@+id/action_copy"
+      android:icon="@drawable/ic_action_copy"
+      android:showAsAction="ifRoom"
+      android:title="@string/copy" />
 
 </menu>
