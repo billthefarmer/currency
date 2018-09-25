@@ -34,7 +34,8 @@ import android.widget.TextView;
 import java.util.List;
 
 // CurrencyAdapter class
-public class CurrencyAdapter extends BaseAdapter {
+public class CurrencyAdapter extends BaseAdapter
+{
     private LayoutInflater inflater;
 
     private List<Integer> flags;
@@ -50,7 +51,8 @@ public class CurrencyAdapter extends BaseAdapter {
     public CurrencyAdapter(Context context, int resource, List<Integer> flags,
                            List<String> names, List<String> symbols,
                            List<String> values, List<Integer> longNames,
-                           List<Integer> selection) {
+                           List<Integer> selection)
+    {
         inflater = LayoutInflater.from(context);
 
         // Save all the parameters
@@ -64,23 +66,27 @@ public class CurrencyAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return names.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return null;
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return position;
     }
 
     // Create a new View for each item referenced by the adapter
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         ImageView flag;
         TextView name;
         TextView symbol;
@@ -118,7 +124,7 @@ public class CurrencyAdapter extends BaseAdapter {
         if (selection.contains(position))
             convertView.setBackgroundResource(android.R.color.holo_blue_dark);
 
-            // Clear highlight
+        // Clear highlight
         else
             convertView.setBackgroundResource(0);
 

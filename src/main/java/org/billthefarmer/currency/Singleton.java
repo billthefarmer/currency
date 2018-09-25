@@ -23,13 +23,15 @@
 
 package org.billthefarmer.currency;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import java.util.List;
 import java.util.Map;
 
 // Singleton class
-public class Singleton {
+public class Singleton
+{
     private static Singleton instance;
 
     private Map<String, Map<String, Double>> map;
@@ -39,11 +41,13 @@ public class Singleton {
     private boolean parsing;
 
     // Constructor
-    private Singleton() {
+    private Singleton()
+    {
     }
 
     // Get instance
-    public static Singleton getInstance(TaskCallbacks callbacks) {
+    public static Singleton getInstance(TaskCallbacks callbacks)
+    {
         if (instance == null)
             instance = new Singleton();
 
@@ -52,51 +56,61 @@ public class Singleton {
     }
 
     // Get list
-    public List<Integer> getList() {
+    public List<Integer> getList()
+    {
         return list;
     }
 
     // Set list
-    public void setList(List<Integer> list) {
+    public void setList(List<Integer> list)
+    {
         this.list = list;
     }
 
     // Get map
-    public Map<String, Map<String, Double>> getMap() {
+    public Map<String, Map<String, Double>> getMap()
+    {
         return map;
     }
 
     // Set map
-    public void setMap(Map<String, Map<String, Double>> map) {
+    public void setMap(Map<String, Map<String, Double>> map)
+    {
         this.map = map;
     }
 
     // Is parsing
-    public boolean isParsing() {
+    public boolean isParsing()
+    {
         return parsing;
     }
 
     // Start parse task
-    protected void startParseTask(String url) {
+    protected void startParseTask(String url)
+    {
         ParseTask parseTask = new ParseTask();
         parseTask.execute(url);
         parsing = true;
     }
 
     // TaskCallbacks interface
-    interface TaskCallbacks {
+    interface TaskCallbacks
+    {
         void onProgressUpdate(String... date);
 
         void onPostExecute(Map<String, Map<String, Double>> map);
     }
 
     // ParseTask class
+    @SuppressLint("StaticFieldLeak")
     protected class ParseTask
-            extends AsyncTask<String, String, Map<String, Map<String, Double>>> {
+        extends AsyncTask<String, String, Map<String, Map<String, Double>>>
+    {
         // The system calls this to perform work in a worker thread
         // and delivers it the parameters given to AsyncTask.execute()
         @Override
-        protected Map<String, Map<String, Double>> doInBackground(String... urls) {
+        protected Map<String, Map<String, Double>> doInBackground(String... urls)
+        {
             // Get a parser
             ChartParser parser = new ChartParser();
 
@@ -110,7 +124,8 @@ public class Singleton {
 
         // Ignoring the date as not used
         @Override
-        protected void onProgressUpdate(String... date) {
+        protected void onProgressUpdate(String... date)
+        {
             if (callbacks != null)
                 callbacks.onProgressUpdate(date);
         }
@@ -118,7 +133,8 @@ public class Singleton {
         // The system calls this to perform work in the UI thread and
         // delivers the result from doInBackground()
         @Override
-        protected void onPostExecute(Map<String, Map<String, Double>> map) {
+        protected void onPostExecute(Map<String, Map<String, Double>> map)
+        {
             parsing = false;
             if (callbacks != null)
                 callbacks.onPostExecute(map);

@@ -60,15 +60,16 @@ import java.util.Map;
 
 // ChartActivity class
 public class ChartActivity extends Activity
-        implements Singleton.TaskCallbacks {
+    implements Singleton.TaskCallbacks
+{
     public static final String TAG = "ChartActivity";
 
     public static final String INVERT = "invert";
 
     public static final String ECB_QUARTER_URL =
-            "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
+        "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
     public static final String ECB_HIST_URL =
-            "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml";
+        "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml";
 
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
 
@@ -96,12 +97,14 @@ public class ChartActivity extends Activity
 
     // On create
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    @SuppressWarnings("deprecation")
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         // Get preferences
         SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+            PreferenceManager.getDefaultSharedPreferences(this);
 
         boolean theme = preferences.getBoolean(Main.PREF_DARK, true);
 
@@ -115,28 +118,34 @@ public class ChartActivity extends Activity
 
         List<Integer> list;
         // Check singleton instance
-        if (instance == null) {
+        if (instance == null)
+        {
             // Get singleton instance
             instance = Singleton.getInstance(this);
 
             // Get the intent for the parameters
             Intent intent = getIntent();
             list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
-        } else {
+        }
+        else
+        {
             // Get list from singleton instance
             list = instance.getList();
         }
 
         // Iterate through the list to get the last two
-        if (list != null) {
-            for (int index : list) {
+        if (list != null)
+        {
+            for (int index : list)
+            {
                 firstIndex = secondIndex;
                 secondIndex = index;
             }
         }
 
         // Reverse currency indices
-        if (invert) {
+        if (invert)
+        {
             int index = firstIndex;
             firstIndex = secondIndex;
             secondIndex = index;
@@ -148,7 +157,8 @@ public class ChartActivity extends Activity
 
         // Enable back navigation on action bar
         ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
+        if (actionBar != null)
+        {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
             // Set custom view
@@ -168,7 +178,8 @@ public class ChartActivity extends Activity
         int dark = resources.getColor(android.R.color.secondary_text_dark);
 
         // Set chart parameters
-        if (chart != null) {
+        if (chart != null)
+        {
             // Set the no data text and colour, only seen once
             chart.setNoDataText(updating);
             chart.setNoDataTextColor(dark);
@@ -203,17 +214,21 @@ public class ChartActivity extends Activity
         // Set listener
         if (customView != null)
             // onClick
-            customView.setOnClickListener(v -> {
-                if (histMap != null)
-                    onInvertClick();
-            });
+            customView.setOnClickListener(v ->
+        {
+            if (histMap != null)
+                onInvertClick();
+        });
 
         // Check singleton instance
-        if (instance != null && instance.isParsing()) {
+        if (instance != null && instance.isParsing())
+        {
             // Generate the label
             if (customView != null)
                 customView.setText(updating);
-        } else {
+        }
+        else
+        {
             // Generate the label
             String label = secondName + "/" + firstName;
             if (customView != null)
@@ -223,12 +238,14 @@ public class ChartActivity extends Activity
 
     // On resume
     @Override
-    protected void onResume() {
+    @SuppressWarnings("deprecation")
+    protected void onResume()
+    {
         super.onResume();
 
         // Get preferences
         SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+            PreferenceManager.getDefaultSharedPreferences(this);
 
         wifi = preferences.getBoolean(Main.PREF_WIFI, true);
         roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
@@ -242,26 +259,30 @@ public class ChartActivity extends Activity
             histMap = instance.getMap();
 
         // Check retained data
-        if (histMap != null) {
+        if (histMap != null)
+        {
             SimpleDateFormat dateParser =
-                    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+                new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
             Resources resources = getResources();
 
             // Create the entry list
             entryList = new ArrayList<>();
 
             // Iterate through the dates
-            for (String key : histMap.keySet()) {
+            for (String key : histMap.keySet())
+            {
                 float day;
 
                 // Parse the date and turn it into a day number
-                try {
+                try
+                {
                     Date date = dateParser.parse(key);
                     day = date.getTime() / MSEC_DAY;
                 }
 
                 // Ignore invalid dates
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     continue;
                 }
 
@@ -270,14 +291,16 @@ public class ChartActivity extends Activity
                 float value;
 
                 // Get the value for each date
-                try {
+                try
+                {
                     double first = entryMap.get(firstName);
                     double second = entryMap.get(secondName);
                     value = (float) (first / second);
                 }
 
                 // Ignore missing values
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     continue;
                 }
 
@@ -290,7 +313,8 @@ public class ChartActivity extends Activity
             int dark = resources.getColor(android.R.color.holo_blue_dark);
 
             // Check the chart
-            if (chart != null) {
+            if (chart != null)
+            {
                 // Create the dataset
                 dataSet = new LineDataSet(entryList, secondName);
 
@@ -300,7 +324,8 @@ public class ChartActivity extends Activity
                 dataSet.setColor(bright);
 
                 // Check preference
-                if (fill) {
+                if (fill)
+                {
                     dataSet.setFillColor(dark);
                     dataSet.setDrawFilled(true);
                 }
@@ -320,23 +345,26 @@ public class ChartActivity extends Activity
 
         // Check connectivity before update
         ConnectivityManager manager =
-                (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
 
         // Check connection
-        if (info == null || !info.isConnected()) {
+        if (info == null || !info.isConnected())
+        {
             showToast(R.string.no_connection);
             return;
         }
 
         // Check wifi
-        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI) {
+        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+        {
             showToast(R.string.no_wifi);
             return;
         }
 
         // Check roaming
-        if (!roaming && info.isRoaming()) {
+        if (!roaming && info.isRoaming())
+        {
             showToast(R.string.roaming);
             return;
         }
@@ -348,12 +376,14 @@ public class ChartActivity extends Activity
 
     // On pause
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
 
         // Store the indices and historical data in the singleton
         // instance
-        if (instance != null) {
+        if (instance != null)
+        {
             List<Integer> list = new ArrayList<>();
             list.add(firstIndex);
             list.add(secondIndex);
@@ -367,7 +397,8 @@ public class ChartActivity extends Activity
 
     // onSaveInstanceState
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState)
+    {
         super.onSaveInstanceState(outState);
 
         outState.putBoolean(INVERT, invert);
@@ -375,7 +406,8 @@ public class ChartActivity extends Activity
 
     // On create options menu
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         MenuInflater inflater = getMenuInflater();
@@ -386,7 +418,8 @@ public class ChartActivity extends Activity
 
     // onPrepareOptionsMenu
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
         menu.findItem(R.id.action_invert).setEnabled(histMap != null);
 
         return true;
@@ -394,42 +427,45 @@ public class ChartActivity extends Activity
 
     // On options item selected
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Get id
         int id = item.getItemId();
-        switch (id) {
-            // Home
-            case android.R.id.home:
-                finish();
-                break;
+        switch (id)
+        {
+        // Home
+        case android.R.id.home:
+            finish();
+            break;
 
-            // Invert chart
-            case R.id.action_invert:
-                return onInvertClick();
+        // Invert chart
+        case R.id.action_invert:
+            return onInvertClick();
 
-            // New chart
-            case R.id.action_new_chart:
-                return onNewClick();
+        // New chart
+        case R.id.action_new_chart:
+            return onNewClick();
 
-            // Refresh chart
-            case R.id.action_refresh:
-                return onRefreshClick(ECB_QUARTER_URL);
+        // Refresh chart
+        case R.id.action_refresh:
+            return onRefreshClick(ECB_QUARTER_URL);
 
-            // Refresh with historical data
-            case R.id.action_hist:
-                return onRefreshClick(ECB_HIST_URL);
+        // Refresh with historical data
+        case R.id.action_hist:
+            return onRefreshClick(ECB_HIST_URL);
 
-            default:
-                return false;
+        default:
+            return false;
         }
 
         return true;
     }
 
     // on invert click
-    private boolean onInvertClick() {
+    private boolean onInvertClick()
+    {
         SimpleDateFormat dateParser =
-                new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+            new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 
         // Get updating text
         Resources resources = getResources();
@@ -455,14 +491,18 @@ public class ChartActivity extends Activity
         entryList.clear();
 
         // Iterate through the dates
-        for (String key : histMap.keySet()) {
+        for (String key : histMap.keySet())
+        {
             float day = 0;
 
             // Parse the date and turn it into a day number
-            try {
+            try
+            {
                 Date date = dateParser.parse(key);
                 day = date.getTime() / MSEC_DAY;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
             }
 
             // Get the map for each date
@@ -470,14 +510,16 @@ public class ChartActivity extends Activity
             float value;
 
             // Get the value for each date
-            try {
+            try
+            {
                 double first = entryMap.get(firstName);
                 double second = entryMap.get(secondName);
                 value = (float) (first / second);
             }
 
             // Ignore missing values
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 continue;
             }
 
@@ -486,7 +528,8 @@ public class ChartActivity extends Activity
         }
 
         // Check the chart
-        if (chart != null) {
+        if (chart != null)
+        {
             // Add the data to the chart and refresh
             dataSet.setValues(entryList);
             lineData.notifyDataChanged();
@@ -503,7 +546,8 @@ public class ChartActivity extends Activity
     }
 
     // On new click
-    private boolean onNewClick() {
+    private boolean onNewClick()
+    {
         // Start the choice dialog
         Intent intent = new Intent(this, ChoiceDialog.class);
         startActivityForResult(intent, 0);
@@ -512,26 +556,31 @@ public class ChartActivity extends Activity
     }
 
     // On refresh click
-    private boolean onRefreshClick(String url) {
+    @SuppressWarnings("deprecation")
+    private boolean onRefreshClick(String url)
+    {
         // Check connectivity before update
         ConnectivityManager manager =
-                (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
 
         // Check connection
-        if (info == null || !info.isConnected()) {
+        if (info == null || !info.isConnected())
+        {
             showToast(R.string.no_connection);
             return false;
         }
 
         // Check wifi
-        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI) {
+        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+        {
             showToast(R.string.no_wifi);
             return false;
         }
 
         // Check roaming
-        if (!roaming && info.isRoaming()) {
+        if (!roaming && info.isRoaming())
+        {
             showToast(R.string.roaming);
             return false;
         }
@@ -554,13 +603,14 @@ public class ChartActivity extends Activity
     // On activity result
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
+                                    Intent data)
+    {
         // Do nothing if cancelled
         if (resultCode != RESULT_OK)
             return;
 
         SimpleDateFormat dateParser =
-                new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+            new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 
         // Get updating text
         Resources resources = getResources();
@@ -570,7 +620,8 @@ public class ChartActivity extends Activity
         List<Integer> selectList = data.getIntegerArrayListExtra(Main.CHOICE);
 
         // Iterate through the list to get the last two
-        for (int index : selectList) {
+        for (int index : selectList)
+        {
             firstIndex = secondIndex;
             secondIndex = index;
         }
@@ -587,17 +638,20 @@ public class ChartActivity extends Activity
         entryList.clear();
 
         // Iterate through the dates
-        for (String key : histMap.keySet()) {
+        for (String key : histMap.keySet())
+        {
             float day;
 
             // Parse the date and turn it into a day number
-            try {
+            try
+            {
                 Date date = dateParser.parse(key);
                 day = date.getTime() / MSEC_DAY;
             }
 
             // Ignore invalid dates
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 continue;
             }
 
@@ -606,14 +660,16 @@ public class ChartActivity extends Activity
             float value;
 
             // Get the value for each date
-            try {
+            try
+            {
                 double first = entryMap.get(firstName);
                 double second = entryMap.get(secondName);
                 value = (float) (first / second);
             }
 
             // Ignore missing values
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 continue;
             }
 
@@ -622,7 +678,8 @@ public class ChartActivity extends Activity
         }
 
         // Check the chart
-        if (chart != null) {
+        if (chart != null)
+        {
             // Add the data to the chart and refresh
             dataSet.setValues(entryList);
             lineData.notifyDataChanged();
@@ -638,37 +695,44 @@ public class ChartActivity extends Activity
 
     // Ignoring the date as not used
     @Override
-    public void onProgressUpdate(String... date) {
+    public void onProgressUpdate(String... date)
+    {
     }
 
     // The system calls this to perform work in the UI thread and
     // delivers the result from doInBackground()
     @Override
-    public void onPostExecute(Map<String, Map<String, Double>> map) {
+    @SuppressWarnings("deprecation")
+    public void onPostExecute(Map<String, Map<String, Double>> map)
+    {
         // Check map
-        if (!map.isEmpty()) {
+        if (!map.isEmpty())
+        {
             // Save map
             histMap = map;
 
             SimpleDateFormat dateParser =
-                    new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+                new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
             Resources resources = getResources();
 
             // Create a new entry list
             entryList = new ArrayList<>();
 
             // Iterate through the dates
-            for (String key : map.keySet()) {
+            for (String key : map.keySet())
+            {
                 float day;
 
                 // Parse the date and turn it into a day number
-                try {
+                try
+                {
                     Date date = dateParser.parse(key);
                     day = date.getTime() / MSEC_DAY;
                 }
 
                 // Ignore invalid dates
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     continue;
                 }
 
@@ -677,14 +741,16 @@ public class ChartActivity extends Activity
                 float value;
 
                 // Get the value for each date
-                try {
+                try
+                {
                     double first = entryMap.get(firstName);
                     double second = entryMap.get(secondName);
                     value = (float) (first / second);
                 }
 
                 // Ignore missing values
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     continue;
                 }
 
@@ -697,7 +763,8 @@ public class ChartActivity extends Activity
             int dark = resources.getColor(android.R.color.holo_blue_dark);
 
             // Check the chart
-            if (chart != null) {
+            if (chart != null)
+            {
                 // Create the dataset
                 dataSet = new LineDataSet(entryList, secondName);
 
@@ -707,7 +774,8 @@ public class ChartActivity extends Activity
                 dataSet.setColor(bright);
 
                 // Check preference
-                if (fill) {
+                if (fill)
+                {
                     dataSet.setFillColor(dark);
                     dataSet.setDrawFilled(true);
                 }
@@ -720,7 +788,9 @@ public class ChartActivity extends Activity
 
             // Update menu
             invalidateOptionsMenu();
-        } else {
+        }
+        else
+        {
             // Show failed
             showToast(R.string.update_failed);
         }
@@ -732,7 +802,8 @@ public class ChartActivity extends Activity
     }
 
     // Show toast
-    void showToast(int id, Object... args) {
+    void showToast(int id, Object... args)
+    {
         // Get text from resources
         Resources resources = getResources();
         String text = resources.getString(id);
@@ -740,13 +811,15 @@ public class ChartActivity extends Activity
     }
 
     // Show toast
-    void showToast(String format, Object... args) {
+    void showToast(String format, Object... args)
+    {
         String text = String.format(format, args);
         showToast(text);
     }
 
     // Show toast
-    void showToast(String text) {
+    void showToast(String text)
+    {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -754,17 +827,20 @@ public class ChartActivity extends Activity
     }
 
     // DateAxisValueFormatter class
-    private class DateAxisValueFormatter implements IAxisValueFormatter {
+    private class DateAxisValueFormatter implements IAxisValueFormatter
+    {
         DateFormat dateFormat;
 
         // Constructor
-        private DateAxisValueFormatter() {
+        private DateAxisValueFormatter()
+        {
             dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         }
 
         // Get formatted value
         @Override
-        public String getFormattedValue(float value, AxisBase axis) {
+        public String getFormattedValue(float value, AxisBase axis)
+        {
             // "value" represents the position of the label on the
             // axis (x or y). Create a date from the day number and
             // format it.
