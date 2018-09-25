@@ -1,11 +1,11 @@
-# ![Logo](src/main/res/drawable-mdpi/ic_launcher.png) Currency [![Build Status](https://travis-ci.org/billthefarmer/currency.svg?branch=master)](https://travis-ci.org/billthefarmer/currency) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.currency)
+# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Currency [![Build Status](https://travis-ci.org/billthefarmer/currency.svg?branch=master)](https://travis-ci.org/billthefarmer/currency) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.currency)
 
-Android currency conversion. The app is available on [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.currency) and [here](https://github.com/billthefarmer/currency/releases).
+Android currency conversion. The app is available on [F-Droid](https://f-droid.org/packages/org.billthefarmer.currency) and [here](https://github.com/billthefarmer/currency/releases).
 
 ## Pull requests
 I have had a number of pull requests on this app of mainly cosmetic
 changes, possibly due to a
-[Reddit](https://www.reddit.com/r/androiddev/comments/5lqdvw/do_you_want_to_contribute_to_an_open_source_app)
+[Reddit](https://www.reddit.com/r/androiddev/comments/5lqdvw/do_you_want_to_contribute_to_an_open_source_app/)
 post about contributing to open source apps. Please feel free to
 contribute bug fixes, enhancement requests, translations, etc, or fork
 your own version, but not cosmetic updates to modernise the 'look', or
@@ -18,12 +18,12 @@ possible data sources. I have decided that trying to add more
 currencies from disparate sources makes this app far too
 complicated. It was designed around the current and historical data
 freely and reliably available from the
-[European Central Bank](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html)
+[European Central Bank](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)
 and to redesign it to deal with currencies that have historical data,
 currencies that don't, data sources that might disappear and other
 potential pitfalls that I haven't found yet makes it far too complex.
 
-More ~currencies~, cryptocurrencies and lots of other conversions are in [Equate](https://github.com/EvanRespaut/Equate).
+More ~currencies~, crypto-currencies and lots of other conversions are in [Equate](https://github.com/EvanRespaut/Equate).
 
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/currency.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/choose.png)
 
@@ -33,7 +33,7 @@ More ~currencies~, cryptocurrencies and lots of other conversions are in [Equate
 
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/hist.png)
 
- * Currency rates from the [European Central Bank](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html)
+ * Currency rates from the [European Central Bank](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)
  * 32 international currencies
  * Currency rates updated daily
  * Last rate update retained for use offline
@@ -61,7 +61,7 @@ The icons in the toolbar from left to right are:
    selection. The entries will be added to the list in the order
    selected.
 * **Update** Get the day's currency rates from the
-  [ECB](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html). The
+  [ECB](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html). The
   date shown on the left above the currency list will be updated if
   new rates are available. It may show the previous day because the
   rates are updated at around 14:15 CET. The status display on the
@@ -89,7 +89,7 @@ icons in the toolbar will change to:
 ## Chart
 The display shows an interactive chart of the last 90 days of
 historical rates from the
-[ECB](http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html"). The
+[ECB](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html). The
 chart responds to two finger pinch and expand gestures and will scroll
 once expanded. The toolbar icons from left to right are:
 * **Invert** the chart.
