@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-  <ListView
-      android:id="@+id/list"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1" />
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center_horizontal"
-      android:orientation="horizontal">
-
-    <Button
-	android:id="@+id/cancel" 
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-	style="?android:attr/buttonBarButtonStyle"
-	android:text="@string/cancel" />
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
-    <Button
-	android:id="@+id/clear" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-	style="?android:attr/buttonBarButtonStyle"
-	android:enabled="false"
-	android:text="@string/clear" />
+        <Button
+            android:id="@+id/cancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
 
-    <Button
-	android:id="@+id/select" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-	style="?android:attr/buttonBarButtonStyle"
-	android:enabled="false"
-	android:text="@string/select" />
+        <Button
+            android:id="@+id/clear"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/clear" />
 
-  </LinearLayout>
+        <Button
+            android:id="@+id/select"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/select" />
+
+    </LinearLayout>
 
 </LinearLayout>
