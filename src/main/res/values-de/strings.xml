@@ -8,14 +8,10 @@
   <string name="settings">Einstellungen</string>
   <string name="built">Kompiliert am %s</string>
   <string name="copyright">Copyright \u00A9 2018 Bill Farmer\nDiagramm
-  von <a
-  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nUkrainische Übersetzung von <a
-  href="https://github.com/personaljesusua">Vladyslav
-  Pohrebniakov</a>\nDeutsche Übersetzung von <a
-  href="https://github.com/l1am0">L1am0</a>
+  von <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nUkrainische Übersetzung von <a href="https://github.com/personaljesusua">Vladyslav
+  Pohrebniakov</a>\nDeutsche Übersetzung von <a href="https://github.com/l1am0">L1am0</a>
   </string>
-  <string name="licence">Lizenz steht unter <a
-  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">Lizenz steht unter <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
 
   <string name="remove">Entfernen</string>

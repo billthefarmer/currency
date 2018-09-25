@@ -25,7 +25,6 @@ package org.billthefarmer.currency;
 
 import android.app.ActionBar;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,22 +36,20 @@ import android.preference.PreferenceScreen;
 
 // SettingsFragment class
 public class SettingsFragment extends PreferenceFragment
-    implements SharedPreferences.OnSharedPreferenceChangeListener
-{
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
     // On create
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
 
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(getActivity());
+                PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         ListPreference preference =
-            (ListPreference)findPreference(Main.PREF_DIGITS);
+                (ListPreference) findPreference(Main.PREF_DIGITS);
 
         // Set summary to be the user-description for the selected value
         preference.setSummary(preference.getEntry());
@@ -68,34 +65,30 @@ public class SettingsFragment extends PreferenceFragment
 
     // on Resume
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         getPreferenceScreen().getSharedPreferences()
-            .registerOnSharedPreferenceChangeListener(this);
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
     // on Pause
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
         getPreferenceScreen().getSharedPreferences()
-            .unregisterOnSharedPreferenceChangeListener(this);
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     // On preference tree click
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-                                         Preference preference)
-    {
+                                         Preference preference) {
         boolean result =
-            super.onPreferenceTreeClick(preferenceScreen, preference);
+                super.onPreferenceTreeClick(preferenceScreen, preference);
 
         // Set home as up
-        if (preference instanceof PreferenceScreen)
-        {
-            Dialog dialog = ((PreferenceScreen)preference).getDialog();
+        if (preference instanceof PreferenceScreen) {
+            Dialog dialog = ((PreferenceScreen) preference).getDialog();
             ActionBar actionBar = dialog.getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
@@ -106,18 +99,15 @@ public class SettingsFragment extends PreferenceFragment
     // On shared preference changed
     @Override
     public void onSharedPreferenceChanged(SharedPreferences preferences,
-                                          String key)
-    {
-        if (key.equals(Main.PREF_DIGITS))
-        {
-            ListPreference preference = (ListPreference)findPreference(key);
+                                          String key) {
+        if (key.equals(Main.PREF_DIGITS)) {
+            ListPreference preference = (ListPreference) findPreference(key);
 
             // Set summary to be the user-description for the selected value
             preference.setSummary(preference.getEntry());
         }
 
-        if (key.equals(Main.PREF_DARK))
-        {
+        if (key.equals(Main.PREF_DARK)) {
             if (Build.VERSION.SDK_INT != Main.VERSION_M)
                 getActivity().recreate();
         }

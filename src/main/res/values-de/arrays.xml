@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string-array
-      name="pref_digit_entries">
-    <item>Eine Nachkommastelle</item>
-    <item>Zwei Nachkommastellen</item>
-    <item>Drei Nachkommastellen</item>
-    <item>Vier Nachkommastellen</item>
-    <item>Fünf Nachkommastellen</item>
-  </string-array>
+    <string-array name="pref_digit_entries">
+        <item>Eine Nachkommastelle</item>
+        <item>Zwei Nachkommastellen</item>
+        <item>Drei Nachkommastellen</item>
+        <item>Vier Nachkommastellen</item>
+        <item>Fünf Nachkommastellen</item>
+    </string-array>
 
-  <string-array
-      name="pref_digit_values">
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-    <item>4</item>
-    <item>5</item>
-  </string-array>
+    <string-array name="pref_digit_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 
 </resources>

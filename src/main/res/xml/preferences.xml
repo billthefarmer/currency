@@ -1,101 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings">
 
-  <PreferenceCategory
-      android:key="pref_update_category"
-      android:title="@string/pref_update_category">
+    <PreferenceCategory
+        android:key="pref_update_category"
+        android:title="@string/pref_update_category">
 
-    <CheckBoxPreference
-	android:key="pref_wifi"
-	android:icon="?attr/pref_wifi"
-	android:title="@string/pref_wifi"
-	android:summary="@string/pref_wifi_summ"
-	android:persistent="true"
-	android:defaultValue="true" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="?attr/pref_wifi"
+            android:key="pref_wifi"
+            android:persistent="true"
+            android:summary="@string/pref_wifi_summ"
+            android:title="@string/pref_wifi" />
 
-    <CheckBoxPreference
-	android:key="pref_roaming"
-	android:icon="?attr/pref_roaming"
-	android:title="@string/pref_roaming"
-	android:summary="@string/pref_roaming_summ"
-	android:persistent="true"
-	android:defaultValue="false" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="?attr/pref_roaming"
+            android:key="pref_roaming"
+            android:persistent="true"
+            android:summary="@string/pref_roaming_summ"
+            android:title="@string/pref_roaming" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory
-      android:key="pref_select_category"
-      android:title="@string/pref_select">
+    <PreferenceCategory
+        android:key="pref_select_category"
+        android:title="@string/pref_select">
 
-    <CheckBoxPreference
-	android:key="pref_select"
-	android:icon="?attr/pref_select"
-	android:title="@string/pref_select"
-	android:summary="@string/pref_select_summ"
-	android:persistent="true"
-	android:defaultValue="true" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="?attr/pref_select"
+            android:key="pref_select"
+            android:persistent="true"
+            android:summary="@string/pref_select_summ"
+            android:title="@string/pref_select" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory
-      android:key="pref_numbers_category"
-      android:title="@string/pref_numbers">
+    <PreferenceCategory
+        android:key="pref_numbers_category"
+        android:title="@string/pref_numbers">
 
-    <ListPreference
-	android:key="pref_digits"
-	android:title="@string/pref_digits"
-	android:dialogTitle="@string/pref_digits"
-	android:icon="?attr/pref_digits"
-	android:dialogIcon="?attr/pref_digits"
-	android:entries="@array/pref_digit_entries"
-	android:entryValues="@array/pref_digit_values"
-	android:defaultValue="@string/pref_digit_default"/>
+        <ListPreference
+            android:defaultValue="@string/pref_digit_default"
+            android:dialogIcon="?attr/pref_digits"
+            android:dialogTitle="@string/pref_digits"
+            android:entries="@array/pref_digit_entries"
+            android:entryValues="@array/pref_digit_values"
+            android:icon="?attr/pref_digits"
+            android:key="pref_digits"
+            android:title="@string/pref_digits" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory
-      android:key="pref_chart_category"
-      android:title="@string/chart">
+    <PreferenceCategory
+        android:key="pref_chart_category"
+        android:title="@string/chart">
 
-    <CheckBoxPreference
-	android:key="pref_fill"
-	android:icon="?attr/pref_fill"
-	android:title="@string/pref_fill"
-	android:summary="@string/pref_fill_summ"
-	android:persistent="true"
-	android:defaultValue="true" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="?attr/pref_fill"
+            android:key="pref_fill"
+            android:persistent="true"
+            android:summary="@string/pref_fill_summ"
+            android:title="@string/pref_fill" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory
-      android:key="pref_theme_category"
-      android:title="@string/theme">
+    <PreferenceCategory
+        android:key="pref_theme_category"
+        android:title="@string/theme">
 
-    <CheckBoxPreference
-	android:key="pref_dark"
-	android:icon="?attr/pref_dark"
-	android:title="@string/pref_dark"
-	android:summary="@string/pref_dark_summ"
-	android:persistent="true"
-	android:defaultValue="true" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="?attr/pref_dark"
+            android:key="pref_dark"
+            android:persistent="true"
+            android:summary="@string/pref_dark_summ"
+            android:title="@string/pref_dark" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory
-      android:key="pref_about_category"
-      android:title="@string/pref_about">
+    <PreferenceCategory
+        android:key="pref_about_category"
+        android:title="@string/pref_about">
 
-    <org.billthefarmer.currency.AboutPreference
-	android:key="pref_about"
-	android:icon="?attr/pref_about"
-	android:dialogIcon="?attr/pref_about"
-	android:negativeButtonText=""
-	android:title="@string/pref_about"
-	android:summary="@string/pref_about_summ"
-	android:dialogLayout="@layout/about" />
+        <org.billthefarmer.currency.AboutPreference
+            android:dialogIcon="?attr/pref_about"
+            android:dialogLayout="@layout/about"
+            android:icon="?attr/pref_about"
+            android:key="pref_about"
+            android:negativeButtonText=""
+            android:summary="@string/pref_about_summ"
+            android:title="@string/pref_about" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>

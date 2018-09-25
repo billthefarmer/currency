@@ -1,25 +1,45 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:3.2.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        maven { url "https://jitpack.io" }
     }
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'android-22'
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
+        applicationId "org.billthefarmer.currency"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionName "1.20"
+        versionCode 120
+
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     lintOptions {
-	disable 'IconDensities', 'IconDuplicates'
+        disable 'IconDensities', 'IconDuplicates'
         // abortOnError false
     }
 }
@@ -28,12 +48,6 @@ android {
 //     options.compilerArgs << "-Xlint:all"
 // }
 
-repositories {
-    maven {
-	url 'https://jitpack.io'
-    }
-}
-
 dependencies {
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }
