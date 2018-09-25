@@ -6,3 +6,4 @@ local.properties
 *~
 *.apk
 data
+*.orig
