@@ -24,12 +24,12 @@
 package org.billthefarmer.currency;
 
 import android.content.Context;
+
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.BufferedReader;
 
-public class RawTextReader
-{
+public class RawTextReader {
     /* ********************************************************************
      * Read raw text file resource...
      *
@@ -37,8 +37,7 @@ public class RawTextReader
      * android-read-text-raw-resource-file
      */
 
-    public static String read(Context context, int resId)
-    {
+    public static String read(Context context, int resId) {
         InputStream stream = context.getResources().openRawResource(resId);
         InputStreamReader reader = new InputStreamReader(stream);
         BufferedReader buff = new BufferedReader(reader);
@@ -46,14 +45,10 @@ public class RawTextReader
         String line;
         StringBuilder text = new StringBuilder();
 
-        try
-        {
+        try {
             while ((line = buff.readLine()) != null)
-                text.append(line + "\n" );
-        }
-
-        catch (Exception e)
-        {
+                text.append(line).append("\n");
+        } catch (Exception e) {
             return "";
         }
 

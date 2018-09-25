@@ -30,11 +30,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
 
 // ChoiceAdapter class
-public class ChoiceAdapter extends BaseAdapter
-{
+public class ChoiceAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     private List<Integer> flags;
@@ -48,8 +48,7 @@ public class ChoiceAdapter extends BaseAdapter
     // Constructor
     public ChoiceAdapter(Context context, int resource, List<Integer> flags,
                          List<String> names, List<Integer> longNames,
-                         List<Integer> selection)
-    {
+                         List<Integer> selection) {
         inflater = LayoutInflater.from(context);
 
         // Save all the parameters
@@ -61,27 +60,23 @@ public class ChoiceAdapter extends BaseAdapter
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return names.size();
     }
 
     @Override
-    public Object getItem(int position)
-    {
+    public Object getItem(int position) {
         return null;
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     // Create a new View for each item referenced by the adapter
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ImageView flag;
         TextView name;
         TextView longName;
@@ -91,9 +86,9 @@ public class ChoiceAdapter extends BaseAdapter
             convertView = inflater.inflate(resource, parent, false);
 
         // Find the views
-        flag = (ImageView)convertView.findViewById(R.id.flag);
-        name = (TextView)convertView.findViewById(R.id.name);
-        longName = (TextView)convertView.findViewById(R.id.long_name);
+        flag = convertView.findViewById(R.id.flag);
+        name = convertView.findViewById(R.id.name);
+        longName = convertView.findViewById(R.id.long_name);
 
         // Update the views
         if (flag != null)
@@ -105,11 +100,11 @@ public class ChoiceAdapter extends BaseAdapter
         if (longName != null)
             longName.setText(longNames.get(position));
 
-        // Hightlight if selected
+        // Highlight if selected
         if (selection.contains(position))
             convertView.setBackgroundResource(android.R.color.holo_blue_dark);
 
-        // Clear hightlight
+            // Clear highlight
         else
             convertView.setBackgroundResource(0);
 

@@ -29,8 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 // Data class
-public class Data
-{
+public class Data {
     private static Data instance;
 
     private Map<String, Double> map;
@@ -40,11 +39,11 @@ public class Data
     private boolean parsing;
 
     // Constructor
-    private Data() {}
+    private Data() {
+    }
 
     // Get instance
-    public static Data getInstance(TaskCallbacks callbacks)
-    {
+    public static Data getInstance(TaskCallbacks callbacks) {
         if (instance == null)
             instance = new Data();
 
@@ -52,53 +51,53 @@ public class Data
         return instance;
     }
 
-    // Set list
-    public void setList(List<Integer> list)
-    {
-        this.list = list;
-    }
-
     // Get list
-    public List<Integer> getList()
-    {
+    public List<Integer> getList() {
         return list;
     }
 
-    // Set map
-    public void setMap(Map<String, Double> map)
-    {
-        this.map = map;
+    // Set list
+    public void setList(List<Integer> list) {
+        this.list = list;
     }
 
     // Get map
-    public Map<String, Double> getMap()
-    {
+    public Map<String, Double> getMap() {
         return map;
     }
 
+    // Set map
+    public void setMap(Map<String, Double> map) {
+        this.map = map;
+    }
+
     // Start parse task
-    protected void startParseTask(String url)
-    {
+    protected void startParseTask(String url) {
         ParseTask parseTask = new ParseTask();
         parseTask.execute(url);
     }
 
+    // TaskCallbacks interface
+    interface TaskCallbacks {
+        void onProgressUpdate(String... date);
+
+        void onPostExecute(Map<String, Double> map);
+    }
+
     // ParseTask class
     protected class ParseTask
-        extends AsyncTask<String, String, Map<String, Double>>
-    {
+            extends AsyncTask<String, String, Map<String, Double>> {
         String latest;
 
         // The system calls this to perform work in a worker thread
         // and delivers it the parameters given to AsyncTask.execute()
         @Override
-        protected Map<String, Double> doInBackground(String... urls)
-        {
+        protected Map<String, Double> doInBackground(String... urls) {
             // Get a parser
             Parser parser = new Parser();
 
             // Start the parser and report progress with the date
-            if (parser.startParser(urls[0]) == true)
+            if (parser.startParser(urls[0]))
                 publishProgress(parser.getDate());
 
             // Return the map
@@ -107,8 +106,7 @@ public class Data
 
         // On progress update
         @Override
-        protected void onProgressUpdate(String... date)
-        {
+        protected void onProgressUpdate(String... date) {
             if (callbacks != null)
                 callbacks.onProgressUpdate(date);
         }
@@ -116,17 +114,9 @@ public class Data
         // The system calls this to perform work in the UI thread and
         // delivers the result from doInBackground()
         @Override
-        protected void onPostExecute(Map<String, Double> map)
-        {
+        protected void onPostExecute(Map<String, Double> map) {
             if (callbacks != null)
                 callbacks.onPostExecute(map);
         }
-    }
-
-    // TaskCallbacks interface
-    interface TaskCallbacks
-    {
-        void onProgressUpdate(String... date);
-        void onPostExecute(Map<String, Double> map);
     }
 }
