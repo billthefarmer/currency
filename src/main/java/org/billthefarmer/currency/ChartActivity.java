@@ -469,27 +469,27 @@ public class ChartActivity extends Activity
 
         // Week
         case R.id.action_week:
-            return onWeekClick();
+            return onWeekClick(item);
 
         // Month
         case R.id.action_month:
-            return onMonthClick();
+            return onMonthClick(item);
 
         // Quarter
         case R.id.action_quarter:
-            return onQuarterClick();
+            return onQuarterClick(item);
 
         // Year
         case R.id.action_year:
-            return onYearClick();
+            return onYearClick(item);
 
         // Years
         case R.id.action_years:
-            return onYearsClick();
+            return onYearsClick(item);
 
         // All
         case R.id.action_all:
-            return onAllClick();
+            return onAllClick(item);
 
         default:
             return false;
@@ -538,8 +538,11 @@ public class ChartActivity extends Activity
                 Date date = dateParser.parse(key);
                 day = date.getTime() / MSEC_DAY;
             }
+
+            // Ignore invalid dates
             catch (Exception e)
             {
+                continue;
             }
 
             // Get the map for each date
@@ -638,66 +641,78 @@ public class ChartActivity extends Activity
     }
 
     // onWeekClick
-    private boolean onWeekClick()
+    private boolean onWeekClick(MenuItem item)
     {
         range = WEEK;
+        item.setChecked(true);
         updateChart();
 
         return true;
     }
 
     // onMonthClick
-    private boolean onMonthClick()
+    private boolean onMonthClick(MenuItem item)
     {
         range = MONTH;
+        item.setChecked(true);
         updateChart();
 
         return true;
     }
 
     // onQuarterClick
-    private boolean onQuarterClick()
+    private boolean onQuarterClick(MenuItem item)
     {
         range = QUARTER;
+        item.setChecked(true);
         updateChart();
 
         return true;
     }
 
     // onYearClick
-    private boolean onYearClick()
+    private boolean onYearClick(MenuItem item)
     {
         range = YEAR;
+        item.setChecked(true);
         updateChart();
 
         return true;
     }
 
     // onYearsClick
-    private boolean onYearsClick()
+    private boolean onYearsClick(MenuItem item)
     {
         range = YEARS;
+        item.setChecked(true);
         updateChart();
 
         return true;
     }
 
     // onAllClick
-    private boolean onAllClick()
+    private boolean onAllClick(MenuItem item)
     {
         range = ALL;
+        item.setChecked(true);
         updateChart();
 
         return true;
     }
 
     // updateChart
-    @SuppressWarnings("deprecation")
     private void updateChart()
     {
         SimpleDateFormat dateParser =
             new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+
+        // Get updating text
         Resources resources = getResources();
+        String updating = resources.getString(R.string.updating);
+
+        // Set custom text to updating, since this may take a few secs
+        if (customView != null)
+            customView.setText(updating);
 
         // Create the entry list
         entryList = new ArrayList<>();
@@ -710,7 +725,7 @@ public class ChartActivity extends Activity
         // Iterate through the dates
         for (String key : histMap.keySet())
         {
-            float day;
+            float day = 0;
 
             // Parse the date and turn it into a day number
             try
@@ -751,33 +766,20 @@ public class ChartActivity extends Activity
             entryList.add(0, new Entry(day, value));
         }
 
-        // Get the colour
-        int bright = resources.getColor(android.R.color.holo_blue_bright);
-        int dark = resources.getColor(android.R.color.holo_blue_dark);
-
         // Check the chart
         if (chart != null)
         {
-            // Create the dataset
-            dataSet = new LineDataSet(entryList, secondName);
-
-            // Set dataset parameters and colour
-            dataSet.setDrawCircles(false);
-            dataSet.setDrawValues(false);
-            dataSet.setColor(bright);
-
-            // Check preference
-            if (fill)
-            {
-                dataSet.setFillColor(dark);
-                dataSet.setDrawFilled(true);
-            }
-
             // Add the data to the chart and refresh
-            lineData = new LineData(dataSet);
-            chart.setData(lineData);
+            dataSet.setValues(entryList);
+            lineData.notifyDataChanged();
+            chart.notifyDataSetChanged();
             chart.invalidate();
         }
+
+        // Restore the custom view to the current currencies
+        String label = secondName + "/" + firstName;
+        if (customView != null)
+            customView.setText(label);
     }
 
     // On activity result
