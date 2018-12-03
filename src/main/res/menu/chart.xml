@@ -25,4 +25,42 @@
       android:showAsAction="ifRoom"
       android:title="@string/hist" />
 
+  <item
+      android:id="@+id/action_range"
+      android:icon="@drawable/ic_action_expand"
+      android:showAsAction="ifRoom"
+      android:title="@string/range">
+
+    <menu>
+      <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_week"
+            android:title="@string/week" />
+
+        <item
+            android:id="@+id/action_month"
+            android:title="@string/month" />
+
+        <item
+            android:id="@+id/action_quarter"
+            android:title="@string/quarter" />
+
+        <item
+            android:id="@+id/action_year"
+            android:title="@string/year" />
+
+        <item
+            android:id="@+id/action_years"
+            android:title="@string/years" />
+
+        <item
+            android:id="@+id/action_all"
+            android:checked="true"
+            android:title="@string/all" />
+
+      </group>
+    </menu>
+  </item>
+
 </menu>

@@ -65,6 +65,7 @@ public class ChartActivity extends Activity
     public static final String TAG = "ChartActivity";
 
     public static final String INVERT = "invert";
+    public static final String RANGE = "range";
 
     public static final String ECB_QUARTER_URL =
         "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
@@ -72,6 +73,13 @@ public class ChartActivity extends Activity
         "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml";
 
     public static final long MSEC_DAY = 1000 * 60 * 60 * 24;
+
+    public static final int WEEK = 7;
+    public static final int MONTH = 30;
+    public static final int QUARTER = 90;
+    public static final int YEAR = 365;
+    public static final int YEARS = 1825;
+    public static final int ALL = Integer.MAX_VALUE;
 
     private Singleton instance;
     private TextView customView;
@@ -94,6 +102,7 @@ public class ChartActivity extends Activity
     private String secondName;
 
     private boolean invert;
+    private int range = Integer.MAX_VALUE;
 
     // On create
     @Override
@@ -114,7 +123,10 @@ public class ChartActivity extends Activity
         setContentView(R.layout.chart);
 
         if (savedInstanceState != null)
+        {
             invert = savedInstanceState.getBoolean(INVERT);
+            range = savedInstanceState.getInt(RANGE);
+        }
 
         List<Integer> list;
         // Check singleton instance
@@ -402,6 +414,7 @@ public class ChartActivity extends Activity
         super.onSaveInstanceState(outState);
 
         outState.putBoolean(INVERT, invert);
+        outState.putInt(RANGE, range);
     }
 
     // On create options menu
@@ -453,6 +466,30 @@ public class ChartActivity extends Activity
         // Refresh with historical data
         case R.id.action_hist:
             return onRefreshClick(ECB_HIST_URL);
+
+        // Week
+        case R.id.action_week:
+            return onWeekClick();
+
+        // Month
+        case R.id.action_month:
+            return onMonthClick();
+
+        // Quarter
+        case R.id.action_quarter:
+            return onQuarterClick();
+
+        // Year
+        case R.id.action_year:
+            return onYearClick();
+
+        // Years
+        case R.id.action_years:
+            return onYearsClick();
+
+        // All
+        case R.id.action_all:
+            return onAllClick();
 
         default:
             return false;
@@ -598,6 +635,149 @@ public class ChartActivity extends Activity
             instance.startParseTask(url);
 
         return true;
+    }
+
+    // onWeekClick
+    private boolean onWeekClick()
+    {
+        range = WEEK;
+        updateChart();
+
+        return true;
+    }
+
+    // onMonthClick
+    private boolean onMonthClick()
+    {
+        range = MONTH;
+        updateChart();
+
+        return true;
+    }
+
+    // onQuarterClick
+    private boolean onQuarterClick()
+    {
+        range = QUARTER;
+        updateChart();
+
+        return true;
+    }
+
+    // onYearClick
+    private boolean onYearClick()
+    {
+        range = YEAR;
+        updateChart();
+
+        return true;
+    }
+
+    // onYearsClick
+    private boolean onYearsClick()
+    {
+        range = YEARS;
+        updateChart();
+
+        return true;
+    }
+
+    // onAllClick
+    private boolean onAllClick()
+    {
+        range = ALL;
+        updateChart();
+
+        return true;
+    }
+
+    // updateChart
+    @SuppressWarnings("deprecation")
+    private void updateChart()
+    {
+        SimpleDateFormat dateParser =
+            new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+        Resources resources = getResources();
+
+        // Create the entry list
+        entryList = new ArrayList<>();
+
+        // Get todays date
+        Date today = new Date();
+        // Get the start date
+        long start = (today.getTime() / MSEC_DAY) - range;
+
+        // Iterate through the dates
+        for (String key : histMap.keySet())
+        {
+            float day;
+
+            // Parse the date and turn it into a day number
+            try
+            {
+                Date date = dateParser.parse(key);
+                day = date.getTime() / MSEC_DAY;
+            }
+
+            // Ignore invalid dates
+            catch (Exception e)
+            {
+                continue;
+            }
+
+            // Ignore if before start date
+            if (day < start)
+                continue;
+
+            // Get the map for each date
+            Map<String, Double> entryMap = histMap.get(key);
+            float value;
+
+            // Get the value for each date
+            try
+            {
+                double first = entryMap.get(firstName);
+                double second = entryMap.get(secondName);
+                value = (float) (first / second);
+            }
+
+            // Ignore missing values
+            catch (Exception e)
+            {
+                continue;
+            }
+
+            // Add the entry to the list
+            entryList.add(0, new Entry(day, value));
+        }
+
+        // Get the colour
+        int bright = resources.getColor(android.R.color.holo_blue_bright);
+        int dark = resources.getColor(android.R.color.holo_blue_dark);
+
+        // Check the chart
+        if (chart != null)
+        {
+            // Create the dataset
+            dataSet = new LineDataSet(entryList, secondName);
+
+            // Set dataset parameters and colour
+            dataSet.setDrawCircles(false);
+            dataSet.setDrawValues(false);
+            dataSet.setColor(bright);
+
+            // Check preference
+            if (fill)
+            {
+                dataSet.setFillColor(dark);
+                dataSet.setDrawFilled(true);
+            }
+
+            // Add the data to the chart and refresh
+            lineData = new LineData(dataSet);
+            chart.setData(lineData);
+            chart.invalidate();
+        }
     }
 
     // On activity result
