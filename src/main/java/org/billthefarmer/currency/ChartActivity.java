@@ -711,89 +711,12 @@ public class ChartActivity extends Activity
         // Check the chart
         if (chart != null)
         {
+            // Reset chart
+            chart.fitScreen();
             // Set the range
             chart.setVisibleXRangeMaximum(range);
             chart.moveViewToX(start);
         }
-        /*
-        SimpleDateFormat dateParser =
-            new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
-
-        // Get updating text
-        Resources resources = getResources();
-        String updating = resources.getString(R.string.updating);
-
-        // Set custom text to updating, since this may take a few secs
-        if (customView != null)
-            customView.setText(updating);
-
-        // Create the entry list
-        entryList = new ArrayList<>();
-
-        // Get todays date
-        Date today = new Date();
-        // Get the start date
-        long start = (today.getTime() / MSEC_DAY) - range;
-
-        // Iterate through the dates
-        for (String key : histMap.keySet())
-        {
-            float day = 0;
-
-            // Parse the date and turn it into a day number
-            try
-            {
-                Date date = dateParser.parse(key);
-                day = date.getTime() / MSEC_DAY;
-            }
-
-            // Ignore invalid dates
-            catch (Exception e)
-            {
-                continue;
-            }
-
-            // Ignore if before start date
-            if (day < start)
-                continue;
-
-            // Get the map for each date
-            Map<String, Double> entryMap = histMap.get(key);
-            float value;
-
-            // Get the value for each date
-            try
-            {
-                double first = entryMap.get(firstName);
-                double second = entryMap.get(secondName);
-                value = (float) (first / second);
-            }
-
-            // Ignore missing values
-            catch (Exception e)
-            {
-                continue;
-            }
-
-            // Add the entry to the list
-            entryList.add(0, new Entry(day, value));
-        }
-
-        // Check the chart
-        if (chart != null)
-        {
-            // Add the data to the chart and refresh
-            dataSet.setValues(entryList);
-            lineData.notifyDataChanged();
-            chart.notifyDataSetChanged();
-            chart.invalidate();
-        }
-
-        // Restore the custom view to the current currencies
-        String label = secondName + "/" + firstName;
-        if (customView != null)
-            customView.setText(label);
-        */
     }
 
     // On activity result
