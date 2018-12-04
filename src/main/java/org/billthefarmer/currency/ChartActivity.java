@@ -703,6 +703,19 @@ public class ChartActivity extends Activity
     // updateChart
     private void updateChart()
     {
+        // Get todays date
+        Date today = new Date();
+        // Get the start date
+        long start = (today.getTime() / MSEC_DAY) - range;
+
+        // Check the chart
+        if (chart != null)
+        {
+            // Set the range
+            chart.setVisibleXRangeMaximum(range);
+            chart.moveViewToX(start);
+        }
+        /*
         SimpleDateFormat dateParser =
             new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 
@@ -780,6 +793,7 @@ public class ChartActivity extends Activity
         String label = secondName + "/" + firstName;
         if (customView != null)
             customView.setText(label);
+        */
     }
 
     // On activity result
