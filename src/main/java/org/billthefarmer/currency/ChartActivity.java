@@ -79,7 +79,7 @@ public class ChartActivity extends Activity
     public static final int QUARTER = 90;
     public static final int YEAR = 365;
     public static final int YEARS = 1825;
-    public static final int ALL = Integer.MAX_VALUE;
+    public static final int MAX = Integer.MAX_VALUE;
 
     private Singleton instance;
     private TextView customView;
@@ -472,8 +472,8 @@ public class ChartActivity extends Activity
             menu.findItem(R.id.action_years).setChecked(true);
             break;
 
-        case ALL:
-            menu.findItem(R.id.action_all).setChecked(true);
+        case MAX:
+            menu.findItem(R.id.action_max).setChecked(true);
             break;
         }
 
@@ -529,9 +529,9 @@ public class ChartActivity extends Activity
         case R.id.action_years:
             return onYearsClick(item);
 
-        // All
-        case R.id.action_all:
-            return onAllClick(item);
+        // Max
+        case R.id.action_max:
+            return onMaxClick(item);
 
         default:
             return false;
@@ -743,10 +743,10 @@ public class ChartActivity extends Activity
         return true;
     }
 
-    // onAllClick
-    private boolean onAllClick(MenuItem item)
+    // onMaxClick
+    private boolean onMaxClick(MenuItem item)
     {
-        range = ALL;
+        range = MAX;
         item.setChecked(true);
         updateRange();
 

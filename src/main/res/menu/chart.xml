@@ -55,9 +55,9 @@
             android:title="@string/years" />
 
         <item
-            android:id="@+id/action_all"
+            android:id="@+id/action_max"
             android:checked="true"
-            android:title="@string/all" />
+            android:title="@string/max" />
 
       </group>
     </menu>

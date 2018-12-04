@@ -29,7 +29,7 @@
   <string name="quarter">Quarter</string>
   <string name="year">Year</string>
   <string name="years">5 Years</string>
-  <string name="all">All</string>
+  <string name="max">Max</string>
 
   <string name="invert">Invert</string>
   <string name="new_chart">New chart</string>

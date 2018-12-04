@@ -111,7 +111,7 @@ once expanded. The toolbar icons from left to right are:
   * **Quarter** Three months
   * **Year** One year
   * **5 Years** 5 Years
-  * **All** All current data
+  * **Max** Maximum current range
 
 ## Settings
 ### Update
