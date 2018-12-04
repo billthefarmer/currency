@@ -139,6 +139,7 @@ public class ChartActivity extends Activity
             Intent intent = getIntent();
             list = intent.getIntegerArrayListExtra(Main.CHART_LIST);
         }
+
         else
         {
             // Get list from singleton instance
@@ -239,6 +240,7 @@ public class ChartActivity extends Activity
             if (customView != null)
                 customView.setText(updating);
         }
+
         else
         {
             // Generate the label
@@ -346,6 +348,17 @@ public class ChartActivity extends Activity
                 lineData = new LineData(dataSet);
                 chart.setData(lineData);
                 chart.invalidate();
+
+                // Get todays date
+                Date today = new Date();
+                // Get the start date
+                long start = (today.getTime() / MSEC_DAY) - range;
+
+                // Reset chart
+                chart.fitScreen();
+                // Set the range
+                chart.setVisibleXRangeMaximum(range);
+                chart.moveViewToX(start);
             }
 
             // Update menu
@@ -433,7 +446,36 @@ public class ChartActivity extends Activity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
+        // Invert
         menu.findItem(R.id.action_invert).setEnabled(histMap != null);
+
+        // Range
+        switch (range)
+        {
+        case WEEK:
+            menu.findItem(R.id.action_week).setChecked(true);
+            break;
+
+        case MONTH:
+            menu.findItem(R.id.action_month).setChecked(true);
+            break;
+
+        case QUARTER:
+            menu.findItem(R.id.action_quarter).setChecked(true);
+            break;
+
+        case YEAR:
+            menu.findItem(R.id.action_year).setChecked(true);
+            break;
+
+        case YEARS:
+            menu.findItem(R.id.action_years).setChecked(true);
+            break;
+
+        case ALL:
+            menu.findItem(R.id.action_all).setChecked(true);
+            break;
+        }
 
         return true;
     }
@@ -575,6 +617,17 @@ public class ChartActivity extends Activity
             lineData.notifyDataChanged();
             chart.notifyDataSetChanged();
             chart.invalidate();
+
+            // Get todays date
+            Date today = new Date();
+            // Get the start date
+            long start = (today.getTime() / MSEC_DAY) - range;
+
+            // Reset chart
+            chart.fitScreen();
+            // Set the range
+            chart.setVisibleXRangeMaximum(range);
+            chart.moveViewToX(start);
         }
 
         // Restore the custom view to the current currencies
@@ -645,7 +698,7 @@ public class ChartActivity extends Activity
     {
         range = WEEK;
         item.setChecked(true);
-        updateChart();
+        updateRange();
 
         return true;
     }
@@ -655,7 +708,7 @@ public class ChartActivity extends Activity
     {
         range = MONTH;
         item.setChecked(true);
-        updateChart();
+        updateRange();
 
         return true;
     }
@@ -665,7 +718,7 @@ public class ChartActivity extends Activity
     {
         range = QUARTER;
         item.setChecked(true);
-        updateChart();
+        updateRange();
 
         return true;
     }
@@ -675,7 +728,7 @@ public class ChartActivity extends Activity
     {
         range = YEAR;
         item.setChecked(true);
-        updateChart();
+        updateRange();
 
         return true;
     }
@@ -685,7 +738,7 @@ public class ChartActivity extends Activity
     {
         range = YEARS;
         item.setChecked(true);
-        updateChart();
+        updateRange();
 
         return true;
     }
@@ -695,22 +748,22 @@ public class ChartActivity extends Activity
     {
         range = ALL;
         item.setChecked(true);
-        updateChart();
+        updateRange();
 
         return true;
     }
 
-    // updateChart
-    private void updateChart()
+    // updateRange
+    private void updateRange()
     {
-        // Get todays date
-        Date today = new Date();
-        // Get the start date
-        long start = (today.getTime() / MSEC_DAY) - range;
-
         // Check the chart
         if (chart != null)
         {
+            // Get todays date
+            Date today = new Date();
+            // Get the start date
+            long start = (today.getTime() / MSEC_DAY) - range;
+
             // Reset chart
             chart.fitScreen();
             // Set the range
@@ -804,6 +857,17 @@ public class ChartActivity extends Activity
             lineData.notifyDataChanged();
             chart.notifyDataSetChanged();
             chart.invalidate();
+
+            // Get todays date
+            Date today = new Date();
+            // Get the start date
+            long start = (today.getTime() / MSEC_DAY) - range;
+
+            // Reset chart
+            chart.fitScreen();
+            // Set the range
+            chart.setVisibleXRangeMaximum(range);
+            chart.moveViewToX(start);
         }
 
         // Restore the custom view to the current currencies
@@ -903,6 +967,17 @@ public class ChartActivity extends Activity
                 lineData = new LineData(dataSet);
                 chart.setData(lineData);
                 chart.invalidate();
+
+                // Get todays date
+                Date today = new Date();
+                // Get the start date
+                long start = (today.getTime() / MSEC_DAY) - range;
+
+                // Reset chart
+                chart.fitScreen();
+                // Set the range
+                chart.setVisibleXRangeMaximum(range);
+                chart.moveViewToX(start);
             }
 
             // Update menu

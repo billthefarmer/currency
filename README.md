@@ -98,10 +98,20 @@ once expanded. The toolbar icons from left to right are:
   currencies in the chart.
 * **Update** the chart.
 * **Historical** The chart will be updated with nearly eighteen years
-  of historical data currently dating from 1 April 1999. Not all the
+  of historical data currently dating from 1 January 1999. Not all the
   currencies go back this far. **Caution** - this will take a while,
   depending on the connection, and will download more than 6Mb of
   data.
+* **Range** Change the chart range. The chart will show the latest
+  data, but will scroll back. **Note** - ranges greater than a quarter
+  will have no effect unless the chart is updated with the historical
+  data.
+  * **Week** One week
+  * **Month** One month
+  * **Quarter** Three months
+  * **Year** One year
+  * **5 Years** 5 Years
+  * **All** All current data
 
 ## Settings
 ### Update
