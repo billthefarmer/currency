@@ -21,6 +21,14 @@
   <string name="chart">Діаграма</string>
   <string name="theme">Тема</string>
 
+  <string name="range">Діапазон</string>
+  <string name="week">Тиждень</string>
+  <string name="month">Місяць</string>
+  <string name="quarter">Четверть</string>
+  <string name="year">Рік</string>
+  <string name="years">5 років</string>
+  <string name="max">Макс</string>
+
   <string name="invert">Інвертувати</string>
   <string name="new_chart">Нова діаграма</string>
   <string name="hist">Історично</string>

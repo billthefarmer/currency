@@ -22,6 +22,14 @@
   <string name="chart">Diagramm</string>
   <string name="theme">Aussehen</string>
 
+  <string name="range">Angebot</string>
+  <string name="week">Woche</string>
+  <string name="month">Monat</string>
+  <string name="quarter">Vierteljahr</string>
+  <string name="year">Jahr</string>
+  <string name="years">5 Jahre</string>
+  <string name="max">Max</string>
+
   <string name="invert">Invertieren</string>
   <string name="new_chart">Neues Diagramm</string>
   <string name="hist">Historie</string>

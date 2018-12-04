@@ -24,6 +24,14 @@
   <string name="chart">Graphique</string>
   <string name="theme">Thème</string>
 
+  <string name="range">Intervalle</string>
+  <string name="week">Semaine</string>
+  <string name="month">Mois</string>
+  <string name="quarter">Trimestre</string>
+  <string name="year">Année</string>
+  <string name="years">5 années</string>
+  <string name="max">Max</string>
+
   <string name="invert">Intervertir</string>
   <string name="new_chart">Nouveau graphique</string>
   <string name="hist">Historique</string>
