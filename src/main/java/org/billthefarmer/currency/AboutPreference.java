@@ -61,9 +61,6 @@ public class AboutPreference extends DialogPreference
             builder.replace(st, en, BuildConfig.VERSION_NAME);
             version.setText(builder);
             version.setMovementMethod(LinkMovementMethod.getInstance());
-           // String v = (String) version.getText();
-           //  String s = String.format(v, BuildConfig.VERSION_NAME);
-           //  version.setText(s);
         }
 
         // Get built text view
