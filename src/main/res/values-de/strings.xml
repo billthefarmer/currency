@@ -51,7 +51,7 @@
   <string name="digits">0123456789,.</string>
 
   <string name="pref_about">Über</string>
-  <string name="pref_about_summ">Währungsumrechner Version %s</string>
+  <string name="pref_about_summ">Währungsumrechner <a href="https://github.com/billthefarmer/currency/releases/latest">Version %s</a></string>
   <string name="pref_update_category">Update</string>
   <string name="pref_wifi">WLAN</string>
   <string name="pref_wifi_summ">Update nur im WLAN</string>

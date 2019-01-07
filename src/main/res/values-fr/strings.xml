@@ -53,7 +53,7 @@
   <string name="digits">0123456789,.</string>
 
   <string name="pref_about">À propos</string>
-  <string name="pref_about_summ">Devise version %s</string>
+  <string name="pref_about_summ">Devise <a href="https://github.com/billthefarmer/currency/releases/latest">version %s</a></string>
   <string name="pref_update_category">Mise à jour</string>
   <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Mettre à jour uniquement par WiFi</string>

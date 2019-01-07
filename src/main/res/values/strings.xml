@@ -52,7 +52,7 @@
   <string name="digits">0123456789,.</string>
 
   <string name="pref_about">About</string>
-  <string name="pref_about_summ">Currency version %s</string>
+  <string name="pref_about_summ">Currency <a href="https://github.com/billthefarmer/currency/releases/latest">version %s</a></string>
   <string name="pref_update_category">Update</string>
   <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Update on WiFi only</string>
