@@ -58,7 +58,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
 
         // Get about summary
         Preference about = findPreference(Main.PREF_ABOUT);
-        String sum = (String) about.getSummary();
+        String sum = about.getSummary().toString();
 
         // Set version in text view
         String s = String.format(sum, BuildConfig.VERSION_NAME);
