@@ -1132,15 +1132,15 @@ public class Main extends Activity
             valueList.remove(position);
             longNameList.remove(position);
 
-            // Add the old current currency to the start of the list
-            flagList.add(0, CURRENCY_FLAGS[oldIndex]);
-            nameList.add(0, CURRENCY_NAMES[oldIndex]);
-            symbolList.add(0, CURRENCY_SYMBOLS[oldIndex]);
-            longNameList.add(0, CURRENCY_LONGNAMES[oldIndex]);
+            // Add the old current currency to the end of the list
+            flagList.add(CURRENCY_FLAGS[oldIndex]);
+            nameList.add(CURRENCY_NAMES[oldIndex]);
+            symbolList.add(CURRENCY_SYMBOLS[oldIndex]);
+            longNameList.add(CURRENCY_LONGNAMES[oldIndex]);
 
             numberFormat.setGroupingUsed(true);
             value = numberFormat.format(oldValue);
-            valueList.add(0, value);
+            valueList.add(value);
 
             // Get preferences
             SharedPreferences preferences =
