@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Valuta</string>
+
+  <string name="add">Aggiungi</string>
+  <string name="refresh">Ricarica</string>
+  <string name="help">Aiuto</string>
+  <string name="settings">Impostazioni</string>
+  <string name="built">Built %s</string>
+  <string name="copyright">Copyright \\00A9 2016 Bill Farmer\n
+      Grafici di   <a href="https://github.com/PhilJay/MPAndroidChart" >MPAndroidChart</a>\n
+      Tradotto in Ucraino da <a href="https://github.com/personaljesusuat" >Vladyslav   Pohrebniakov</a>\n
+      Tradotto in Tedesco da <a href="https://github.com/l1am0" >L1am0</a>\n
+      Tradotto in Francese da <a href="https://github.com/RealAestan" >Aestan</a></string>
+  <string name="licence">Licence <a href="https://www.gnu.org/licenses/gpl.txt" >GNU GPLv3</a></string>
+
+  <string name="remove">Rimuovere</string>
+  <string name="select">Seleziona</string>
+  <string name="copy">Copia</string>
+  <string name="clear">Cancella</string>
+  <string name="cancel">Annulla</string>
+  <string name="chart">Grafico</string>
+  <string name="theme">Tema</string>
+
+  <string name="invert">Inverti</string>
+  <string name="new_chart">Nuovo grafico</string>
+  <string name="hist">Storico</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
+  <string name="not_updated">Non aggiornato</string>
+  <string name="updated">Aggiornato: %s</string>
+  <string name="ok">OK</string>
+  <string name="updating">In aggiornamento</string>
+  <string name="failed">Fallito</string>
+  <string name="no_connection">Nessuna connessione</string>
+  <string name="no_wifi">No WiFi</string>
+  <string name="roaming">Roaming</string>
+  <string name="update_failed">Aggiornamento non riuscito</string>
+
+  <string name="decimal">Inserisci un valore decimale</string>
+  <string name="digits">0123456789,.</string>
+
+  <string name="pref_about">Info</string>
+  <string name="pref_about_summ">Valuta <a href="https://github.com/billthefarmer/currency/releases/latest" >versione %s</a></string>
+  <string name="pref_update_category">Aggiorna</string>
+  <string name="pref_wifi">WiFi</string>
+  <string name="pref_wifi_summ">Aggiornamento solo su WiFi</string>
+  <string name="pref_roaming">Aggiornare</string>
+  <string name="pref_roaming_summ">Aggiornamento in roaming</string>
+  <string name="pref_select">Selezione</string>
+  <string name="pref_select_summ">Seleziona tutto quando tocchi</string>
+  <string name="pref_numbers">Numeri</string>
+  <string name="pref_digits">Cifre decimali</string>
+  <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Riempi</string>
+  <string name="pref_fill_summ">Riempi il grafico</string>
+  <string name="pref_dark">Scuro</string>
+  <string name="pref_dark_summ">Usa tema scuro</string>
+
+  <string name="long_eur">Euro</string>
+  <string name="long_usd">Dollaro USA</string>
+  <string name="long_jpy">Yen Giapponese</string>
+  <string name="long_bgn">Lev Bulgaro</string>
+  <string name="long_czk">Koruna Ceca</string>
+  <string name="long_dkk">Krone Danese</string>
+  <string name="long_gbp">Sterlina Inglese</string>
+  <string name="long_huf">Forint Ungherese</string>
+  <string name="long_pln">Zloty Polacco</string>
+  <string name="long_ron">Leu Rumeno</string>
+  <string name="long_sek">Krona Svedese</string>
+  <string name="long_chf">Franco Svizzero</string>
+  <string name="long_nok">Krona Norvegese</string>
+  <string name="long_hrk">Kuna Croata</string>
+  <string name="long_rub">Rublo Russo</string>
+  <string name="long_try">Lira Turca</string>
+  <string name="long_aud">Dollaro Australiano</string>
+  <string name="long_brl">Real Brasiliano</string>
+  <string name="long_cad">Dollaro Canadese</string>
+  <string name="long_cny">Yuan Cinese</string>
+  <string name="long_hkd">Dollaro di Hong Kong</string>
+  <string name="long_idr">Rupia Indonesiana</string>
+  <string name="long_ils">Shekel Israeliano</string>
+  <string name="long_inr">Rupia Indiana</string>
+  <string name="long_krw">Won Sudcoreano</string>
+  <string name="long_mxn">Peso Messicano</string>
+  <string name="long_myr">Ringgit Malese</string>
+  <string name="long_nzd">Dollaro Neozelandese</string>
+  <string name="long_php">Peso Filippino</string>
+  <string name="long_sgd">Dollaro di Singapore</string>
+  <string name="long_thb">Baht Thailandese</string>
+  <string name="long_zar">Rand Sudafricano</string>
+</resources>
