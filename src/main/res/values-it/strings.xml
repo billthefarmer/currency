@@ -17,7 +17,7 @@
   <string name="copy">Copia</string>
   <string name="clear">Cancella</string>
   <string name="cancel">Annulla</string>
-  <string name="chart">Tabella</string>
+  <string name="chart">Grafico</string>
   <string name="theme">Tema</string>
 
   <string name="range">Gamma</string>
@@ -54,9 +54,9 @@
   <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Aggiornamento solo su WiFi</string>
   <string name="pref_roaming">Aggiornare</string>
-  <string name="pref_roaming_summ">Aggiornamento durante il roaming</string>
+  <string name="pref_roaming_summ">ggiornamento in roaming</string>
   <string name="pref_select">Selezione</string>
-  <string name="pref_select_summ">Seleziona tutto quando toccato</string>
+  <string name="pref_select_summ">Seleziona tutto quando tocchi</string>
   <string name="pref_numbers">Numeri</string>
   <string name="pref_digits">Cifre decimali</string>
   <string name="pref_digit_default">3</string>
