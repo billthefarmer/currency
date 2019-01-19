@@ -54,7 +54,7 @@
   <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Aggiornamento solo su WiFi</string>
   <string name="pref_roaming">Aggiornare</string>
-  <string name="pref_roaming_summ">ggiornamento in roaming</string>
+  <string name="pref_roaming_summ">Aggiornamento in roaming</string>
   <string name="pref_select">Selezione</string>
   <string name="pref_select_summ">Seleziona tutto quando tocchi</string>
   <string name="pref_numbers">Numeri</string>
