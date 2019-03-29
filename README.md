@@ -73,7 +73,7 @@ The icons in the toolbar from left to right are:
 
 ### Edit currency list
 Touch a currency entry in the list to make it current. The old current
-currency will move to the end of the list. Long touch a currency entry
+currency will move to the top of the list. Long touch a currency entry
 to select it. Once one currency is selected others may be added or
 removed from the selection by touching them. Another long touch on
 another currency will clear the list and select the new currency. The
