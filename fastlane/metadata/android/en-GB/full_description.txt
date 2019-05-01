@@ -1,0 +1,8 @@
+Simple currency conversion.
+
+ * Currency rates from the European Central Bank
+ * 32 international currencies
+ * Currency rates updated daily
+ * Last rate update retained for use offline
+ * Historical currency rate charts
+ * Ukrainian, German, Italian and French translation

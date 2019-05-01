@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.android.tools.build:gradle:3.4.0'
     }
 }
 
@@ -46,8 +46,16 @@ android {
         disable 'IconDensities', 'IconDuplicates'
         abortOnError false
     }
-}
 
-dependencies {
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    repositories {
+        jcenter()
+        google()
+        maven {
+	    url 'https://jitpack.io'
+        }
+    }
+
+    dependencies {
+        implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    }
 }
