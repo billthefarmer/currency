@@ -48,7 +48,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1021,7 +1021,7 @@ public class ChartActivity extends Activity
     }
 
     // DateAxisValueFormatter class
-    private class DateAxisValueFormatter implements IAxisValueFormatter
+    private class DateAxisValueFormatter extends ValueFormatter
     {
         DateFormat dateFormat;
 
@@ -1033,7 +1033,7 @@ public class ChartActivity extends Activity
 
         // Get formatted value
         @Override
-        public String getFormattedValue(float value, AxisBase axis)
+        public String getFormattedValue(float value)
         {
             // "value" represents the position of the label on the
             // axis (x or y). Create a date from the day number and
