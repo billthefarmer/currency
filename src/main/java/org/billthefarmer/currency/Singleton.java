@@ -23,7 +23,6 @@
 
 package org.billthefarmer.currency;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import java.util.List;
@@ -37,8 +36,8 @@ public class Singleton
     private Map<String, Map<String, Double>> map;
     private List<Integer> list;
 
-    private TaskCallbacks callbacks;
-    private boolean parsing;
+    private static TaskCallbacks callbacks;
+    private static boolean parsing;
 
     // Constructor
     private Singleton()
@@ -102,8 +101,7 @@ public class Singleton
     }
 
     // ParseTask class
-    @SuppressLint("StaticFieldLeak")
-    protected class ParseTask
+    protected static class ParseTask
         extends AsyncTask<String, String, Map<String, Map<String, Double>>>
     {
         // The system calls this to perform work in a worker thread
