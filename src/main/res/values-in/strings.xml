@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Mata Uang</string>
+
+  <string name="add">Menambahkan</string>
+  <string name="refresh">Menyegarkan</string>
+  <string name="help">Bantuan</string>
+  <string name="settings">Setelan</string>
+  <string name="built">Dibangun %s</string>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\nBagan oleh
+  <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nTerjemahan dalam Indonesia oleh <a href="https://github.com/gloeyisk">Gloeyisk</a>
+  </string>
+  <string name="licence">Lisensi <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+
+  <string name="remove">Hapus</string>
+  <string name="select">Pilih</string>
+  <string name="copy">Salin</string>
+  <string name="clear">Bersihkan</string>
+  <string name="cancel">Batal</string>
+  <string name="chart">Bagan</string>
+  <string name="theme">Tema</string>
+
+  <string name="range">Jangkauan</string>
+  <string name="week">Minggu</string>
+  <string name="month">Bulan</string>
+  <string name="quarter">Kuartal</string>
+  <string name="year">Tahun</string>
+  <string name="years">5 Tahun</string>
+  <string name="max">Maksimum</string>
+
+  <string name="invert">Membalik</string>
+  <string name="new_chart">Bagan baru</string>
+  <string name="hist">Histori</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
+  <string name="not_updated">Tidak diperbarui</string>
+  <string name="updated">Diperbarui: %s</string>
+  <string name="ok">OK</string>
+  <string name="updating">Memperbarui</string>
+  <string name="failed">Gagal</string>
+  <string name="no_connection">Tiada koneksi</string>
+  <string name="no_wifi">Tiada WiFi</string>
+  <string name="roaming">Roaming</string>
+  <string name="update_failed">Gagal memperbarui</string>
+
+  <string name="decimal">Masukkan nilai desimal</string>
+  <string name="digits">0123456789,.</string>
+
+  <string name="pref_about">Tentang</string>
+  <string name="pref_about_summ">Mata Uang <a href="https://github.com/billthefarmer/currency/releases/latest">versi %s</a></string>
+  <string name="pref_update_category">Perbarui</string>
+  <string name="pref_wifi">WiFi</string>
+  <string name="pref_wifi_summ">Perbarui menggunakan WiFi saja</string>
+  <string name="pref_roaming">Roaming</string>
+  <string name="pref_roaming_summ">Perbarui ketika roaming</string>
+  <string name="pref_select">Pilihan</string>
+  <string name="pref_select_summ">Pilih semua ketika disentuh</string>
+  <string name="pref_numbers">Nomor</string>
+  <string name="pref_digits">Digit pecahan</string>
+  <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Mengisi</string>
+  <string name="pref_fill_summ">Mengisi jejak bagan</string>
+  <string name="pref_dark">Gelap</string>
+  <string name="pref_dark_summ">Menggunakan tema gelap</string>
+
+  <string name="long_aud">Dolar Australia</string>
+  <string name="long_bgn">Lev Bulgaria</string>
+  <string name="long_brl">Real Brasil</string>
+  <string name="long_cad">Dolar Kanada</string>
+  <string name="long_chf">Franc Swiss</string>
+  <string name="long_cny">Renmindi Yuan Cina</string>
+  <string name="long_czk">Koruna Ceko</string>
+  <string name="long_dkk">Krone Denmark</string>
+  <string name="long_eur">Euro</string>
+  <string name="long_gbp">Pound sterling</string>
+  <string name="long_hkd">Dolar Hong Kong</string>
+  <string name="long_hrk">Kuna Kroasia</string>
+  <string name="long_huf">Forint Hungaria</string>
+  <string name="long_idr">Rupiah Indonesia</string>
+  <string name="long_ils">Shekel Israel</string>
+  <string name="long_inr">Rupee India</string>
+  <string name="long_isk">Krona Islandia</string>
+  <string name="long_jpy">Yen Jepang</string>
+  <string name="long_krw">Won Korea Selatan</string>
+  <string name="long_mxn">Peso Meksiko</string>
+  <string name="long_myr">Ringgit Malaysia</string>
+  <string name="long_nok">Krone Norwegia</string>
+  <string name="long_nzd">Dolar Selandia Baru</string>
+  <string name="long_php">Peso Filipina</string>
+  <string name="long_pln">Zloty Polandia</string>
+  <string name="long_ron">Leu Romania</string>
+  <string name="long_rub">Rouble Rusia</string>
+  <string name="long_sek">Krona Swedia</string>
+  <string name="long_sgd">Dolar Singapura</string>
+  <string name="long_thb">Baht Thailand</string>
+  <string name="long_try">Lira Turki</string>
+  <string name="long_usd">Dolar Amerika</string>
+  <string name="long_zar">Rand Afrika Selatan</string>
+</resources>
