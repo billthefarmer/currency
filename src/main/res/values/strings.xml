@@ -91,6 +91,7 @@
   <string name="long_myr">Malaysian ringgit</string>
   <string name="long_nok">Norwegian krone</string>
   <string name="long_nzd">New Zealand dollar</string>
+  <string name="long_opt">Optional currency</string>
   <string name="long_php">Philippine peso</string>
   <string name="long_pln">Polish zloty</string>
   <string name="long_ron">Romanian leu</string>

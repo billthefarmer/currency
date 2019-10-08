@@ -59,6 +59,7 @@ public class Parser
         // Create the map and add value for Euro
         map = new HashMap<>();
         map.put("EUR", 1.0);
+        map.put("OPT", 1.0);
 
         // Read the xml from the url
         try
