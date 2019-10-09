@@ -22,6 +22,7 @@
   <string name="cancel">Cancel</string>
   <string name="chart">Chart</string>
   <string name="theme">Theme</string>
+  <string name="update">Update</string>
 
   <string name="range">Range</string>
   <string name="week">Week</string>
@@ -77,6 +78,7 @@
   <string name="long_czk">Czech koruna</string>
   <string name="long_dkk">Danish krone</string>
   <string name="long_eur">Euro</string>
+  <string name="long_ext">Extra currency</string>
   <string name="long_gbp">Pound sterling</string>
   <string name="long_hkd">Hong Kong dollar</string>
   <string name="long_hrk">Croatian kuna</string>
@@ -91,7 +93,6 @@
   <string name="long_myr">Malaysian ringgit</string>
   <string name="long_nok">Norwegian krone</string>
   <string name="long_nzd">New Zealand dollar</string>
-  <string name="long_opt">Optional currency</string>
   <string name="long_php">Philippine peso</string>
   <string name="long_pln">Polish zloty</string>
   <string name="long_ron">Romanian leu</string>

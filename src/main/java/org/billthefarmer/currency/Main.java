@@ -24,8 +24,12 @@
 package org.billthefarmer.currency;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -35,6 +39,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -88,7 +93,7 @@ public class Main extends Activity
         "HKD", "IDR", "ILS", "INR",
         "ISK", "KRW", "MXN", "MYR",
         "NZD", "PHP", "SGD", "THB",
-        "ZAR", "OPT"
+        "ZAR", "EXT"
     };
 
     // Currency symbols
@@ -119,7 +124,7 @@ public class Main extends Activity
         R.string.long_isk, R.string.long_krw, R.string.long_mxn,
         R.string.long_myr, R.string.long_nzd, R.string.long_php,
         R.string.long_sgd, R.string.long_thb, R.string.long_zar,
-        R.string.long_opt
+        R.string.long_ext
     };
 
     // Currency flags
@@ -136,7 +141,7 @@ public class Main extends Activity
         R.drawable.flag_isk, R.drawable.flag_kpw, R.drawable.flag_mxn,
         R.drawable.flag_myr, R.drawable.flag_nzd, R.drawable.flag_php,
         R.drawable.flag_sgd, R.drawable.flag_thb, R.drawable.flag_zar,
-        R.drawable.flag_opt
+        R.drawable.flag_ext
     };
 
     public static final String TAG = "Main";
@@ -149,6 +154,7 @@ public class Main extends Activity
     public static final String PREF_INDEX = "pref_index";
     public static final String PREF_VALUE = "pref_value";
     public static final String PREF_VALUES = "pref_values";
+    public static final String PREF_EXTRA = "pref_extra";
 
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roaming";
@@ -182,6 +188,7 @@ public class Main extends Activity
     private int currentIndex = 0;
     private double currentValue = 1.0;
     private double convertValue = 1.0;
+    private double extraValue = 1.0;
     private String date;
 
     private ImageView flagView;
@@ -357,6 +364,29 @@ public class Main extends Activity
             }
         }
 
+        // Get extra value
+        String extra = preferences.getString(PREF_EXTRA, "1.0");
+
+        // Try default locale
+        try
+        {
+            Number number = numberFormat.parse(extra);
+            extraValue = number.doubleValue();
+        }
+        catch (Exception e)
+        {
+            // Try English locale
+            try
+            {
+                Number number = englishFormat.parse(extra);
+                extraValue = number.doubleValue();
+            }
+            catch (Exception ex)
+            {
+                extraValue = 1.0;
+            }
+        }
+
         // Get the date and format it for display
         date = preferences.getString(PREF_DATE, "");
         String format = resources.getString(R.string.updated);
@@ -458,6 +488,8 @@ public class Main extends Activity
                     statusView.setText(R.string.failed);
 
                 valueMap = parser.getMap();
+                valueMap.put("EUR", 1.0);
+                valueMap.put("EXT", extraValue);
             }
         }
 
@@ -561,8 +593,13 @@ public class Main extends Activity
         {
             // Check retained data
             if (data.getMap() != null)
+            {
+                valueMap.put("EUR", 1.0);
+                valueMap.put("EXT", extraValue);
+
                 // Don't update
                 return;
+            }
         }
 
         // Check connectivity before update
@@ -634,6 +671,8 @@ public class Main extends Activity
         numberFormat.setGroupingUsed(false);
         String value = numberFormat.format(currentValue);
         editor.putString(PREF_VALUE, value);
+        String extra = numberFormat.format(extraValue);
+        editor.putString(PREF_EXTRA, extra);
         editor.putString(PREF_DATE, date);
         editor.apply();
 
@@ -686,6 +725,10 @@ public class Main extends Activity
         // Refresh
         case R.id.action_refresh:
             return onRefreshClick();
+
+        // Update
+        case R.id.action_update:
+            return onUpdateClick();
 
         // Help
         case R.id.action_help:
@@ -889,6 +932,62 @@ public class Main extends Activity
             data.startParseTask(ECB_DAILY_URL);
 
         return true;
+    }
+
+    // On update click
+    private boolean onUpdateClick()
+    {
+        // Open dialog
+        updateDialog(R.string.update, "1.0",
+                    (dialog, id) ->
+        {
+            switch (id)
+            {
+            case DialogInterface.BUTTON_POSITIVE:
+                EditText text =
+                ((Dialog) dialog).findViewById(R.id.value);
+                String result = text.getText().toString();
+
+                // Ignore empty string
+                if (result.isEmpty())
+                    return;
+
+                double exact = Double.parseDouble(result);
+
+                // Ignore if out of range
+                if (exact < 0.001 || exact > 25000)
+                    return;
+
+                // setFrequency(exact);
+            }
+        });
+
+        return true;
+    }
+
+    // updateDialog
+    private void updateDialog(int title, String value,
+                              DialogInterface.OnClickListener listener)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+
+        // Add the buttons
+        builder.setPositiveButton(R.string.ok, listener);
+        builder.setNegativeButton(R.string.cancel, listener);
+
+        // Create edit text
+        Context context = builder.getContext();
+        EditText text = new EditText(context);
+        text.setId(R.id.value);
+        text.setText(value);
+        text.setInputType(InputType.TYPE_CLASS_NUMBER |
+                          InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.setView(text, 30, 0, 30, 0);
+        dialog.show();
     }
 
     // On help click
@@ -1311,6 +1410,8 @@ public class Main extends Activity
         if (!map.isEmpty())
         {
             valueMap = map;
+            valueMap.put("EUR", 1.0);
+            valueMap.put("EXT", extraValue);
 
             // Empty the value list
             valueList.clear();
