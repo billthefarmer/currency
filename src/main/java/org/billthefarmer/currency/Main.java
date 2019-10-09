@@ -937,28 +937,53 @@ public class Main extends Activity
     // On update click
     private boolean onUpdateClick()
     {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMinimumFractionDigits(digits);
+        numberFormat.setMaximumFractionDigits(digits);
+
+        NumberFormat englishFormat = NumberFormat.getInstance(Locale.ENGLISH);
+
+        String extra = numberFormat.format(extraValue);
+
         // Open dialog
-        updateDialog(R.string.update, "1.0",
+        updateDialog(R.string.update_extra, extra,
                     (dialog, id) ->
         {
             switch (id)
             {
             case DialogInterface.BUTTON_POSITIVE:
                 EditText text =
-                ((Dialog) dialog).findViewById(R.id.value);
-                String result = text.getText().toString();
+                    ((Dialog) dialog).findViewById(R.id.value);
+                String value = text.getText().toString();
 
                 // Ignore empty string
-                if (result.isEmpty())
+                if (value.isEmpty())
                     return;
 
-                double exact = Double.parseDouble(result);
+                // Try default locale
+                try
+                {
+                    Number number = numberFormat.parse(value);
+                    extraValue = number.doubleValue();
+                }
+                catch (Exception e)
+                {
+                    // Try English locale
+                    try
+                    {
+                        Number number = englishFormat.parse(value);
+                        extraValue = number.doubleValue();
+                    }
+                    catch (Exception ex)
+                    {
+                        extraValue = 1.0;
+                    }
+                }
 
-                // Ignore if out of range
-                if (exact < 0.001 || exact > 25000)
-                    return;
-
-                // setFrequency(exact);
+                // Update display
+                valueMap.put("EXT", extraValue);
+                Editable editable = editView.getEditableText();
+                afterTextChanged(editable);
             }
         });
 
@@ -981,12 +1006,13 @@ public class Main extends Activity
         EditText text = new EditText(context);
         text.setId(R.id.value);
         text.setText(value);
+        text.setHint(R.string.decimal);
         text.setInputType(InputType.TYPE_CLASS_NUMBER |
                           InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
-        dialog.setView(text, 30, 0, 30, 0);
+        dialog.setView(text, 40, 0, 40, 0);
         dialog.show();
     }
 

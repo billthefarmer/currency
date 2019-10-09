@@ -8,8 +8,7 @@
   <string name="settings">Einstellungen</string>
   <string name="built">Kompiliert am %s</string>
   <string name="copyright">Copyright \u00A9 2018 Bill Farmer\nDiagramm
-  von <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nUkrainische Übersetzung von <a href="https://github.com/personaljesusua">Vladyslav
-  Pohrebniakov</a>\nDeutsche Übersetzung von <a href="https://github.com/l1am0">L1am0</a>
+  von <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nDeutsche Übersetzung von <a href="https://github.com/l1am0">L1am0</a>
   </string>
   <string name="licence">Lizenz steht unter <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
@@ -21,6 +20,7 @@
   <string name="cancel">Abbrechen</string>
   <string name="chart">Diagramm</string>
   <string name="theme">Aussehen</string>
+  <string name="update">Aktualisieren</string>
 
   <string name="range">Bereich</string>
   <string name="week">Woche</string>
@@ -46,6 +46,7 @@
   <string name="no_wifi">Kein WLAN</string>
   <string name="roaming">Roaming</string>
   <string name="update_failed">Update fehlgeschlagen</string>
+  <string name="update_extra">Zusätzliche Währung aktualisieren</string>
 
   <string name="decimal">Kommazahl eingeben</string>
   <string name="digits">0123456789,.</string>
@@ -78,6 +79,7 @@
   <string name="long_czk">Tschechische Kronen</string>
   <string name="long_dkk">Dänische Kronen</string>
   <string name="long_eur">Euro</string>
+  <string name="long_ext">Zusätzliche Währung</string>
   <string name="long_gbp">Pfund Sterling</string>
   <string name="long_hkd">Hong Kong Dollar</string>
   <string name="long_hrk">Kroatische Kuna</string>

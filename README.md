@@ -37,6 +37,7 @@ More ~currencies~, crypto-currencies and lots of other conversions are in [Equat
  * 32 international currencies
  * Currency rates updated daily
  * Last rate update retained for use offline
+ * Extra currency for unsupported currency
  * Ukrainian, German, Italian, French, Spanish and Indonesian translation
 
 ## Usage
@@ -60,7 +61,7 @@ The icons in the toolbar from left to right are:
    clear the selection. Touch the **Select** button to add the
    selection. The entries will be added to the list in the order
    selected.
-* **Update** Get the day's currency rates from the
+* **Refresh** Get the day's currency rates from the
   [ECB](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html). The
   date shown on the left above the currency list will be updated if
   new rates are available. It may show the previous day because the
@@ -68,6 +69,10 @@ The icons in the toolbar from left to right are:
   right above the currency list will show 'OK', 'No Connection', 'No
   WiFi' or 'Roaming' according to the update settings. It may show
   'Failed' if the connection times out or fails to connect.
+* **Update** Update the currency rate for the extra currency against
+  the Euro. A dialog will pop up with the current extra currency
+  rate. Update the value and touch the OK button. The display will
+  refresh if the extra currency is displayed.
 * **Help** Display help text.
 * **Settings** Display the settings screen.
 
@@ -83,7 +88,8 @@ icons in the toolbar will change to:
 * **Chart** Display a chart of selected currencies. If one is
   selected, the chart will be of the current currency and the selected
   currency. If more than one currency is selected the chart will be of
-  the last two selected currencies.
+  the last two selected currencies.  Selecting the extra currency will
+  produce a blank chart.
 * **Copy** selection value to clipboard. Only one value will be copied.
 
 ## Chart

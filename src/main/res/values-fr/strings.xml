@@ -8,10 +8,7 @@
   <string name="built">Construit %s</string>
   <string name="settings">Paramètres</string>
   <string name="copyright">Copyright \u00A9 2016 Bill
-  Farmer\nGraphique par <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nTraduction
-  Ukrainienne par <a href="https://github.com/personaljesusua">Vladyslav
-  Pohrebniakov</a>\nTraduction allemande par <a href="https://github.com/l1am0">L1am0</a>\nTraduction française par
-  <a href="https://github.com/RealAestan">Aestan</a>
+  Farmer\nGraphique par <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nTraduction française par <a href="https://github.com/RealAestan">Aestan</a>
   </string>
   <string name="licence">Licence <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
@@ -23,6 +20,7 @@
   <string name="cancel">Annuler</string>
   <string name="chart">Graphique</string>
   <string name="theme">Thème</string>
+  <string name="update">Mise à jour</string>
 
   <string name="range">Intervalle</string>
   <string name="week">Semaine</string>
@@ -48,6 +46,7 @@
   <string name="no_wifi">Pas de WiFi</string>
   <string name="roaming">Données mobiles</string>
   <string name="update_failed">Mise à jour échoué</string>
+  <string name="update_extra">Mettre à jour la monnaie supplémentaire</string>
 
   <string name="decimal">Entrer une valeur décimale</string>
   <string name="digits">0123456789,.</string>
@@ -80,6 +79,7 @@
   <string name="long_czk">Couronne tchèque</string>
   <string name="long_dkk">Couronne danoise</string>
   <string name="long_eur">Euro</string>
+  <string name="long_ext">Monnaie supplémentaire</string>
   <string name="long_gbp">Livre sterling</string>
   <string name="long_hkd">Dollar de Hong Kong</string>
   <string name="long_hrk">Kuna croate</string>

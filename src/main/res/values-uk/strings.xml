@@ -20,6 +20,7 @@
   <string name="cancel">Скасувати</string>
   <string name="chart">Діаграма</string>
   <string name="theme">Тема</string>
+  <string name="update">Оновлення</string>
 
   <string name="range">Діапазон</string>
   <string name="week">Тиждень</string>
@@ -45,6 +46,7 @@
   <string name="no_wifi">Немає WiFi</string>
   <string name="roaming">Роумінґ</string>
   <string name="update_failed">Оновлення не вдалося</string>
+  <string name="update_extra">Оновіть додаткову валюту</string>
 
   <string name="decimal">Введіть десяткове значення</string>
   <string name="digits">0123456789,.</string>
@@ -75,6 +77,7 @@
   <string name="long_czk">Чеська крона</string>
   <string name="long_dkk">Датська крона</string>
   <string name="long_eur">Євро</string>
+  <string name="long_ext">Додаткова валюта</string>
   <string name="long_gbp">Фунт стерлінгів</string>
   <string name="long_hkd">Гонконгський долар</string>
   <string name="long_hrk">хорватський кун</string>
