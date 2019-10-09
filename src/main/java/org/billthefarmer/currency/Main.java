@@ -946,7 +946,7 @@ public class Main extends Activity
         String extra = numberFormat.format(extraValue);
 
         // Open dialog
-        updateDialog(R.string.update_extra, extra,
+        updateDialog(R.string.update_extra, extra, R.string.decimal,
                     (dialog, id) ->
         {
             switch (id)
@@ -982,6 +982,7 @@ public class Main extends Activity
 
                 // Update display
                 valueMap.put("EXT", extraValue);
+                convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
                 Editable editable = editView.getEditableText();
                 afterTextChanged(editable);
             }
@@ -991,7 +992,7 @@ public class Main extends Activity
     }
 
     // updateDialog
-    private void updateDialog(int title, String value,
+    private void updateDialog(int title, String value, int hint,
                               DialogInterface.OnClickListener listener)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -1006,7 +1007,7 @@ public class Main extends Activity
         EditText text = new EditText(context);
         text.setId(R.id.value);
         text.setText(value);
-        text.setHint(R.string.decimal);
+        text.setHint(hint);
         text.setInputType(InputType.TYPE_CLASS_NUMBER |
                           InputType.TYPE_NUMBER_FLAG_DECIMAL);
 

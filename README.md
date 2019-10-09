@@ -37,7 +37,7 @@ More ~currencies~, crypto-currencies and lots of other conversions are in [Equat
  * 32 international currencies
  * Currency rates updated daily
  * Last rate update retained for use offline
- * Extra currency for unsupported currency
+ * Extra currency for unsupported currencies
  * Ukrainian, German, Italian, French, Spanish and Indonesian translation
 
 ## Usage
