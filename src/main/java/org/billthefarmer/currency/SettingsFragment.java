@@ -117,7 +117,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
 
         if (key.equals(Main.PREF_DARK))
         {
-            if (Build.VERSION.SDK_INT != Main.VERSION_M)
+            if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
                 getActivity().recreate();
         }
     }

@@ -1038,7 +1038,7 @@ public class ChartActivity extends Activity
             // "value" represents the position of the label on the
             // axis (x or y). Create a date from the day number and
             // format it.
-            Date date = new Date((int) value * MSEC_DAY);
+            Date date = new Date(Math.round(value) * MSEC_DAY);
             return dateFormat.format(date);
         }
     }

@@ -174,7 +174,6 @@ public class Main extends Activity
 
     public static final int DISPLAY_MODE = 0;
     public static final int SELECT_MODE = 1;
-    public static final int VERSION_M = 23;
 
     private int mode = DISPLAY_MODE;
 
@@ -330,7 +329,7 @@ public class Main extends Activity
         selectAll = preferences.getBoolean(PREF_SELECT, true);
         digits = Integer.parseInt(preferences.getString(PREF_DIGITS, "3"));
 
-        if (theme != dark && Build.VERSION.SDK_INT != VERSION_M)
+        if (theme != dark && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
         // Get current currency
