@@ -102,7 +102,7 @@ once expanded. The toolbar icons from left to right are:
 * **New chart** The scrollable list of currencies will pop up. Select
   one or two currencies from the list as above to replace the current
   currencies in the chart.
-* **Update** the chart.
+* **Refresh** the chart.
 * **Historical** The chart will be updated with nearly eighteen years
   of historical data currently dating from 1 January 1999. Not all the
   currencies go back this far. **Caution** - this will take a while,
