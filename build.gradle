@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
     }
 }
 
@@ -43,7 +43,7 @@ android {
     }
 
     lintOptions {
-        disable 'IconDensities', 'IconDuplicates', 'OldTargetApi'
+        disable 'IconDensities', 'IconDuplicates'
         // abortOnError false
     }
 

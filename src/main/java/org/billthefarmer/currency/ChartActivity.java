@@ -187,7 +187,7 @@ public class ChartActivity extends Activity
 
         // Get text and colour
         Resources resources = getResources();
-        String updating = resources.getString(R.string.updating);
+        String updating = getString(R.string.updating);
         int dark = resources.getColor(android.R.color.secondary_text_dark);
 
         // Set chart parameters
@@ -547,8 +547,7 @@ public class ChartActivity extends Activity
             new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 
         // Get updating text
-        Resources resources = getResources();
-        String updating = resources.getString(R.string.updating);
+        String updating = getString(R.string.updating);
 
         // Set flag
         invert = !invert;
@@ -679,8 +678,7 @@ public class ChartActivity extends Activity
         }
 
         // Get updating text
-        Resources resources = getResources();
-        String updating = resources.getString(R.string.updating);
+        String updating = getString(R.string.updating);
 
         // Set custom text to updating, since this may take a few secs
         if (customView != null)
@@ -785,8 +783,7 @@ public class ChartActivity extends Activity
             new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
 
         // Get updating text
-        Resources resources = getResources();
-        String updating = resources.getString(R.string.updating);
+        String updating = getString(R.string.updating);
 
         // Get index list from intent
         List<Integer> selectList = data.getIntegerArrayListExtra(Main.CHOICE);
@@ -999,8 +996,7 @@ public class ChartActivity extends Activity
     void showToast(int id, Object... args)
     {
         // Get text from resources
-        Resources resources = getResources();
-        String text = resources.getString(id);
+        String text = getString(id);
         showToast(text, args);
     }
 
