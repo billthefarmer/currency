@@ -77,12 +77,10 @@ public class Data
         this.map = map;
     }
 
-    // Start parse task
-    protected void startParseTask(String url)
-    {
-        ParseTask parseTask = new ParseTask();
-        parseTask.execute(url);
-    }
+    protected static void startParseTask(String url) {
+		ParseTask parseTask = new ParseTask();
+		parseTask.execute(url);
+	}
 
     // TaskCallbacks interface
     interface TaskCallbacks
