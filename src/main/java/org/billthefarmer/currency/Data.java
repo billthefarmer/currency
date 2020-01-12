@@ -77,16 +77,17 @@ public class Data
         this.map = map;
     }
 
-    protected static void startParseTask(String url) {
-		ParseTask parseTask = new ParseTask();
-		parseTask.execute(url);
-	}
+    // startParseTask
+    protected static void startParseTask(String url)
+    {
+        ParseTask parseTask = new ParseTask();
+        parseTask.execute(url);
+    }
 
     // TaskCallbacks interface
     interface TaskCallbacks
     {
         void onProgressUpdate(String... date);
-
         void onPostExecute(Map<String, Double> map);
     }
 
