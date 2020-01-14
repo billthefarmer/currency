@@ -79,13 +79,13 @@ public class Singleton
     }
 
     // Is parsing
-    public boolean isParsing()
+    public static boolean isParsing()
     {
         return parsing;
     }
 
     // Start parse task
-    protected void startParseTask(String url)
+    protected static void startParseTask(String url)
     {
         ParseTask parseTask = new ParseTask();
         parseTask.execute(url);
@@ -96,7 +96,6 @@ public class Singleton
     interface TaskCallbacks
     {
         void onProgressUpdate(String... date);
-
         void onPostExecute(Map<String, Map<String, Double>> map);
     }
 
