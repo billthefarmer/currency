@@ -2,16 +2,6 @@
 
 Android currency conversion. The app is available on [F-Droid](https://f-droid.org/packages/org.billthefarmer.currency) and [here](https://github.com/billthefarmer/currency/releases).
 
-## Pull requests
-I have had a number of pull requests on this app of mainly cosmetic
-changes, possibly due to a
-[Reddit](https://www.reddit.com/r/androiddev/comments/5lqdvw/do_you_want_to_contribute_to_an_open_source_app/)
-post about contributing to open source apps. Please feel free to
-contribute bug fixes, enhancement requests, translations, etc, or fork
-your own version, but not cosmetic updates to modernise the 'look', or
-tidy up the code etc. I quite like the app icons I am using and am
-reluctant to change them.
-
 ## Extra currencies
 I have had a number of requests for extra currencies, some offering
 possible data sources. I have decided that trying to add more
