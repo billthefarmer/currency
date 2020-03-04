@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Settings on Currency</title>
+    <link>https://billthefarmer.github.io/currency/settings/</link>
+    <description>Recent content in Settings on Currency</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <copyright>Copyright &amp;copy; 2020 Bill Farmer</copyright>
+    <lastBuildDate>Wed, 04 Mar 2020 10:53:22 +0000</lastBuildDate>
+    
+	<atom:link href="https://billthefarmer.github.io/currency/settings/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Update</title>
+      <link>https://billthefarmer.github.io/currency/settings/update/</link>
+      <pubDate>Wed, 04 Mar 2020 10:59:27 +0000</pubDate>
+      
+      <guid>https://billthefarmer.github.io/currency/settings/update/</guid>
+      <description> WiFi Update while connected on WiFi only Roaming Update while roaming  </description>
+    </item>
+    
+    <item>
+      <title>Selection</title>
+      <link>https://billthefarmer.github.io/currency/settings/selection/</link>
+      <pubDate>Wed, 04 Mar 2020 10:59:36 +0000</pubDate>
+      
+      <guid>https://billthefarmer.github.io/currency/settings/selection/</guid>
+      <description> Selection Select all current currency value text when touched.  </description>
+    </item>
+    
+    <item>
+      <title>Numbers</title>
+      <link>https://billthefarmer.github.io/currency/settings/numbers/</link>
+      <pubDate>Wed, 04 Mar 2020 10:59:44 +0000</pubDate>
+      
+      <guid>https://billthefarmer.github.io/currency/settings/numbers/</guid>
+      <description> Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  </description>
+    </item>
+    
+    <item>
+      <title>Chart</title>
+      <link>https://billthefarmer.github.io/currency/settings/chart/</link>
+      <pubDate>Wed, 04 Mar 2020 10:59:54 +0000</pubDate>
+      
+      <guid>https://billthefarmer.github.io/currency/settings/chart/</guid>
+      <description> Fill Fill the chart trace.  </description>
+    </item>
+    
+    <item>
+      <title>Theme</title>
+      <link>https://billthefarmer.github.io/currency/settings/theme/</link>
+      <pubDate>Wed, 04 Mar 2020 11:00:01 +0000</pubDate>
+      
+      <guid>https://billthefarmer.github.io/currency/settings/theme/</guid>
+      <description> Dark Use dark theme  </description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://billthefarmer.github.io/currency/settings/about/</link>
+      <pubDate>Wed, 04 Mar 2020 11:00:12 +0000</pubDate>
+      
+      <guid>https://billthefarmer.github.io/currency/settings/about/</guid>
+      <description> About Display the version, copyright and licence.  </description>
+    </item>
+    
+  </channel>
+</rss>
