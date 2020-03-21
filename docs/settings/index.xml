@@ -13,57 +13,12 @@
     
     
     <item>
-      <title>Update</title>
-      <link>https://billthefarmer.github.io/currency/settings/update/</link>
-      <pubDate>Wed, 04 Mar 2020 10:59:27 +0000</pubDate>
-      
-      <guid>https://billthefarmer.github.io/currency/settings/update/</guid>
-      <description> WiFi Update while connected on WiFi only Roaming Update while roaming  </description>
-    </item>
-    
-    <item>
-      <title>Selection</title>
-      <link>https://billthefarmer.github.io/currency/settings/selection/</link>
-      <pubDate>Wed, 04 Mar 2020 10:59:36 +0000</pubDate>
-      
-      <guid>https://billthefarmer.github.io/currency/settings/selection/</guid>
-      <description> Selection Select all current currency value text when touched.  </description>
-    </item>
-    
-    <item>
-      <title>Numbers</title>
-      <link>https://billthefarmer.github.io/currency/settings/numbers/</link>
-      <pubDate>Wed, 04 Mar 2020 10:59:44 +0000</pubDate>
-      
-      <guid>https://billthefarmer.github.io/currency/settings/numbers/</guid>
-      <description> Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  </description>
-    </item>
-    
-    <item>
-      <title>Chart</title>
-      <link>https://billthefarmer.github.io/currency/settings/chart/</link>
-      <pubDate>Wed, 04 Mar 2020 10:59:54 +0000</pubDate>
-      
-      <guid>https://billthefarmer.github.io/currency/settings/chart/</guid>
-      <description> Fill Fill the chart trace.  </description>
-    </item>
-    
-    <item>
-      <title>Theme</title>
-      <link>https://billthefarmer.github.io/currency/settings/theme/</link>
-      <pubDate>Wed, 04 Mar 2020 11:00:01 +0000</pubDate>
-      
-      <guid>https://billthefarmer.github.io/currency/settings/theme/</guid>
-      <description> Dark Use dark theme  </description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://billthefarmer.github.io/currency/settings/about/</link>
+      <title>Settings</title>
+      <link>https://billthefarmer.github.io/currency/settings/settings/</link>
       <pubDate>Wed, 04 Mar 2020 11:00:12 +0000</pubDate>
       
-      <guid>https://billthefarmer.github.io/currency/settings/about/</guid>
-      <description> About Display the version, copyright and licence.  </description>
+      <guid>https://billthefarmer.github.io/currency/settings/settings/</guid>
+      <description>Update  WiFi Update while connected on WiFi only Roaming Update while roaming  Selection  Selection Select all current currency value text when touched.  Numbers  Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  Chart  Fill Fill the chart trace.  Theme  Dark Use dark theme  About  About Display the version, copyright and licence.</description>
     </item>
     
   </channel>
