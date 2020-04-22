@@ -7,10 +7,15 @@
   <string name="help">Hilfe</string>
   <string name="settings">Einstellungen</string>
   <string name="built">Kompiliert am %s</string>
-  <string name="copyright">Copyright \u00A9 2018 Bill Farmer\nDiagramm
-  von <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nDeutsche Übersetzung von <a href="https://github.com/l1am0">L1am0</a>
+  <string name="copyright">
+    Copyright \u00A9 2018 Bill Farmer\n\nDiagramm von <a
+    href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+    Deutsche Übersetzung von <a
+    href="https://github.com/l1am0">L1am0</a>
   </string>
-  <string name="licence">Lizenz steht unter <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">
+    Lizenz steht unter <a
+    href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
 
   <string name="remove">Entfernen</string>
@@ -52,14 +57,16 @@
   <string name="digits">0123456789,.</string>
 
   <string name="pref_about">Über</string>
-  <string name="pref_about_summ">Währungsumrechner <a href="https://github.com/billthefarmer/currency/releases/latest">Version %s</a></string>
+  <string name="pref_about_summ">
+    <a
+    href="https://github.com/billthefarmer/currency/releases/latest">Version
+    %s</a>
+  </string>
   <string name="pref_update_category">Update</string>
   <string name="pref_wifi">WLAN</string>
   <string name="pref_wifi_summ">Update nur im WLAN</string>
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Update auch im Roaming</string>
-  <string name="pref_select">Auswahl</string>
-  <string name="pref_select_summ">Alle auswählen durch antippen</string>
   <string name="pref_numbers">Nummern</string>
   <string name="pref_digits">Nachkommastellen</string>
   <string name="pref_digit_default">3</string>

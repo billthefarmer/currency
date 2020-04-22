@@ -7,12 +7,21 @@
   <string name="help">Help</string>
   <string name="settings">Settings</string>
   <string name="built">Built %s</string>
-  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\nChart by
-  <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nUkrainian
-  translation by <a href="https://github.com/personaljesusua">Vladyslav
-  Pohrebniakov</a>\nGerman translation by <a href="https://github.com/l1am0">L1am0</a>\nFrench translation by <a href="https://github.com/RealAestan">Aestan</a>\nItalian translation by <a href="https://github.com/IZ2QDH">Fabio</a>\nSpanish translation by <a href="https://github.com/suso93">suso93</a>\nIndonesian translation by <a href="https://github.com/gloeyisk">Gilang Iskandar</a>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\n\nChart
+  by <a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+  Ukrainian translation by <a
+  href="https://github.com/personaljesusua">Vladyslav
+  Pohrebniakov</a>, German translation by <a
+  href="https://github.com/l1am0">L1am0</a>, French translation by <a
+  href="https://github.com/RealAestan">Aestan</a>, Italian translation
+  by <a href="https://github.com/IZ2QDH">Fabio</a>, Spanish
+  translation by <a href="https://github.com/suso93">suso93</a>,
+  Indonesian translation by <a
+  href="https://github.com/gloeyisk">Gilang Iskandar</a>
   </string>
-  <string name="licence">Licence <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">Licence <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
 
   <string name="remove">Remove</string>
@@ -54,14 +63,16 @@
   <string name="digits">0123456789,.</string>
 
   <string name="pref_about">About</string>
-  <string name="pref_about_summ">Currency <a href="https://github.com/billthefarmer/currency/releases/latest">version %s</a></string>
+  <string name="pref_about_summ">
+    <a
+    href="https://github.com/billthefarmer/currency/releases/latest">Version
+    %s</a>
+  </string>
   <string name="pref_update_category">Update</string>
   <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Update on WiFi only</string>
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Update while roaming</string>
-  <string name="pref_select">Selection</string>
-  <string name="pref_select_summ">Select all when touched</string>
   <string name="pref_numbers">Numbers</string>
   <string name="pref_digits">Fraction digits</string>
   <string name="pref_digit_default">3</string>

@@ -7,10 +7,14 @@
   <string name="help">Ayuda</string>
   <string name="settings">Ajustes</string>
   <string name="built">Creada %s</string>
-  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\nGráfico de
-  <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nTraducción español de <a href="https://github.com/suso93">suso93</a>
+  <string name="copyright">
+    Copyright \u00A9 2016 Bill Farmer\n\nGráfico de <a
+    href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+    Traducción español de <a
+    href="https://github.com/suso93">suso93</a>
   </string>
-  <string name="licence">Licencia <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">
+    Licencia <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
 
   <string name="remove">Eliminar</string>
@@ -52,14 +56,16 @@
   <string name="digits">0123456789,.</string>
 
   <string name="pref_about">Acerca de</string>
-  <string name="pref_about_summ">Moneda <a href="https://github.com/billthefarmer/currency/releases/latest">versión %s</a></string>
+  <string name="pref_about_summ">
+    <a
+    href="https://github.com/billthefarmer/currency/releases/latest">versión
+    %s</a>
+  </string>
   <string name="pref_update_category">Actualización</string>
   <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Actualizar sólo con WiFi</string>
   <string name="pref_roaming">Datos</string>
   <string name="pref_roaming_summ">Actualizar con datos móviles</string>
-  <string name="pref_select">Selección</string>
-  <string name="pref_select_summ">Seleccionar todo al tocar</string>
   <string name="pref_numbers">Números</string>
   <string name="pref_digits">Decimales</string>
   <string name="pref_digit_default">3</string>

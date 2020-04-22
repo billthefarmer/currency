@@ -158,7 +158,6 @@ public class Main extends Activity
 
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roaming";
-    public static final String PREF_SELECT = "pref_select";
     public static final String PREF_DIGITS = "pref_digits";
     public static final String PREF_FILL = "pref_fill";
     public static final String PREF_DARK = "pref_dark";
@@ -179,7 +178,6 @@ public class Main extends Activity
 
     private boolean wifi = true;
     private boolean roaming = false;
-    private boolean selectAll = true;
     private boolean select = true;
     private boolean dark = true;
     private int digits = 3;
@@ -326,7 +324,6 @@ public class Main extends Activity
         wifi = preferences.getBoolean(PREF_WIFI, true);
         dark = preferences.getBoolean(PREF_DARK, true);
         roaming = preferences.getBoolean(PREF_ROAMING, false);
-        selectAll = preferences.getBoolean(PREF_SELECT, true);
         digits = Integer.parseInt(preferences.getString(PREF_DIGITS, "3"));
 
         if (theme != dark && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
@@ -1045,7 +1042,7 @@ public class Main extends Activity
         {
         // Value field
         case R.id.edit:
-            if (selectAll && select)
+            if (select)
             {
                 // Forces select all
                 view.clearFocus();
@@ -1233,12 +1230,10 @@ public class Main extends Activity
             if (editView != null)
             {
                 editView.setText(value);
-                if (selectAll)
-                {
-                    // Forces select all
-                    editView.clearFocus();
-                    editView.requestFocus();
-                }
+
+                // Forces select all
+                editView.clearFocus();
+                editView.requestFocus();
 
                 // Do it only once
                 select = false;

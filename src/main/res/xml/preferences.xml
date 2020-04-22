@@ -26,20 +26,6 @@
   </PreferenceCategory>
 
   <PreferenceCategory
-      android:key="pref_select_category"
-      android:title="@string/pref_select">
-
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:icon="?attr/pref_select"
-        android:key="pref_select"
-        android:persistent="true"
-        android:summary="@string/pref_select_summ"
-        android:title="@string/pref_select" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
       android:key="pref_numbers_category"
       android:title="@string/pref_numbers">
 
@@ -88,8 +74,8 @@
       android:title="@string/pref_about">
 
     <org.billthefarmer.currency.AboutPreference
-        android:dialogIcon="?attr/pref_about"
         android:dialogLayout="@layout/about"
+        android:dialogTitle="@string/app_name"
         android:icon="?attr/pref_about"
         android:key="pref_about"
         android:negativeButtonText=""

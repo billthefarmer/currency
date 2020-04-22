@@ -7,10 +7,14 @@
   <string name="help">Aide</string>
   <string name="built">Construit %s</string>
   <string name="settings">Paramètres</string>
-  <string name="copyright">Copyright \u00A9 2016 Bill
-  Farmer\nGraphique par <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nTraduction française par <a href="https://github.com/RealAestan">Aestan</a>
+  <string name="copyright">
+    Copyright \u00A9 2016 Bill Farmer\n\nGraphique par <a
+    href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+    Traduction française par <a
+    href="https://github.com/RealAestan">Aestan</a>
   </string>
-  <string name="licence">Licence <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">
+    Licence <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
 
   <string name="remove">Supprimer</string>
@@ -38,7 +42,7 @@
   <string name="euro_symbol">€</string>
   <string name="num_one">1</string>
   <string name="not_updated">Pas à jour</string>
-  <string name="updated">Mis à jour : %s</string>
+  <string name="updated">Mis à jour: %s</string>
   <string name="ok">OK</string>
   <string name="updating">Mise à jour</string>
   <string name="failed">Échec</string>
@@ -52,23 +56,25 @@
   <string name="digits">0123456789,.</string>
 
   <string name="pref_about">À propos</string>
-  <string name="pref_about_summ">Devise <a href="https://github.com/billthefarmer/currency/releases/latest">version %s</a></string>
+  <string name="pref_about_summ">
+    <a
+    href="https://github.com/billthefarmer/currency/releases/latest">Version
+    %s</a>
+  </string>
   <string name="pref_update_category">Mise à jour</string>
   <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Mettre à jour uniquement par WiFi</string>
   <string name="pref_roaming">Données mobiles</string>
-  <string name="pref_roaming_summ">Mettre à jour par données mobiles (3G, 4G, etc)</string>
-  <string name="pref_select">Sélection</string>
-  <string name="pref_select_summ">Sélectionne le nombre quand la devise est changé</string>
+  <string name="pref_roaming_summ">
+    Mettre à jour par données mobiles (3G, 4G, etc)
+  </string>
   <string name="pref_numbers">Nombres</string>
   <string name="pref_digits">Nombre de décimales</string>
   <string name="pref_digit_default">3</string>
   <string name="pref_fill">Remplir</string>
   <string name="pref_fill_summ">Remplir le tracé du graphique</string>
   <string name="pref_dark">Sombre</string>
-  <string name="pref_dark_summ">
-    Utiliser un thème sombre
-  </string>
+  <string name="pref_dark_summ">Utiliser un thème sombre</string>
 
   <string name="long_aud">Dollar australien</string>
   <string name="long_bgn">Lev bulgare</string>

@@ -56,9 +56,7 @@ public class AboutPreference extends DialogPreference
         {
              SpannableStringBuilder builder =
                 new SpannableStringBuilder(version.getText());
-            int st = builder.toString().indexOf("%s");
-            int en = builder.length();
-            builder.replace(st, en, BuildConfig.VERSION_NAME);
+             builder.replace(0, builder.length(), BuildConfig.VERSION_NAME);
             version.setText(builder);
             version.setMovementMethod(LinkMovementMethod.getInstance());
         }

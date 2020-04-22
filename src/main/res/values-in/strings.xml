@@ -7,10 +7,14 @@
   <string name="help">Bantuan</string>
   <string name="settings">Setelan</string>
   <string name="built">Dibangun %s</string>
-  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\nBagan oleh
-  <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>\nTerjemahan dalam Indonesia oleh <a href="https://github.com/gloeyisk">Gloeyisk</a>
+  <string name="copyright">
+    Copyright \u00A9 2016 Bill Farmer\n\nBagan oleh <a
+    href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+    Terjemahan dalam Indonesia oleh <a
+    href="https://github.com/gloeyisk">Gloeyisk</a>
   </string>
-  <string name="licence">Lisensi <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">
+    Lisensi <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
 
   <string name="remove">Hapus</string>
@@ -52,14 +56,16 @@
   <string name="digits">0123456789,.</string>
 
   <string name="pref_about">Tentang</string>
-  <string name="pref_about_summ">Mata Uang <a href="https://github.com/billthefarmer/currency/releases/latest">versi %s</a></string>
+  <string name="pref_about_summ">
+    <a
+    href="https://github.com/billthefarmer/currency/releases/latest">Versi
+    %s</a>
+  </string>
   <string name="pref_update_category">Perbarui</string>
   <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Perbarui menggunakan WiFi saja</string>
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Perbarui ketika roaming</string>
-  <string name="pref_select">Pilihan</string>
-  <string name="pref_select_summ">Pilih semua ketika disentuh</string>
   <string name="pref_numbers">Nomor</string>
   <string name="pref_digits">Digit pecahan</string>
   <string name="pref_digit_default">3</string>
