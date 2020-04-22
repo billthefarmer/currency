@@ -27,7 +27,7 @@
       <pubDate>Wed, 04 Mar 2020 10:20:13 +0000</pubDate>
       
       <guid>https://billthefarmer.github.io/currency/using/edit/</guid>
-      <description>Touch the current currency value field to edit the value. The display will be updated dynamically as you type. Touch the Done button on the numeric keypad to update the value field. The whole value field is selected by default when touched so it will be overwritten by typing in a new value. To deselect the text, touch an adjacent area, like the currency flag. This behaviour can be disabled in the settings below.</description>
+      <description>Touch the current currency value field to edit the value. The display will be updated dynamically as you type. Touch the Done button on the numeric keypad to update the value field. The whole value field is selected by default when touched so it will be overwritten by typing in a new value. To deselect the text, touch an adjacent area, like the currency flag.</description>
     </item>
     
     <item>
@@ -65,7 +65,7 @@
       <pubDate>Wed, 04 Mar 2020 11:00:12 +0000</pubDate>
       
       <guid>https://billthefarmer.github.io/currency/settings/settings/</guid>
-      <description>Update  WiFi Update while connected on WiFi only Roaming Update while roaming  Selection  Selection Select all current currency value text when touched.  Numbers  Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  Chart  Fill Fill the chart trace.  Theme  Dark Use dark theme  About  About Display the version, copyright and licence.</description>
+      <description>Update  WiFi Update while connected on WiFi only Roaming Update while roaming  Numbers  Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  Chart  Fill Fill the chart trace.  Theme  Dark Use dark theme  About  About Display the version, copyright and licence.  </description>
     </item>
     
   </channel>
