@@ -97,14 +97,14 @@ public class HelpActivity extends Activity
     public static CharSequence read(Context context, int resId)
     {
         StringBuilder text = new StringBuilder();
-        String line;
 
         try (InputStream stream = context.getResources().openRawResource(resId);
              InputStreamReader reader = new InputStreamReader(stream);
              BufferedReader buffer = new BufferedReader(reader))
         {
+            String line;
             while ((line = buffer.readLine()) != null)
-                text.append(line).append("\n");
+                text.append(line).append(System.getProperty("line.separator"));
         }
 
         catch (Exception e) {}
