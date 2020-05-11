@@ -58,7 +58,7 @@
   <string name="pref_about">Acerca de</string>
   <string name="pref_about_summ">
     <a
-    href="https://github.com/billthefarmer/currency/releases/latest">versión
+    href="https://github.com/billthefarmer/currency/releases/latest">Versión
     %s</a>
   </string>
   <string name="pref_update_category">Actualización</string>
