@@ -7,7 +7,15 @@
   <string name="help">Помощь</string>
   <string name="settings">Настройки</string>
   <string name="built">Сборка %s</string>
-  <string name="licence">Лицензия <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a></string>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\n\nChart
+  by <a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+  Russian translation by <a
+  href="https://github.com/solokot">solokot</a>
+  </string>
+  <string name="licence">Лицензия <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
 
   <string name="remove">Удалить</string>
   <string name="select">Выбрать</string>
@@ -29,8 +37,13 @@
   <string name="invert">Инвертировать</string>
   <string name="new_chart">Новый график</string>
   <string name="hist">Исторический</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
   <string name="not_updated">Не обновлено</string>
   <string name="updated">Курс обновлён: %s</string>
+  <string name="ok">OK</string>
   <string name="updating">Обновление…</string>
   <string name="failed">Ошибка</string>
   <string name="no_connection">Отсутствует подключение</string>
@@ -40,10 +53,12 @@
   <string name="update_extra">Обновить дополнительный курс</string>
 
   <string name="decimal">Введите десятичное число</string>
+  <string name="digits">0123456789,.</string>
 
   <string name="pref_about">О приложении</string>
   <string name="pref_about_summ"><a href="https://github.com/billthefarmer/currency/releases/latest">Версия %s</a></string>
   <string name="pref_update_category">Обновление</string>
+  <string name="pref_wifi">WiFi</string>
   <string name="pref_wifi_summ">Обновлять только по WiFi</string>
   <string name="pref_roaming">Роуминг</string>
   <string name="pref_roaming_summ">Обновлять в роуминге</string>
