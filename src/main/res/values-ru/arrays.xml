@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="pref_digit_entries">
+    <item>1 цифра</item>
+    <item>2 цифры</item>
+    <item>3 цифры</item>
+    <item>4 цифры</item>
+    <item>5 цифр</item>
+  </string-array>
+
+</resources>

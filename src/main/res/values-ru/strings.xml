@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Валюта</string>
+
+  <string name="add">Добавить</string>
+  <string name="refresh">Обновить</string>
+  <string name="help">Помощь</string>
+  <string name="settings">Настройки</string>
+  <string name="built">Сборка %s</string>
+  <string name="licence">Лицензия <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a></string>
+
+  <string name="remove">Удалить</string>
+  <string name="select">Выбрать</string>
+  <string name="copy">Копировать</string>
+  <string name="clear">Очистить</string>
+  <string name="cancel">Отмена</string>
+  <string name="chart">График</string>
+  <string name="theme">Тема</string>
+  <string name="update">Обновить</string>
+
+  <string name="range">Диапазон</string>
+  <string name="week">Неделя</string>
+  <string name="month">Месяц</string>
+  <string name="quarter">Квартал</string>
+  <string name="year">Год</string>
+  <string name="years">5 лет</string>
+  <string name="max">Максимум</string>
+
+  <string name="invert">Инвертировать</string>
+  <string name="new_chart">Новый график</string>
+  <string name="hist">Исторический</string>
+  <string name="not_updated">Не обновлено</string>
+  <string name="updated">Курс обновлён: %s</string>
+  <string name="updating">Обновление…</string>
+  <string name="failed">Ошибка</string>
+  <string name="no_connection">Отсутствует подключение</string>
+  <string name="no_wifi">Отсутствует WiFi</string>
+  <string name="roaming">Роуминг</string>
+  <string name="update_failed">Обновление не выполнено</string>
+  <string name="update_extra">Обновить дополнительный курс</string>
+
+  <string name="decimal">Введите десятичное число</string>
+
+  <string name="pref_about">О приложении</string>
+  <string name="pref_about_summ"><a href="https://github.com/billthefarmer/currency/releases/latest">Версия %s</a></string>
+  <string name="pref_update_category">Обновление</string>
+  <string name="pref_wifi_summ">Обновлять только по WiFi</string>
+  <string name="pref_roaming">Роуминг</string>
+  <string name="pref_roaming_summ">Обновлять в роуминге</string>
+  <string name="pref_numbers">Числа</string>
+  <string name="pref_digits">Точность дробной части числа</string>
+  <string name="pref_digit_default">2</string>
+  <string name="pref_fill">Заливка</string>
+  <string name="pref_fill_summ">Заполнять график сплошным цветом</string>
+  <string name="pref_dark">Тёмная</string>
+  <string name="pref_dark_summ">Использовать тёмную тему</string>
+
+  <string name="long_aud">Австралийский доллар</string>
+  <string name="long_bgn">Болгарский лев</string>
+  <string name="long_brl">Бразильский реал</string>
+  <string name="long_cad">Канадский доллар</string>
+  <string name="long_chf">Швейцарский франк</string>
+  <string name="long_cny">Китайский юань ренминби</string>
+  <string name="long_czk">Чешская крона</string>
+  <string name="long_dkk">Датская крона</string>
+  <string name="long_eur">Евро</string>
+  <string name="long_ext">Дополнительный курс</string>
+  <string name="long_gbp">Фунт стерлингов</string>
+  <string name="long_hkd">Гонконгский доллар</string>
+  <string name="long_hrk">Хорватская куна</string>
+  <string name="long_huf">Венгерский форинт</string>
+  <string name="long_idr">Индонезийская рупия</string>
+  <string name="long_ils">Израильский шекель</string>
+  <string name="long_inr">Индийская рупия</string>
+  <string name="long_isk">Исландская крона</string>
+  <string name="long_jpy">Японская иена</string>
+  <string name="long_krw">Южнокорейская вона</string>
+  <string name="long_mxn">Мексиканское песо</string>
+  <string name="long_myr">Малайзийский ринггит</string>
+  <string name="long_nok">Норвежская крона</string>
+  <string name="long_nzd">Новозеландский доллар</string>
+  <string name="long_php">Филиппинское песо</string>
+  <string name="long_pln">Польский злотый</string>
+  <string name="long_ron">Румынский лей</string>
+  <string name="long_rub">Российский рубль</string>
+  <string name="long_sek">Шведская крона</string>
+  <string name="long_sgd">Сингапурский доллар</string>
+  <string name="long_thb">Тайский бат</string>
+  <string name="long_try">Турецкая лира</string>
+  <string name="long_usd">Доллар США</string>
+  <string name="long_zar">Южноафриканский рэнд</string>
+</resources>
