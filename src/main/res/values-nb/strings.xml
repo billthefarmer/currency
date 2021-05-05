@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Valuta</string>
+
+  <string name="add">Legg til</string>
+  <string name="refresh">Oppdater</string>
+  <string name="help">Hjelp</string>
+  <string name="settings">Innstillinger</string>
+  <string name="built">Bygd %s</string>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\n\nGraf
+  av <a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+  ukrainsk oversettelse av <a
+  href="https://github.com/personaljesusua">Vladyslav
+  Pohrebniakov</a>, tysk oversettelse av <a
+  href="https://github.com/l1am0">L1am0</a>, fransk oversettelse av <a
+  href="https://github.com/RealAestan">Aestan</a>, italiensk oversettelse
+  av <a href="https://github.com/IZ2QDH">Fabio</a>, spansk
+  oversettelse av <a href="https://github.com/suso93">suso93</a>,
+  indonesisk oversettelse av <a
+  href="https://github.com/gloeyisk">Gilang Iskandar</a>, russisk
+  oversettelse av <a href="https://github.com/solokot">solokot</a>,
+  norsk oversettelse av <a
+  href="https://github.com/FTno">FTno</a>
+  </string>
+  <string name="licence">Lisens <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+
+  <string name="remove">Fjern</string>
+  <string name="select">Velg</string>
+  <string name="copy">Kopier</string>
+  <string name="clear">Tilbakestill</string>
+  <string name="cancel">Avbryt</string>
+  <string name="chart">Graf</string>
+  <string name="theme">Tema</string>
+  <string name="update">Oppdater ekstra</string>
+
+  <string name="range">Tidsområde</string>
+  <string name="week">Uke</string>
+  <string name="month">Måned</string>
+  <string name="quarter">Kvartal</string>
+  <string name="year">År</string>
+  <string name="years">5 år</string>
+  <string name="max">Maks</string>
+
+  <string name="invert">Inverter</string>
+  <string name="new_chart">Ny graf</string>
+  <string name="hist">Historisk</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
+  <string name="not_updated">Ikke oppdatert</string>
+  <string name="updated">Oppdatert: %s</string>
+  <string name="ok">OK</string>
+  <string name="updating">Oppdaterer</string>
+  <string name="failed">Feilet</string>
+  <string name="no_connection">Ingen forbindelse</string>
+  <string name="no_wifi">Ingen WiFi</string>
+  <string name="roaming">Roaming</string>
+  <string name="update_failed">Oppdatering feilet</string>
+  <string name="update_extra">Oppdater ekstra-valuta</string>
+
+  <string name="decimal">Angi desimalverdi</string>
+  <string name="digits">0123456789,.</string>
+
+  <string name="pref_about">Om</string>
+  <string name="pref_about_summ"><a
+  href="https://github.com/billthefarmer/currency/releases/latest">Versjon
+  %s</a></string>
+  <string name="pref_update_category">Oppdatering</string>
+  <string name="pref_wifi">WiFi</string>
+  <string name="pref_wifi_summ">Oppdater bare på WiFi</string>
+  <string name="pref_roaming">Roaming</string>
+  <string name="pref_roaming_summ">Oppdater ved roaming</string>
+  <string name="pref_numbers">Tall</string>
+  <string name="pref_digits">Desimaler</string>
+  <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Fyll</string>
+  <string name="pref_fill_summ">Fyll graf</string>
+  <string name="pref_dark">Mørkt</string>
+  <string name="pref_dark_summ">Bruk mørkt tema</string>
+
+  <string name="long_aud">Australske dollar</string>
+  <string name="long_bgn">Bulgarske lev</string>
+  <string name="long_brl">Brasilianske real</string>
+  <string name="long_cad">Kanadiske dollar</string>
+  <string name="long_chf">Sveitsiske franc</string>
+  <string name="long_cny">Kinesiske yuan</string>
+  <string name="long_czk">Tsjekkiske koruna</string>
+  <string name="long_dkk">Danske kroner</string>
+  <string name="long_eur">Euro</string>
+  <string name="long_ext">Ekstra-valuta</string>
+  <string name="long_gbp">Britiske pund</string>
+  <string name="long_hkd">Hong Kong dollar</string>
+  <string name="long_hrk">Kroatiske kuna</string>
+  <string name="long_huf">Ungarske forint</string>
+  <string name="long_idr">Indonesiske rupiah</string>
+  <string name="long_ils">Israelske shekel</string>
+  <string name="long_inr">Indiske rupi</string>
+  <string name="long_isk">Islandske kroner</string>
+  <string name="long_jpy">Japanske yen</string>
+  <string name="long_krw">Sørkoreanske won</string>
+  <string name="long_mxn">Meksikanske peso</string>
+  <string name="long_myr">Malaysiske ringgit</string>
+  <string name="long_nok">Norske kroner</string>
+  <string name="long_nzd">New Zealand dollar</string>
+  <string name="long_php">Filippinske peso</string>
+  <string name="long_pln">Polske zloty</string>
+  <string name="long_ron">Rumenske leu</string>
+  <string name="long_rub">Russiske rubler</string>
+  <string name="long_sek">Svenske kroner</string>
+  <string name="long_sgd">Singaporske dollar</string>
+  <string name="long_thb">Thailandske baht</string>
+  <string name="long_try">Tyrkiske lira</string>
+  <string name="long_usd">Amerikanske dollar</string>
+  <string name="long_zar">Sørafrikanske rand</string>
+</resources>
