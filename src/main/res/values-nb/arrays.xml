@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="pref_digit_entries">
+    <item>En desimal</item>
+    <item>To desimaler</item>
+    <item>Tre desimaler</item>
+    <item>Fire desimaler</item>
+    <item>Fem desimaler</item>
+  </string-array>
+
+  <string-array name="pref_digit_values">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+  </string-array>
+
+</resources>
