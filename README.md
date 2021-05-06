@@ -28,8 +28,8 @@ More ~currencies~, crypto-currencies and lots of other conversions are in [Equat
  * Currency rates updated daily
  * Last rate update retained for use offline
  * Extra currency for unsupported currencies
- * Ukrainian, German, Italian, French, Spanish, Indonesian and Russian
-   translation
+ * Ukrainian, German, Italian, French, Spanish, Indonesian, Russian
+   and Norwegian translation
 
 ## Usage
 ### Edit
