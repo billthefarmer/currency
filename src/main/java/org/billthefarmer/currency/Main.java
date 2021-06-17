@@ -41,7 +41,9 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -661,13 +663,9 @@ public class Main extends Activity
 
         editor.putInt(PREF_INDEX, currentIndex);
 
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMinimumFractionDigits(digits);
-        numberFormat.setMaximumFractionDigits(digits);
-        numberFormat.setGroupingUsed(false);
-        String value = numberFormat.format(currentValue);
+        String value = Double.toString(currentValue);
         editor.putString(PREF_VALUE, value);
-        String extra = numberFormat.format(extraValue);
+        String extra = Double.toString(extraValue);
         editor.putString(PREF_EXTRA, extra);
         editor.putString(PREF_DATE, date);
         editor.apply();
@@ -1000,12 +998,10 @@ public class Main extends Activity
 
         // Create edit text
         Context context = builder.getContext();
-        EditText text = new EditText(context);
-        text.setId(R.id.value);
+        LayoutInflater inflater = (LayoutInflater)
+            context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        EditText text = (EditText) inflater.inflate(R.layout.value, null);
         text.setText(value);
-        text.setHint(hint);
-        text.setInputType(InputType.TYPE_CLASS_NUMBER |
-                          InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         // Create the AlertDialog
         AlertDialog dialog = builder.create();

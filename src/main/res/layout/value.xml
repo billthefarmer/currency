@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/value"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:digits="@string/digits"
+    android:hint="@string/decimal"
+    android:imeOptions="actionDone"
+    android:inputType="numberDecimal"
+    android:selectAllOnFocus="true"
+    tools:ignore="Autofill"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
