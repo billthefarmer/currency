@@ -146,7 +146,7 @@ public class Main extends Activity
         R.drawable.flag_ext
     };
 
-    public static final String TAG = "Main";
+    public static final String TAG = "Currency";
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -959,6 +959,8 @@ public class Main extends Activity
                 {
                     Number number = numberFormat.parse(value);
                     extraValue = number.doubleValue();
+                    if (BuildConfig.DEBUG)
+                        Log.d(TAG, "Extra: " + value + ", " + extraValue);
                 }
                 catch (Exception e)
                 {
@@ -967,6 +969,8 @@ public class Main extends Activity
                     {
                         Number number = englishFormat.parse(value);
                         extraValue = number.doubleValue();
+                        if (BuildConfig.DEBUG)
+                            Log.d(TAG, "English: " + value + ", " + extraValue);
                     }
                     catch (Exception ex)
                     {
@@ -1112,16 +1116,12 @@ public class Main extends Activity
     // Not used
     @Override
     public void beforeTextChanged(CharSequence s, int start,
-                                  int count, int after)
-    {
-    }
+                                  int count, int after) {}
 
     // Not used
     @Override
     public void onTextChanged(CharSequence s, int start,
-                              int before, int count)
-    {
-    }
+                              int before, int count) {}
 
     // On editor action
     @Override
