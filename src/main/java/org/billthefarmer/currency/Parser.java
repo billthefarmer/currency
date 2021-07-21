@@ -56,7 +56,7 @@ public class Parser
     // Start parser for a url
     public boolean startParser(String s)
     {
-        // Create the map and add value for Euro
+        // Create the map
         map = new HashMap<>();
 
         // Read the xml from the url
@@ -79,9 +79,8 @@ public class Parser
     // Start parser from a resource
     public boolean startParser(Context context, int id)
     {
-        // Create the map and add value for Euro
+        // Create the map
         map = new HashMap<>();
-        map.put("EUR", 1.0);
 
         Resources resources = context.getResources();
 

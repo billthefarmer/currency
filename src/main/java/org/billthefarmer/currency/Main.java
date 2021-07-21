@@ -339,50 +339,29 @@ public class Main extends Activity
         numberFormat.setMinimumFractionDigits(digits);
         numberFormat.setMaximumFractionDigits(digits);
 
-        NumberFormat englishFormat = NumberFormat.getInstance(Locale.ENGLISH);
         String value = preferences.getString(PREF_VALUE, "1.0");
 
-        // Try default locale
+        // Parse string value
         try
         {
-            Number number = numberFormat.parse(value);
-            currentValue = number.doubleValue();
+            currentValue = Double.parseDouble(value);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            // Try English locale
-            try
-            {
-                Number number = englishFormat.parse(value);
-                currentValue = number.doubleValue();
-            }
-            catch (Exception ex)
-            {
-                currentValue = 1.0;
-            }
+            currentValue = 1.0;
         }
 
         // Get extra value
         String extra = preferences.getString(PREF_EXTRA, "1.0");
 
-        // Try default locale
+        // Parse extra value
         try
         {
-            Number number = numberFormat.parse(extra);
-            extraValue = number.doubleValue();
+            extraValue = Double.parseDouble(extra);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            // Try English locale
-            try
-            {
-                Number number = englishFormat.parse(extra);
-                extraValue = number.doubleValue();
-            }
-            catch (Exception ex)
-            {
-                extraValue = 1.0;
-            }
+            extraValue = 1.0;
         }
 
         // Get the date and format it for display
@@ -959,8 +938,6 @@ public class Main extends Activity
                 {
                     Number number = numberFormat.parse(value);
                     extraValue = number.doubleValue();
-                    if (BuildConfig.DEBUG)
-                        Log.d(TAG, "Extra: " + value + ", " + extraValue);
                 }
                 catch (Exception e)
                 {
@@ -969,8 +946,6 @@ public class Main extends Activity
                     {
                         Number number = englishFormat.parse(value);
                         extraValue = number.doubleValue();
-                        if (BuildConfig.DEBUG)
-                            Log.d(TAG, "English: " + value + ", " + extraValue);
                     }
                     catch (Exception ex)
                     {
