@@ -1316,7 +1316,8 @@ public class Main extends Activity
         for (int index : indexList)
         {
             // Don't add duplicates
-            if (nameList.contains(CURRENCY_NAMES[index]))
+            if ((currentIndex == index) ||
+                nameList.contains(CURRENCY_NAMES[index]))
                 continue;
 
             flagList.add(CURRENCY_FLAGS[index]);
