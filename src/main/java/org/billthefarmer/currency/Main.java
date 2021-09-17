@@ -1191,7 +1191,7 @@ public class Main extends Activity
             currentIndex = currencyNameList.indexOf(nameList.get(position));
 
             currentValue = (oldValue / convertValue) *
-                           valueMap.get(CURRENCY_NAMES[currentIndex]);
+                valueMap.get(CURRENCY_NAMES[currentIndex]);
 
             convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
 
@@ -1330,7 +1330,7 @@ public class Main extends Activity
             try
             {
                 value = (currentValue / convertValue) *
-                        valueMap.get(CURRENCY_NAMES[index]);
+                    valueMap.get(CURRENCY_NAMES[index]);
             }
             catch (Exception e)
             {
