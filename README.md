@@ -3,17 +3,12 @@
 Android currency conversion. The app is available on [F-Droid](https://f-droid.org/packages/org.billthefarmer.currency) and [here](https://github.com/billthefarmer/currency/releases).
 
 ## Extra currencies
-I have had a number of requests for extra currencies, some offering
-possible data sources. I have decided that trying to add more
-currencies from disparate sources makes this app far too
-complicated. It was designed around the current and historical data
-freely and reliably available from the
-[European Central Bank](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)
-and to redesign it to deal with currencies that have historical data,
-currencies that don't, data sources that might disappear and other
-potential pitfalls that I haven't found yet makes it far too complex.
+For extra currencies please see my
+[Specie](https://github.com/billthefarmer/specie) app with 150
+currencies.
 
-More ~currencies~, crypto-currencies and lots of other conversions are in [Equate](https://github.com/EvanRespaut/Equate).
+More ~currencies~, ~crypto-currencies~ and lots of other conversions
+are in [Equate](https://github.com/EvanRespaut/Equate).
 
 ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/currency.png) ![](https://raw.githubusercontent.com/billthefarmer/billthefarmer.github.io/master/images/currency/choose.png)
 
