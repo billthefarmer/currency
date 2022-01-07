@@ -518,6 +518,7 @@ public class Main extends Activity
             valueList.clear();
 
             // Format each value
+            numberFormat.setGroupingUsed(true);
             for (String name : nameList)
             {
                 Double v = valueMap.get(name);
@@ -532,6 +533,7 @@ public class Main extends Activity
 
         // Recalculate all the values
         valueList.clear();
+        numberFormat.setGroupingUsed(true);
         for (String name : nameList)
         {
             Double v = (currentValue / convertValue) *
@@ -1056,6 +1058,7 @@ public class Main extends Activity
                 Number number = numberFormat.parse(n);
                 currentValue = number.doubleValue();
             }
+
             catch (Exception e)
             {
                 // Try English locale
@@ -1075,6 +1078,7 @@ public class Main extends Activity
 
         // Recalculate all the values
         valueList.clear();
+        numberFormat.setGroupingUsed(true);
         for (String name : nameList)
         {
             Double value = (currentValue / convertValue) *
@@ -1251,8 +1255,7 @@ public class Main extends Activity
             editor.putString(PREF_NAMES, nameArray.toString());
             editor.putString(PREF_VALUES, valueArray.toString());
             editor.putInt(PREF_INDEX, currentIndex);
-            numberFormat.setGroupingUsed(false);
-            value = numberFormat.format(currentValue);
+            value = Double.toString(currentValue);
             editor.putString(PREF_VALUE, value);
             editor.apply();
 
@@ -1311,6 +1314,10 @@ public class Main extends Activity
 
         // Get index list from intent
         List<Integer> indexList = data.getIntegerArrayListExtra(CHOICE);
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMinimumFractionDigits(digits);
+        numberFormat.setMaximumFractionDigits(digits);
+        numberFormat.setGroupingUsed(true);
 
         // Add currencies from list
         for (int index : indexList)
@@ -1336,11 +1343,7 @@ public class Main extends Activity
             {
             }
 
-            NumberFormat numberFormat = NumberFormat.getInstance();
-            numberFormat.setMinimumFractionDigits(digits);
-            numberFormat.setMaximumFractionDigits(digits);
             String s = numberFormat.format(value);
-
             valueList.add(s);
         }
 
@@ -1416,6 +1419,7 @@ public class Main extends Activity
             NumberFormat numberFormat = NumberFormat.getInstance();
             numberFormat.setMinimumFractionDigits(digits);
             numberFormat.setMaximumFractionDigits(digits);
+            numberFormat.setGroupingUsed(true);
             for (String name : nameList)
             {
                 int index = currencyNameList.indexOf(name);
