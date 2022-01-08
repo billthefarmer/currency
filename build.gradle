@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.2'
+        classpath 'com.android.tools.build:gradle:7.0.4'
     }
 }
 
@@ -30,8 +30,8 @@ android {
         applicationId "org.billthefarmer.currency"
         minSdkVersion 14
         targetSdkVersion 28
-        versionName "1.39"
-        versionCode 139
+        versionName "1.40"
+        versionCode 140
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
