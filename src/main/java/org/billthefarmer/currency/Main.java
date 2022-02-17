@@ -26,8 +26,11 @@ package org.billthefarmer.currency;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -53,6 +56,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -161,6 +165,7 @@ public class Main extends Activity
     public static final String PREF_WIFI = "pref_wifi";
     public static final String PREF_ROAMING = "pref_roaming";
     public static final String PREF_DIGITS = "pref_digits";
+    public static final String PREF_ENTRY = "pref_entry";
     public static final String PREF_FILL = "pref_fill";
     public static final String PREF_DARK = "pref_dark";
     public static final String PREF_ABOUT = "pref_about";
@@ -185,6 +190,7 @@ public class Main extends Activity
     private int digits = 3;
 
     private int currentIndex = 0;
+    private int widgetEntry = 0;
     private double currentValue = 1.0;
     private double convertValue = 1.0;
     private double extraValue = 1.0;
@@ -333,6 +339,9 @@ public class Main extends Activity
 
         // Get current currency
         currentIndex = preferences.getInt(PREF_INDEX, 0);
+
+        // Get widget entry
+        widgetEntry = Integer.parseInt(preferences.getString(PREF_ENTRY, "0"));
 
         // Get current value
         NumberFormat numberFormat = NumberFormat.getInstance();
@@ -625,6 +634,9 @@ public class Main extends Activity
     {
         super.onPause();
 
+        // Update widgets
+        updateWidgets();
+
         // Get preferences
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
@@ -643,6 +655,7 @@ public class Main extends Activity
         editor.putString(PREF_VALUES, valueArray.toString());
 
         editor.putInt(PREF_INDEX, currentIndex);
+        editor.putString(PREF_ENTRY, Integer.toString(widgetEntry));
 
         String value = Double.toString(currentValue);
         editor.putString(PREF_VALUE, value);
@@ -731,6 +744,49 @@ public class Main extends Activity
         }
 
         return false;
+    }
+
+    // updateWidgets
+    private void updateWidgets()
+    {
+        // Set digits
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMinimumFractionDigits(digits);
+        numberFormat.setMaximumFractionDigits(digits);
+        numberFormat.setGroupingUsed(true);
+
+        String value = numberFormat.format(currentValue);
+
+        if (widgetEntry >= nameList.size())
+            widgetEntry = 0;
+
+        String entryName = nameList.get(widgetEntry);
+        String entryValue = valueList.get(widgetEntry);
+        int entryIndex = currencyNameList.indexOf(entryName);
+        String longName = getString(CURRENCY_LONGNAMES[entryIndex]);
+
+        // Get the layout for the widget
+        RemoteViews views = new
+            RemoteViews(getPackageName(), R.layout.widget);
+
+        views.setTextViewText(R.id.current_name, CURRENCY_NAMES[currentIndex]);
+        views.setTextViewText(R.id.current_symbol, CURRENCY_SYMBOLS[currentIndex]);
+        views.setTextViewText(R.id.current_value, value);
+
+        views.setImageViewResource(R.id.flag, CURRENCY_FLAGS[entryIndex]);
+        views.setTextViewText(R.id.name, entryName);
+        views.setTextViewText(R.id.symbol, CURRENCY_SYMBOLS[entryIndex]);
+        views.setTextViewText(R.id.value, entryValue);
+        views.setTextViewText(R.id.long_name, longName);
+
+        // Get manager
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        ComponentName provider = new
+            ComponentName(this, CurrencyWidgetProvider.class);
+
+        // Tell the AppWidgetManager to perform an update on the
+        // current app widgets.
+        appWidgetManager.updateAppWidget(provider, views);
     }
 
     // On add click

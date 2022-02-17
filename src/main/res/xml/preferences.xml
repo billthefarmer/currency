@@ -26,6 +26,22 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+      android:key="pref_widget_category"
+      android:title="@string/pref_widget">
+
+    <ListPreference
+        android:defaultValue="@string/pref_entry_default"
+        android:dialogIcon="?attr/pref_widget"
+        android:dialogTitle="@string/pref_entry"
+        android:entries="@array/pref_widget_entries"
+        android:entryValues="@array/pref_widget_values"
+        android:icon="?attr/pref_widget"
+        android:key="pref_entry"
+        android:title="@string/pref_entry" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
       android:key="pref_numbers_category"
       android:title="@string/pref_numbers">
 

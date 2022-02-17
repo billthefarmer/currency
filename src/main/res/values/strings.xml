@@ -73,6 +73,9 @@
   <string name="pref_wifi_summ">Update on WiFi only</string>
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Update while roaming</string>
+  <string name="pref_widget">Widget</string>
+  <string name="pref_entry">Widget entry</string>
+  <string name="pref_entry_default">0</string>
   <string name="pref_numbers">Numbers</string>
   <string name="pref_digits">Fraction digits</string>
   <string name="pref_digit_default">3</string>

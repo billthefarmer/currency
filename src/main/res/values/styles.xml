@@ -23,6 +23,7 @@
 
     <item name="pref_wifi">@drawable/ic_pref_wifi</item>
     <item name="pref_roaming">@drawable/ic_pref_roaming</item>
+    <item name="pref_widget">@drawable/ic_pref_widget</item>
     <item name="pref_digits">@drawable/ic_pref_digits</item>
     <item name="pref_fill">@drawable/ic_pref_fill</item>
     <item name="pref_dark">@drawable/ic_pref_dark</item>
@@ -52,6 +53,7 @@
 
     <item name="pref_wifi">@drawable/ic_pref_wifi_light</item>
     <item name="pref_roaming">@drawable/ic_pref_roaming_light</item>
+    <item name="pref_widget">@drawable/ic_pref_widget_light</item>
     <item name="pref_digits">@drawable/ic_pref_digits_light</item>
     <item name="pref_fill">@drawable/ic_pref_fill_light</item>
     <item name="pref_dark">@drawable/ic_pref_dark_light</item>

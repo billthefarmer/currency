@@ -4,6 +4,7 @@
   <declare-styleable name="Currency">
     <attr name="pref_wifi" format="reference" />
     <attr name="pref_roaming" format="reference" />
+    <attr name="pref_widget" format="reference" />
     <attr name="pref_digits" format="reference" />
     <attr name="pref_fill" format="reference" />
     <attr name="pref_dark" format="reference" />
