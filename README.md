@@ -26,6 +26,7 @@ are in [Equate](https://github.com/EvanRespaut/Equate).
  * Extra currency for unsupported currencies
  * Ukrainian, German, Italian, French, Spanish, Indonesian, Russian
    and Norwegian translation
+ * App widget to display selected currency
 
 ## Usage
 ### Edit
@@ -109,6 +110,10 @@ once expanded. The toolbar icons from left to right are:
 ### Update
 * **WiFi** Update while connected on WiFi only
 * **Roaming** Update while roaming
+
+### Widget
+* **Widget entry** Select the currency entry to display in the
+  widget. Defaults to the first.
 
 ### Numbers
 * **Fraction digits** Select the number of digits to display after the
