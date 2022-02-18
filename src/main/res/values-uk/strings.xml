@@ -67,6 +67,9 @@
   <string name="pref_wifi_summ">Оновлення лише при підключенні до Wi-Fi</string>
   <string name="pref_roaming">Роумінґ</string>
   <string name="pref_roaming_summ">Оновлювати у роумінґу</string>
+  <string name="pref_widget">Віджет</string>
+  <string name="pref_entry">Вхід віджету</string>
+  <string name="pref_entry_default">0</string>
   <string name="pref_numbers">Числа</string>
   <string name="pref_digits">Дробові цифри</string>
   <string name="pref_digit_default">3</string>

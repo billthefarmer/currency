@@ -68,6 +68,9 @@
   <string name="pref_roaming_summ">
     Mettre à jour par données mobiles (3G, 4G, etc)
   </string>
+  <string name="pref_widget">Widget</string>
+  <string name="pref_entry">Entrée de widget</string>
+  <string name="pref_entry_default">0</string>
   <string name="pref_numbers">Nombres</string>
   <string name="pref_digits">Nombre de décimales</string>
   <string name="pref_digit_default">3</string>

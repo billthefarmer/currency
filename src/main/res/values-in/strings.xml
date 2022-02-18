@@ -66,6 +66,9 @@
   <string name="pref_wifi_summ">Perbarui menggunakan WiFi saja</string>
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Perbarui ketika roaming</string>
+  <string name="pref_widget">Widget</string>
+  <string name="pref_entry">Entri widget</string>
+  <string name="pref_entry_default">0</string>
   <string name="pref_numbers">Nomor</string>
   <string name="pref_digits">Digit pecahan</string>
   <string name="pref_digit_default">3</string>

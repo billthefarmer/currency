@@ -74,6 +74,9 @@
   <string name="pref_wifi_summ">Oppdater bare på WiFi</string>
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Oppdater ved roaming</string>
+  <string name="pref_widget">Widget</string>
+  <string name="pref_entry">Widget-oppføring</string>
+  <string name="pref_entry_default">0</string>
   <string name="pref_numbers">Tall</string>
   <string name="pref_digits">Desimaler</string>
   <string name="pref_digit_default">3</string>

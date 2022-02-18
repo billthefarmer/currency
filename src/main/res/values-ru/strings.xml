@@ -62,6 +62,9 @@
   <string name="pref_wifi_summ">Обновлять только по WiFi</string>
   <string name="pref_roaming">Роуминг</string>
   <string name="pref_roaming_summ">Обновлять в роуминге</string>
+  <string name="pref_widget">Виджет</string>
+  <string name="pref_entry">Вход в виджет</string>
+  <string name="pref_entry_default">0</string>
   <string name="pref_numbers">Числа</string>
   <string name="pref_digits">Точность дробной части числа</string>
   <string name="pref_digit_default">2</string>

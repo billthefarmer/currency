@@ -67,6 +67,9 @@
   <string name="pref_wifi_summ">Update nur im WLAN</string>
   <string name="pref_roaming">Roaming</string>
   <string name="pref_roaming_summ">Update auch im Roaming</string>
+  <string name="pref_widget">Widget</string>
+  <string name="pref_entry">Widget-Eintrag</string>
+  <string name="pref_entry_default">0</string>
   <string name="pref_numbers">Nummern</string>
   <string name="pref_digits">Nachkommastellen</string>
   <string name="pref_digit_default">3</string>

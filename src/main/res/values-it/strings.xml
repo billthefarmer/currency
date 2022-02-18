@@ -67,6 +67,9 @@
   <string name="pref_wifi_summ">Aggiornamento solo su WiFi</string>
   <string name="pref_roaming">Aggiornare</string>
   <string name="pref_roaming_summ">Aggiornamento in roaming</string>
+  <string name="pref_widget">Widget</string>
+  <string name="pref_entry">Voce del widget</string>
+  <string name="pref_entry_default">0</string>
   <string name="pref_numbers">Numeri</string>
   <string name="pref_digits">Cifre decimali</string>
   <string name="pref_digit_default">3</string>
