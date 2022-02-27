@@ -14,7 +14,7 @@
       <pubDate>Wed, 04 Mar 2020 10:11:56 +0000</pubDate>
       
       <guid>https://billthefarmer.github.io/currency/introduction/features/</guid>
-      <description> Currency rates from the European Central Bank 32 international currencies Currency rates updated daily Last rate update retained for use offline Extra currency for unsupported currencies Ukrainian, German, Italian, French, Spanish, Indonesian and Russian translation  </description>
+      <description> Currency rates from the European Central Bank 32 international currencies Currency rates updated daily Last rate update retained for use offline Extra currency for unsupported currencies Ukrainian, German, Italian, French, Spanish, Indonesian and Russian translation App widget to display selected currency  </description>
     </item>
     
     <item>
@@ -61,7 +61,7 @@
       <pubDate>Wed, 04 Mar 2020 11:00:12 +0000</pubDate>
       
       <guid>https://billthefarmer.github.io/currency/settings/settings/</guid>
-      <description>Update  WiFi Update while connected on WiFi only Roaming Update while roaming  Numbers  Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  Chart  Fill Fill the chart trace.  Theme  Dark Use dark theme  About  About Display the version, copyright and licence.  </description>
+      <description>Update  WiFi Update while connected on WiFi only Roaming Update while roaming  Widget  Widget entry Select the currency entry to display in the widget. Defaults to the first.  Numbers  Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  Chart  Fill Fill the chart trace.  Theme  Dark Use dark theme  About  About Display the version, copyright and licence.</description>
     </item>
     
   </channel>
