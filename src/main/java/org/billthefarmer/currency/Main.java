@@ -470,6 +470,7 @@ public class Main extends Activity
                     if (dateView != null)
                         dateView.setText(updated);
                 }
+
                 else if (statusView != null)
                     statusView.setText(R.string.failed);
 
@@ -545,11 +546,18 @@ public class Main extends Activity
         numberFormat.setGroupingUsed(true);
         for (String name : nameList)
         {
-            Double v = (currentValue / convertValue) *
-                       valueMap.get(name);
+            try
+            {
+                Double v = (currentValue / convertValue) *
+                    valueMap.get(name);
 
-            String s = numberFormat.format(v);
-            valueList.add(s);
+                valueList.add(numberFormat.format(v));
+            }
+
+            catch (Exception e)
+            {
+                valueList.add(numberFormat.format(0.0));
+            }
         }
 
         // Clear lists
@@ -836,6 +844,7 @@ public class Main extends Activity
                 numberFormat.setGroupingUsed(false);
                 clip = numberFormat.format(value);
             }
+
             catch (Exception e)
             {
             }
@@ -997,6 +1006,7 @@ public class Main extends Activity
                     Number number = numberFormat.parse(value);
                     extraValue = number.doubleValue();
                 }
+
                 catch (Exception e)
                 {
                     // Try English locale
@@ -1005,6 +1015,7 @@ public class Main extends Activity
                         Number number = englishFormat.parse(value);
                         extraValue = number.doubleValue();
                     }
+
                     catch (Exception ex)
                     {
                         extraValue = 1.0;
@@ -1137,11 +1148,18 @@ public class Main extends Activity
         numberFormat.setGroupingUsed(true);
         for (String name : nameList)
         {
-            Double value = (currentValue / convertValue) *
-                           valueMap.get(name);
+            try
+            {
+                Double value = (currentValue / convertValue) *
+                    valueMap.get(name);
 
-            String s = numberFormat.format(value);
-            valueList.add(s);
+                valueList.add(numberFormat.format(value));
+            }
+
+            catch (Exception e)
+            {
+                valueList.add(numberFormat.format(0.0));
+            }
         }
 
         // Notify the adapter
@@ -1181,6 +1199,7 @@ public class Main extends Activity
                     Number number = numberFormat.parse(n);
                     currentValue = number.doubleValue();
                 }
+
                 catch (Exception e)
                 {
                     // Try English locale
@@ -1209,11 +1228,18 @@ public class Main extends Activity
             numberFormat.setGroupingUsed(true);
             for (String name : nameList)
             {
-                Double value = (currentValue / convertValue) *
-                               valueMap.get(name);
+                try
+                {
+                    Double value = (currentValue / convertValue) *
+                        valueMap.get(name);
 
-                s = numberFormat.format(value);
-                valueList.add(s);
+                    valueList.add(numberFormat.format(value));
+                }
+
+                catch (Exception e)
+                {
+                    valueList.add(numberFormat.format(0.0));
+                }
             }
 
             // Notify the adapter
@@ -1395,6 +1421,7 @@ public class Main extends Activity
                 value = (currentValue / convertValue) *
                     valueMap.get(CURRENCY_NAMES[index]);
             }
+
             catch (Exception e)
             {
             }
@@ -1439,6 +1466,7 @@ public class Main extends Activity
                 Date update = dateParser.parse(date[0]);
                 this.date = dateFormat.format(update);
             }
+
             catch (Exception e)
             {
             }
@@ -1478,14 +1506,18 @@ public class Main extends Activity
             numberFormat.setGroupingUsed(true);
             for (String name : nameList)
             {
-                int index = currencyNameList.indexOf(name);
+                try
+                {
+                    Double value = (currentValue / convertValue) *
+                        valueMap.get(name);
 
-                Double value = (currentValue / convertValue) *
-                               valueMap.get(name);
+                    valueList.add(numberFormat.format(value));
+                }
 
-                String s = numberFormat.format(value);
-
-                valueList.add(s);
+                catch (Exception e)
+                {
+                    valueList.add(numberFormat.format(0.0));
+                }
             }
 
             // Get preferences
