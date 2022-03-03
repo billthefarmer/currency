@@ -539,14 +539,14 @@ public class Main extends Activity
 
                 catch (Exception e)
                 {
-                    valueList.add(numberFormat.format(0.001));
+                    valueList.add(numberFormat.format(Double.NaN));
                 }
             }
         }
 
         // Get the current conversion rate
         convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
-            valueMap.get(CURRENCY_NAMES[currentIndex]): 0.001;
+            valueMap.get(CURRENCY_NAMES[currentIndex]): Double.NaN;
 
         // Recalculate all the values
         valueList.clear();
@@ -563,7 +563,7 @@ public class Main extends Activity
 
             catch (Exception e)
             {
-                valueList.add(numberFormat.format(0.001));
+                valueList.add(numberFormat.format(Double.NaN));
             }
         }
 
@@ -1032,7 +1032,7 @@ public class Main extends Activity
                 // Update display
                 valueMap.put("EXT", extraValue);
                 convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
-                    valueMap.get(CURRENCY_NAMES[currentIndex]): 0.001;
+                    valueMap.get(CURRENCY_NAMES[currentIndex]): Double.NaN;
                 Editable editable = editView.getEditableText();
                 afterTextChanged(editable);
             }
@@ -1166,7 +1166,7 @@ public class Main extends Activity
 
             catch (Exception e)
             {
-                valueList.add(numberFormat.format(0.001));
+                valueList.add(numberFormat.format(Double.NaN));
             }
         }
 
@@ -1246,7 +1246,7 @@ public class Main extends Activity
 
                 catch (Exception e)
                 {
-                    valueList.add(numberFormat.format(0.001));
+                    valueList.add(numberFormat.format(Double.NaN));
                 }
             }
 
@@ -1292,11 +1292,11 @@ public class Main extends Activity
 
             catch (Exception e)
             {
-                currentValue = 0.001;
+                currentValue = Double.NaN;
             }
 
             convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
-                valueMap.get(CURRENCY_NAMES[currentIndex]): 0.001;
+                valueMap.get(CURRENCY_NAMES[currentIndex]): Double.NaN;
 
             numberFormat.setGroupingUsed(false);
             value = numberFormat.format(currentValue);
@@ -1513,7 +1513,7 @@ public class Main extends Activity
 
             // Get the convert value
             convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
-                valueMap.get(CURRENCY_NAMES[currentIndex]): 0.001;
+                valueMap.get(CURRENCY_NAMES[currentIndex]): Double.NaN;
 
             // Populate a new value list
             NumberFormat numberFormat = NumberFormat.getInstance();
@@ -1532,7 +1532,7 @@ public class Main extends Activity
 
                 catch (Exception e)
                 {
-                    valueList.add(numberFormat.format(0.001));
+                    valueList.add(numberFormat.format(Double.NaN));
                 }
             }
 
