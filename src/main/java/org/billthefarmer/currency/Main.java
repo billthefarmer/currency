@@ -533,9 +533,7 @@ public class Main extends Activity
             {
                 try
                 {
-                    Double v = (currentValue / convertValue) *
-                        valueMap.get(name);
-
+                    Double v = valueMap.get(name);
                     valueList.add(numberFormat.format(v));
                 }
 
@@ -1442,12 +1440,9 @@ public class Main extends Activity
                     valueMap.get(CURRENCY_NAMES[index]);
             }
 
-            catch (Exception e)
-            {
-            }
+            catch (Exception e) {}
 
-            String s = numberFormat.format(value);
-            valueList.add(s);
+            valueList.add(numberFormat.format(value));
         }
 
         // Get preferences
