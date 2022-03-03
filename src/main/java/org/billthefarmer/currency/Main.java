@@ -531,15 +531,24 @@ public class Main extends Activity
             numberFormat.setGroupingUsed(true);
             for (String name : nameList)
             {
-                Double v = valueMap.get(name);
-                value = numberFormat.format(v);
+                try
+                {
+                    Double v = (currentValue / convertValue) *
+                        valueMap.get(name);
 
-                valueList.add(value);
+                    valueList.add(numberFormat.format(v));
+                }
+
+                catch (Exception e)
+                {
+                    valueList.add(numberFormat.format(0.001));
+                }
             }
         }
 
         // Get the current conversion rate
-        convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
+        convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
+            valueMap.get(CURRENCY_NAMES[currentIndex]): 0.001;
 
         // Recalculate all the values
         valueList.clear();
@@ -556,7 +565,7 @@ public class Main extends Activity
 
             catch (Exception e)
             {
-                valueList.add(numberFormat.format(0.0));
+                valueList.add(numberFormat.format(0.001));
             }
         }
 
@@ -1024,7 +1033,8 @@ public class Main extends Activity
 
                 // Update display
                 valueMap.put("EXT", extraValue);
-                convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
+                convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
+                    valueMap.get(CURRENCY_NAMES[currentIndex]): 0.001;
                 Editable editable = editView.getEditableText();
                 afterTextChanged(editable);
             }
@@ -1158,7 +1168,7 @@ public class Main extends Activity
 
             catch (Exception e)
             {
-                valueList.add(numberFormat.format(0.0));
+                valueList.add(numberFormat.format(0.001));
             }
         }
 
@@ -1238,7 +1248,7 @@ public class Main extends Activity
 
                 catch (Exception e)
                 {
-                    valueList.add(numberFormat.format(0.0));
+                    valueList.add(numberFormat.format(0.001));
                 }
             }
 
@@ -1276,10 +1286,19 @@ public class Main extends Activity
             // Set the current currency from the list
             currentIndex = currencyNameList.indexOf(nameList.get(position));
 
-            currentValue = (oldValue / convertValue) *
-                valueMap.get(CURRENCY_NAMES[currentIndex]);
+            try
+            {
+                currentValue = (oldValue / convertValue) *
+                    valueMap.get(CURRENCY_NAMES[currentIndex]);
+            }
 
-            convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
+            catch (Exception e)
+            {
+                currentValue = 0.001;
+            }
+
+            convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
+                valueMap.get(CURRENCY_NAMES[currentIndex]): 0.001;
 
             numberFormat.setGroupingUsed(false);
             value = numberFormat.format(currentValue);
@@ -1404,9 +1423,10 @@ public class Main extends Activity
         // Add currencies from list
         for (int index : indexList)
         {
-            // Don't add duplicates
+            // Don't add duplicates or currencies not available
             if ((currentIndex == index) ||
-                nameList.contains(CURRENCY_NAMES[index]))
+                nameList.contains(CURRENCY_NAMES[index]) ||
+                !valueMap.containsKey(CURRENCY_NAMES[index]))
                 continue;
 
             flagList.add(CURRENCY_FLAGS[index]);
@@ -1497,7 +1517,8 @@ public class Main extends Activity
             valueList.clear();
 
             // Get the convert value
-            convertValue = valueMap.get(CURRENCY_NAMES[currentIndex]);
+            convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
+                valueMap.get(CURRENCY_NAMES[currentIndex]): 0.001;
 
             // Populate a new value list
             NumberFormat numberFormat = NumberFormat.getInstance();
@@ -1516,7 +1537,7 @@ public class Main extends Activity
 
                 catch (Exception e)
                 {
-                    valueList.add(numberFormat.format(0.0));
+                    valueList.add(numberFormat.format(0.001));
                 }
             }
 
