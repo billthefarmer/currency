@@ -140,7 +140,6 @@ public class CurrencyWidgetConfigure extends Activity
         ChoiceAdapter adapter = new ChoiceAdapter(this, R.layout.choice,
                                                   flagList, nameList,
                                                   longNameList, selectList);
-
         // Set the adapter
         if (listView != null)
             listView.setAdapter(adapter);

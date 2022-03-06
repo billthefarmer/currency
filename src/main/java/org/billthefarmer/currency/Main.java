@@ -772,36 +772,47 @@ public class Main extends Activity
 
         String value = numberFormat.format(currentValue);
 
-        if (widgetEntry >= nameList.size())
-            widgetEntry = 0;
-
-        String entryName = nameList.get(widgetEntry);
-        String entryValue = valueList.get(widgetEntry);
-        int entryIndex = currencyNameList.indexOf(entryName);
-        String longName = getString(CURRENCY_LONGNAMES[entryIndex]);
-
-        // Get the layout for the widget
-        RemoteViews views = new
-            RemoteViews(getPackageName(), R.layout.widget);
-
-        views.setTextViewText(R.id.current_name, CURRENCY_NAMES[currentIndex]);
-        views.setTextViewText(R.id.current_symbol, CURRENCY_SYMBOLS[currentIndex]);
-        views.setTextViewText(R.id.current_value, value);
-
-        views.setImageViewResource(R.id.flag, CURRENCY_FLAGS[entryIndex]);
-        views.setTextViewText(R.id.name, entryName);
-        views.setTextViewText(R.id.symbol, CURRENCY_SYMBOLS[entryIndex]);
-        views.setTextViewText(R.id.value, entryValue);
-        views.setTextViewText(R.id.long_name, longName);
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
 
         // Get manager
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         ComponentName provider = new
             ComponentName(this, CurrencyWidgetProvider.class);
 
-        // Tell the AppWidgetManager to perform an update on the
-        // current app widgets.
-        appWidgetManager.updateAppWidget(provider, views);
+        // Get the layout for the widget
+        RemoteViews views = new
+            RemoteViews(getPackageName(), R.layout.widget);
+
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(provider);
+        for (int appWidgetId: appWidgetIds)
+        {
+            widgetEntry = preferences.getInt(String.valueOf(appWidgetId),
+                                             widgetEntry);
+
+            if (widgetEntry >= nameList.size())
+                widgetEntry = 0;
+
+            String entryName = nameList.get(widgetEntry);
+            String entryValue = valueList.get(widgetEntry);
+            int entryIndex = currencyNameList.indexOf(entryName);
+            String longName = getString(CURRENCY_LONGNAMES[entryIndex]);
+
+            views.setTextViewText(R.id.current_name, CURRENCY_NAMES[currentIndex]);
+            views.setTextViewText(R.id.current_symbol, CURRENCY_SYMBOLS[currentIndex]);
+            views.setTextViewText(R.id.current_value, value);
+
+            views.setImageViewResource(R.id.flag, CURRENCY_FLAGS[entryIndex]);
+            views.setTextViewText(R.id.name, entryName);
+            views.setTextViewText(R.id.symbol, CURRENCY_SYMBOLS[entryIndex]);
+            views.setTextViewText(R.id.value, entryValue);
+            views.setTextViewText(R.id.long_name, longName);
+
+            // Tell the AppWidgetManager to perform an update on the
+            // current app widget.
+            appWidgetManager.updateAppWidget(appWidgetId, views);
+        }
     }
 
     // On add click

@@ -182,6 +182,9 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             PendingIntent.getActivity(context, 0, intent,
                                       PendingIntent.FLAG_UPDATE_CURRENT |
                                       PendingIntent.FLAG_IMMUTABLE);
+        // Get the layout for the widget
+        RemoteViews views = new
+            RemoteViews(context.getPackageName(), R.layout.widget);
 
         for (int appWidgetId: appWidgetIds)
         {
@@ -199,10 +202,7 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             int entryIndex = currencyNameList.indexOf(entryName);
             String longName = context.getString(Main.CURRENCY_LONGNAMES[entryIndex]);
 
-            // Get the layout for the widget and attach an on-click
-            // listener to the view.
-            RemoteViews views = new
-                RemoteViews(context.getPackageName(), R.layout.widget);
+            // Attach an on-click listener to the view.
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
             views.setTextViewText(R.id.current_name,
