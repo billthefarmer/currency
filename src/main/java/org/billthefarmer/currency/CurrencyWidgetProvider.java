@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Currency - An android specie converter.
+//  Currency - An android currency converter.
 //
 //  Copyright (C) 2016	Bill Farmer
 //
@@ -30,10 +30,9 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.text.Html;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -55,6 +54,8 @@ import org.json.JSONObject;
 
 public class CurrencyWidgetProvider extends AppWidgetProvider
 {
+    public static final String ENTRY = "entry";
+
     // onUpdate
     @Override
     @SuppressLint("InlinedApi")
@@ -175,17 +176,6 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             currentValue = "1.0";
         }
 
-        int widgetEntry = Integer.parseInt
-            (preferences.getString(Main.PREF_ENTRY, "0"));
-
-        if (widgetEntry >= nameList.size())
-            widgetEntry = 0;
-
-        String entryName = nameList.get(widgetEntry);
-        String entryValue = valueList.get(widgetEntry);
-        int entryIndex = currencyNameList.indexOf(entryName);
-        String longName = context.getString(Main.CURRENCY_LONGNAMES[entryIndex]);
-
         // Create an Intent to launch Currency
         Intent intent = new Intent(context, Main.class);
         PendingIntent pendingIntent =
@@ -193,26 +183,43 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
                                       PendingIntent.FLAG_UPDATE_CURRENT |
                                       PendingIntent.FLAG_IMMUTABLE);
 
-        // Get the layout for the widget and attach an on-click
-        // listener to the view.
-        RemoteViews views = new
-            RemoteViews(context.getPackageName(), R.layout.widget);
-        views.setOnClickPendingIntent(R.id.widget, pendingIntent);
+        for (int appWidgetId: appWidgetIds)
+        {
+            int widgetEntry = Integer.parseInt
+                (preferences.getString(Main.PREF_ENTRY, "0"));
 
-        views.setTextViewText(R.id.current_name,
-                              Main.CURRENCY_NAMES[currentIndex]);
-        views.setTextViewText(R.id.current_symbol,
-                              Main.CURRENCY_SYMBOLS[currentIndex]);
-        views.setTextViewText(R.id.current_value, currentValue);
+            widgetEntry = preferences.getInt(String.valueOf(appWidgetId),
+                                             widgetEntry);
 
-        views.setImageViewResource(R.id.flag, Main.CURRENCY_FLAGS[entryIndex]);
-        views.setTextViewText(R.id.name, entryName);
-        views.setTextViewText(R.id.symbol, Main.CURRENCY_SYMBOLS[entryIndex]);
-        views.setTextViewText(R.id.value, entryValue);
-        views.setTextViewText(R.id.long_name, longName);
+            if (widgetEntry >= nameList.size())
+                widgetEntry = 0;
 
-        // Tell the AppWidgetManager to perform an update on the
-        // current app widgets.
-        appWidgetManager.updateAppWidget(appWidgetIds, views);
+            String entryName = nameList.get(widgetEntry);
+            String entryValue = valueList.get(widgetEntry);
+            int entryIndex = currencyNameList.indexOf(entryName);
+            String longName = context.getString(Main.CURRENCY_LONGNAMES[entryIndex]);
+
+            // Get the layout for the widget and attach an on-click
+            // listener to the view.
+            RemoteViews views = new
+                RemoteViews(context.getPackageName(), R.layout.widget);
+            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
+
+            views.setTextViewText(R.id.current_name,
+                                  Main.CURRENCY_NAMES[currentIndex]);
+            views.setTextViewText(R.id.current_symbol,
+                                  Main.CURRENCY_SYMBOLS[currentIndex]);
+            views.setTextViewText(R.id.current_value, currentValue);
+
+            views.setImageViewResource(R.id.flag, Main.CURRENCY_FLAGS[entryIndex]);
+            views.setTextViewText(R.id.name, entryName);
+            views.setTextViewText(R.id.symbol, Main.CURRENCY_SYMBOLS[entryIndex]);
+            views.setTextViewText(R.id.value, entryValue);
+            views.setTextViewText(R.id.long_name, longName);
+
+            // Tell the AppWidgetManager to perform an update on the
+            // current app widget.
+            appWidgetManager.updateAppWidget(appWidgetId, views);
+        }
     }
 }

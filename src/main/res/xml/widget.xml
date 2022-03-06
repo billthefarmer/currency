@@ -11,4 +11,5 @@
     android:initialLayout="@layout/widget"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
+    android:configure="org.billthefarmer.currency.CurrencyWidgetConfigure"
     tools:ignore="UnusedAttribute" />

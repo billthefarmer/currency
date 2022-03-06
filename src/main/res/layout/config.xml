@@ -16,7 +16,6 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:gravity="center_horizontal"
       android:orientation="horizontal">
 
     <Button
@@ -25,22 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel" />
-
-    <Button
-        android:id="@+id/clear"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="@string/clear" />
-
-    <Button
-        android:id="@+id/select"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="@string/select" />
 
   </LinearLayout>
 
