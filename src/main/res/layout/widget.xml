@@ -86,6 +86,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -93,12 +94,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
       </LinearLayout>
@@ -107,6 +110,7 @@
           android:id="@+id/long_name"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textColor="@android:color/black"
           android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
