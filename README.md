@@ -79,6 +79,15 @@ icons in the toolbar will change to:
   produce a blank chart.
 * **Copy** selection value to clipboard. Only one value will be copied.
 
+## Widget
+On creating a widget a selection dialog will pop up showing the
+current currencies. Select the currency to display. This overrides the
+**Widget entry** setting. Touch the configure icon in the top right of
+the widget to change the currency. This will only change the currency
+for the last widget created regardless of which widget was
+touched. Android 12 provides an alternate method of configuring
+widgets which will work correctly.
+
 ## Chart
 The display shows an interactive chart of the last 90 days of
 historical rates from the
@@ -113,7 +122,8 @@ once expanded. The toolbar icons from left to right are:
 
 ### Widget
 * **Widget entry** Select the currency entry to display in the
-  widget. Defaults to the first.
+  widget. Defaults to the first. This is overridden by the widget
+  configuration dialog.
 
 ### Numbers
 * **Fraction digits** Select the number of digits to display after the

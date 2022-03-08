@@ -176,16 +176,6 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             currentValue = "1.0";
         }
 
-        // Create an Intent to launch Currency
-        Intent intent = new Intent(context, Main.class);
-        PendingIntent pendingIntent =
-            PendingIntent.getActivity(context, 0, intent,
-                                      PendingIntent.FLAG_UPDATE_CURRENT |
-                                      PendingIntent.FLAG_IMMUTABLE);
-        // Get the layout for the widget
-        RemoteViews views = new
-            RemoteViews(context.getPackageName(), R.layout.widget);
-
         for (int appWidgetId: appWidgetIds)
         {
             int widgetEntry = Integer.parseInt
@@ -202,8 +192,26 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             int entryIndex = currencyNameList.indexOf(entryName);
             String longName = context.getString(Main.CURRENCY_LONGNAMES[entryIndex]);
 
+            // Create an Intent to configure widget
+            Intent config = new Intent(context, CurrencyWidgetConfigure.class);
+            config.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            PendingIntent configIntent =
+                PendingIntent.getActivity(context, 0, config,
+                                          PendingIntent.FLAG_UPDATE_CURRENT |
+                                          PendingIntent.FLAG_IMMUTABLE);
+            // Create an Intent to launch Currency
+            Intent intent = new Intent(context, Main.class);
+            PendingIntent pendingIntent =
+                PendingIntent.getActivity(context, 0, intent,
+                                          PendingIntent.FLAG_UPDATE_CURRENT |
+                                          PendingIntent.FLAG_IMMUTABLE);
+            // Get the layout for the widget
+            RemoteViews views = new
+                RemoteViews(context.getPackageName(), R.layout.widget);
+
             // Attach an on-click listener to the view.
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
+            views.setOnClickPendingIntent(R.id.config, configIntent);
 
             views.setTextViewText(R.id.current_name,
                                   Main.CURRENCY_NAMES[currentIndex]);
@@ -211,9 +219,11 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
                                   Main.CURRENCY_SYMBOLS[currentIndex]);
             views.setTextViewText(R.id.current_value, currentValue);
 
-            views.setImageViewResource(R.id.flag, Main.CURRENCY_FLAGS[entryIndex]);
+            views.setImageViewResource(R.id.flag,
+                                       Main.CURRENCY_FLAGS[entryIndex]);
             views.setTextViewText(R.id.name, entryName);
-            views.setTextViewText(R.id.symbol, Main.CURRENCY_SYMBOLS[entryIndex]);
+            views.setTextViewText(R.id.symbol,
+                                  Main.CURRENCY_SYMBOLS[entryIndex]);
             views.setTextViewText(R.id.value, entryValue);
             views.setTextViewText(R.id.long_name, longName);
 

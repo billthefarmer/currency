@@ -790,7 +790,6 @@ public class Main extends Activity
         {
             widgetEntry = preferences.getInt(String.valueOf(appWidgetId),
                                              widgetEntry);
-
             if (widgetEntry >= nameList.size())
                 widgetEntry = 0;
 
@@ -799,8 +798,10 @@ public class Main extends Activity
             int entryIndex = currencyNameList.indexOf(entryName);
             String longName = getString(CURRENCY_LONGNAMES[entryIndex]);
 
-            views.setTextViewText(R.id.current_name, CURRENCY_NAMES[currentIndex]);
-            views.setTextViewText(R.id.current_symbol, CURRENCY_SYMBOLS[currentIndex]);
+            views.setTextViewText(R.id.current_name,
+                                  CURRENCY_NAMES[currentIndex]);
+            views.setTextViewText(R.id.current_symbol,
+                                  CURRENCY_SYMBOLS[currentIndex]);
             views.setTextViewText(R.id.current_value, value);
 
             views.setImageViewResource(R.id.flag, CURRENCY_FLAGS[entryIndex]);
