@@ -9,4 +9,14 @@
     <item>5 цифр</item>
   </string-array>
 
+  <string-array name="pref_widget_entries">
+    <item>Первый элемент</item>
+    <item>Второй элемент</item>
+    <item>Третий элемент</item>
+    <item>Четвёртый элемент</item>
+    <item>Пятый элемент</item>
+    <item>Шестой элемент</item>
+    <item>Седьмой элемент</item>
+    <item>Восьмой элемент</item>
+  </string-array>
 </resources>
