@@ -23,6 +23,7 @@
 
 package org.billthefarmer.currency;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -762,6 +763,7 @@ public class Main extends Activity
     }
 
     // updateWidgets
+    @SuppressLint("InlinedApi")
     private void updateWidgets()
     {
         // Set digits
@@ -781,10 +783,6 @@ public class Main extends Activity
         ComponentName provider = new
             ComponentName(this, CurrencyWidgetProvider.class);
 
-        // Get the layout for the widget
-        RemoteViews views = new
-            RemoteViews(getPackageName(), R.layout.widget);
-
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(provider);
         for (int appWidgetId: appWidgetIds)
         {
@@ -797,6 +795,27 @@ public class Main extends Activity
             String entryValue = valueList.get(widgetEntry);
             int entryIndex = currencyNameList.indexOf(entryName);
             String longName = getString(CURRENCY_LONGNAMES[entryIndex]);
+
+            // Create an Intent to configure widget
+            Intent config = new Intent(this, CurrencyWidgetConfigure.class);
+            config.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            PendingIntent configIntent =
+                PendingIntent.getActivity(this, 0, config,
+                                          PendingIntent.FLAG_UPDATE_CURRENT |
+                                          PendingIntent.FLAG_IMMUTABLE);
+            // Create an Intent to launch Currency
+            Intent intent = new Intent(this, Main.class);
+            PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, 0, intent,
+                                          PendingIntent.FLAG_UPDATE_CURRENT |
+                                          PendingIntent.FLAG_IMMUTABLE);
+            // Get the layout for the widget
+            RemoteViews views = new
+                RemoteViews(getPackageName(), R.layout.widget);
+
+            // Attach an on-click listener to the view.
+            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
+            views.setOnClickPendingIntent(R.id.config, configIntent);
 
             views.setTextViewText(R.id.current_name,
                                   CURRENCY_NAMES[currentIndex]);
