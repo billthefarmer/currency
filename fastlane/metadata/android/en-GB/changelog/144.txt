@@ -1,0 +1,2 @@
+ * Update widget
+ * Update Russian translation

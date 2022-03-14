@@ -30,8 +30,8 @@ android {
         applicationId "org.billthefarmer.currency"
         minSdkVersion 14
         targetSdkVersion 28
-        versionName "1.43"
-        versionCode 143
+        versionName "1.44"
+        versionCode 144
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
