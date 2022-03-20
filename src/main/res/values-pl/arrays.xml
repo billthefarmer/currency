@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="pref_digit_entries">
+    <item>Jedno miejsce po przecinku</item>
+    <item>Dwa miejsca po przecinku</item>
+    <item>Trzy miejsca po przecinku</item>
+    <item>Cztery miejsca po przecinku</item>
+    <item>Pięć miejsc po przecinku</item>
+  </string-array>
+
+  <string-array name="pref_digit_values">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+  </string-array>
+
+  <string-array name="pref_widget_entries">
+    <item>Pierwszy wpis</item>
+    <item>Drugi wpis</item>
+    <item>Trzeci wpis</item>
+    <item>Czwarty wpis</item>
+    <item>Piąty wpis</item>
+    <item>Szósty wpis</item>
+    <item>Siódmy wpis</item>
+    <item>Ósmy wpis</item>
+  </string-array>
+
+  <string-array name="pref_widget_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+    <item>7</item>
+  </string-array>
+
+</resources>

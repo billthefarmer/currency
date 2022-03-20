@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Waluta</string>
+
+  <string name="add">Dodaj</string>
+  <string name="refresh">Odśwież</string>
+  <string name="help">Pomoc</string>
+  <string name="settings">Ustawienia</string>
+  <string name="built">Kompilacja %s</string>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\n\nChart
+  by <a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+  Ukrainian translation by <a
+  href="https://github.com/personaljesusua">Vladyslav
+  Pohrebniakov</a>, German translation by <a
+  href="https://github.com/l1am0">L1am0</a>, French translation by <a
+  href="https://github.com/RealAestan">Aestan</a>, Italian translation
+  by <a href="https://github.com/IZ2QDH">Fabio</a>, Spanish
+  translation by <a href="https://github.com/suso93">suso93</a>,
+  Indonesian translation by <a
+  href="https://github.com/gloeyisk">Gilang Iskandar</a>, Russian
+  translation by <a href="https://github.com/solokot">solokot</a>,
+  Norwegian translation by <a href="https://github.com/FTno">FTno</a>
+  </string>
+  <string name="licence">Licence <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+
+  <string name="remove">Usuń</string>
+  <string name="select">Zaznacz</string>
+  <string name="copy">Skopiuj</string>
+  <string name="clear">Wyczyść</string>
+  <string name="cancel">Anuluj</string>
+  <string name="chart">Wykres</string>
+  <string name="theme">Motyw</string>
+  <string name="update">Zaktualizuj</string>
+
+  <string name="range">Zakres</string>
+  <string name="week">Tydzień</string>
+  <string name="month">Miesiąc</string>
+  <string name="quarter">Kwartał</string>
+  <string name="year">Rok</string>
+  <string name="years">5 Lat</string>
+  <string name="max">Maks</string>
+
+  <string name="invert">Odwróć</string>
+  <string name="new_chart">Nowy wykres</string>
+  <string name="hist">Historyczny</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
+  <string name="not_updated">Nie zaktualizowano</string>
+  <string name="updated">Zaktualizowano: %s</string>
+  <string name="ok">OK</string>
+  <string name="updating">Aktualizacja</string>
+  <string name="failed">Niepowodzenie</string>
+  <string name="no_connection">Brak łączności</string>
+  <string name="no_wifi">Brak WiFi</string>
+  <string name="roaming">Roaming</string>
+  <string name="update_failed">Niepowodzenie aktualizacji</string>
+  <string name="update_extra">Aktualizuj dodatkową walutę</string>
+
+  <string name="decimal">Wpisz wartość dziesiętną</string>
+  <string name="digits">0123456789,.</string>
+
+  <string name="pref_about">O…</string>
+  <string name="pref_about_summ"><a
+  href="https://github.com/billthefarmer/currency/releases/latest">Wersja
+  %s</a></string>
+  <string name="pref_update_category">Aktualizuj</string>
+  <string name="pref_wifi">WiFi</string>
+  <string name="pref_wifi_summ">Aktualizuj tylko po Wifi</string>
+  <string name="pref_roaming">Roaming</string>
+  <string name="pref_roaming_summ">Aktualizuj podczas roamingu</string>
+  <string name="pref_widget">Widżet</string>
+  <string name="pref_entry">Wpis widżetu</string>
+  <string name="pref_entry_default">0</string>
+  <string name="pref_numbers">Numery</string>
+  <string name="pref_digits">Cyfry ułamkowe</string>
+  <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Wypełnij</string>
+  <string name="pref_fill_summ">Wypełnij ślad wykresu</string>
+  <string name="pref_dark">Ciemny</string>
+  <string name="pref_dark_summ">Użyj ciemnego motywu</string>
+
+  <string name="long_aud">Australijski dolar</string>
+  <string name="long_bgn">Bułgarski lew</string>
+  <string name="long_brl">Brazylijski real</string>
+  <string name="long_cad">Kanadyjski dolar</string>
+  <string name="long_chf">Szwajcarski frank</string>
+  <string name="long_cny">Chiński juan</string>
+  <string name="long_czk">Czeska korona</string>
+  <string name="long_dkk">Duńska krona</string>
+  <string name="long_eur">Europejskie euro</string>
+  <string name="long_ext">Dodatkowa waluta</string>
+  <string name="long_gbp">Brytyjski funt</string>
+  <string name="long_hkd">Hongkoński dolar</string>
+  <string name="long_hrk">Chorwacka kuna</string>
+  <string name="long_huf">Węgierski forint</string>
+  <string name="long_idr">Indonezyjska rupia</string>
+  <string name="long_ils">Izraelski nowy szekel</string>
+  <string name="long_inr">Indyjska rupia</string>
+  <string name="long_isk">Islandzka korona</string>
+  <string name="long_jpy">Japoński jen</string>
+  <string name="long_krw">Południowokoreański won</string>
+  <string name="long_mxn">Meksykańskie peso</string>
+  <string name="long_myr">Malezyjski ringgit</string>
+  <string name="long_nok">Norweska korona</string>
+  <string name="long_nzd">Nowozelandzki dolar</string>
+  <string name="long_php">Filipińskie peso</string>
+  <string name="long_pln">Polski złoty</string>
+  <string name="long_ron">Rumuński lej</string>
+  <string name="long_rub">Rosyjski rubel</string>
+  <string name="long_sek">Szwedzka korona</string>
+  <string name="long_sgd">Singapurski dolar</string>
+  <string name="long_thb">Tajski baht</string>
+  <string name="long_try">Turecka lira</string>
+  <string name="long_usd">Amerykański dolar</string>
+  <string name="long_zar">Południowoafrykański rand</string>
+</resources>
