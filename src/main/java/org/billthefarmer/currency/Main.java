@@ -114,7 +114,7 @@ public class Main extends Activity
         "$", "Rp", "₪", "₹",
         "kr", "₩", "$", "RM",
         "$", "₱", "$", "฿",
-        "S", ""
+        "R", ""
     };
 
     // Currency long names
