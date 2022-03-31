@@ -1,0 +1,2 @@
+ * Add Polish translation
+ * Update widget layout
