@@ -6,7 +6,7 @@
     <description>Recent content in Settings on Currency</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <copyright>Copyright &amp;copy; 2021 Bill Farmer</copyright>
+    <copyright>Copyright &amp;copy; 2006 Bill Farmer</copyright>
     <lastBuildDate>Wed, 04 Mar 2020 10:53:22 +0000</lastBuildDate><atom:link href="https://billthefarmer.github.io/currency/settings/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Settings</title>
@@ -14,7 +14,7 @@
       <pubDate>Wed, 04 Mar 2020 11:00:12 +0000</pubDate>
       
       <guid>https://billthefarmer.github.io/currency/settings/settings/</guid>
-      <description>Update  WiFi Update while connected on WiFi only Roaming Update while roaming  Widget  Widget entry Select the currency entry to display in the widget. Defaults to the first.  Numbers  Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  Chart  Fill Fill the chart trace.  Theme  Dark Use dark theme  About  About Display the version, copyright and licence.</description>
+      <description>Update WiFi Update while connected on WiFi only Roaming Update while roaming Widget Widget entry Select the currency entry to display in the widget. Defaults to the first. Numbers Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed. Chart Fill Fill the chart trace. Theme Dark Use dark theme About About Display the version, copyright and licence. </description>
     </item>
     
   </channel>

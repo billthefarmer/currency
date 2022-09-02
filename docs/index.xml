@@ -6,7 +6,7 @@
     <description>Recent content on Currency</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <copyright>Copyright &amp;copy; 2021 Bill Farmer</copyright>
+    <copyright>Copyright &amp;copy; 2006 Bill Farmer</copyright>
     <lastBuildDate>Wed, 04 Mar 2020 11:00:12 +0000</lastBuildDate><atom:link href="https://billthefarmer.github.io/currency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Features</title>
@@ -14,7 +14,7 @@
       <pubDate>Wed, 04 Mar 2020 10:11:56 +0000</pubDate>
       
       <guid>https://billthefarmer.github.io/currency/introduction/features/</guid>
-      <description> Currency rates from the European Central Bank 32 international currencies Currency rates updated daily Last rate update retained for use offline Extra currency for unsupported currencies Ukrainian, German, Italian, French, Spanish, Indonesian and Russian translation App widget to display selected currency  </description>
+      <description> Currency rates from the European Central Bank 32 international currencies Currency rates updated daily Last rate update retained for use offline Extra currency for unsupported currencies Ukrainian, German, Italian, French, Spanish, Indonesian and Russian translation App widget to display selected currency </description>
     </item>
     
     <item>
@@ -33,7 +33,7 @@
       
       <guid>https://billthefarmer.github.io/currency/using/toolbar/</guid>
       <description>The icons in the toolbar are:
- Add a currency to the list. A scrollable list of currencies will pop up. Touch an entry to add it or touch the Cancel button below the list. Long touch an entry to select it. Once one currency is selected others may be added or removed from the selection by touching them. Another long touch on another currency will clear the list and select the new currency.</description>
+Add a currency to the list. A scrollable list of currencies will pop up. Touch an entry to add it or touch the Cancel button below the list. Long touch an entry to select it. Once one currency is selected others may be added or removed from the selection by touching them. Another long touch on another currency will clear the list and select the new currency.</description>
     </item>
     
     <item>
@@ -52,7 +52,7 @@
       
       <guid>https://billthefarmer.github.io/currency/using/chart/</guid>
       <description>The display shows an interactive chart of the last 90 days of historical rates from the ECB. The chart responds to two finger pinch and expand gestures and will scroll once expanded. The toolbar icons from left to right are:
- Invert the chart. New chart The scrollable list of currencies will pop up. Select one or two currencies from the list as above to replace the current currencies in the chart.</description>
+Invert the chart. New chart The scrollable list of currencies will pop up. Select one or two currencies from the list as above to replace the current currencies in the chart.</description>
     </item>
     
     <item>
@@ -61,7 +61,7 @@
       <pubDate>Wed, 04 Mar 2020 11:00:12 +0000</pubDate>
       
       <guid>https://billthefarmer.github.io/currency/settings/settings/</guid>
-      <description>Update  WiFi Update while connected on WiFi only Roaming Update while roaming  Widget  Widget entry Select the currency entry to display in the widget. Defaults to the first.  Numbers  Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed.  Chart  Fill Fill the chart trace.  Theme  Dark Use dark theme  About  About Display the version, copyright and licence.</description>
+      <description>Update WiFi Update while connected on WiFi only Roaming Update while roaming Widget Widget entry Select the currency entry to display in the widget. Defaults to the first. Numbers Fraction digits Select the number of digits to display after the decimal point. A popup list of options will be displayed. Chart Fill Fill the chart trace. Theme Dark Use dark theme About About Display the version, copyright and licence. </description>
     </item>
     
   </channel>
