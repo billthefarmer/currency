@@ -30,12 +30,14 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -1013,6 +1015,10 @@ public class ChartActivity extends Activity
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
+        // Fix for android 13
+        View view = toast.getView();
+        if (view != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+            view.setBackgroundResource(R.drawable.toast_frame);
         toast.show();
     }
 
