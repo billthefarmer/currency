@@ -83,73 +83,77 @@ public class Main extends Activity
     View.OnClickListener, TextWatcher,
     Data.TaskCallbacks
 {
+    // Initial active currency name
+    public static final String DEFAULT_CURRENCY = "EUR";
+
     // Initial currency name list
     public static final String CURRENCY_LIST[] =
     {
         "USD", "GBP", "CAD", "AUD"
     };
 
-    // Currency names
-    public static final String CURRENCY_NAMES[] =
+    public static final class Currency
     {
-        "EUR", "USD", "JPY", "BGN",
-        "CZK", "DKK", "GBP", "HUF",
-        "PLN", "RON", "SEK", "CHF",
-        "NOK", "HRK", "RUB", "TRY",
-        "AUD", "BRL", "CAD", "CNY",
-        "HKD", "IDR", "ILS", "INR",
-        "ISK", "KRW", "MXN", "MYR",
-        "NZD", "PHP", "SGD", "THB",
-        "ZAR", "EXT"
+        public final String name;
+        public final String symbol;
+        public final int longname;
+        public final int flag;
+
+        private Currency(String name, String symbol, int longname, int flag)
+        {
+            this.name = name;
+            this.symbol = symbol;
+            this.longname = longname;
+            this.flag = flag;
+        }
+    }
+
+    public static final Currency CURRENCIES[] =
+    {
+        new Currency("AUD", "$",  R.string.long_aud, R.drawable.flag_aud),
+        new Currency("BGN", "лв", R.string.long_bgn, R.drawable.flag_bgn),
+        new Currency("BRL", "R$", R.string.long_brl, R.drawable.flag_brl),
+        new Currency("CAD", "$",  R.string.long_cad, R.drawable.flag_cad),
+        new Currency("CHF", "",   R.string.long_chf, R.drawable.flag_chf),
+        new Currency("CNY", "¥",  R.string.long_cny, R.drawable.flag_cny),
+        new Currency("CZK", "Kč", R.string.long_czk, R.drawable.flag_czk),
+        new Currency("DKK", "kr", R.string.long_dkk, R.drawable.flag_dkk),
+        new Currency("EUR", "€",  R.string.long_eur, R.drawable.flag_eur),
+        new Currency("EXT", "",   R.string.long_ext, R.drawable.flag_ext),
+        new Currency("GBP", "£",  R.string.long_gbp, R.drawable.flag_gbp),
+        new Currency("HKD", "$",  R.string.long_hkd, R.drawable.flag_hkd),
+        new Currency("HRK", "kn", R.string.long_hrk, R.drawable.flag_hrk),
+        new Currency("HUF", "Ft", R.string.long_huf, R.drawable.flag_huf),
+        new Currency("IDR", "Rp", R.string.long_idr, R.drawable.flag_idr),
+        new Currency("ILS", "₪",  R.string.long_ils, R.drawable.flag_ils),
+        new Currency("INR", "₹",  R.string.long_inr, R.drawable.flag_inr),
+        new Currency("ISK", "kr", R.string.long_isk, R.drawable.flag_isk),
+        new Currency("JPY", "¥",  R.string.long_jpy, R.drawable.flag_jpy),
+        new Currency("KRW", "₩",  R.string.long_krw, R.drawable.flag_kpw),
+        new Currency("MXN", "$",  R.string.long_mxn, R.drawable.flag_mxn),
+        new Currency("MYR", "RM", R.string.long_myr, R.drawable.flag_myr),
+        new Currency("NOK", "kr", R.string.long_nok, R.drawable.flag_nok),
+        new Currency("NZD", "$",  R.string.long_nzd, R.drawable.flag_nzd),
+        new Currency("PHP", "₱",  R.string.long_php, R.drawable.flag_php),
+        new Currency("PLN", "zł", R.string.long_pln, R.drawable.flag_pln),
+        new Currency("RON", "lei",R.string.long_ron, R.drawable.flag_ron),
+        new Currency("RUB", "₽",  R.string.long_rub, R.drawable.flag_rub),
+        new Currency("SEK", "kr", R.string.long_sek, R.drawable.flag_sek),
+        new Currency("SGD", "$",  R.string.long_sgd, R.drawable.flag_sgd),
+        new Currency("THB", "฿",  R.string.long_thb, R.drawable.flag_thb),
+        new Currency("TRY", "₺",  R.string.long_try, R.drawable.flag_try),
+        new Currency("USD", "$",  R.string.long_usd, R.drawable.flag_usd),
+        new Currency("ZAR", "R",  R.string.long_zar, R.drawable.flag_zar),
     };
 
-    // Currency symbols
-    public static final String CURRENCY_SYMBOLS[] =
+    public static int currencyIndex(String name)
     {
-        "€", "$", "¥", "лв",
-        "Kč", "kr", "£", "Ft",
-        "zł", "lei", "kr", "",
-        "kr", "kn", "₽", "₺",
-        "$", "R$", "$", "¥",
-        "$", "Rp", "₪", "₹",
-        "kr", "₩", "$", "RM",
-        "$", "₱", "$", "฿",
-        "R", ""
-    };
+        for (int i = 0; i < CURRENCIES.length; i++)
+            if (CURRENCIES[i].name.equals(name))
+                return i;
 
-    // Currency long names
-    public static final Integer CURRENCY_LONGNAMES[] =
-    {
-        R.string.long_eur, R.string.long_usd, R.string.long_jpy,
-        R.string.long_bgn, R.string.long_czk, R.string.long_dkk,
-        R.string.long_gbp, R.string.long_huf, R.string.long_pln,
-        R.string.long_ron, R.string.long_sek, R.string.long_chf,
-        R.string.long_nok, R.string.long_hrk, R.string.long_rub,
-        R.string.long_try, R.string.long_aud, R.string.long_brl,
-        R.string.long_cad, R.string.long_cny, R.string.long_hkd,
-        R.string.long_idr, R.string.long_ils, R.string.long_inr,
-        R.string.long_isk, R.string.long_krw, R.string.long_mxn,
-        R.string.long_myr, R.string.long_nzd, R.string.long_php,
-        R.string.long_sgd, R.string.long_thb, R.string.long_zar,
-        R.string.long_ext
-    };
-
-    // Currency flags
-    public static final Integer CURRENCY_FLAGS[] =
-    {
-        R.drawable.flag_eur, R.drawable.flag_usd, R.drawable.flag_jpy,
-        R.drawable.flag_bgn, R.drawable.flag_czk, R.drawable.flag_dkk,
-        R.drawable.flag_gbp, R.drawable.flag_huf, R.drawable.flag_pln,
-        R.drawable.flag_ron, R.drawable.flag_sek, R.drawable.flag_chf,
-        R.drawable.flag_nok, R.drawable.flag_hrk, R.drawable.flag_rub,
-        R.drawable.flag_try, R.drawable.flag_aud, R.drawable.flag_brl,
-        R.drawable.flag_cad, R.drawable.flag_cny, R.drawable.flag_hkd,
-        R.drawable.flag_idr, R.drawable.flag_ils, R.drawable.flag_inr,
-        R.drawable.flag_isk, R.drawable.flag_kpw, R.drawable.flag_mxn,
-        R.drawable.flag_myr, R.drawable.flag_nzd, R.drawable.flag_php,
-        R.drawable.flag_sgd, R.drawable.flag_thb, R.drawable.flag_zar,
-        R.drawable.flag_ext
-    };
+        return -1;
+    }
 
     public static final String TAG = "Currency";
 
@@ -207,7 +211,7 @@ public class Main extends Activity
 
     private Data data;
 
-    private List<String> currencyNameList;
+    // private List<String> currencyNameList;
 
     private List<Integer> flagList;
     private List<String> nameList;
@@ -281,7 +285,7 @@ public class Main extends Activity
         }
 
         // Create currency name list
-        currencyNameList = Arrays.asList(CURRENCY_NAMES);
+        // currencyNameList = Arrays.asList(CURRENCY_NAMES);
 
         // Create lists
         flagList = new ArrayList<>();
@@ -339,7 +343,8 @@ public class Main extends Activity
             recreate();
 
         // Get current currency
-        currentIndex = preferences.getInt(PREF_INDEX, 0);
+        currentIndex = preferences.getInt
+            (PREF_INDEX, currencyIndex(DEFAULT_CURRENCY));
 
         // Get widget entry
         widgetEntry = Integer.parseInt(preferences.getString(PREF_ENTRY, "0"));
@@ -385,13 +390,13 @@ public class Main extends Activity
 
         // Set current currency flag and names
         if (flagView != null)
-            flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
+            flagView.setImageResource(CURRENCIES[currentIndex].flag);
         if (nameView != null)
-            nameView.setText(CURRENCY_NAMES[currentIndex]);
+            nameView.setText(CURRENCIES[currentIndex].name);
         if (symbolView != null)
-            symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
+            symbolView.setText(CURRENCIES[currentIndex].symbol);
         if (longNameView != null)
-            longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
+            longNameView.setText(CURRENCIES[currentIndex].longname);
 
         // Set current value
         numberFormat.setGroupingUsed(false);
@@ -546,8 +551,8 @@ public class Main extends Activity
         }
 
         // Get the current conversion rate
-        convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
-            valueMap.get(CURRENCY_NAMES[currentIndex]): Double.NaN;
+        convertValue = valueMap.containsKey(CURRENCIES[currentIndex].name)?
+            valueMap.get(CURRENCIES[currentIndex].name): Double.NaN;
 
         // Recalculate all the values
         valueList.clear();
@@ -579,14 +584,14 @@ public class Main extends Activity
         // Populate the lists
         for (String name : nameList)
         {
-            int index = currencyNameList.indexOf(name);
+            int index = currencyIndex(name);
 
             if (flagList != null)
-                flagList.add(CURRENCY_FLAGS[index]);
+                flagList.add(CURRENCIES[index].flag);
             if (symbolList != null)
-                symbolList.add(CURRENCY_SYMBOLS[index]);
+                symbolList.add(CURRENCIES[index].symbol);
             if (longNameList != null)
-                longNameList.add(CURRENCY_LONGNAMES[index]);
+                longNameList.add(CURRENCIES[index].longname);
         }
 
         // Update the adapter
@@ -793,8 +798,8 @@ public class Main extends Activity
 
             String entryName = nameList.get(widgetEntry);
             String entryValue = valueList.get(widgetEntry);
-            int entryIndex = currencyNameList.indexOf(entryName);
-            String longName = getString(CURRENCY_LONGNAMES[entryIndex]);
+            int entryIndex = currencyIndex(entryName);
+            String longName = getString(CURRENCIES[entryIndex].longname);
 
             // Create an Intent to configure widget
             Intent config = new Intent(this, CurrencyWidgetConfigure.class);
@@ -818,14 +823,14 @@ public class Main extends Activity
             views.setOnClickPendingIntent(R.id.config, configIntent);
 
             views.setTextViewText(R.id.current_name,
-                                  CURRENCY_NAMES[currentIndex]);
+                                  CURRENCIES[currentIndex].name);
             views.setTextViewText(R.id.current_symbol,
-                                  CURRENCY_SYMBOLS[currentIndex]);
+                                  CURRENCIES[currentIndex].symbol);
             views.setTextViewText(R.id.current_value, value);
 
-            views.setImageViewResource(R.id.flag, CURRENCY_FLAGS[entryIndex]);
+            views.setImageViewResource(R.id.flag, CURRENCIES[entryIndex].flag);
             views.setTextViewText(R.id.name, entryName);
-            views.setTextViewText(R.id.symbol, CURRENCY_SYMBOLS[entryIndex]);
+            views.setTextViewText(R.id.symbol, CURRENCIES[entryIndex].symbol);
             views.setTextViewText(R.id.value, entryValue);
             views.setTextViewText(R.id.long_name, longName);
 
@@ -947,7 +952,7 @@ public class Main extends Activity
         for (int index : selectList)
         {
             String name = nameList.get(index);
-            list.add(currencyNameList.indexOf(name));
+            list.add(currencyIndex(name));
         }
 
         // Put the list
@@ -1062,8 +1067,9 @@ public class Main extends Activity
 
                 // Update display
                 valueMap.put("EXT", extraValue);
-                convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
-                    valueMap.get(CURRENCY_NAMES[currentIndex]): Double.NaN;
+                convertValue = valueMap.containsKey
+                    (CURRENCIES[currentIndex].name)?
+                    valueMap.get(CURRENCIES[currentIndex].name): Double.NaN;
                 Editable editable = editView.getEditableText();
                 afterTextChanged(editable);
             }
@@ -1313,12 +1319,12 @@ public class Main extends Activity
             oldValue = currentValue;
 
             // Set the current currency from the list
-            currentIndex = currencyNameList.indexOf(nameList.get(position));
+            currentIndex = currencyIndex(nameList.get(position));
 
             try
             {
                 currentValue = (oldValue / convertValue) *
-                    valueMap.get(CURRENCY_NAMES[currentIndex]);
+                    valueMap.get(CURRENCIES[currentIndex].name);
             }
 
             catch (Exception e)
@@ -1326,8 +1332,8 @@ public class Main extends Activity
                 currentValue = Double.NaN;
             }
 
-            convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
-                valueMap.get(CURRENCY_NAMES[currentIndex]): Double.NaN;
+            convertValue = valueMap.containsKey(CURRENCIES[currentIndex].name)?
+                valueMap.get(CURRENCIES[currentIndex].name): Double.NaN;
 
             numberFormat.setGroupingUsed(false);
             value = numberFormat.format(currentValue);
@@ -1345,13 +1351,13 @@ public class Main extends Activity
             }
 
             if (flagView != null)
-                flagView.setImageResource(CURRENCY_FLAGS[currentIndex]);
+                flagView.setImageResource(CURRENCIES[currentIndex].flag);
             if (nameView != null)
-                nameView.setText(CURRENCY_NAMES[currentIndex]);
+                nameView.setText(CURRENCIES[currentIndex].name);
             if (symbolView != null)
-                symbolView.setText(CURRENCY_SYMBOLS[currentIndex]);
+                symbolView.setText(CURRENCIES[currentIndex].symbol);
             if (longNameView != null)
-                longNameView.setText(CURRENCY_LONGNAMES[currentIndex]);
+                longNameView.setText(CURRENCIES[currentIndex].longname);
 
             // Remove the selected currency from the lists
             flagList.remove(position);
@@ -1361,10 +1367,10 @@ public class Main extends Activity
             longNameList.remove(position);
 
             // Add the old current currency to the start of the list
-            flagList.add(0, CURRENCY_FLAGS[oldIndex]);
-            nameList.add(0, CURRENCY_NAMES[oldIndex]);
-            symbolList.add(0, CURRENCY_SYMBOLS[oldIndex]);
-            longNameList.add(0, CURRENCY_LONGNAMES[oldIndex]);
+            flagList.add(0, CURRENCIES[oldIndex].flag);
+            nameList.add(0, CURRENCIES[oldIndex].name);
+            symbolList.add(0, CURRENCIES[oldIndex].symbol);
+            longNameList.add(0, CURRENCIES[oldIndex].longname);
 
             numberFormat.setGroupingUsed(true);
             value = numberFormat.format(oldValue);
@@ -1454,21 +1460,21 @@ public class Main extends Activity
         {
             // Don't add duplicates or currencies not available
             if ((currentIndex == index) ||
-                nameList.contains(CURRENCY_NAMES[index]) ||
-                !valueMap.containsKey(CURRENCY_NAMES[index]))
+                nameList.contains(CURRENCIES[index].name) ||
+                !valueMap.containsKey(CURRENCIES[index].name))
                 continue;
 
-            flagList.add(CURRENCY_FLAGS[index]);
-            nameList.add(CURRENCY_NAMES[index]);
-            symbolList.add(CURRENCY_SYMBOLS[index]);
-            longNameList.add(CURRENCY_LONGNAMES[index]);
+            flagList.add(CURRENCIES[index].flag);
+            nameList.add(CURRENCIES[index].name);
+            symbolList.add(CURRENCIES[index].symbol);
+            longNameList.add(CURRENCIES[index].longname);
 
             Double value = 1.0;
 
             try
             {
                 value = (currentValue / convertValue) *
-                    valueMap.get(CURRENCY_NAMES[index]);
+                    valueMap.get(CURRENCIES[index].name);
             }
 
             catch (Exception e) {}
@@ -1543,8 +1549,8 @@ public class Main extends Activity
             valueList.clear();
 
             // Get the convert value
-            convertValue = valueMap.containsKey(CURRENCY_NAMES[currentIndex])?
-                valueMap.get(CURRENCY_NAMES[currentIndex]): Double.NaN;
+            convertValue = valueMap.containsKey(CURRENCIES[currentIndex].name)?
+                valueMap.get(CURRENCIES[currentIndex].name): Double.NaN;
 
             // Populate a new value list
             NumberFormat numberFormat = NumberFormat.getInstance();

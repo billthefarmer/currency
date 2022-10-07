@@ -122,24 +122,18 @@ public class CurrencyWidgetConfigure extends Activity
             nameList.addAll(Arrays.asList(Main.CURRENCY_LIST));
         }
 
-        // Create currency name list
-        List<String> currencyNameList = Arrays.asList(Main.CURRENCY_NAMES);
-
         // Populate the lists
-        List<Integer> flagList = new ArrayList<Integer>();
-        List<Integer> longNameList = new ArrayList<Integer>();
-        List<Integer> selectList = new ArrayList<Integer>();
+        List<Main.Currency> currencyList = new ArrayList<>();
+        List<Integer> selectList = new ArrayList<>();
         for (String name: nameList)
         {
-            int index = currencyNameList.indexOf(name);
-            flagList.add(Main.CURRENCY_FLAGS[index]);
-            longNameList.add(Main.CURRENCY_LONGNAMES[index]);
+            int index = Main.currencyIndex(name);
+            currencyList.add(Main.CURRENCIES[index]);
         }
 
         // Create the adapter
         ChoiceAdapter adapter = new ChoiceAdapter(this, R.layout.choice,
-                                                  flagList, nameList,
-                                                  longNameList, selectList);
+                                                  currencyList, selectList);
         // Set the adapter
         if (listView != null)
             listView.setAdapter(adapter);

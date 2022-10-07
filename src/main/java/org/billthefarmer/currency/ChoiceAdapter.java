@@ -38,33 +38,28 @@ public class ChoiceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
 
-    private List<Integer> flags;
-    private List<Integer> longNames;
+    private List<Main.Currency> currencies;
     private List<Integer> selection;
-    private List<String> names;
-    private List<String> symbols;
 
     private int resource;
 
     // Constructor
-    public ChoiceAdapter(Context context, int resource, List<Integer> flags,
-                         List<String> names, List<Integer> longNames,
+    public ChoiceAdapter(Context context, int resource,
+                         List<Main.Currency> currencies,
                          List<Integer> selection)
     {
         inflater = LayoutInflater.from(context);
 
         // Save all the parameters
         this.resource = resource;
-        this.flags = flags;
-        this.names = names;
-        this.longNames = longNames;
+        this.currencies = currencies;
         this.selection = selection;
     }
 
     @Override
     public int getCount()
     {
-        return names.size();
+        return currencies.size();
     }
 
     @Override
@@ -98,13 +93,13 @@ public class ChoiceAdapter extends BaseAdapter
 
         // Update the views
         if (flag != null)
-            flag.setImageResource(flags.get(position));
+            flag.setImageResource(currencies.get(position).flag);
 
         if (name != null)
-            name.setText(names.get(position));
+            name.setText(currencies.get(position).name);
 
         if (longName != null)
-            longName.setText(longNames.get(position));
+            longName.setText(currencies.get(position).longname);
 
         // Highlight if selected
         if (selection.contains(position))

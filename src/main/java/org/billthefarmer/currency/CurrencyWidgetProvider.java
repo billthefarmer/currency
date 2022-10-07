@@ -158,7 +158,7 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
         }
 
         // Create currency name list
-        List<String> currencyNameList = Arrays.asList(Main.CURRENCY_NAMES);
+        // List<String> currencyNameList = Arrays.asList(Main.CURRENCY_NAMES);
 
         // Get current currency
         int currentIndex = preferences.getInt(Main.PREF_INDEX, 0);
@@ -189,8 +189,9 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
 
             String entryName = nameList.get(widgetEntry);
             String entryValue = valueList.get(widgetEntry);
-            int entryIndex = currencyNameList.indexOf(entryName);
-            String longName = context.getString(Main.CURRENCY_LONGNAMES[entryIndex]);
+            int entryIndex = Main.currencyIndex(entryName);
+            String longName = context.getString
+                (Main.CURRENCIES[entryIndex].longname);
 
             // Create an Intent to configure widget
             Intent config = new Intent(context, CurrencyWidgetConfigure.class);
@@ -214,16 +215,16 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             views.setOnClickPendingIntent(R.id.config, configIntent);
 
             views.setTextViewText(R.id.current_name,
-                                  Main.CURRENCY_NAMES[currentIndex]);
+                                  Main.CURRENCIES[currentIndex].name);
             views.setTextViewText(R.id.current_symbol,
-                                  Main.CURRENCY_SYMBOLS[currentIndex]);
+                                  Main.CURRENCIES[currentIndex].symbol);
             views.setTextViewText(R.id.current_value, currentValue);
 
             views.setImageViewResource(R.id.flag,
-                                       Main.CURRENCY_FLAGS[entryIndex]);
+                                       Main.CURRENCIES[entryIndex].flag);
             views.setTextViewText(R.id.name, entryName);
             views.setTextViewText(R.id.symbol,
-                                  Main.CURRENCY_SYMBOLS[entryIndex]);
+                                  Main.CURRENCIES[entryIndex].symbol);
             views.setTextViewText(R.id.value, entryValue);
             views.setTextViewText(R.id.long_name, longName);
 

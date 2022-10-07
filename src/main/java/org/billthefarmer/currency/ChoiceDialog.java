@@ -94,14 +94,9 @@ public class ChoiceDialog extends Activity
 
         selectList = new ArrayList<>();
 
-        // Populate the lists
-        List<Integer> flagList = Arrays.asList(Main.CURRENCY_FLAGS);
-        List<Integer> longNameList = Arrays.asList(Main.CURRENCY_LONGNAMES);
-        List<String> nameList = Arrays.asList(Main.CURRENCY_NAMES);
-
         // Create the adapter
-        adapter = new ChoiceAdapter(this, R.layout.choice, flagList,
-                                    nameList, longNameList, selectList);
+        adapter = new ChoiceAdapter(this, R.layout.choice,
+                                    Arrays.asList(Main.CURRENCIES), selectList);
 
         // Set the adapter
         if (listView != null)
