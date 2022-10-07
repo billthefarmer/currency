@@ -1,0 +1,1 @@
+ * Sort select dialog currency list
