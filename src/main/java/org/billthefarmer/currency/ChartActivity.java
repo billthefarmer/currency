@@ -83,6 +83,8 @@ public class ChartActivity extends Activity
     public static final int YEARS = 1825;
     public static final int MAX = Integer.MAX_VALUE;
 
+    public static final int VERSION_CODE_S_V2 = 32;
+
     private Singleton instance;
     private TextView customView;
     private LineChart chart;
@@ -1017,7 +1019,7 @@ public class ChartActivity extends Activity
         toast.setGravity(Gravity.CENTER, 0, 0);
         // Fix for android 13
         View view = toast.getView();
-        if (view != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+        if (view != null && Build.VERSION.SDK_INT > VERSION_CODE_S_V2)
             view.setBackgroundResource(R.drawable.toast_frame);
         toast.show();
     }
