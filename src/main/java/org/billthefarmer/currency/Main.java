@@ -211,8 +211,6 @@ public class Main extends Activity
 
     private Data data;
 
-    // private List<String> currencyNameList;
-
     private List<Integer> flagList;
     private List<String> nameList;
     private List<String> symbolList;
@@ -283,9 +281,6 @@ public class Main extends Activity
             listView.setOnItemClickListener(this);
             listView.setOnItemLongClickListener(this);
         }
-
-        // Create currency name list
-        // currencyNameList = Arrays.asList(CURRENCY_NAMES);
 
         // Create lists
         flagList = new ArrayList<>();
@@ -1321,34 +1316,8 @@ public class Main extends Activity
             // Set the current currency from the list
             currentIndex = currencyIndex(nameList.get(position));
 
-            try
-            {
-                currentValue = (oldValue / convertValue) *
-                    valueMap.get(CURRENCIES[currentIndex].name);
-            }
-
-            catch (Exception e)
-            {
-                currentValue = Double.NaN;
-            }
-
             convertValue = valueMap.containsKey(CURRENCIES[currentIndex].name)?
                 valueMap.get(CURRENCIES[currentIndex].name): Double.NaN;
-
-            numberFormat.setGroupingUsed(false);
-            value = numberFormat.format(currentValue);
-
-            if (editView != null)
-            {
-                editView.setText(value);
-
-                // Forces select all
-                editView.clearFocus();
-                editView.requestFocus();
-
-                // Do it only once
-                select = false;
-            }
 
             if (flagView != null)
                 flagView.setImageResource(CURRENCIES[currentIndex].flag);
@@ -1375,6 +1344,21 @@ public class Main extends Activity
             numberFormat.setGroupingUsed(true);
             value = numberFormat.format(oldValue);
             valueList.add(0, value);
+
+            numberFormat.setGroupingUsed(false);
+            value = numberFormat.format(currentValue);
+
+            if (editView != null)
+            {
+                editView.setText(value);
+
+                // Forces select all
+                editView.clearFocus();
+                editView.requestFocus();
+
+                // Do it only once
+                select = false;
+            }
 
             // Get preferences
             SharedPreferences preferences =

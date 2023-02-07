@@ -233,4 +233,19 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds)
+    {
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(context);
+
+        // Get editor
+        SharedPreferences.Editor editor = preferences.edit();
+        for (int appWidgetId: appWidgetIds)
+            editor.remove(String.valueOf(appWidgetId));
+
+        editor.apply();
+    }
 }
