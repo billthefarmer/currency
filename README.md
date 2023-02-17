@@ -1,4 +1,4 @@
-# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Currency [![.github/workflows/main.yml](https://github.com/billthefarmer/currency/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/billthefarmer/currency/actions) [![Release](https://img.shields.io/github/release/billthefarmer/currency.svg?logo=github)](https://github.com/billthefarmer/currency/releases)
+# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Currency [![.github/workflows/build.yml](https://github.com/billthefarmer/currency/workflows/.github/workflows/build.yml/badge.svg)](https://github.com/billthefarmer/currency/actions) [![Release](https://img.shields.io/github/release/billthefarmer/currency.svg?logo=github)](https://github.com/billthefarmer/currency/releases)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.svg" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/org.billthefarmer.currency)
 
 Android currency conversion. The app is available on [F-Droid](https://f-droid.org/packages/org.billthefarmer.currency) and [here](https://github.com/billthefarmer/currency/releases).
