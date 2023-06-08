@@ -97,7 +97,6 @@ public class CurrencyWidgetConfigure extends Activity
             finish();
         });
 
-
         // Get saved currency list
         String namesJSON = preferences.getString(Main.PREF_NAMES, null);
         List<String> nameList = new ArrayList<String>();

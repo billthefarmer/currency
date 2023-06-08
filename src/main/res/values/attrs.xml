@@ -7,7 +7,7 @@
     <attr name="pref_widget" format="reference" />
     <attr name="pref_digits" format="reference" />
     <attr name="pref_fill" format="reference" />
-    <attr name="pref_dark" format="reference" />
+    <attr name="pref_theme" format="reference" />
     <attr name="pref_about" format="reference" />
   </declare-styleable>
 

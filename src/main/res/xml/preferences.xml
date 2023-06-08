@@ -74,7 +74,7 @@
   <PreferenceCategory
       android:key="pref_theme_category"
       android:title="@string/theme">
-
+    <!--
     <CheckBoxPreference
         android:defaultValue="true"
         android:icon="?attr/pref_dark"
@@ -82,6 +82,16 @@
         android:persistent="true"
         android:summary="@string/pref_dark_summ"
         android:title="@string/pref_dark" />
+    -->
+    <ListPreference
+        android:defaultValue="@integer/default_theme"
+        android:dialogIcon="?attr/pref_theme"
+        android:entries="@array/pref_theme_entries"
+        android:entryValues="@array/pref_theme_entry_values"
+        android:icon="?attr/pref_theme"
+        android:key="pref_theme"
+        android:summary="@string/pref_theme_summ"
+        android:title="@string/theme" />
 
   </PreferenceCategory>
 

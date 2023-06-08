@@ -30,7 +30,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -156,9 +155,6 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
                 valueList.add(value);
             }
         }
-
-        // Create currency name list
-        // List<String> currencyNameList = Arrays.asList(Main.CURRENCY_NAMES);
 
         // Get current currency
         int currentIndex = preferences.getInt(Main.PREF_INDEX, 0);

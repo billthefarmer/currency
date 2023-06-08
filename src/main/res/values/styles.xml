@@ -26,7 +26,7 @@
     <item name="pref_widget">@drawable/ic_pref_widget</item>
     <item name="pref_digits">@drawable/ic_pref_digits</item>
     <item name="pref_fill">@drawable/ic_pref_fill</item>
-    <item name="pref_dark">@drawable/ic_pref_dark</item>
+    <item name="pref_theme">@drawable/ic_pref_dark</item>
     <item name="pref_about">@drawable/ic_pref_about</item>
 
   </style>
@@ -56,7 +56,7 @@
     <item name="pref_widget">@drawable/ic_pref_widget_light</item>
     <item name="pref_digits">@drawable/ic_pref_digits_light</item>
     <item name="pref_fill">@drawable/ic_pref_fill_light</item>
-    <item name="pref_dark">@drawable/ic_pref_dark_light</item>
+    <item name="pref_theme">@drawable/ic_pref_dark_light</item>
     <item name="pref_about">@drawable/ic_pref_about_light</item>
 
   </style>
