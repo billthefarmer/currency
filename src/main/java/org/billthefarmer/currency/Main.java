@@ -37,6 +37,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -172,7 +173,7 @@ public class Main extends Activity
     public static final String PREF_DIGITS = "pref_digits";
     public static final String PREF_ENTRY = "pref_entry";
     public static final String PREF_FILL = "pref_fill";
-    public static final String PREF_DARK = "pref_dark";
+    public static final String PREF_THEME = "pref_theme";
     public static final String PREF_ABOUT = "pref_about";
 
     public static final String CHART_LIST = "chart_list";
@@ -186,19 +187,26 @@ public class Main extends Activity
     public static final int DISPLAY_MODE = 0;
     public static final int SELECT_MODE = 1;
 
+    public static final int LIGHT  = 0;
+    public static final int DARK   = 1;
+    public static final int SYSTEM = 2;
+
     private int mode = DISPLAY_MODE;
 
     private boolean wifi = true;
     private boolean roaming = false;
     private boolean select = true;
-    private boolean dark = true;
+
+    private int theme = 0;
     private int digits = 3;
 
     private int currentIndex = 0;
     private int widgetEntry = 0;
+
     private double currentValue = 1.0;
     private double convertValue = 1.0;
     private double extraValue = 1.0;
+
     private String date;
 
     private ImageView flagView;
@@ -234,10 +242,34 @@ public class Main extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        dark = preferences.getBoolean(PREF_DARK, true);
+        theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
 
-        if (!dark)
+        Configuration config = getResources().getConfiguration();
+        int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (theme)
+        {
+        case LIGHT:
             setTheme(R.style.AppLightTheme);
+            break;
+
+        case DARK:
+            setTheme(R.style.AppTheme);
+            break;
+
+        case SYSTEM:
+            switch (night)
+            {
+            case Configuration.UI_MODE_NIGHT_NO:
+                setTheme(R.style.AppLightTheme);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_YES:
+                setTheme(R.style.AppTheme);
+                break;
+            }
+            break;
+        }
 
         setContentView(R.layout.main);
 
@@ -327,14 +359,15 @@ public class Main extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean theme = dark;
+        int last = theme;
+
+        theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
 
         wifi = preferences.getBoolean(PREF_WIFI, true);
-        dark = preferences.getBoolean(PREF_DARK, true);
         roaming = preferences.getBoolean(PREF_ROAMING, false);
         digits = Integer.parseInt(preferences.getString(PREF_DIGITS, "3"));
 
-        if (theme != dark && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
+        if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
         // Get current currency

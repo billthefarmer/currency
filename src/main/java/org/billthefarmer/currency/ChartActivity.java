@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -119,10 +120,34 @@ public class ChartActivity extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean theme = preferences.getBoolean(Main.PREF_DARK, true);
+        int theme = Integer.parseInt(preferences.getString(Main.PREF_THEME, "0"));
 
-        if (!theme)
+        Configuration config = getResources().getConfiguration();
+        int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (theme)
+        {
+        case Main.LIGHT:
             setTheme(R.style.AppLightTheme);
+            break;
+
+        case Main.DARK:
+            setTheme(R.style.AppTheme);
+            break;
+
+        case Main.SYSTEM:
+            switch (night)
+            {
+            case Configuration.UI_MODE_NIGHT_NO:
+                setTheme(R.style.AppLightTheme);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_YES:
+                setTheme(R.style.AppTheme);
+                break;
+            }
+            break;
+        }
 
         setContentView(R.layout.chart);
 
@@ -190,9 +215,8 @@ public class ChartActivity extends Activity
         chart = findViewById(R.id.chart);
 
         // Get text and colour
-        Resources resources = getResources();
         String updating = getString(R.string.updating);
-        int dark = resources.getColor(android.R.color.secondary_text_dark);
+        int dark = getResources().getColor(android.R.color.secondary_text_dark);
 
         // Set chart parameters
         if (chart != null)

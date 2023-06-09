@@ -129,7 +129,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
             preference.setSummary(preference.getEntry());
         }
 
-        if (key.equals(Main.PREF_DARK))
+        if (key.equals(Main.PREF_THEME))
         {
             if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
                 getActivity().recreate();

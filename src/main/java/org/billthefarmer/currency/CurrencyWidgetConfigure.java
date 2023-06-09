@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -54,10 +55,34 @@ public class CurrencyWidgetConfigure extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean dark = preferences.getBoolean(Main.PREF_DARK, true);
+        int theme = Integer.parseInt(preferences.getString(Main.PREF_THEME, "0"));
 
-        if (!dark)
+        Configuration config = getResources().getConfiguration();
+        int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (theme)
+        {
+        case Main.LIGHT:
             setTheme(R.style.DialogLightTheme);
+            break;
+
+        case Main.DARK:
+            setTheme(R.style.DialogTheme);
+            break;
+
+        case Main.SYSTEM:
+            switch (night)
+            {
+            case Configuration.UI_MODE_NIGHT_NO:
+                setTheme(R.style.DialogLightTheme);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_YES:
+                setTheme(R.style.DialogTheme);
+                break;
+            }
+            break;
+        }
 
         setContentView(R.layout.config);
 
