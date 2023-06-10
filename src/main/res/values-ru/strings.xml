@@ -70,8 +70,6 @@
   <string name="pref_digit_default">2</string>
   <string name="pref_fill">Заливка</string>
   <string name="pref_fill_summ">Заполнять график сплошным цветом</string>
-  <string name="pref_dark">Тёмная</string>
-  <string name="pref_dark_summ">Использовать тёмную тему</string>
 
   <string name="long_aud">Австралийский доллар</string>
   <string name="long_bgn">Болгарский лев</string>

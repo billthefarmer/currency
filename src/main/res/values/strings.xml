@@ -81,8 +81,6 @@
   <string name="pref_digit_default">3</string>
   <string name="pref_fill">Fill</string>
   <string name="pref_fill_summ">Fill the chart trace</string>
-  <string name="pref_dark">Dark</string>
-  <string name="pref_dark_summ">Use dark theme</string>
   <string translatable="false" name="pref_theme_summ">%s</string>
 
   <string name="long_aud">Australian dollar</string>

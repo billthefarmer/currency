@@ -81,8 +81,6 @@
   <string name="pref_digit_default">3</string>
   <string name="pref_fill">Wypełnij</string>
   <string name="pref_fill_summ">Wypełnij ślad wykresu</string>
-  <string name="pref_dark">Ciemny</string>
-  <string name="pref_dark_summ">Użyj ciemnego motywu</string>
 
   <string name="long_aud">Australijski dolar</string>
   <string name="long_bgn">Bułgarski lew</string>

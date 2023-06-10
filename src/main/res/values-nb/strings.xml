@@ -82,8 +82,6 @@
   <string name="pref_digit_default">3</string>
   <string name="pref_fill">Fyll</string>
   <string name="pref_fill_summ">Fyll graf</string>
-  <string name="pref_dark">Mørkt</string>
-  <string name="pref_dark_summ">Bruk mørkt tema</string>
 
   <string name="long_aud">Australske dollar</string>
   <string name="long_bgn">Bulgarske lev</string>

@@ -75,10 +75,6 @@
   <string name="pref_digit_default">3</string>
   <string name="pref_fill">Ausfüllen</string>
   <string name="pref_fill_summ">Diagramm ausfüllen</string>
-  <string name="pref_dark">Dunkel</string>
-  <string name="pref_dark_summ">
-    Verwenden Sie ein dunkles Thema
-  </string>
 
   <string name="long_aud">Australischer Dollar</string>
   <string name="long_bgn">Bulgarische Lev</string>

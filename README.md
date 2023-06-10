@@ -133,7 +133,7 @@ once expanded. The toolbar icons from left to right are:
 * **Fill** Fill the chart trace.
 
 ### Theme
-* **Dark** Use dark theme
+* **Theme** Choose app theme.
 
 ### About
 * **About** Display the version, copyright and licence.

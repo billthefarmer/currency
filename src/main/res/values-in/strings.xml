@@ -74,8 +74,6 @@
   <string name="pref_digit_default">3</string>
   <string name="pref_fill">Mengisi</string>
   <string name="pref_fill_summ">Mengisi jejak bagan</string>
-  <string name="pref_dark">Gelap</string>
-  <string name="pref_dark_summ">Menggunakan tema gelap</string>
 
   <string name="long_aud">Dolar Australia</string>
   <string name="long_bgn">Lev Bulgaria</string>
