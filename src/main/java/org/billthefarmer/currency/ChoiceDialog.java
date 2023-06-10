@@ -71,22 +71,22 @@ public class ChoiceDialog extends Activity
         switch (theme)
         {
         case Main.LIGHT:
-            setTheme(R.style.AppLightTheme);
+            setTheme(R.style.DialogLightTheme);
             break;
 
         case Main.DARK:
-            setTheme(R.style.AppTheme);
+            setTheme(R.style.DialogTheme);
             break;
 
         case Main.SYSTEM:
             switch (night)
             {
             case Configuration.UI_MODE_NIGHT_NO:
-                setTheme(R.style.AppLightTheme);
+                setTheme(R.style.DialogLightTheme);
                 break;
 
             case Configuration.UI_MODE_NIGHT_YES:
-                setTheme(R.style.AppTheme);
+                setTheme(R.style.DialogTheme);
                 break;
             }
             break;
