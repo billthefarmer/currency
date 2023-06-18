@@ -23,24 +23,29 @@
 
 package org.billthefarmer.currency;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProvider;
-import android.content.Context;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.NumberFormat;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,65 +53,148 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-public class CurrencyWidgetProvider extends AppWidgetProvider
+public class CurrencyWidgetUpdate extends Service
+    implements Data.TaskCallbacks
 {
-    public static final String TAG = "CurrencyWidgetProvider";
+    public static final String TAG = "CurrencyWidgetUpdate";
 
-    // onUpdate
+    private Data data;
+
+    // onStartCommand
     @Override
-    @SuppressLint("InlinedApi")
     @SuppressWarnings("deprecation")
-    public void onUpdate(Context context,
-                         AppWidgetManager appWidgetManager,
-                         int[] appWidgetIds)
+    public int onStartCommand(Intent intent, int flags, int startId)
     {
         // Get preferences
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(context);
+            PreferenceManager.getDefaultSharedPreferences(this);
 
-        // Get digits
-        int digits = Integer.parseInt
-            (preferences.getString(Main.PREF_DIGITS, "3"));
+        boolean wifi = preferences.getBoolean(Main.PREF_WIFI, true);
+        boolean roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
 
-        // Set digits
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMinimumFractionDigits(digits);
-        numberFormat.setMaximumFractionDigits(digits);
-        numberFormat.setGroupingUsed(true);
+        // Get data instance
+        data = Data.getInstance(this);
 
-        // Get saved currency rates
-        String mapJSON = preferences.getString(Main.PREF_MAP, null);
-        Map<String, Double> valueMap = new HashMap<String, Double>();
+        // Check connectivity before update
+        ConnectivityManager manager =
+            (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
 
-        // Check saved rates
-        if (mapJSON != null)
+        // Check connected
+        if (info == null || !info.isConnected())
+            return START_NOT_STICKY;
+
+        // Check wifi
+        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+            return START_NOT_STICKY;
+
+        // Check roaming
+        if (!roaming && info.isRoaming())
+            return START_NOT_STICKY;
+
+        // Start the task
+        if (data != null)
+            data.startParseTask(Main.ECB_DAILY_URL);
+
+        return START_NOT_STICKY;
+    }
+
+    // onBind
+    @Override
+    public IBinder onBind(Intent intent)
+    {
+        return null;
+    }
+
+    // On progress update
+    @Override
+    public void onProgressUpdate(String... dates)
+    {
+        SimpleDateFormat dateParser =
+            new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
+        DateFormat dateFormat =
+            DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String date = null;
+
+        // Format the date for display
+        if (dates[0] != null)
         {
-            // Create the value map from a JSON object
             try
             {
-                // Create the JSON object
-                JSONObject mapObject = new JSONObject(mapJSON);
-
-                // Use an iterator for the JSON object
-                Iterator<String> keys = mapObject.keys();
-                while (keys.hasNext())
-                {
-                    String key = keys.next();
-                    valueMap.put(key, mapObject.getDouble(key));
-                }
+                Date update = dateParser.parse(dates[0]);
+                date = dateFormat.format(update);
             }
 
-            catch (Exception e) {}
+            catch (Exception e)
+            {
+                return;
+            }
         }
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Get editor
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString(Main.PREF_DATE, date);
+        editor.apply();
+    }
+
+    // The system calls this to perform work in the UI thread and
+    // delivers the result from doInBackground()
+    @Override
+    public void onPostExecute(Map<String, Double> map)
+    {
+        // Check the map
+        if (map.isEmpty())
+            return;
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Get extra value
+        String extra = preferences.getString(Main.PREF_EXTRA, "1.0");
+        double ext = 0;
+
+        // Parse extra value
+        try
+        {
+            ext = Double.parseDouble(extra);
+        }
+        catch (Exception ex)
+        {
+            ext = 1.0;
+        }
+
+        map.put("EUR", 1.0);
+        map.put("EXT", ext);
+
+        // Get editor
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Get entries
+        JSONObject mapObject = new JSONObject(map);
+
+        // Update preferences
+        editor.putString(Main.PREF_MAP, mapObject.toString());
+        editor.apply();
 
         // Get saved currency lists
         String namesJSON = preferences.getString(Main.PREF_NAMES, null);
         String valuesJSON = preferences.getString(Main.PREF_VALUES, null);
         List<String> nameList = new ArrayList<String>();
         List<String> valueList = new ArrayList<String>();
+
+        int digits = Integer.parseInt(preferences.getString
+                                      (Main.PREF_DIGITS, "3"));
+        // Set digits
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMinimumFractionDigits(digits);
+        numberFormat.setMaximumFractionDigits(digits);
+        numberFormat.setGroupingUsed(true);
 
         // Check saved name list
         if (namesJSON != null)
@@ -149,7 +237,7 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             numberFormat.setGroupingUsed(true);
             for (String name : nameList)
             {
-                Double v = valueMap.get(name);
+                Double v = map.get(name);
                 String value = numberFormat.format((v != null)? v: 0.0);
 
                 valueList.add(value);
@@ -172,6 +260,12 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             currentValue = "1.0";
         }
 
+        // Get manager
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        ComponentName provider = new
+            ComponentName(this, CurrencyWidgetProvider.class);
+
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(provider);
         for (int appWidgetId: appWidgetIds)
         {
             int widgetEntry = Integer.parseInt
@@ -186,25 +280,27 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             String entryName = nameList.get(widgetEntry);
             String entryValue = valueList.get(widgetEntry);
             int entryIndex = Main.currencyIndex(entryName);
-            String longName = context.getString
+            String longName = getString
                 (Main.CURRENCIES[entryIndex].longname);
 
             // Create an Intent to configure widget
-            Intent config = new Intent(context, CurrencyWidgetConfigure.class);
+            Intent config = new Intent(this, CurrencyWidgetConfigure.class);
             config.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            //noinspection InlinedApi
             PendingIntent configIntent =
-                PendingIntent.getActivity(context, 0, config,
+                PendingIntent.getActivity(this, 0, config,
                                           PendingIntent.FLAG_UPDATE_CURRENT |
                                           PendingIntent.FLAG_IMMUTABLE);
             // Create an Intent to launch Currency
-            Intent intent = new Intent(context, Main.class);
+            Intent intent = new Intent(this, Main.class);
+            //noinspection InlinedApi
             PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, 0, intent,
+                PendingIntent.getActivity(this, 0, intent,
                                           PendingIntent.FLAG_UPDATE_CURRENT |
                                           PendingIntent.FLAG_IMMUTABLE);
             // Get the layout for the widget
             RemoteViews views = new
-                RemoteViews(context.getPackageName(), R.layout.widget);
+                RemoteViews(getPackageName(), R.layout.widget);
 
             // Attach an on-click listener to the view.
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
@@ -229,23 +325,6 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
 
-        // Start update
-        Intent update = new Intent(context, CurrencyWidgetUpdate.class);
-        context.startService(update);
-    }
-
-    @Override
-    public void onDeleted(Context context, int[] appWidgetIds)
-    {
-        // Get preferences
-        SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(context);
-
-        // Get editor
-        SharedPreferences.Editor editor = preferences.edit();
-        for (int appWidgetId: appWidgetIds)
-            editor.remove(String.valueOf(appWidgetId));
-
-        editor.apply();
+        stopSelf();
     }
 }

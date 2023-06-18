@@ -48,6 +48,9 @@
       </intent-filter>
     </activity>
 
+    <service
+        android:name="CurrencyWidgetUpdate" />
+
     <receiver
         android:name="CurrencyWidgetProvider"
         android:exported="true">

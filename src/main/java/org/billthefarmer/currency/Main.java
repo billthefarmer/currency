@@ -1520,7 +1520,7 @@ public class Main extends Activity
 
     // On progress update
     @Override
-    public void onProgressUpdate(String... date)
+    public void onProgressUpdate(String... dates)
     {
         SimpleDateFormat dateParser =
             new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
@@ -1528,11 +1528,11 @@ public class Main extends Activity
             DateFormat.getDateInstance(DateFormat.MEDIUM);
 
         // Format the date for display
-        if (date[0] != null)
+        if (dates[0] != null)
         {
             try
             {
-                Date update = dateParser.parse(date[0]);
+                Date update = dateParser.parse(dates[0]);
                 this.date = dateFormat.format(update);
             }
 
