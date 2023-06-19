@@ -23,7 +23,6 @@
 
 package org.billthefarmer.currency;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -40,6 +39,7 @@ import android.content.res.Resources;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -182,7 +182,8 @@ public class Main extends Activity
     public static final String ECB_DAILY_URL =
         "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
 
-    protected final static String CHOICE = "choice";
+    public final static String CHOICE = "choice";
+    public final static String WIDGET = "widget://";
 
     public static final int DISPLAY_MODE = 0;
     public static final int SELECT_MODE = 1;
@@ -796,7 +797,6 @@ public class Main extends Activity
     }
 
     // updateWidgets
-    @SuppressLint("InlinedApi")
     private void updateWidgets()
     {
         // Set digits
@@ -832,12 +832,18 @@ public class Main extends Activity
             // Create an Intent to configure widget
             Intent config = new Intent(this, CurrencyWidgetConfigure.class);
             config.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            // This bit of jiggery hackery is to force the system to
+            // keep a different intent for each widget
+            Uri uri = Uri.parse(WIDGET + String.valueOf(appWidgetId));
+            config.setData(uri);
+            //noinspection InlinedApi
             PendingIntent configIntent =
                 PendingIntent.getActivity(this, 0, config,
                                           PendingIntent.FLAG_UPDATE_CURRENT |
                                           PendingIntent.FLAG_IMMUTABLE);
             // Create an Intent to launch Currency
             Intent intent = new Intent(this, Main.class);
+            //noinspection InlinedApi
             PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, intent,
                                           PendingIntent.FLAG_UPDATE_CURRENT |

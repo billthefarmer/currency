@@ -31,6 +31,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -297,6 +298,10 @@ public class CurrencyWidgetUpdate extends Service
             // Create an Intent to configure widget
             Intent config = new Intent(this, CurrencyWidgetConfigure.class);
             config.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            // This bit of jiggery hackery is to force the system to
+            // keep a different intent for each widget
+            Uri uri = Uri.parse(Main.WIDGET + String.valueOf(appWidgetId));
+            config.setData(uri);
             //noinspection InlinedApi
             PendingIntent configIntent =
                 PendingIntent.getActivity(this, 0, config,
