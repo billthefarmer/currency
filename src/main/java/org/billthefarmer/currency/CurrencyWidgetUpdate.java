@@ -58,6 +58,14 @@ public class CurrencyWidgetUpdate extends Service
 
     private Data data;
 
+    // onCreate
+    @Override
+    public void onCreate()
+    {
+        // Get data instance
+        data = Data.getInstance(this);
+    }
+
     // onStartCommand
     @Override
     @SuppressWarnings("deprecation")
@@ -69,9 +77,6 @@ public class CurrencyWidgetUpdate extends Service
 
         boolean wifi = preferences.getBoolean(Main.PREF_WIFI, true);
         boolean roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
-
-        // Get data instance
-        data = Data.getInstance(this);
 
         // Check connectivity before update
         ConnectivityManager manager =
@@ -102,6 +107,14 @@ public class CurrencyWidgetUpdate extends Service
     public IBinder onBind(Intent intent)
     {
         return null;
+    }
+
+    // onDestroy
+    @Override
+    public void onDestroy()
+    {
+        // Remove listener
+        Data.getInstance(null);
     }
 
     // On progress update
