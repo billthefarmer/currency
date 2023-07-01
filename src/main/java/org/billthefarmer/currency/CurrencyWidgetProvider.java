@@ -62,6 +62,9 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
                          AppWidgetManager appWidgetManager,
                          int[] appWidgetIds)
     {
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, "onUpdate " + context);
+
         // Get preferences
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(context);
@@ -182,6 +185,9 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             if (widgetEntry >= nameList.size())
                 widgetEntry = 0;
 
+            if (BuildConfig.DEBUG)
+                Log.d(TAG, "Id " + appWidgetId + ", " + widgetEntry);
+
             String entryName = nameList.get(widgetEntry);
             String entryValue = valueList.get(widgetEntry);
             int entryIndex = Main.currencyIndex(entryName);
@@ -234,9 +240,22 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
 
-        // Start update
-        Intent update = new Intent(context, CurrencyWidgetUpdate.class);
-        context.startService(update);
+        // Start dispatch, won't work on android 10+
+        try
+        {
+            Intent dispatch = new Intent(context, CurrencyWidgetDispatch.class);
+            dispatch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(dispatch);
+
+            if (BuildConfig.DEBUG)
+                Log.d(TAG, "Dispatch " + dispatch);
+        }
+
+        catch (Exception e)
+        {
+            if (BuildConfig.DEBUG)
+                Log.d(TAG, "Dispatch " + e);
+        }
     }
 
     @Override

@@ -1044,6 +1044,9 @@ public class Main extends Activity
         if (statusView != null)
             statusView.setText(R.string.updating);
 
+        // Connect callbacks
+        data = Data.getInstance(this);
+
         // Start the task
         if (data != null)
             data.startParseTask(ECB_DAILY_URL);
