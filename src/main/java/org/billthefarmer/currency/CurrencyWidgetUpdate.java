@@ -149,13 +149,13 @@ public class CurrencyWidgetUpdate extends Service
     // The system calls this to perform work in the UI thread and
     // delivers the result from doInBackground()
     @Override
-    public void onPostExecute(Map<String, Double> map)
+    public void onPostExecute(Map<String, Double> valueMap)
     {
         if (BuildConfig.DEBUG)
-            Log.d(TAG, "onPostExecute " + map);
+            Log.d(TAG, "onPostExecute " + valueMap);
 
         // Check the map
-        if (map.isEmpty())
+        if (valueMap.isEmpty())
             return;
 
         // Get preferences
@@ -165,8 +165,8 @@ public class CurrencyWidgetUpdate extends Service
         // Get extra value
         double ext = Double.parseDouble(preferences.getString
                                         (Main.PREF_EXTRA, "1.0"));;
-        map.put("EUR", 1.0);
-        map.put("EXT", ext);
+        valueMap.put("EUR", 1.0);
+        valueMap.put("EXT", ext);
 
         // Get saved currency lists
         String namesJSON = preferences.getString(Main.PREF_NAMES, null);
@@ -210,8 +210,8 @@ public class CurrencyWidgetUpdate extends Service
 
         // Get the convert value
         double convertValue =
-            map.containsKey(Main.CURRENCIES[currentIndex].name)?
-            map.get(Main.CURRENCIES[currentIndex].name): Double.NaN;
+            valueMap.containsKey(Main.CURRENCIES[currentIndex].name)?
+            valueMap.get(Main.CURRENCIES[currentIndex].name): Double.NaN;
 
         // Populate a new value list
         for (String name : nameList)
@@ -219,7 +219,7 @@ public class CurrencyWidgetUpdate extends Service
             try
             {
                 Double value = (currentValue / convertValue) *
-                    map.get(name);
+                    valueMap.get(name);
 
                 valueList.add(numberFormat.format(value));
             }
@@ -234,7 +234,7 @@ public class CurrencyWidgetUpdate extends Service
         SharedPreferences.Editor editor = preferences.edit();
 
         // Get entries
-        JSONObject valueObject = new JSONObject(map);
+        JSONObject valueObject = new JSONObject(valueMap);
         JSONArray valueArray = new JSONArray(valueList);
 
         // Update preferences
