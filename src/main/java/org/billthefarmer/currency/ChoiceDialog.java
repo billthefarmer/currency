@@ -39,6 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // Choice dialog
+@SuppressWarnings("deprecation")
 public class ChoiceDialog extends Activity
     implements View.OnClickListener, AdapterView.OnItemClickListener,
     AdapterView.OnItemLongClickListener

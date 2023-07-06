@@ -50,6 +50,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+// CurrencyWidgetUpdate
+@SuppressWarnings("deprecation")
 public class CurrencyWidgetUpdate extends Service
     implements Data.TaskCallbacks
 {

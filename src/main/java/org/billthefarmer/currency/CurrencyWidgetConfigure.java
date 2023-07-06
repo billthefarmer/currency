@@ -43,6 +43,7 @@ import java.util.List;
 import org.json.JSONArray;
 
 // CurrencyWidgetConfigure
+@SuppressWarnings("deprecation")
 public class CurrencyWidgetConfigure extends Activity
 {
     // On create
@@ -103,11 +104,12 @@ public class CurrencyWidgetConfigure extends Activity
             editor.putInt(String.valueOf(appWidgetId), position);
             editor.apply();
 
-            AppWidgetManager appWidgetManager =
-                AppWidgetManager.getInstance(this);
-            CurrencyWidgetProvider provider = new CurrencyWidgetProvider();
+            Intent broadcast = new Intent
+                (AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             int appWidgetIds[] = {appWidgetId};
-            provider.onUpdate(this, appWidgetManager, appWidgetIds);
+            broadcast.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
+                               appWidgetIds);
+            sendBroadcast(broadcast);
 
             Intent result = new Intent();
             result.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

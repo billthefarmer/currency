@@ -62,6 +62,7 @@ import java.util.Locale;
 import java.util.Map;
 
 // ChartActivity class
+@SuppressWarnings("deprecation")
 public class ChartActivity extends Activity
     implements Singleton.TaskCallbacks
 {

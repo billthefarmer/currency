@@ -29,6 +29,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -51,6 +53,8 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+// CurrencyWidgetProvider
+@SuppressWarnings("deprecation")
 public class CurrencyWidgetProvider extends AppWidgetProvider
 {
     public static final String TAG = "CurrencyWidgetProvider";
@@ -240,21 +244,40 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
 
-        // Start dispatch, won't work on android 10+
+        boolean wifi = preferences.getBoolean(Main.PREF_WIFI, true);
+        boolean roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
+
+        // Check connectivity before update
+        ConnectivityManager manager = (ConnectivityManager)
+            context.getSystemService(context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+
+        // Check connected
+        if (info == null || !info.isConnected())
+            return;
+
+        // Check wifi
+        if (wifi && info.getType() != ConnectivityManager.TYPE_WIFI)
+            return;
+
+        // Check roaming
+        if (!roaming && info.isRoaming())
+            return;
+
+        // Start update service, won't work on android 10+
         try
         {
-            Intent dispatch = new Intent(context, CurrencyWidgetDispatch.class);
-            dispatch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(dispatch);
+            Intent update = new Intent(context, CurrencyWidgetUpdate.class);
+            context.startService(update);
 
             if (BuildConfig.DEBUG)
-                Log.d(TAG, "Dispatch " + dispatch);
+                Log.d(TAG, "Update " + update);
         }
 
         catch (Exception e)
         {
             if (BuildConfig.DEBUG)
-                Log.d(TAG, "Dispatch " + e);
+                Log.d(TAG, "Update " + e);
         }
     }
 

@@ -48,12 +48,6 @@
       </intent-filter>
     </activity>
 
-    <activity
-        android:name="CurrencyWidgetDispatch"
-        android:excludeFromRecents="true"
-        android:noHistory="true"
-        android:theme="@android:style/Theme.NoDisplay" />
-
     <service
         android:name="CurrencyWidgetUpdate" />
 

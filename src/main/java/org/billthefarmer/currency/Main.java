@@ -77,6 +77,7 @@ import java.util.Locale;
 import java.util.Map;
 
 // Main class
+@SuppressWarnings("deprecation")
 public class Main extends Activity
     implements EditText.OnEditorActionListener,
     AdapterView.OnItemClickListener,
@@ -684,9 +685,6 @@ public class Main extends Activity
     {
         super.onPause();
 
-        // Update widgets
-        updateWidgets();
-
         // Get preferences
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
@@ -723,6 +721,9 @@ public class Main extends Activity
 
         // Disconnect callbacks
         data = Data.getInstance(null);
+
+        // Update widgets
+        updateWidgets();
     }
 
     // On create options menu
@@ -799,79 +800,16 @@ public class Main extends Activity
     // updateWidgets
     private void updateWidgets()
     {
-        // Set digits
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMinimumFractionDigits(digits);
-        numberFormat.setMaximumFractionDigits(digits);
-        numberFormat.setGroupingUsed(true);
-
-        String value = numberFormat.format(currentValue);
-
-        // Get preferences
-        SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
-
         // Get manager
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        ComponentName provider = new
-            ComponentName(this, CurrencyWidgetProvider.class);
+        ComponentName provider = new ComponentName
+            (this, CurrencyWidgetProvider.class);
 
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(provider);
-        for (int appWidgetId: appWidgetIds)
-        {
-            widgetEntry = preferences.getInt(String.valueOf(appWidgetId),
-                                             widgetEntry);
-            if (widgetEntry >= nameList.size())
-                widgetEntry = 0;
 
-            String entryName = nameList.get(widgetEntry);
-            String entryValue = valueList.get(widgetEntry);
-            int entryIndex = currencyIndex(entryName);
-            String longName = getString(CURRENCIES[entryIndex].longname);
-
-            // Create an Intent to configure widget
-            Intent config = new Intent(this, CurrencyWidgetConfigure.class);
-            config.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-            // This bit of jiggery hackery is to force the system to
-            // keep a different intent for each widget
-            Uri uri = Uri.parse(WIDGET + String.valueOf(appWidgetId));
-            config.setData(uri);
-            //noinspection InlinedApi
-            PendingIntent configIntent =
-                PendingIntent.getActivity(this, 0, config,
-                                          PendingIntent.FLAG_UPDATE_CURRENT |
-                                          PendingIntent.FLAG_IMMUTABLE);
-            // Create an Intent to launch Currency
-            Intent intent = new Intent(this, Main.class);
-            //noinspection InlinedApi
-            PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 0, intent,
-                                          PendingIntent.FLAG_UPDATE_CURRENT |
-                                          PendingIntent.FLAG_IMMUTABLE);
-            // Get the layout for the widget
-            RemoteViews views = new
-                RemoteViews(getPackageName(), R.layout.widget);
-
-            // Attach an on-click listener to the view.
-            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
-            views.setOnClickPendingIntent(R.id.config, configIntent);
-
-            views.setTextViewText(R.id.current_name,
-                                  CURRENCIES[currentIndex].name);
-            views.setTextViewText(R.id.current_symbol,
-                                  CURRENCIES[currentIndex].symbol);
-            views.setTextViewText(R.id.current_value, value);
-
-            views.setImageViewResource(R.id.flag, CURRENCIES[entryIndex].flag);
-            views.setTextViewText(R.id.name, entryName);
-            views.setTextViewText(R.id.symbol, CURRENCIES[entryIndex].symbol);
-            views.setTextViewText(R.id.value, entryValue);
-            views.setTextViewText(R.id.long_name, longName);
-
-            // Tell the AppWidgetManager to perform an update on the
-            // current app widget.
-            appWidgetManager.updateAppWidget(appWidgetId, views);
-        }
+        Intent broadcast = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        broadcast.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        sendBroadcast(broadcast);
     }
 
     // On add click

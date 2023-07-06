@@ -24,13 +24,13 @@ allprojects {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
     namespace "org.billthefarmer.currency"
 
     defaultConfig {
         applicationId "org.billthefarmer.currency"
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 31
         versionName "1.51"
         versionCode 151
 
@@ -38,8 +38,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_9
+        targetCompatibility JavaVersion.VERSION_1_9
     }
 
     lintOptions {
