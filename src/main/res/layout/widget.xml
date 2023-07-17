@@ -62,11 +62,19 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_action_refresh_w"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
         android:id="@+id/config"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:src="@drawable/ic_action_settings"
+        android:src="@drawable/ic_action_settings_w"
         tools:ignore="ContentDescription" />
 
   </LinearLayout>
