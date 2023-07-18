@@ -809,6 +809,7 @@ public class Main extends Activity
 
         Intent broadcast = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         broadcast.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        broadcast.putExtra(CurrencyWidgetUpdate.EXTRA_UPDATE_DONE, true);
         sendBroadcast(broadcast);
     }
 

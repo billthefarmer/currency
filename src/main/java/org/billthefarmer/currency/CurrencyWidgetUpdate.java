@@ -56,6 +56,8 @@ public class CurrencyWidgetUpdate extends Service
     implements Data.TaskCallbacks
 {
     public static final String TAG = "CurrencyWidgetUpdate";
+    public static final String EXTRA_UPDATE_DONE =
+        "org.billthefarmer.currency.EXTRA_UPDATE_DONE";
 
     private Data data;
 
@@ -250,76 +252,13 @@ public class CurrencyWidgetUpdate extends Service
             ComponentName(this, CurrencyWidgetProvider.class);
 
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(provider);
-        for (int appWidgetId: appWidgetIds)
-        {
-            int widgetEntry = Integer.parseInt
-                (preferences.getString(Main.PREF_ENTRY, "0"));
+        Intent broadcast = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        broadcast.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        broadcast.putExtra(EXTRA_UPDATE_DONE, true);
+        sendBroadcast(broadcast);
 
-            widgetEntry = preferences.getInt(String.valueOf(appWidgetId),
-                                             widgetEntry);
-
-            if (widgetEntry >= nameList.size())
-                widgetEntry = 0;
-
-            String entryName = nameList.get(widgetEntry);
-            String entryValue = valueList.get(widgetEntry);
-            int entryIndex = Main.currencyIndex(entryName);
-            String longName = getString
-                (Main.CURRENCIES[entryIndex].longname);
-
-            // Create an Intent to refresh widget
-            Intent refresh = new Intent(this, CurrencyWidgetUpdate.class);
-            //noinspection InlinedApi
-            PendingIntent refreshIntent =
-                PendingIntent.getService(this, 0, refresh,
-                                         PendingIntent.FLAG_UPDATE_CURRENT |
-                                         PendingIntent.FLAG_IMMUTABLE);
-            // Create an Intent to configure widget
-            Intent config = new Intent(this, CurrencyWidgetConfigure.class);
-            config.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-            // This bit of jiggery hackery is to force the system to
-            // keep a different intent for each widget
-            Uri uri = Uri.parse(Main.WIDGET + String.valueOf(appWidgetId));
-            config.setData(uri);
-            //noinspection InlinedApi
-            PendingIntent configIntent =
-                PendingIntent.getActivity(this, 0, config,
-                                          PendingIntent.FLAG_UPDATE_CURRENT |
-                                          PendingIntent.FLAG_IMMUTABLE);
-            // Create an Intent to launch Currency
-            Intent intent = new Intent(this, Main.class);
-            //noinspection InlinedApi
-            PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 0, intent,
-                                          PendingIntent.FLAG_UPDATE_CURRENT |
-                                          PendingIntent.FLAG_IMMUTABLE);
-            // Get the layout for the widget
-            RemoteViews views = new
-                RemoteViews(getPackageName(), R.layout.widget);
-
-            // Attach an on-click listener to the view.
-            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
-            views.setOnClickPendingIntent(R.id.refresh, refreshIntent);
-            views.setOnClickPendingIntent(R.id.config, configIntent);
-
-            views.setTextViewText(R.id.current_name,
-                                  Main.CURRENCIES[currentIndex].name);
-            views.setTextViewText(R.id.current_symbol,
-                                  Main.CURRENCIES[currentIndex].symbol);
-            views.setTextViewText(R.id.current_value, stringValue);
-
-            views.setImageViewResource(R.id.flag,
-                                       Main.CURRENCIES[entryIndex].flag);
-            views.setTextViewText(R.id.name, entryName);
-            views.setTextViewText(R.id.symbol,
-                                  Main.CURRENCIES[entryIndex].symbol);
-            views.setTextViewText(R.id.value, entryValue);
-            views.setTextViewText(R.id.long_name, longName);
-
-            // Tell the AppWidgetManager to perform an update on the
-            // current app widget.
-            appWidgetManager.updateAppWidget(appWidgetId, views);
-        }
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, "Broadcast " + broadcast);
 
         stopSelf();
     }

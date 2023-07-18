@@ -59,6 +59,21 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
 {
     public static final String TAG = "CurrencyWidgetProvider";
 
+    private boolean updateDone;
+
+    // onReceive
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, "onReceive " + intent);
+
+        updateDone = intent.getBooleanExtra
+            (CurrencyWidgetUpdate.EXTRA_UPDATE_DONE, false);
+
+        super.onReceive(context, intent);
+    }
+
     // onUpdate
     @Override
     @SuppressWarnings("deprecation")
@@ -251,6 +266,10 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             // current app widget.
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
+
+        // Update done
+        if (updateDone)
+            return;
 
         boolean wifi = preferences.getBoolean(Main.PREF_WIFI, true);
         boolean roaming = preferences.getBoolean(Main.PREF_ROAMING, false);
