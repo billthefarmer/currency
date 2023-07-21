@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 // Singleton class
+@SuppressWarnings("deprecation")
 public class Singleton
 {
     private static Singleton instance;

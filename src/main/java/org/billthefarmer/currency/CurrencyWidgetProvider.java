@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import java.text.DateFormat;
@@ -247,6 +248,9 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
             views.setOnClickPendingIntent(R.id.refresh, refreshIntent);
             views.setOnClickPendingIntent(R.id.config, configIntent);
+
+            views.setInt(R.id.refresh, "setVisibility", View.VISIBLE);
+            views.setInt(R.id.progress, "setVisibility", View.INVISIBLE);
 
             views.setTextViewText(R.id.current_name,
                                   Main.CURRENCIES[currentIndex].name);

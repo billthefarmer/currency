@@ -33,6 +33,7 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import org.json.JSONArray;
@@ -92,6 +93,20 @@ public class CurrencyWidgetUpdate extends Service
 
         if (BuildConfig.DEBUG)
             Log.d(TAG, "startParseTask");
+
+        // Get the layout for the widget
+        RemoteViews views = new
+            RemoteViews(getPackageName(), R.layout.widget);
+        views.setInt(R.id.refresh, "setVisibility", View.INVISIBLE);
+        views.setInt(R.id.progress, "setVisibility", View.VISIBLE);
+
+        // Get manager
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        ComponentName provider = new
+            ComponentName(this, CurrencyWidgetProvider.class);
+
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(provider);
+        appWidgetManager.partiallyUpdateAppWidget(appWidgetIds, views);
 
         return START_NOT_STICKY;
     }

@@ -5,7 +5,8 @@
     android:id="@+id/widget"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="RtlHardcoded">
 
   <LinearLayout
       android:id="@+id/header"
@@ -13,8 +14,7 @@
       android:layout_height="wrap_content"
       android:gravity="center_vertical"
       android:orientation="horizontal"
-      android:background="@drawable/header_background"
-      tools:ignore="RtlHardcoded">
+      android:background="@drawable/header_background">
 
     <TextView
         android:id="@+id/title"
@@ -61,13 +61,27 @@
         android:layout_weight="1"
         tools:ignore="ContentDescription" />
 
-    <ImageView
-        android:id="@+id/refresh"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:src="@drawable/ic_action_refresh_w"
-        tools:ignore="ContentDescription" />
+        android:layout_marginRight="4dp">
+
+      <ImageView
+          android:id="@+id/refresh"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_action_refresh_w"
+          tools:ignore="ContentDescription" />
+
+      <ProgressBar
+          android:id="@+id/progress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:visibility="invisible"
+          style="@android:style/Widget.ProgressBar.Small" />
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/config"
@@ -85,8 +99,7 @@
       android:layout_height="wrap_content"
       android:gravity="center_vertical"
       android:orientation="horizontal"
-      android:background="@drawable/item_background"
-      tools:ignore="RtlHardcoded">
+      android:background="@drawable/item_background">
 
     <ImageView
         android:id="@+id/flag"
