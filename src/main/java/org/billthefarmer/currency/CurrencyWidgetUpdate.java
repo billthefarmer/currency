@@ -30,7 +30,9 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -59,6 +60,8 @@ public class CurrencyWidgetUpdate extends Service
     public static final String TAG = "CurrencyWidgetUpdate";
     public static final String EXTRA_UPDATE_DONE =
         "org.billthefarmer.currency.EXTRA_UPDATE_DONE";
+
+    public static final int DELAY = 5000;
 
     private Data data;
 
@@ -97,8 +100,8 @@ public class CurrencyWidgetUpdate extends Service
         // Get the layout for the widget
         RemoteViews views = new
             RemoteViews(getPackageName(), R.layout.widget);
-        views.setInt(R.id.refresh, "setVisibility", View.INVISIBLE);
-        views.setInt(R.id.progress, "setVisibility", View.VISIBLE);
+        views.setViewVisibility(R.id.refresh, View.INVISIBLE);
+        views.setViewVisibility(R.id.progress, View.VISIBLE);
 
         // Get manager
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
@@ -107,6 +110,15 @@ public class CurrencyWidgetUpdate extends Service
 
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(provider);
         appWidgetManager.partiallyUpdateAppWidget(appWidgetIds, views);
+
+        // Get handler
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() ->
+        {
+            views.setViewVisibility(R.id.refresh, View.VISIBLE);
+            views.setViewVisibility(R.id.progress, View.INVISIBLE);
+            appWidgetManager.partiallyUpdateAppWidget(appWidgetIds, views);
+        }, DELAY);
 
         return START_NOT_STICKY;
     }
