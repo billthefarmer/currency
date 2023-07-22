@@ -249,8 +249,8 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
             views.setOnClickPendingIntent(R.id.refresh, refreshIntent);
             views.setOnClickPendingIntent(R.id.config, configIntent);
 
-            views.setInt(R.id.refresh, "setVisibility", View.VISIBLE);
-            views.setInt(R.id.progress, "setVisibility", View.INVISIBLE);
+            views.setViewVisibility(R.id.refresh, View.VISIBLE);
+            views.setViewVisibility(R.id.progress, View.INVISIBLE);
 
             views.setTextViewText(R.id.current_name,
                                   Main.CURRENCIES[currentIndex].name);
