@@ -215,12 +215,12 @@ public class CurrencyWidgetProvider extends AppWidgetProvider
                 (Main.CURRENCIES[entryIndex].longname);
 
             // Create an Intent to refresh widgets
-            Intent refresh = new Intent(context, CurrencyWidgetUpdate.class);
+            Intent refresh = new Intent(context, CurrencyWidgetRefresh.class);
             //noinspection InlinedApi
             PendingIntent refreshIntent =
-                PendingIntent.getService(context, 0, refresh,
-                                         PendingIntent.FLAG_UPDATE_CURRENT |
-                                         PendingIntent.FLAG_IMMUTABLE);
+                PendingIntent.getActivity(context, 0, refresh,
+                                          PendingIntent.FLAG_UPDATE_CURRENT |
+                                          PendingIntent.FLAG_IMMUTABLE);
             // Create an Intent to configure widget
             Intent config = new Intent(context, CurrencyWidgetConfigure.class);
             config.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

@@ -48,6 +48,10 @@
       </intent-filter>
     </activity>
 
+    <activity
+        android:name="CurrencyWidgetRefresh"
+        android:theme="@android:style/Theme.NoDisplay" />
+
     <service
         android:name="CurrencyWidgetUpdate" />
 
