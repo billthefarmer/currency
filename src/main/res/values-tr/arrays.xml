@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="pref_digit_entries">
+    <item>Bir kesirli rakam</item>
+    <item>İki kesirli rakam</item>
+    <item>Üç kesirli rakam</item>
+    <item>Dört kesirli rakam</item>
+    <item>Beş kesirli rakam</item>
+  </string-array>
+
+  <string-array name="pref_digit_values">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+  </string-array>
+
+  <string-array name="pref_widget_entries">
+    <item>İlk girdi</item>
+    <item>İkinci girdi</item>
+    <item>Üçüncü girdi</item>
+    <item>Dördüncü girdi</item>
+    <item>Beşinci girdi</item>
+    <item>Altıncı girdi</item>
+    <item>Yedinci girdi</item>
+    <item>Sekizinci girdi</item>
+  </string-array>
+
+  <string-array name="pref_widget_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+    <item>7</item>
+  </string-array>
+
+  <string-array name="pref_theme_entries">
+    <item>Açık</item>
+    <item>Koyu</item>
+    <item>Sistem</item>
+  </string-array>
+
+  <string-array name="pref_theme_entry_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
+
+</resources>

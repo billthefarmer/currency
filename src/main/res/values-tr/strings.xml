@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Para Birimi</string>
+
+  <string name="add">Ekle</string>
+  <string name="refresh">Yenile</string>
+  <string name="help">Yardım</string>
+  <string name="settings">Ayarlar</string>
+  <string name="built">Sürüm %s</string>
+  <string name="copyright">Copyright \u00A9 2016 Bill Farmer\n\nChart Tüm Hakları Saklıdır<a
+  href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a>,
+  Ukraynaca çeviri <a
+  href="https://github.com/personaljesusua">Vladyslav Pohrebniakov</a>,
+  Almanca çeviri <a
+  href="https://github.com/l1am0">L1am0</a>,
+  Fransızca çeviri <a
+  href="https://github.com/RealAestan">Aestan</a>,
+  İtalyanca çeviri <a
+  href="https://github.com/IZ2QDH">Fabio</a>,
+  İspanyolca çeviri <a
+  href="https://github.com/suso93">suso93</a>,
+  Endonezce çeviri <a
+  href="https://github.com/gloeyisk">Gilang Iskandar</a>,
+  Rusça çeviri <a
+  href="https://github.com/solokot">solokot</a>,
+  Norveççe çeviri <a
+  href="https://github.com/FTno">FTno</a>,
+  Türkçe çeviri <a
+  href="https://github.com/SirCrownguard">SirCrownguard</a>
+  </string>
+  <string name="licence">Lisans <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+
+  <string name="remove">Kaldır</string>
+  <string name="select">Seç</string>
+  <string name="copy">Kopyala</string>
+  <string name="clear">Temizle</string>
+  <string name="cancel">İptal</string>
+  <string name="chart">Grafik</string>
+  <string name="theme">Tema</string>
+  <string name="update">Güncelle</string>
+
+  <string name="range">Aralık</string>
+  <string name="week">Hafta</string>
+  <string name="month">Ay</string>
+  <string name="quarter">Çeyrek</string>
+  <string name="year">Yıl</string>
+  <string name="years">5 Yıl</string>
+  <string name="max">Maks.</string>
+
+  <string name="invert">Tersine çevir</string>
+  <string name="new_chart">Yeni grafik</string>
+  <string name="hist">Tarihsel</string>
+
+  <string name="euro_name">EUR</string>
+  <string name="euro_symbol">€</string>
+  <string name="num_one">1</string>
+  <string name="not_updated">Güncellenmedi</string>
+  <string name="updated">Son güncelleme: %s</string>
+  <string name="ok">TAMAM</string>
+  <string name="updating">Güncelleniyor</string>
+  <string name="failed">Başarısız oldu</string>
+  <string name="no_connection">Bağlantı yok</string>
+  <string name="no_wifi">WiFi yok</string>
+  <string name="roaming">Hücresel Veri</string>
+  <string name="update_failed">Güncelleme başarısız oldu</string>
+  <string name="update_extra">Ekstra para birimini güncelleyin</string>
+
+  <string name="decimal">Ondalık değer girin</string>
+  <string name="digits">0123456789,.</string>
+
+  <string name="pref_about">Hakkında</string>
+  <string name="pref_about_summ"><a href="https://github.com/billthefarmer/currency/releases/latest">Sürüm
+  %s</a></string>
+  <string name="pref_update_category">Güncelle</string>
+  <string name="pref_wifi">WiFi</string>
+  <string name="pref_wifi_summ">Sadece WiFi ile güncelle</string>
+  <string name="pref_roaming">Hücresel Veri</string>
+  <string name="pref_roaming_summ">Dolaşımdayken güncelle</string>
+  <string name="pref_widget">Widget</string>
+  <string name="pref_entry">Widget girdisi</string>
+  <string name="pref_entry_default">0</string>
+  <string name="pref_numbers">Numaralar</string>
+  <string name="pref_digits">Kesir basamakları</string>
+  <string name="pref_digit_default">3</string>
+  <string name="pref_fill">Doldur</string>
+  <string name="pref_fill_summ">Grafik izini doldur</string>
+
+  <string name="long_usd">Amerikan doları</string>
+  <string name="long_aud">Avustralya doları</string>
+  <string name="long_brl">Brezilya reali</string>
+  <string name="long_bgn">Bulgar levası</string>
+  <string name="long_cny">Çin yuanı</string>
+  <string name="long_dkk">Danimarka kronu</string>
+  <string name="long_ext">Ekstra para birimi</string>
+  <string name="long_idr">Endonezya rupisi</string>
+  <string name="long_eur">Euro</string>
+  <string name="long_php">Filipin pesosu</string>
+  <string name="long_zar">Güney Afrika randı</string>
+  <string name="long_hrk">Hırvat kunası</string>
+  <string name="long_inr">Hint rupisi</string>
+  <string name="long_hkd">Hong Kong doları</string>
+  <string name="long_gbp">İngiliz sterlini</string>
+  <string name="long_ils">İsrail şekeli</string>
+  <string name="long_czk">İsveç kronu</string>
+  <string name="long_chf">İsviçre frangı</string>
+  <string name="long_sek">İsviçre kronu</string>
+  <string name="long_isk">İzlanda kronu</string>
+  <string name="long_jpy">Japon yeni</string>
+  <string name="long_cad">Kanada doları</string>
+  <string name="long_krw">Kuzey Kore wonu</string>
+  <string name="long_huf">Macar forinti</string>
+  <string name="long_myr">Malezya ringiti</string>
+  <string name="long_mxn">Meksika pesosu</string>
+  <string name="long_nok">Norveç kronu</string>
+  <string name="long_pln">Polonya zlotisi</string>
+  <string name="long_ron">Rumen leyi</string>
+  <string name="long_rub">Rus rublesi</string>
+  <string name="long_sgd">Singapur doları</string>
+  <string name="long_thb">Tayland bahtı</string>
+  <string name="long_try">Türk lirası</string>
+  <string name="long_nzd">Yeni Zelenda doları</string>
+</resources>
