@@ -19,9 +19,11 @@
     <item>Седьмой элемент</item>
     <item>Восьмой элемент</item>
   </string-array>
+
   <string-array name="pref_theme_entries">
     <item>Светлая</item>
     <item>Тёмная</item>
     <item>Системная</item>
   </string-array>
+
 </resources>
