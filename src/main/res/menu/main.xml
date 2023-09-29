@@ -19,16 +19,4 @@
       android:showAsAction="ifRoom"
       android:title="@string/update" />
 
-  <item
-      android:id="@+id/action_help"
-      android:icon="@drawable/ic_action_help"
-      android:showAsAction="ifRoom"
-      android:title="@string/help" />
-
-  <item
-      android:id="@+id/action_settings"
-      android:icon="@drawable/ic_action_settings"
-      android:showAsAction="ifRoom"
-      android:title="@string/settings" />
-
 </menu>

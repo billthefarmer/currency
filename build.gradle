@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         applicationId "org.billthefarmer.currency"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 31
         versionName "1.54"
         versionCode 154
