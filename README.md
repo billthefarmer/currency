@@ -60,8 +60,6 @@ The icons in the toolbar from left to right are:
   the Euro. A dialog will pop up with the current extra currency
   rate. Update the value and touch the OK button. The display will
   refresh if the extra currency is displayed.
-* **Help** Display help text.
-* **Settings** Display the settings screen.
 
 ### Edit currency list
 Touch a currency entry in the list to make it current. The old current
