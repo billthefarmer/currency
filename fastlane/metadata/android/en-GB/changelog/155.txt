@@ -1,1 +1,2 @@
-* Add Russian translation, add navigation menu
+* Add Russian translation
+* Add navigation menu
