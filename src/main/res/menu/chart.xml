@@ -9,26 +9,25 @@
 
   <item
       android:id="@+id/action_new_chart"
-      android:icon="@drawable/ic_action_new_picture"
+      android:icon="@drawable/ic_add_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/new_chart" />
 
   <item
       android:id="@+id/action_refresh"
-      android:icon="@drawable/ic_action_refresh"
+      android:icon="@drawable/ic_sync_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/refresh" />
 
   <item
       android:id="@+id/action_hist"
-      android:icon="@drawable/ic_action_time"
+      android:icon="@drawable/ic_access_time_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/hist" />
 
   <item
       android:id="@+id/action_range"
-      android:icon="@drawable/ic_action_expand"
-      android:showAsAction="ifRoom"
+      android:showAsAction="never"
       android:title="@string/range">
 
     <menu>

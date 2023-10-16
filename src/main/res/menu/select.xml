@@ -3,25 +3,25 @@
 
   <item
       android:id="@+id/action_clear"
-      android:icon="@drawable/ic_action_clear"
+      android:icon="@drawable/ic_done_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/clear" />
 
   <item
       android:id="@+id/action_remove"
-      android:icon="@drawable/ic_action_remove"
+      android:icon="@drawable/ic_clear_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/remove" />
 
   <item
       android:id="@+id/action_chart"
-      android:icon="@drawable/ic_action_picture"
+      android:icon="@drawable/ic_show_chart_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/chart" />
 
   <item
       android:id="@+id/action_copy"
-      android:icon="@drawable/ic_action_copy"
+      android:icon="@drawable/ic_content_copy_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/copy" />
 
