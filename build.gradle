@@ -43,7 +43,7 @@ android {
     }
 
     lintOptions {
-        disable 'IconDensities', 'IconDuplicates', 'OldTargetApi',
+        disable 'IconDensities', 'IconDuplicates', 'OldTargetApi', 'VectorPath',
 	    'NonConstantResourceId', 'ExpiredTargetSdkVersion', 'AndroidGradlePluginVersion'
         // abortOnError false
     }

@@ -70,7 +70,7 @@
           android:id="@+id/refresh"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_action_refresh_w"
+          android:src="@drawable/ic_sync_white_24dp"
           tools:ignore="ContentDescription" />
 
       <ProgressBar
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:src="@drawable/ic_action_settings_w"
+        android:src="@drawable/ic_settings_white_24dp"
         tools:ignore="ContentDescription" />
 
   </LinearLayout>
