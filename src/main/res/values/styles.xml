@@ -21,13 +21,13 @@
         API-level can go here.
     -->
 
-    <item name="pref_wifi">@drawable/ic_pref_wifi</item>
-    <item name="pref_roaming">@drawable/ic_pref_roaming</item>
-    <item name="pref_widget">@drawable/ic_pref_widget</item>
-    <item name="pref_digits">@drawable/ic_pref_digits</item>
-    <item name="pref_fill">@drawable/ic_pref_fill</item>
-    <item name="pref_theme">@drawable/ic_pref_dark</item>
-    <item name="pref_about">@drawable/ic_pref_about</item>
+    <item name="pref_wifi">@drawable/ic_wifi_white_24dp</item>
+    <item name="pref_roaming">@drawable/ic_cellular_white_24dp</item>
+    <item name="pref_widget">@drawable/ic_list_white_24dp</item>
+    <item name="pref_digits">@drawable/ic_sort_white_24dp</item>
+    <item name="pref_fill">@drawable/ic_image_white_24dp</item>
+    <item name="pref_theme">@drawable/ic_brightness_high_white_24dp</item>
+    <item name="pref_about">@drawable/ic_info_outline_white_24dp</item>
 
   </style>
 
@@ -51,13 +51,13 @@
         API-level can go here.
     -->
 
-    <item name="pref_wifi">@drawable/ic_pref_wifi_light</item>
-    <item name="pref_roaming">@drawable/ic_pref_roaming_light</item>
-    <item name="pref_widget">@drawable/ic_pref_widget_light</item>
-    <item name="pref_digits">@drawable/ic_pref_digits_light</item>
-    <item name="pref_fill">@drawable/ic_pref_fill_light</item>
-    <item name="pref_theme">@drawable/ic_pref_dark_light</item>
-    <item name="pref_about">@drawable/ic_pref_about_light</item>
+    <item name="pref_wifi">@drawable/ic_wifi_black_24dp</item>
+    <item name="pref_roaming">@drawable/ic_cellular_black_24dp</item>
+    <item name="pref_widget">@drawable/ic_list_black_24dp</item>
+    <item name="pref_digits">@drawable/ic_sort_black_24dp</item>
+    <item name="pref_fill">@drawable/ic_image_black_24dp</item>
+    <item name="pref_theme">@drawable/ic_brightness_high_black_24dp</item>
+    <item name="pref_about">@drawable/ic_info_outline_black_24dp</item>
 
   </style>
 
