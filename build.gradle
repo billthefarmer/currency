@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.13.2'
     }
 }
 
@@ -24,13 +24,13 @@ allprojects {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 35
     namespace "org.billthefarmer.currency"
 
     defaultConfig {
         applicationId "org.billthefarmer.currency"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 35
         versionName "1.56"
         versionCode 156
 
@@ -42,9 +42,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_9
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     lintOptions {
         disable 'IconDensities', 'IconDuplicates', 'OldTargetApi', 'VectorPath',
-	    'NonConstantResourceId', 'ExpiredTargetSdkVersion', 'AndroidGradlePluginVersion'
+	    'NonConstantResourceId', 'ExpiredTargetSdkVersion', 'AndroidGradlePluginVersion',
+	    'GradleDependency', 'DiscouragedApi'
         // abortOnError false
     }
 
