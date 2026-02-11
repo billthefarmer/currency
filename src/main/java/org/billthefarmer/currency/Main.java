@@ -85,7 +85,7 @@ public class Main extends Activity
     AdapterView.OnItemLongClickListener,
     PopupMenu.OnMenuItemClickListener,
     View.OnClickListener, TextWatcher,
-    Data.TaskCallbacks
+    Data.OnResultListener
 {
     // Initial active currency name
     public static final String DEFAULT_CURRENCY = "EUR";
@@ -690,9 +690,9 @@ public class Main extends Activity
         if (statusView != null)
             statusView.setText(R.string.updating);
 
-        // Start the task
+        // Start parser
         if (data != null)
-            data.startParseTask(ECB_DAILY_URL);
+            data.startParse(ECB_DAILY_URL);
     }
 
     // On pause
@@ -1023,9 +1023,9 @@ public class Main extends Activity
         // Connect callbacks
         data = Data.getInstance(this);
 
-        // Start the task
+        // Start parser
         if (data != null)
-            data.startParseTask(ECB_DAILY_URL);
+            data.startParse(ECB_DAILY_URL);
 
         return true;
     }
@@ -1503,9 +1503,9 @@ public class Main extends Activity
         adapter.notifyDataSetChanged();
     }
 
-    // On progress update
+    // On date result
     @Override
-    public void onProgressUpdate(String... dates)
+    public void onDateResult(String date)
     {
         SimpleDateFormat dateParser =
             new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
@@ -1513,11 +1513,11 @@ public class Main extends Activity
             DateFormat.getDateInstance(DateFormat.MEDIUM);
 
         // Format the date for display
-        if (dates[0] != null)
+        if (date != null)
         {
             try
             {
-                Date update = dateParser.parse(dates[0]);
+                Date update = dateParser.parse(date);
                 this.date = dateFormat.format(update);
             }
 
@@ -1535,10 +1535,9 @@ public class Main extends Activity
             statusView.setText(R.string.failed);
     }
 
-    // The system calls this to perform work in the UI thread and
-    // delivers the result from doInBackground()
+    // onDataResult
     @Override
-    public void onPostExecute(Map<String, Double> map)
+    public void onDataResult(Map<String, Double> map)
     {
         // Check the map
         if (!map.isEmpty())

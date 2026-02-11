@@ -55,7 +55,7 @@ import java.util.Map;
 // CurrencyWidgetUpdate
 @SuppressWarnings("deprecation")
 public class CurrencyWidgetUpdate extends Service
-    implements Data.TaskCallbacks
+    implements Data.OnResultListener
 {
     public static final String TAG = "CurrencyWidgetUpdate";
     public static final String EXTRA_UPDATE_DONE =
@@ -86,7 +86,7 @@ public class CurrencyWidgetUpdate extends Service
 
         // Start the task
         if (data != null)
-            data.startParseTask(Main.ECB_DAILY_URL);
+            data.startParse(Main.ECB_DAILY_URL);
 
         else
         {
@@ -95,7 +95,7 @@ public class CurrencyWidgetUpdate extends Service
         }
 
         if (BuildConfig.DEBUG)
-            Log.d(TAG, "startParseTask");
+            Log.d(TAG, "startParse");
 
         // Get the layout for the widget
         RemoteViews views = new
@@ -140,10 +140,10 @@ public class CurrencyWidgetUpdate extends Service
 
     // On progress update
     @Override
-    public void onProgressUpdate(String... dates)
+    public void onDateResult(String then)
     {
         if (BuildConfig.DEBUG)
-            Log.d(TAG, "onProgressUpdate " + dates[0]);
+            Log.d(TAG, "onDateResult " + then);
 
         SimpleDateFormat dateParser =
             new SimpleDateFormat(Main.DATE_FORMAT, Locale.getDefault());
@@ -152,11 +152,11 @@ public class CurrencyWidgetUpdate extends Service
         String date = null;
 
         // Format the date for display
-        if (dates[0] != null)
+        if (then != null)
         {
             try
             {
-                Date update = dateParser.parse(dates[0]);
+                Date update = dateParser.parse(then);
                 date = dateFormat.format(update);
             }
 
@@ -177,10 +177,9 @@ public class CurrencyWidgetUpdate extends Service
         editor.apply();
     }
 
-    // The system calls this to perform work in the UI thread and
-    // delivers the result from doInBackground()
+    // onDataResult
     @Override
-    public void onPostExecute(Map<String, Double> valueMap)
+    public void onDataResult(Map<String, Double> valueMap)
     {
         if (BuildConfig.DEBUG)
             Log.d(TAG, "onPostExecute " + valueMap);

@@ -23,22 +23,28 @@
 
 package org.billthefarmer.currency;
 
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 
 import java.util.List;
 import java.util.Map;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 // Singleton class
 @SuppressWarnings("deprecation")
 public class Singleton
 {
     private static Singleton instance;
+    private static Handler handler;
+    private static ExecutorService executor;
+    private static OnResultListener listener;
+    private static boolean parsing;
 
     private Map<String, Map<String, Double>> map;
     private List<Integer> list;
 
-    private static TaskCallbacks callbacks;
-    private static boolean parsing;
 
     // Constructor
     private Singleton()
@@ -46,12 +52,19 @@ public class Singleton
     }
 
     // Get instance
-    public static Singleton getInstance(TaskCallbacks callbacks)
+    public static Singleton getInstance(OnResultListener listener)
     {
         if (instance == null)
             instance = new Singleton();
 
-        instance.callbacks = callbacks;
+        instance.listener = listener;
+
+        // Executor
+        executor =  Executors.newSingleThreadExecutor();
+
+        // Handler
+        handler = new Handler(Looper.getMainLooper());
+
         return instance;
     }
 
@@ -85,57 +98,41 @@ public class Singleton
         return parsing;
     }
 
-    // Start parse task
-    protected static void startParseTask(String url)
+    // Start parse
+    protected static void startParse(String url)
     {
-        ParseTask parseTask = new ParseTask();
-        parseTask.execute(url);
+        if (parsing)
+            return;
+
         parsing = true;
-    }
-
-    // TaskCallbacks interface
-    interface TaskCallbacks
-    {
-        void onProgressUpdate(String... date);
-        void onPostExecute(Map<String, Map<String, Double>> map);
-    }
-
-    // ParseTask class
-    protected static class ParseTask
-        extends AsyncTask<String, String, Map<String, Map<String, Double>>>
-    {
-        // The system calls this to perform work in a worker thread
-        // and delivers it the parameters given to AsyncTask.execute()
-        @Override
-        protected Map<String, Map<String, Double>> doInBackground(String... urls)
+        executor.execute(() ->
         {
             // Get a parser
             ChartParser parser = new ChartParser();
 
-            // Start the parser and report progress with the date
-            if (parser.startParser(urls[0]))
-                publishProgress(parser.getDate());
+            // Start the parser and report the date
+            if (!parser.startParser(url))
+            {
+                parsing = false;
+                return;
+            }
 
-            // Return the map
-            return parser.getMap();
-        }
-
-        // Ignoring the date as not used
-        @Override
-        protected void onProgressUpdate(String... date)
-        {
-            if (callbacks != null)
-                callbacks.onProgressUpdate(date);
-        }
-
-        // The system calls this to perform work in the UI thread and
-        // delivers the result from doInBackground()
-        @Override
-        protected void onPostExecute(Map<String, Map<String, Double>> map)
-        {
             parsing = false;
-            if (callbacks != null)
-                callbacks.onPostExecute(map);
-        }
+            if (listener != null)
+            {
+                handler.post(() ->
+                {
+                    listener.onDateResult(parser.getDate());
+                    listener.onDataResult(parser.getMap());
+                });
+            }
+        });
+    }
+
+    // OnResultListener interface
+    interface OnResultListener
+    {
+        void onDateResult(String date);
+        void onDataResult(Map<String, Map<String, Double>> map);
     }
 }

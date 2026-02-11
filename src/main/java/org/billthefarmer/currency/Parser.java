@@ -68,6 +68,7 @@ public class Parser
             Xml.parse(stream, Xml.Encoding.UTF_8, handler);
             return true;
         }
+
         catch (Exception e)
         {
             map.clear();

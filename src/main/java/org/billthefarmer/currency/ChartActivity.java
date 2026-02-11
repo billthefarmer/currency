@@ -64,7 +64,7 @@ import java.util.Map;
 // ChartActivity class
 @SuppressWarnings("deprecation")
 public class ChartActivity extends Activity
-    implements Singleton.TaskCallbacks
+    implements Singleton.OnResultListener
 {
     public static final String TAG = "ChartActivity";
 
@@ -425,7 +425,7 @@ public class ChartActivity extends Activity
 
         // Schedule the update
         if (instance != null)
-            instance.startParseTask(ECB_QUARTER_URL);
+            instance.startParse(ECB_QUARTER_URL);
     }
 
     // On pause
@@ -715,7 +715,7 @@ public class ChartActivity extends Activity
 
         // Schedule the update
         if (instance != null)
-            instance.startParseTask(url);
+            instance.startParse(url);
 
         return true;
     }
@@ -904,15 +904,12 @@ public class ChartActivity extends Activity
 
     // Ignoring the date as not used
     @Override
-    public void onProgressUpdate(String... date)
-    {
-    }
+    public void onDateResult(String date) {}
 
-    // The system calls this to perform work in the UI thread and
-    // delivers the result from doInBackground()
+    // On data result
     @Override
     @SuppressWarnings("deprecation")
-    public void onPostExecute(Map<String, Map<String, Double>> map)
+    public void onDataResult(Map<String, Map<String, Double>> map)
     {
         // Check map
         if (!map.isEmpty())
@@ -1009,6 +1006,7 @@ public class ChartActivity extends Activity
             // Update menu
             invalidateOptionsMenu();
         }
+
         else
         {
             // Show failed
