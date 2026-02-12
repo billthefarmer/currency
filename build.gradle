@@ -24,13 +24,13 @@ allprojects {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 35
+    compileSdkVersion 34
     namespace "org.billthefarmer.currency"
 
     defaultConfig {
         applicationId "org.billthefarmer.currency"
         minSdkVersion 21
-        targetSdkVersion 35
+        targetSdkVersion 34
         versionName "1.56"
         versionCode 156
 
@@ -47,10 +47,9 @@ android {
     }
 
     lintOptions {
-        disable 'IconDensities', 'IconDuplicates', 'OldTargetApi', 'VectorPath',
-	    'NonConstantResourceId', 'ExpiredTargetSdkVersion', 'AndroidGradlePluginVersion',
-	    'GradleDependency', 'DiscouragedApi'
-        // abortOnError false
+        disable 'OldTargetApi', 'NonConstantResourceId', 'AndroidGradlePluginVersion',
+	'GradleDependency', 'DiscouragedApi'
+    //     abortOnError false
     }
 
     dependencies {

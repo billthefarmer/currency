@@ -59,7 +59,7 @@ public class Data
         instance.listener = listener;
 
         // Executor
-        executor =  Executors.newSingleThreadExecutor();
+        executor = Executors.newSingleThreadExecutor();
 
         // Handler
         handler = new Handler(Looper.getMainLooper());
@@ -107,6 +107,8 @@ public class Data
             if (!parser.startParser(url))
             {
                 parsing = false;
+                if (listener != null)
+                    handler.post(() -> listener.onDateResult(null));
                 return;
             }
 
