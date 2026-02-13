@@ -64,6 +64,7 @@ public class CurrencyWidgetUpdate extends Service
     public static final int DELAY = 5000;
 
     private Data data;
+    private Handler handler;
 
     // onCreate
     @Override
@@ -71,6 +72,9 @@ public class CurrencyWidgetUpdate extends Service
     {
         // Get data instance
         data = Data.getInstance(this);
+
+        // Get handler
+        handler = new Handler(Looper.getMainLooper());
 
         if (BuildConfig.DEBUG)
             Log.d(TAG, "onCreate " + data);
@@ -84,6 +88,14 @@ public class CurrencyWidgetUpdate extends Service
         if (BuildConfig.DEBUG)
             Log.d(TAG, "onStartCommand " + intent);
 
+        startUpdate();
+
+        return START_NOT_STICKY;
+    }
+
+    // startUpdate
+    private void startUpdate()
+    {
         // Start the task
         if (data != null)
             data.startParse(Main.ECB_DAILY_URL);
@@ -91,7 +103,7 @@ public class CurrencyWidgetUpdate extends Service
         else
         {
             stopSelf();
-            return START_NOT_STICKY;
+            return;
         }
 
         if (BuildConfig.DEBUG)
@@ -110,17 +122,12 @@ public class CurrencyWidgetUpdate extends Service
 
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(provider);
         appWidgetManager.partiallyUpdateAppWidget(appWidgetIds, views);
-
-        // Get handler
-        Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(() ->
         {
             views.setViewVisibility(R.id.refresh, View.VISIBLE);
             views.setViewVisibility(R.id.progress, View.INVISIBLE);
             appWidgetManager.partiallyUpdateAppWidget(appWidgetIds, views);
         }, DELAY);
-
-        return START_NOT_STICKY;
     }
 
     // onBind
@@ -138,7 +145,7 @@ public class CurrencyWidgetUpdate extends Service
         Data.getInstance(null);
     }
 
-    // On progress update
+    // onDateResult
     @Override
     public void onDateResult(String then)
     {
@@ -186,7 +193,10 @@ public class CurrencyWidgetUpdate extends Service
 
         // Check the map
         if (valueMap.isEmpty())
+        {
+            stopSelf();
             return;
+        }
 
         // Get preferences
         SharedPreferences preferences =

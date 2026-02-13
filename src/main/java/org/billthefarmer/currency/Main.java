@@ -1503,7 +1503,7 @@ public class Main extends Activity
         adapter.notifyDataSetChanged();
     }
 
-    // On date result
+    // onDateResult
     @Override
     public void onDateResult(String date)
     {
@@ -1531,6 +1531,7 @@ public class Main extends Activity
             if (dateView != null)
                 dateView.setText(updated);
         }
+
         else if (statusView != null)
             statusView.setText(R.string.failed);
     }
