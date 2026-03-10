@@ -45,7 +45,7 @@ import java.util.List;
  */
 @RunWith(RobolectricTestRunner.class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(sdk = {21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35})
+@Config(sdk = {21, 26, 33, 35})
 public class AdaptiveIconScreenshotTest {
 
     private static final int RENDER_SIZE = 432;

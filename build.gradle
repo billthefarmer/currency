@@ -47,6 +47,8 @@ android {
             includeAndroidResources = true
             all {
                 systemProperty 'robolectric.graphicsMode', 'NATIVE'
+                maxHeapSize = '1g'
+                forkEvery = 1
             }
         }
     }
