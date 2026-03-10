@@ -38,8 +38,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_9
-        targetCompatibility JavaVersion.VERSION_1_9
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            all {
+                systemProperty 'robolectric.graphicsMode', 'NATIVE'
+            }
+        }
     }
 
     buildFeatures {
@@ -54,5 +63,9 @@ android {
 
     dependencies {
         implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+        testImplementation 'junit:junit:4.13.2'
+        testImplementation 'org.robolectric:robolectric:4.14.1'
+        testImplementation 'androidx.test:core:1.6.1'
     }
 }
