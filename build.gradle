@@ -13,7 +13,7 @@ allprojects {
     repositories {
         mavenCentral()
         google()
-        maven { url "https://jitpack.io" }
+        maven { url = "https://jitpack.io" }
     }
 
     // tasks.withType(JavaCompile) {
@@ -25,14 +25,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 35
-    namespace "org.billthefarmer.currency"
+    namespace = "org.billthefarmer.currency"
 
     defaultConfig {
         applicationId "org.billthefarmer.currency"
         minSdkVersion 21
         targetSdkVersion 35
-        versionName "1.57"
-        versionCode 157
+        versionName "1.58"
+        versionCode 158
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
